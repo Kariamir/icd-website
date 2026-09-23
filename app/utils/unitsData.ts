@@ -19,15 +19,35 @@ export const units: UnitDetailViewModel[] = [
     floorPlanImage: IMG('unit-4208-plan'),
     trackingCode: '#4208',
     parkingCount: 5,
-    description: 'واحد پنت‌هاوس اداری-مسکونی تیپ A2 در طبقه ۴۲ برج بین‌المللی تهران، با دید ۳۶۰ درجه به البرز و کلان‌شهر.',
-    gallery: [IMG('unit-4208-1'), IMG('unit-4208-2'), IMG('unit-4208-3'), IMG('unit-4208-4')],
-    specs: [
-      { label: 'مساحت مفید سندی', value: '۲۸۵ مترمربع' },
-      { label: 'تعداد اتاق', value: '۴ خواب + اتاق کار' },
-      { label: 'پارکینگ سندی', value: '۵ واحد' },
-      { label: 'انباری', value: '۲ واحد' },
-      { label: 'جهت واحد', value: 'جنوب‌شرقی' },
-      { label: 'سال تحویل', value: '۱۴۰۳' },
+    qualityGrade: 'بالاترین رده استاندارد کیفی: گرید +A مهندسی',
+    description: 'واحد پنت‌هاوس اداری-مسکونی تیپ A2 در طبقه ۴۲ برج بین‌المللی تهران، با دید ۳۶۰ درجه به البرز و کلان‌شهر. مهندسی سازه بر اساس سیستم دیوار برشی مرکب و استانداردهای ضدزلزله با ایزولاسیون صوتی سه‌لایه اجرا شده است.',
+    gallery: [
+      { ...IMG('unit-4208-1'), caption: 'نمای پانورامای سالن اصلی و تراس روباز' },
+      { ...IMG('unit-4208-2'), caption: 'اتاق جلسات / سوییت مستر' },
+      { ...IMG('unit-4208-3'), caption: 'آشپزخانه ارگونومیک هوشمند' },
+      { ...IMG('unit-4208-4'), caption: 'تراس اختصاصی و نمای شهر' },
+    ],
+    virtualTourUrl: '#',
+    bimModelUrl: '#',
+    specGroups: [
+      {
+        title: 'مشخصات پایه و ظرفیت‌های فضا',
+        items: [
+          { label: 'مساحت مفید سندی', value: '۲۸۵ مترمربع' },
+          { label: 'سهم مشاعات اختصاصی', value: '۴۵ مترمربع' },
+          { label: 'تعداد اتاق و فضا', value: '۴ خواب + اتاق کار' },
+          { label: 'ارتفاع خالص سقف', value: '۳.۸۰ متر' },
+        ],
+      },
+      {
+        title: 'امکانات و پارکینگ',
+        items: [
+          { label: 'پارکینگ سندی', value: '۵ واحد' },
+          { label: 'انباری اختصاصی', value: '۲ واحد' },
+          { label: 'جهت واحد', value: 'جنوب‌شرقی' },
+          { label: 'سال تحویل', value: '۱۴۰۳' },
+        ],
+      },
     ],
   },
   {
@@ -42,13 +62,29 @@ export const units: UnitDetailViewModel[] = [
     floorPlanImage: IMG('unit-1105-plan'),
     trackingCode: '#1105',
     parkingCount: 2,
+    qualityGrade: 'رده استاندارد کیفی: گرید A مهندسی',
     description: 'واحد اداری-تجاری در طبقه ۱۱ مگاپارس تهران، مناسب دفاتر شرکتی با دسترسی مستقیم به لابی تجاری مجتمع.',
-    gallery: [IMG('unit-1105-1'), IMG('unit-1105-2'), IMG('unit-1105-3')],
-    specs: [
-      { label: 'مساحت مفید سندی', value: '۱۴۰ مترمربع' },
-      { label: 'پارکینگ سندی', value: '۲ واحد' },
-      { label: 'جهت واحد', value: 'شمالی' },
-      { label: 'سال تحویل', value: '۱۴۰۵ (تخمینی)' },
+    gallery: [
+      { ...IMG('unit-1105-1'), caption: 'سالن اداری باز و فضای پذیرش' },
+      { ...IMG('unit-1105-2'), caption: 'اتاق جلسات اختصاصی' },
+      { ...IMG('unit-1105-3'), caption: 'نمای بیرونی مجتمع مگاپارس' },
+    ],
+    virtualTourUrl: '#',
+    specGroups: [
+      {
+        title: 'مشخصات پایه و ظرفیت‌های فضا',
+        items: [
+          { label: 'مساحت مفید سندی', value: '۱۴۰ مترمربع' },
+          { label: 'جهت واحد', value: 'شمالی' },
+        ],
+      },
+      {
+        title: 'امکانات و پارکینگ',
+        items: [
+          { label: 'پارکینگ سندی', value: '۲ واحد' },
+          { label: 'سال تحویل', value: '۱۴۰۵ (تخمینی)' },
+        ],
+      },
     ],
   },
   {
@@ -64,11 +100,24 @@ export const units: UnitDetailViewModel[] = [
     trackingCode: '#3021',
     parkingCount: 1,
     description: 'واحد مسکونی رو به دریا در مجتمع گردشگری-اقامتی رویای کیش.',
-    gallery: [IMG('unit-3021-1'), IMG('unit-3021-2')],
-    specs: [
-      { label: 'مساحت مفید سندی', value: '۹۵ مترمربع' },
-      { label: 'پارکینگ سندی', value: '۱ واحد' },
-      { label: 'جهت واحد', value: 'جنوبی، دید دریا' },
+    gallery: [
+      { ...IMG('unit-3021-1'), caption: 'نمای دریا از بالکن' },
+      { ...IMG('unit-3021-2'), caption: 'فضای نشیمن' },
+    ],
+    specGroups: [
+      {
+        title: 'مشخصات پایه و ظرفیت‌های فضا',
+        items: [
+          { label: 'مساحت مفید سندی', value: '۹۵ مترمربع' },
+          { label: 'جهت واحد', value: 'جنوبی، دید دریا' },
+        ],
+      },
+      {
+        title: 'امکانات و پارکینگ',
+        items: [
+          { label: 'پارکینگ سندی', value: '۱ واحد' },
+        ],
+      },
     ],
   },
 ]

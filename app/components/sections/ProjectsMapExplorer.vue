@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { STATUS, projects, featuredProject, type ProjectStatusKey } from '~/utils/projectsData'
+import { STATUS, projects, featuredProject, getProjectDetail, type ProjectStatusKey } from '~/utils/projectsData'
 
 // Template `01b-cluster-hub-visual` (docs/page-templates-icd3d.md §3).
 // Used for: /projects, /projects/map — see docs/01-sitemap.md §5.
 // Essential parts: interactive map with project pins, 4-status filter,
-// hover/click floating card, links to the four status indexes, featured
-// project. The map itself is a placeholder panel — real 3D Tehran map
-// engine is docs/02-build-checklist.md Phase 6/7, out of scope here.
-// Ported 1:1 from the pre-migration React implementation
-// (src/pages/ProjectsMapExplorer.jsx + .css).
+// a scrollable project card list synced to the map (hover/focus a card to
+// highlight its pin), hover/click floating map card, links to the four
+// status indexes, featured project. The map itself is a placeholder panel —
+// real 3D Tehran map engine is docs/02-build-checklist.md Phase 6/7, out of
+// scope here.
 
 const activeStatus = ref<ProjectStatusKey | 'all'>('all')
 const activeSlug = ref(featuredProject.slug)
@@ -17,6 +17,12 @@ const visibleProjects = computed(() =>
   activeStatus.value === 'all'
     ? projects
     : projects.filter(p => p.status === activeStatus.value),
+)
+
+// One detail lookup per visible project, done once here rather than
+// repeatedly in the template.
+const visibleProjectCards = computed(() =>
+  visibleProjects.value.map(p => ({ ...p, detail: getProjectDetail(p.slug) })),
 )
 
 const activeProject = computed(() => projects.find(p => p.slug === activeSlug.value))
@@ -53,13 +59,28 @@ function countByStatus(key: ProjectStatusKey) {
 
     <div class="map-explorer__body">
       <aside class="map-explorer__panel">
-        <NuxtLink :to="`/projects/${featuredProject.slug}`" class="map-explorer__featured">
-          <span class="map-explorer__featured-eyebrow">پروژه شاخص</span>
-          <h2 class="map-explorer__featured-name">{{ featuredProject.name }}</h2>
-          <span class="map-explorer__badge" :class="`status-${featuredProject.status}`">
-            {{ STATUS[featuredProject.status].label }}
-          </span>
-        </NuxtLink>
+        <ul class="map-explorer__list" aria-label="فهرست پروژه‌ها">
+          <li v-for="card in visibleProjectCards" :key="card.slug">
+            <NuxtLink
+              :to="`/projects/${card.slug}`"
+              class="map-explorer__list-card"
+              :class="{ 'is-active': card.slug === activeSlug }"
+              @mouseenter="activeSlug = card.slug"
+              @focus="activeSlug = card.slug"
+            >
+              <div class="map-explorer__list-card-head">
+                <span class="map-explorer__badge" :class="`status-${card.status}`">{{ STATUS[card.status].label }}</span>
+                <span v-if="card.featured" class="map-explorer__list-card-featured">پروژه شاخص</span>
+              </div>
+              <h3 class="map-explorer__list-card-name">{{ card.name }}</h3>
+              <p v-if="card.detail" class="map-explorer__list-card-location">{{ card.detail.location }}</p>
+              <div v-if="card.detail" class="map-explorer__list-card-stats">
+                <span>{{ card.detail.area }}</span>
+                <span>{{ card.detail.floors }}</span>
+              </div>
+            </NuxtLink>
+          </li>
+        </ul>
 
         <ul class="map-explorer__status-links">
           <li v-for="[key, meta] in statusEntries" :key="key">
@@ -168,35 +189,83 @@ function countByStatus(key: ProjectStatusKey) {
 }
 
 .map-explorer__panel {
-  flex: 0 0 280px;
+  flex: 0 0 340px;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-height: 420px;
 }
 
-.map-explorer__featured {
+/* Scrollable project card list — synced with the map via activeSlug */
+.map-explorer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  padding: var(--space-2);
+  background: var(--color-surface);
+}
+
+.map-explorer__list-card {
   display: block;
-  padding: var(--space-3);
-  background: var(--color-ink);
-  color: var(--color-white);
+  padding: var(--space-2);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-inline-start: 3px solid transparent;
   text-decoration: none;
+  color: var(--color-ink);
+  transition: border-color 160ms ease, background 160ms ease;
 }
-.map-explorer__featured:hover .map-explorer__featured-name { color: var(--color-tint); }
+.map-explorer__list-card:hover,
+.map-explorer__list-card:focus-visible {
+  border-color: var(--color-border);
+  border-inline-start-color: var(--color-brand-blue);
+}
+.map-explorer__list-card.is-active {
+  border-inline-start-color: var(--color-brand-blue);
+  background: var(--color-tint);
+}
 
-.map-explorer__featured-eyebrow {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-tint);
+.map-explorer__list-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1);
   margin-block-end: var(--space-1);
 }
 
-.map-explorer__featured-name {
-  display: block;
-  font-size: 19px;
+.map-explorer__list-card-featured {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-brand-blue);
+}
+
+.map-explorer__list-card-name {
+  font-size: 16px;
   font-weight: 600;
-  margin-block-end: var(--space-2);
-  transition: color 160ms ease;
+  margin: 0 0 4px;
+}
+
+.map-explorer__list-card-location {
+  font-size: 13px;
+  color: var(--color-ink);
+  opacity: 0.65;
+  margin: 0 0 var(--space-1);
+}
+
+.map-explorer__list-card-stats {
+  display: flex;
+  gap: var(--space-2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+  opacity: 0.85;
 }
 
 .map-explorer__status-links {
@@ -204,6 +273,7 @@ function countByStatus(key: ProjectStatusKey) {
   margin: 0;
   padding: 0;
   border: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
 .map-explorer__status-link {
@@ -308,5 +378,7 @@ function countByStatus(key: ProjectStatusKey) {
 
 @media (max-width: 760px) {
   .map-explorer__body { flex-direction: column; }
+  .map-explorer__panel { min-height: 0; }
+  .map-explorer__list { max-height: 360px; }
 }
 </style>

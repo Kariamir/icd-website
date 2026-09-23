@@ -116,12 +116,24 @@ export interface FaqItemViewModel {
   answer: string
 }
 
+export interface UnitGalleryImageViewModel extends ImageViewModel {
+  caption?: string
+}
+
+export interface UnitSpecGroupViewModel {
+  title: string
+  items: { label: string; value: string }[]
+}
+
 export interface UnitDetailViewModel extends UnitViewModel {
   trackingCode: string
   parkingCount: number
+  qualityGrade?: string
   description: string
-  gallery: ImageViewModel[]
-  specs: { label: string; value: string }[]
+  gallery: UnitGalleryImageViewModel[]
+  specGroups: UnitSpecGroupViewModel[]
+  virtualTourUrl?: string
+  bimModelUrl?: string
 }
 
 export interface BoardMemberViewModel {
