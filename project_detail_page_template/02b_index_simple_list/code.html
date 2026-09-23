@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>صورت‌های مالی و گزارش‌های دیده‌بان | هلدینگ بین‌المللی توسعه ساختمان (ثاخت)</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Font: Vazirmatn -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#041C2C',
+              dark: '#0B2336',
+              blue: '#005EB8',
+              accent: '#00478F',
+              lightBlue: '#E9F2FD',
+              softTint: '#CDE2FF',
+              surface: '#F8FAFC',
+              border: '#E2E8F0',
+              textMuted: '#64748B'
+            }
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-typography">
+    body {
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      background-color: #FFFFFF;
+      color: #041C2C;
+      -webkit-font-smoothing: antialiased;
+    }
+    .num-tabular {
+      font-feature-settings: "tnum";
+    }
+  </style>
+<style data-purpose="ui-accents">
+    /* Subtle custom scrollbar and soft transitions */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="bg-white text-brand-navy min-h-screen flex flex-col antialiased selection:bg-brand-softTint selection:text-brand-navy">
+<!-- BEGIN: MainHeader -->
+<!-- Replicating the exact sleek, soft-rounded header structure from 02a screen -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100" data-purpose="site-header">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20 gap-4">
+<!-- Right: Brand Logo & Company Subtitle -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="w-10 h-10 rounded-xl bg-brand-blue flex items-center justify-center text-white font-black text-xl shadow-sm">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-lg font-black tracking-tight text-brand-navy leading-tight">هلدینگ ساختمانی ثاخت</span>
+<span class="text-[11px] text-brand-textMuted font-medium">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+</div>
+</div>
+<!-- Center: 4 Strategic Core Nav Items -->
+<nav aria-label="منوی ناوبری اصلی" class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors" href="#">پروژه‌ها</a>
+<a class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors" href="#">فروش و پیش‌فروش</a>
+<!-- Active Nav Item with soft pill badge / active dot -->
+<a class="relative text-sm font-bold text-brand-blue flex items-center gap-1.5 py-1" href="#">
+<span>دیده‌بان ثاخت</span>
+<span class="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>
+</a>
+<a class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors" href="#">درباره ثاخت</a>
+</nav>
+<!-- Left: Quick Actions, Lang, Portal & CTA -->
+<div class="flex items-center gap-2.5 shrink-0">
+<!-- Search Button -->
+<button class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors" title="جستجو" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- EN Language Toggle -->
+<button class="px-3 h-9 rounded-full border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors" type="button">
+            EN
+          </button>
+<!-- Shareholder Portal Pill -->
+<a class="hidden sm:flex items-center gap-1.5 px-3.5 h-9 rounded-full border border-gray-200 text-xs font-semibold text-brand-navy hover:bg-gray-50 transition-colors" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>ورود سهامداران</span>
+</a>
+<!-- Primary Quick Consultation CTA -->
+<a class="flex items-center gap-2 px-4 h-10 rounded-full bg-brand-blue text-white text-xs font-bold hover:bg-brand-accent transition shadow-sm" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>مشاوره و تماس سریع</span>
+</a>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: Breadcrumbs & PageTitle Section -->
+<section class="bg-white pt-6 pb-10 border-b border-gray-100" data-purpose="page-title-section">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Breadcrumbs -->
+<nav aria-label="مسیر راهنما" class="flex items-center gap-2 text-xs text-brand-textMuted mb-6">
+<a class="hover:text-brand-blue transition-colors" href="#">صفحه اصلی</a>
+<span class="text-gray-300">/</span>
+<a class="hover:text-brand-blue transition-colors" href="#">دیده‌بان ثاخت</a>
+<span class="text-gray-300">/</span>
+<span class="text-brand-navy font-semibold">صورت‌های مالی و گزارش‌های کدال</span>
+</nav>
+<!-- Soft Decorative Badge & Heading -->
+<div class="flex flex-col gap-4 max-w-4xl">
+<div class="flex flex-wrap items-center gap-2.5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-lightBlue text-brand-blue">
+<span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+            اتصال برخط به سامانه جامع کدال (CODAL)
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+            نماد معاملاتی: ثاخت (ICD1)
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+            سال مالی: منتهی به ۳۱ شهریور
+          </span>
+</div>
+<h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-brand-navy leading-tight">
+          صورت‌های مالی و گزارش‌های رسمی هیات‌مدیره
+        </h1>
+<p class="text-base sm:text-lg text-brand-textMuted leading-relaxed font-normal">
+          مخزن اسناد، افشای اطلاعات بااهمیت، گزارش‌های تفسیری مدیریت و صورت‌های مالی میان‌دوره‌ای و سالانه حسابرسی‌شده هلدینگ بین‌المللی توسعه ساختمان، جهت بهره‌برداری سهامداران و تحلیلگران ارجمند بازار سرمایه.
+        </p>
+</div>
+</div>
+</section>
+<!-- END: Breadcrumbs & PageTitle Section -->
+<main class="flex-grow">
+<!-- BEGIN: Featured Reports (2-Col Visual Cards inspired by reference image) -->
+<section class="py-12 bg-slate-50/70 border-b border-gray-100" data-purpose="featured-reports">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-2xl font-black text-brand-navy">جدیدترین گزارش‌های ادواری هلدینگ</h2>
+<p class="text-sm text-brand-textMuted mt-1">دسترسی سریع به دو سند کلیدی و مصوب اخیر هیات‌مدیره</p>
+</div>
+<a class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:text-brand-accent" href="#document-archive">
+<span>مشاهده بایگانی کلی اسناد</span>
+<svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1: Interim Reports -->
+<div class="group bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-brand-blue/40 hover:shadow-md transition duration-200 flex flex-col" data-purpose="interim-reports-card">
+<div class="relative h-60 overflow-hidden bg-gray-100">
+<img alt="گزارش‌های میان‌دوره‌ای و فصلی ثاخت" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqzPatzVh-Gy1I-xEb-Z_cK7ABSi3UgFGSrh4n3lGAnL3GDykgIwJKf8vHZ9hr7laJZWpMSh2DKwYj1V_gowwdjXYmThX47xUrImIlUWteBggYSMAzYDSTplF-HoSLZ9ndU6jClj8-S_Ou9l7YZrgQhsY_MqLpm8BzRXQ_3QqJ4Q1Ixf-_9qC3qm_ILSdEIBGP0rujhIdDRWKFOlAJmObFgH_Jva2mqjPKSuPr99Y6LWGWk6hI5C94RQ"/>
+<div class="absolute top-4 right-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-xs font-bold text-brand-blue shadow-sm">
+                  دوره ۶ ماهه - حسابرسی‌نشده
+                </span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-2 mb-2">
+<h3 class="text-xl font-black text-brand-navy group-hover:text-brand-blue transition-colors">
+                    گزارش‌های میان‌دوره‌ای و عملکرد فصلی
+                  </h3>
+<div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<p class="text-xs sm:text-sm text-brand-textMuted line-clamp-2">
+                  مجموعه صورت‌های مالی میان‌دوره‌ای ۳، ۶ و ۹ ماهه هلدینگ به همراه گزارش تفسیری مدیریت و وب‌کست‌های تحلیلی مرتبط.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-brand-textMuted">
+<span>تعداد اسناد در دسترس: ۱۸ گزارش</span>
+<span class="font-bold text-brand-blue group-hover:underline">ورود به پرونده فصلی ←</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Annual Reports -->
+<div class="group bg-white rounded-2xl overflow-hidden border border-gray-200/80 hover:border-brand-blue/40 hover:shadow-md transition duration-200 flex flex-col" data-purpose="annual-reports-card">
+<div class="relative h-60 overflow-hidden bg-gray-100">
+<img alt="گزارش جامع سالانه حسابرسی‌شده" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5T5KjbzP67nTbamWIJBJhgp-AiCJiZ-epvnAi_rM-DnT-XV01GrPGlyVUiZDE9zk_pFdSPUON3nlST5nwSGXPiVsO-zMtsfdJsl6vOXP4M0Pi2Z6ZI7MimiP6V0iH4RmLFLTTa9_xPdgvhI_1VxMImTR6urCokyMNq10Y-Tex3CC0JbEtPv7OnNSMibSSTooVCZHC_HZXOvhWmkmVUaFnVv3FAx2JCNlkRwFLgPYjMgLBZdXhWmrTMw"/>
+<div class="absolute top-4 right-4">
+<span class="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-xs font-bold text-emerald-700 shadow-sm">
+                  سال مالی ۱۴۰۳ - حسابرسی‌شده
+                </span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-2 mb-2">
+<h3 class="text-xl font-black text-brand-navy group-hover:text-brand-blue transition-colors">
+                    گزارش جامع سالانه و بازرس قانونی
+                  </h3>
+<div class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<p class="text-xs sm:text-sm text-brand-textMuted line-clamp-2">
+                  کلیه گزارش‌های سالانه، گزارش حسابرس و بازرس قانونی، صورت وضعیت مالی تلفیقی و یادداشت‌های همراه مصوب مجمع عمومی.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-brand-textMuted">
+<span>آخرین نسخه: سال مالی ۱۴۰۳ (حسابرسی‌شده)</span>
+<span class="font-bold text-brand-blue group-hover:underline">ورود به بایگانی سالانه ←</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Featured Reports -->
+<!-- BEGIN: Spotlight Banner (Capital Markets Day / مجمع عمومی) -->
+<!-- Modeled precisely on the "Our latest Capital Markets Day" spotlight card in reference 02b -->
+<section class="py-12 bg-white" data-purpose="capital-markets-spotlight">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-[#F8F9FA] rounded-2xl border border-gray-200 overflow-hidden p-6 sm:p-8 lg:p-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Right / Center info & Downloads (RTL layout) -->
+<div class="lg:col-span-7 flex flex-col justify-center">
+<div class="inline-flex items-center gap-2 mb-3">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-bold text-brand-textMuted uppercase tracking-wider">رویداد سهامداری و شفافیت مالی</span>
+</div>
+<h2 class="text-2xl sm:text-3xl font-black text-brand-navy leading-snug mb-3">
+                مجمع عمومی عادی سالیانه و روز بازار سرمایه ثاخت
+              </h2>
+<p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                ارائه دستاوردهای عملیاتی، تحلیل پرتفوی پروژه‌های تجاری و مسکونی در دست اجرا، بررسی صورت‌های مالی مصوب و استراتژی نوسازی سرمایه‌گذاری‌ها برای سال مالی پیش‌رو.
+              </p>
+<!-- Spotlight 3-Item Downloadable Rows -->
+<div class="space-y-3">
+<!-- Row 1: Webcast -->
+<a class="group flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-200/80 hover:border-brand-blue transition-colors shadow-xs" href="#">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-blue-50 text-brand-blue flex items-center justify-center shrink-0">
+<!-- Broadcast / Video icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-brand-navy group-hover:text-brand-blue transition-colors">
+                        وب‌کست و پخش ضبط‌شده مجمع عمومی فوق‌العاده و سالانه
+                      </h4>
+<span class="text-xs text-brand-textMuted">پخش آنلاین با کیفیت بالا • پیوند به پرتال کدال</span>
+</div>
+</div>
+<div class="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</a>
+<!-- Row 2: Comprehensive Presentation PDF -->
+<a class="group flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-200/80 hover:border-brand-blue transition-colors shadow-xs" href="#">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-brand-navy group-hover:text-brand-blue transition-colors">
+                        اسلایدهای جامع ارائه هیات‌مدیره به مجمع عمومی صاحبان سهام
+                      </h4>
+<span class="text-xs text-brand-textMuted num-tabular">فرمت PDF • حجم ۱۸.۴ مگابایت • آذر ۱۴۰۳</span>
+</div>
+</div>
+<div class="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</a>
+<!-- Row 3: Agenda & Decisions -->
+<a class="group flex items-center justify-between p-3.5 bg-white rounded-xl border border-gray-200/80 hover:border-brand-blue transition-colors shadow-xs" href="#">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-blue-50 text-brand-blue flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-brand-navy group-hover:text-brand-blue transition-colors">
+                        خلاصه تصمیمات و صورتجلسه رسمی مجمع عمومی عادی
+                      </h4>
+<span class="text-xs text-brand-textMuted num-tabular">فرمت PDF • حجم ۶۸۵ کیلوبایت • انتشار رسمی در کدال</span>
+</div>
+</div>
+<div class="w-7 h-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</a>
+</div>
+</div>
+<!-- Left side (in RTL): High quality building/headquarters photo -->
+<div class="lg:col-span-5">
+<div class="relative rounded-xl overflow-hidden shadow-sm aspect-video lg:aspect-[4/3] bg-gray-200">
+<img alt="ساختمان مرکزی و سالن همایش‌های هلدینگ بین‌المللی توسعه ساختمان" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBedB1HQPB73rtAuCjXfY4ei86W5F2ulsXkkWi3jNyJQm59EdxitulfXY6gO2jwz9T9vHrFgeZNxTaWrz7F_Q8k4s2IXFJ-JLs6deH_QSTqb58-EaNzp7yYhy7P8bbAiNTM0ti3dc5uSx_oIMjczZNgbpV_21X2Y_MhyjYwc-y6xWn3HR3Jdu4wVNkcDG--B9ZpwBseO7dSbIes8WTr413awecuYWiT5oeAvuA9KSmA2TVwJ_-iUvrUGA"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Spotlight Banner -->
+<!-- BEGIN: Quick Reference Links Section (Matching 02b reference) -->
+<section class="py-8 bg-white border-b border-gray-100" data-purpose="quick-related-links">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+<div class="md:col-span-3">
+<h3 class="text-xl font-black text-brand-navy">پیوندهای مرتبط و سریع</h3>
+<p class="text-xs text-brand-textMuted mt-1">دسترسی به بخش‌های تخصصی امور سهامداری</p>
+</div>
+<div class="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-3">
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>تقویم جامع رویدادهای بازار سرمایه و مجامع</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>راهنمای سرمایه‌گذاری در سهام ثاخت</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>ترکیب و ساختار سهامداران عمده هلدینگ</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+</div>
+<div class="space-y-3">
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>صورت‌های مالی شرکت‌های فرعی و تابعه ثاخت</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>شاخص‌های کلیدی مالی، سودآوری و EPS</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+<a class="flex items-center justify-between text-sm font-bold text-brand-navy hover:text-brand-blue transition group" href="#">
+<span>دستورالعمل حاکمیت شرکتی و منشور کمیته حسابرسی</span>
+<span class="text-brand-blue group-hover:translate-x-[-4px] transition-transform">←</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Quick Reference Links Section -->
+<!-- BEGIN: Document Repository & Simple List (Core 02b Section) -->
+<!-- Simple, fast, tabular, scannable document list with soft filtering -->
+<section class="py-14 bg-white" data-purpose="document-repository" id="document-archive">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Header of Repository -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-lightBlue text-brand-blue mb-2">
+              آرشیو جامع مستندات مالی
+            </div>
+<h2 class="text-2xl sm:text-3xl font-black text-brand-navy">
+              فهرست کامل اسناد رسمی، صورت‌ها و افشاگری‌ها
+            </h2>
+<p class="text-sm text-brand-textMuted mt-1">
+              امکان جستجو و پالایش بر اساس سال مالی و طبقه‌بندی نوع گزارش
+            </p>
+</div>
+<!-- Total Count Badge -->
+<div class="text-xs font-semibold text-brand-textMuted bg-gray-50 border border-gray-200 px-3.5 py-2 rounded-xl self-start md:self-auto">
+            نمایش <span class="text-brand-navy font-bold num-tabular">۶</span> سند از مجموع <span class="text-brand-navy font-bold num-tabular">۸۴</span> سند منتشرشده در کدال
+          </div>
+</div>
+<!-- Filter Controls Bar -->
+<div class="bg-gray-50/80 rounded-2xl border border-gray-200/80 p-4 mb-6" data-purpose="document-filter-bar">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Quick Search Input -->
+<div class="md:col-span-4 relative">
+<input class="w-full text-xs sm:text-sm pr-9 pl-4 py-2.5 rounded-xl border-gray-200 bg-white focus:border-brand-blue focus:ring-brand-blue" placeholder="جستجوی عنوان سند یا شماره پیگیری..." type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<!-- Filter by Document Type -->
+<div class="md:col-span-4">
+<select class="w-full text-xs sm:text-sm py-2.5 px-3 rounded-xl border-gray-200 bg-white focus:border-brand-blue focus:ring-brand-blue text-brand-navy font-medium">
+<option value="all">همه انواع اسناد و گزارش‌ها</option>
+<option selected="" value="interim">صورت‌های مالی میان‌دوره‌ای (فصلی)</option>
+<option value="annual">گزارش‌های جامع سالانه و حسابرسی‌شده</option>
+<option value="commentary">گزارش تفسیری مدیریت</option>
+<option value="auditor">گزارش حسابرس مستقل و بازرس قانونی</option>
+<option value="material">افشای اطلاعات بااهمیت (گروه الف و ب)</option>
+</select>
+</div>
+<!-- Filter by Year -->
+<div class="md:col-span-2">
+<select class="w-full text-xs sm:text-sm py-2.5 px-3 rounded-xl border-gray-200 bg-white focus:border-brand-blue focus:ring-brand-blue text-brand-navy font-medium">
+<option value="all">همه سال‌ها</option>
+<option selected="" value="1403">سال مالی ۱۴۰۳</option>
+<option value="1402">سال مالی ۱۴۰۲</option>
+<option value="1401">سال مالی ۱۴۰۱</option>
+<option value="1400">سال مالی ۱۴۰۰</option>
+</select>
+</div>
+<!-- Reset Filter Button -->
+<div class="md:col-span-2 flex items-center justify-end">
+<button class="w-full h-10 px-4 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-700 hover:bg-gray-100 flex items-center justify-center gap-1.5 transition" type="button">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>بازنشانی فیلتر</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Document List Rows (Strictly 02b Minimal Simple List Pattern) -->
+<div class="divide-y divide-gray-100 border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-xs" data-purpose="document-list-rows">
+<!-- Document Item 1 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<!-- Document Icon Badge -->
+<div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-2v-1h2c.55 0 1-.45 1-1s-.45-1-1-1h-3v5h1v-1.5h2c.55 0 1-.45 1-1s-.45-1-1-1zm6 0h-1.5v-3h1.5c.83 0 1.5.67 1.5 1.5v0c0 .83-.67 1.5-1.5 1.5zm-1.5 1.5v1.5h1.5c.83 0 1.5-.67 1.5-1.5v0c0-.83-.67-1.5-1.5-1.5h-1.5zm-7-5.5h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-2z"></path>
+</svg>
+</div>
+<!-- Title & Meta Data -->
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-brand-lightBlue text-brand-blue">میان‌دوره‌ای ۶ ماهه</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۵۸۳۹۲</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۱۵ اردیبهشت ۱۴۰۴</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  صورت‌های مالی تلفیقی و مستقل میان‌دوره‌ای ۶ ماهه منتهی به ۱۴۰۳/۱۲/۲۹ (حسابرسی نشده)
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  شامل صورت سود و زیان، صورت وضعیت مالی، صورت گردش وجوه نقد و تغییرات در حقوق مالکانه هلدینگ و شرکت‌های تابعه.
+                </p>
+</div>
+</div>
+<!-- Actions: Size + Download + Codal Outbound -->
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۴.۸ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#" title="مشاهده اطلاعیه در سامانه رسمی کدال">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#" title="دریافت فایل PDF">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+<!-- Document Item 2 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-2v-1h2c.55 0 1-.45 1-1s-.45-1-1-1h-3v5h1v-1.5h2c.55 0 1-.45 1-1s-.45-1-1-1zm6 0h-1.5v-3h1.5c.83 0 1.5.67 1.5 1.5v0c0 .83-.67 1.5-1.5 1.5zm-1.5 1.5v1.5h1.5c.83 0 1.5-.67 1.5-1.5v0c0-.83-.67-1.5-1.5-1.5h-1.5zm-7-5.5h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-2z"></path>
+</svg>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-purple-50 text-purple-700">گزارش تفسیری مدیریت</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۵۸۲۴۰</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۱۲ اردیبهشت ۱۴۰۴</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  گزارش تفسیری مدیریت همراه با اطلاعات و صورت‌های مالی میان‌دوره‌ای ۶ ماهه ۱۴۰۳
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  تحلیل جامع عملیات هلدینگ، وضعیت پیشرفت فیزیکی پروژه‌ها، بهای تمام‌شده و پیش‌بینی متغیرهای کلان تأثیرگذار بر صنعت ساختمان.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۲.۹ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+<!-- Document Item 3 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800">افشای اطلاعات بااهمیت (گروه ب)</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۵۴۹۹۰</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۲۸ فروردین ۱۴۰۴</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  افشای اطلاعات بااهمیت - نتایج برگزاری مزایده فروش واحدهای تجاری برج بین‌المللی تهران (TIT)
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  اعلام نتایج قطعی واگذاری ۱۲ باب واحد تجاری، مبالغ پیشنهادی برندگان و آثار سود و زیانی ناشی از قراردادها در سال جاری.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۱.۲ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+<!-- Document Item 4 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-2v-1h2c.55 0 1-.45 1-1s-.45-1-1-1h-3v5h1v-1.5h2c.55 0 1-.45 1-1s-.45-1-1-1zm6 0h-1.5v-3h1.5c.83 0 1.5.67 1.5 1.5v0c0 .83-.67 1.5-1.5 1.5zm-1.5 1.5v1.5h1.5c.83 0 1.5-.67 1.5-1.5v0c0-.83-.67-1.5-1.5-1.5h-1.5zm-7-5.5h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-2z"></path>
+</svg>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">حسابرسی‌شده سالانه</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۴۹۲۰۳</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۲۰ دی ۱۴۰۳</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  صورت‌های مالی تلفیقی سال مالی منتهی به ۱۴۰۳/۰۶/۳۱ (حسابرسی‌شده) به همراه یادداشت‌های توضیحی
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  گزارش قطعی و مصوب حسابرس مستقل به انضمام کلیه جداول اقلام ترازنامه‌ای و تفکیک جریان نقد عملیاتی.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۷.۴ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+<!-- Document Item 5 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-11 h-11 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-blue-100 text-brand-accent">بازرس قانونی و حسابرس</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۴۷۶۱۰</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۱۲ دی ۱۴۰۳</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  گزارش حسابرس مستقل و بازرس قانونی در خصوص افزایش سرمایه هلدینگ از محل سود انباشته
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  اظهارنظر کارشناسی حسابرس مستقل در خصوص توجیه فنی، مالی و اقتصادی پیشنهاد هیات‌مدیره مبنی بر افزایش سرمایه ۶۰ درصدی.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۱.۸ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+<!-- Document Item 6 -->
+<article class="p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-2v-1h2c.55 0 1-.45 1-1s-.45-1-1-1h-3v5h1v-1.5h2c.55 0 1-.45 1-1s-.45-1-1-1zm6 0h-1.5v-3h1.5c.83 0 1.5.67 1.5 1.5v0c0 .83-.67 1.5-1.5 1.5zm-1.5 1.5v1.5h1.5c.83 0 1.5-.67 1.5-1.5v0c0-.83-.67-1.5-1.5-1.5h-1.5zm-7-5.5h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-2z"></path>
+</svg>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-brand-lightBlue text-brand-blue">میان‌دوره‌ای ۳ ماهه</span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700">تاییدیه کدال: ۱۱۴۰۱۰۰</span>
+<span class="text-xs text-brand-textMuted num-tabular">تاریخ انتشار: ۳۰ آذر ۱۴۰۳</span>
+</div>
+<h3 class="text-sm sm:text-base font-bold text-brand-navy leading-snug">
+                  اطلاعات و صورت‌های مالی میاندوره‌ای ۳ ماهه منتهی به ۱۴۰۳/۰۹/۳۰ (حسابرسی نشده)
+                </h3>
+<p class="text-xs text-brand-textMuted mt-1">
+                  گزارش نخستین فصل سال مالی به همراه خلاصه‌ای از روند واگذاری واحدهای مسکونی و تجاری پروژه مگاپارس و شیراز.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<span class="text-xs font-semibold text-gray-500 ml-2 num-tabular">PDF • ۳.۱ مگابایت</span>
+<a class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold text-brand-navy hover:bg-gray-100 flex items-center gap-1.5 transition" href="#">
+<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>مشاهده در کدال</span>
+</a>
+<a class="px-4 py-2 rounded-xl bg-brand-blue text-xs font-bold text-white hover:bg-brand-accent flex items-center gap-1.5 transition shadow-xs" href="#">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>دریافت PDF</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Load More / Pagination Button (Soft Rounded Pill) -->
+<div class="mt-8 flex justify-center">
+<button class="px-6 py-3 rounded-full border border-brand-blue text-brand-blue font-bold text-xs hover:bg-brand-lightBlue transition-colors flex items-center gap-2" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>بارگذاری اسناد و دوره‌های مالی پیشین</span>
+</button>
+</div>
+</div>
+</section>
+<!-- END: Document Repository & Simple List -->
+<!-- BEGIN: Investor Relations Contacts & Support (Directly adapted from 02b) -->
+<section class="py-14 bg-slate-50 border-t border-gray-200" data-purpose="investor-relations-contacts">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Section Title & Intro description -->
+<div class="lg:col-span-4">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-lightBlue text-brand-blue mb-3">
+              پاسخگویی و ارتباط شفاف
+            </div>
+<h2 class="text-2xl sm:text-3xl font-black text-brand-navy mb-3">
+              امور سهامداران و روابط سرمایه‌گذاران
+            </h2>
+<p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+              آیا درباره صورت‌های مالی، تقسیم سود مجمع یا افزایش سرمایه سوالی دارید؟ همکاران ما در واحد امور سهام و کدال آماده پاسخگویی به سهامداران حقیقی و حقوقی هستند.
+            </p>
+<div class="p-4 rounded-xl bg-white border border-gray-200/80 shadow-xs">
+<span class="text-xs font-bold text-brand-navy block mb-1">میز ارتباط سریع امور سهام</span>
+<p class="text-xs text-brand-textMuted mb-3">برای طرح هرگونه پرسش مستقیم با کارشناسان تماس بگیرید یا پیام خود را ثبت فرمایید.</p>
+<a class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-blue text-white text-xs font-bold hover:bg-brand-accent transition" href="#">
+                ارتباط با کارشناسان سهامداری
+              </a>
+</div>
+</div>
+<!-- Right Column: 2 Professional IR Contact Cards with Photos -->
+<div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Contact Card 1 -->
+<div class="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col items-center text-center shadow-xs hover:shadow-md transition">
+<div class="w-28 h-28 rounded-full overflow-hidden mb-4 border-2 border-brand-lightBlue bg-gray-100">
+<img alt="مهندس علیرضا سلیمانی" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxOr3Yl1dqTWyGunEWuhMYOccQa06PomdbF3LnJOSWuQMczr7tBewViK2n36nROe3heLFB59TKQhUR7BuYbe8yw_I9EEoS39YJrHUT1zFe9K6g_n_qYPbYJaaBwlFfZ-vEwkq7nWw0xmqlwFm2dZbZL2oWlhsppHhrZ7F4ICREa527PygUe2v57LPnOa2kS9vAOiMTwr2sRBF3yI5MjAkIpIegOTVH4JB5CP0gzCgfpCpUOowTD8_jug"/>
+</div>
+<h3 class="text-lg font-black text-brand-navy mb-1">مهندس علیرضا سلیمانی</h3>
+<span class="text-xs font-bold text-brand-blue mb-4">مدیر امور سهام، مجامع و ناشران</span>
+<div class="w-full space-y-2 pt-3 border-t border-gray-100 text-xs text-brand-textMuted">
+<div class="flex items-center justify-center gap-2">
+<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-mono text-gray-700">soleimani@icd.ir</span>
+</div>
+<div class="flex items-center justify-center gap-2">
+<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="num-tabular text-gray-700">۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)</span>
+</div>
+<div class="text-[11px] text-gray-400 pt-1">ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵</div>
+</div>
+</div>
+<!-- Contact Card 2 -->
+<div class="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col items-center text-center shadow-xs hover:shadow-md transition">
+<div class="w-28 h-28 rounded-full overflow-hidden mb-4 border-2 border-brand-lightBlue bg-gray-100">
+<img alt="دکتر فاطمه محمدی" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAAXluSjFeT58nxgyF6RSu4Xi-OubcPCwYGJVyREQkDVb4gIitl1fmRD0JpS8Z8R-QXSIh80lHRCIW3oVKJcdYMlOJiS0FUF0lLMRSvpWrBkQekbGvTXYIWz4yEJBAQOqeeLcO_tG0Fx0bx9wZqKWXuHY1yYLXxbiI147jvRDxeztGvk2rT1BY9fpiL9i5RDQBde3U8mz8Wf5LePJ99K7nl0b9fQHa7NqDVktqH7bDH25zcrwi0S8MYg"/>
+</div>
+<h3 class="text-lg font-black text-brand-navy mb-1">دکتر فاطمه محمدی</h3>
+<span class="text-xs font-bold text-brand-blue mb-4">کارشناس ارشد افشای اطلاعات و سامانه کدال</span>
+<div class="w-full space-y-2 pt-3 border-t border-gray-100 text-xs text-brand-textMuted">
+<div class="flex items-center justify-center gap-2">
+<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-mono text-gray-700">codal@icd.ir</span>
+</div>
+<div class="flex items-center justify-center gap-2">
+<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="num-tabular text-gray-700">۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)</span>
+</div>
+<div class="text-[11px] text-gray-400 pt-1">پاسخگویی به تحلیلگران و استعلامات بورسی</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Investor Relations Contacts & Support -->
+</main>
+<!-- BEGIN: MainFooter -->
+<!-- Exact match to 02a screen and ICD3D Master Guidelines -->
+<footer class="bg-brand-navy text-white pt-12 pb-6" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Newsletter & Codal Alerts Bar -->
+<div class="bg-brand-dark rounded-2xl p-6 sm:p-8 mb-12 border border-slate-700/60 shadow-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<div class="lg:col-span-7">
+<h3 class="text-xl font-black mb-2 text-white">
+              عضویت در خبرنامه سرمایه‌گذاری و گزارش‌های دیده‌بان ثاخت
+            </h3>
+<p class="text-xs sm:text-sm text-slate-300 font-normal">
+              دریافت بی‌واسطه آخرین تحلیل‌های تحلیلی کدال، مزایده‌ها و فرصت‌های پیش‌فروش واحدهای هلدینگ.
+            </p>
+</div>
+<div class="lg:col-span-5">
+<form class="flex items-center gap-2" onsubmit="event.preventDefault();">
+<input class="flex-1 px-4 py-3 rounded-xl bg-white text-brand-navy placeholder-gray-400 text-xs sm:text-sm border-0 focus:ring-2 focus:ring-brand-blue" placeholder="آدرس پست الکترونیکی خود را وارد نمایید..." required="" type="email"/>
+<button class="px-5 py-3 rounded-xl bg-brand-blue hover:bg-brand-accent text-white font-bold text-xs sm:text-sm whitespace-nowrap transition shadow-sm" type="submit">
+                ثبت و اشتراک
+              </button>
+</form>
+</div>
+</div>
+</div>
+<!-- Corporate Ticker & ID Strip -->
+<div class="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-800 text-xs text-slate-400">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center text-white font-bold text-base">
+            ث
+          </div>
+<div>
+<span class="text-sm font-bold text-white ml-2">شرکت بین‌المللی توسعه ساختمان (ثاخت)</span>
+<span class="hidden sm:inline text-slate-400">پیشگام انبوه‌سازی و سرمایه‌گذاری در مگاپروژه‌های ساختمانی، تجاری و توریستی ایران با اتکا به دانش مهندسی روز و تعهد به خلق ارزش پایدار برای سهامداران و جامعه.</span>
+</div>
+</div>
+<div class="flex items-center gap-4 shrink-0">
+<span class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-200">
+            شناسه نماد بورس: <strong class="text-white">ثاخت</strong>
+</span>
+<span class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-200">
+            کد معاملاتی: <strong class="text-white">ICD1</strong>
+</span>
+</div>
+</div>
+<!-- 5-Column Navigation Grid -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12 text-xs">
+<!-- Column 1: هلدینگ ثاخت -->
+<div>
+<h4 class="font-bold text-sm text-white mb-4">هلدینگ ثاخت</h4>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+</ul>
+</div>
+<!-- Column 2: پروژه‌های عمرانی -->
+<div>
+<h4 class="font-bold text-sm text-white mb-4">پروژه‌های عمرانی</h4>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<!-- Column 3: سهامداران و کدال -->
+<div>
+<h4 class="font-bold text-sm text-white mb-4">سهامداران و کدال</h4>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مجمع عمومی و سود سهام</a></li>
+</ul>
+</div>
+<!-- Column 4: رسانه و اخبار -->
+<div>
+<h4 class="font-bold text-sm text-white mb-4">رسانه و اخبار</h4>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">آرشیو چندرسانه‌ای پروژه‌ها</a></li>
+<li><a class="hover:text-white transition-colors" href="#">ارتباط با رسانه‌ها</a></li>
+</ul>
+</div>
+<!-- Column 5: امور مشتریان -->
+<div class="col-span-2 md:col-span-1">
+<h4 class="font-bold text-sm text-white mb-4">امور مشتریان</h4>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li class="num-tabular">مرکز تماس: ۰۲۱-۸۸۸۸۳۲۴۲</li>
+<li>تهران، میدان ونک، ملاصدرا</li>
+</ul>
+</div>
+</div>
+<!-- Legal & Copyright Bar -->
+<div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<p class="num-tabular">
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </p>
+<!-- Social Icons -->
+<div class="flex items-center gap-4 text-slate-400">
+<a class="hover:text-white transition" href="#" title="اشتراک‌گذاری">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"></path></svg>
+</a>
+<a class="hover:text-white transition" href="#" title="ایمیل پشتیبانی">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>

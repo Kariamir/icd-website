@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>مرکز ارتباط مستقیم، ثبت لید و مشاوره سرمایه‌گذاری | هلدینگ ساختمانی ثاخت</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Vazirmatn for Persian Typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#041C2C',
+              dark: '#0B2338',
+              blue: '#005EB8',
+              hoverBlue: '#004b93',
+              accent: '#CDE2FF',
+              light: '#F8FAFC',
+              slate: '#64748B',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'Tahoma', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-typography">
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #F8FAFC;
+      color: #1E293B;
+      -webkit-font-smoothing: antialiased;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #94A3B8;
+      font-size: 0.875rem;
+    }
+  </style>
+<style data-purpose="form-enhancements">
+    /* Subtle focus animations for inputs */
+    .lead-input {
+      transition: all 0.2s ease-in-out;
+    }
+    .lead-input:focus {
+      border-color: #005EB8;
+      box-shadow: 0 0 0 4px rgba(0, 94, 184, 0.12);
+      outline: none;
+    }
+  </style>
+</head>
+<body class="bg-brand-light antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Right Side: Logo & Identity -->
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-3" href="#">
+<div class="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center text-white font-bold text-xl shadow-sm">
+<svg class="w-6 h-6 fill-current text-white" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-black text-lg text-brand-navy tracking-tight leading-none">هلدینگ ساختمانی ثاخت</span>
+<span class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-1">ICD INVESTMENT &amp; CONSTRUCTION</span>
+</div>
+</a>
+</div>
+<!-- Center: Main Navigation -->
+<nav class="hidden xl:flex items-center gap-8 text-sm font-medium text-slate-600">
+<a class="hover:text-brand-blue transition-colors" href="#">صفحه اصلی</a>
+<a class="hover:text-brand-blue transition-colors" href="#">درباره ثاخت</a>
+<a class="hover:text-brand-blue transition-colors" href="#">پروژه‌ها</a>
+<a class="hover:text-brand-blue transition-colors" href="#">فروش و پیش‌فروش</a>
+<a class="hover:text-brand-blue transition-colors" href="#">دیده‌بان ثاخت</a>
+<a class="hover:text-brand-blue transition-colors" href="#">رسانه و اخبار</a>
+<a class="text-brand-blue font-bold relative py-2" href="#">
+          امور مشتریان و تماس
+          <span class="absolute bottom-0 right-0 w-full h-0.5 bg-brand-blue rounded-full"></span>
+</a>
+</nav>
+<!-- Left Side: Actions & User Gateways -->
+<div class="flex items-center gap-3">
+<!-- Search Button -->
+<button class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors" title="جستجو در درگاه ثاخت" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Language Switcher -->
+<div class="hidden sm:flex items-center text-xs font-semibold border border-slate-200 rounded-full px-2.5 py-1 text-slate-600">
+<span class="text-brand-blue">FA</span>
+<span class="mx-1.5 text-slate-300">|</span>
+<span class="hover:text-brand-navy cursor-pointer">EN</span>
+</div>
+<!-- Shareholder Portal Gateway -->
+<a class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-brand-navy border border-brand-border rounded-full hover:bg-slate-100 transition-colors" href="#">
+<svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          ورود سهامداران
+        </a>
+<!-- Fast Consultation / Call Button -->
+<a class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-brand-blue hover:bg-brand-hoverBlue rounded-full shadow-md shadow-blue-500/20 transition-all" href="#lead-form-section">
+<span>مشاوره و تماس سریع</span>
+<svg class="w-3.5 h-3.5 transform -rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: Breadcrumb & Title Hero Section -->
+<section class="bg-gradient-to-b from-blue-50/60 via-white to-brand-light pt-8 pb-14 border-b border-slate-200/70">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Breadcrumb Navigation -->
+<nav class="flex items-center gap-2 text-xs text-slate-500 mb-6 font-medium">
+<a class="hover:text-brand-blue" href="#">صفحه اصلی</a>
+<span class="text-slate-300">/</span>
+<a class="hover:text-brand-blue" href="#">امور مشتریان و دفاتر</a>
+<span class="text-slate-300">/</span>
+<span class="text-brand-navy font-bold">فرم درخواست مشاوره و ارتباط مستقیم</span>
+</nav>
+<!-- Main Heading Block -->
+<div class="text-center max-w-3xl mx-auto">
+<span class="inline-block py-1 px-4 rounded-full bg-blue-100 text-brand-blue text-xs font-bold tracking-wide mb-3">
+          درگاه یکپارچه ارتباطی ذی‌نفعان و سرمایه‌گذاران
+        </span>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-brand-navy tracking-tight leading-tight">
+          ارتباط با مدیران و دریافت مشاوره تخصصی سرمایه‌گذاری
+        </h1>
+<p class="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+          پاسخگویی شفاف به پرسش‌های پیش‌خرید واحدهای ملکی، مناقصات پیمانکاری، ارتباط مستقیم با مدیرعامل و استعلام‌های کدال سهامداران
+        </p>
+</div>
+</div>
+</section>
+<!-- END: Breadcrumb & Title Hero Section -->
+<!-- BEGIN: Department Cards Grid (Inspired by Clark Contact 4 Blocks) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1: Direct to CEO -->
+<div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-brand-blue flex-shrink-0">
+<!-- Users / Leadership Icon -->
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between gap-2 mb-1.5">
+<h3 class="font-extrabold text-lg text-brand-navy">ارتباط مستقیم با مدیرعامل</h3>
+<span class="text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full border border-emerald-200">
+              تعهد پاسخگویی حداکثر ۷۲ ساعت
+            </span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">
+            ارسال پیشنهادات، گزارش‌های ویژه سوت‌زنی و ارتباط بی‌واسطه با دفتر مهندس سید علیرضا حسینی (مدیرعامل هلدینگ توسعه ساختمان).
+          </p>
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:underline" href="#lead-form-section">
+<span>تکمیل فرم ارتباط با مدیریت</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</div>
+<!-- Card 2: Trade Contractors & Vendors -->
+<div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-brand-blue flex-shrink-0">
+<!-- Clipboard / Bidding Icon -->
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between gap-2 mb-1.5">
+<h3 class="font-extrabold text-lg text-brand-navy">جذب پیمانکاران، تامین‌کنندگان و مناقصات</h3>
+<span class="text-[11px] font-bold bg-blue-50 text-brand-blue px-2.5 py-0.5 rounded-full border border-blue-200">
+              سامانه ارزیابی کیفی
+            </span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">
+            ثبت اعلام آمادگی و اعلام توانمندی شرکت‌های پیمانکاری جهت مشارکت در ساخت و زنجیره تامین متریال ساختمانی پروژه‌های ملی.
+          </p>
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:underline" href="#lead-form-section">
+<span>ارسال رزومه و معرفی شرکت</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</div>
+<!-- Card 3: Real Estate Sales & Pre-sale -->
+<div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-brand-blue flex-shrink-0">
+<!-- Building / Sales Icon -->
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between gap-2 mb-1.5">
+<h3 class="font-extrabold text-lg text-brand-navy">مشاوره خرید و پیش‌فروش واحدها</h3>
+<span class="text-[11px] font-bold bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200">
+              تضمین قطعی تحویل
+            </span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">
+            دریافت مشاوره رایگان سرمایه‌گذاری ملکی در پروژه‌های مگاپارس، آ.اس.پ مشهد، برج بین‌المللی تهران و تسهیلات اقساطی.
+          </p>
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:underline" href="#lead-form-section">
+<span>درخواست وقت مشاوره تخصصی</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</div>
+<!-- Card 4: Investor Relations & Codal -->
+<div class="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow flex items-start gap-5">
+<div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-brand-blue flex-shrink-0">
+<!-- Stock / Codal Book Icon -->
+<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between gap-2 mb-1.5">
+<h3 class="font-extrabold text-lg text-brand-navy">امور سهامداری، سود و کدال</h3>
+<span class="text-[11px] font-bold bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full border border-indigo-200">
+              نماد بورس: ثاخت
+            </span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">
+            استعلام مطالبات سود سهام، اصلاح مشخصات بانکی سجام، دسترسی به اطلاعیه‌های مجمع و ارزش خالص دارایی‌ها (NAV).
+          </p>
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:underline" href="#lead-form-section">
+<span>پیگیری وضعیت سهامداری</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Department Cards Grid -->
+<!-- BEGIN: Main Lead Capture Section -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="lead-form-section">
+<div class="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden">
+<!-- Top Title Bar of Form -->
+<div class="px-8 pt-10 pb-6 text-center max-w-2xl mx-auto">
+<h2 class="text-2xl sm:text-3xl font-black text-brand-navy">ثبت پیام و درخواست مشاوره تخصصی</h2>
+<p class="mt-2 text-xs sm:text-sm text-slate-500">
+          فرم زیر را تکمیل فرمایید تا کارشناسان تخصصی بخش مربوطه در سریع‌ترین زمان با شما تماس حاصل نمایند.
+        </p>
+</div>
+<!-- Segmented Inquiry Type Filter (Pills) -->
+<div class="px-6 pb-6 overflow-x-auto">
+<div class="flex items-center justify-center min-w-max gap-2 p-1.5 bg-slate-100/90 rounded-2xl mx-auto max-w-fit">
+<button class="px-4 py-2 text-xs font-bold rounded-xl bg-brand-blue text-white shadow-sm transition-all" type="button">
+            درخواست مشاوره خرید و پیش‌فروش
+          </button>
+<button class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy rounded-xl hover:bg-white transition-all" type="button">
+            پیام مستقیم به مدیرعامل (محرمانه)
+          </button>
+<button class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy rounded-xl hover:bg-white transition-all" type="button">
+            همکاری و مناقصات پیمانکاری
+          </button>
+<button class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy rounded-xl hover:bg-white transition-all" type="button">
+            امور سهامداران و سوالات کدال
+          </button>
+<button class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy rounded-xl hover:bg-white transition-all" type="button">
+            شکایات و پیشنهادات (سامانه سوت‌زنی)
+          </button>
+</div>
+</div>
+<hr class="border-slate-100"/>
+<!-- The Main Interactive Form -->
+<form class="p-6 sm:p-10 lg:p-12 space-y-8" onsubmit="event.preventDefault();">
+<!-- Input Grid: Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Full Name -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              نام و نام خانوادگی <span class="text-rose-500">*</span>
+</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input" placeholder="مثال: علی رضایی" required="" type="text"/>
+</div>
+<!-- National ID / Organization Code -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              کد ملی یا شناسه حقوقی <span class="text-rose-500">*</span>
+</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input" placeholder="۱۰ رقم کد ملی یا ۱۱ رقم شناسه ملی" required="" type="text"/>
+</div>
+<!-- Phone Number -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              شماره تلفن همراه <span class="text-rose-500">*</span>
+</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input text-left" dir="ltr" placeholder="۰۹۱۲XXXXXXX (جهت ارسال کد رهگیری)" required="" type="tel"/>
+</div>
+</div>
+<!-- Input Grid: Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Email Address -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              آدرس پست الکترونیکی (اختیاری)
+            </label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input text-left" dir="ltr" placeholder="name@example.com" type="email"/>
+</div>
+<!-- Targeted Project -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              پروژه یا حوزه مورد نظر
+            </label>
+<select class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input bg-white text-slate-700">
+<option value="">انتخاب پروژه یا دپارتمان...</option>
+<option value="megapars">مگاپروژه اداری تجاری مگاپارس (تهران)</option>
+<option value="asp-mashhad">مجتمع تجاری اقامتی آ.اس.پ مشهد</option>
+<option value="tehran-tower">برج بین‌المللی تهران (ونک)</option>
+<option value="kish-dream">پروژه رویای کیش و هتل‌های ساحلی</option>
+<option value="holding-general">حوزه عمومی سرمایه‌گذاری و مشارکت کلان</option>
+</select>
+</div>
+<!-- Relationship / Stakeholder Type -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+              نقش / موقعیت شما <span class="text-rose-500">*</span>
+</label>
+<select class="w-full h-12 px-4 rounded-xl border border-slate-300 text-sm lead-input bg-white text-slate-700" required="">
+<option value="">انتخاب نوع تقاضا...</option>
+<option selected="" value="buyer">متقاضی پیش‌خرید یا مشاوره ملکی</option>
+<option value="investor">سهامدار حقیقی یا حقوقی نماد ثاخت</option>
+<option value="contractor">پیمانکار، مهندس مشاور یا تامین‌کننده</option>
+<option value="agency">سازمان دولتی، شهرداری یا شریک تجاری</option>
+<option value="other">سایر امور عمومی و سوت‌زنی</option>
+</select>
+</div>
+</div>
+<!-- Message / Inquiry Description -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+            شرح درخواست یا پیام <span class="text-rose-500">*</span>
+</label>
+<textarea class="w-full p-4 rounded-xl border border-slate-300 text-sm lead-input" placeholder="جزئیات درخواست، متراژ مد نظر، شرایط پیشنهادی پرداخت یا سوال تخصصی خود را به صورت مشروح بنویسید..." required="" rows="4"></textarea>
+</div>
+<!-- File Attachment Dropzone -->
+<div>
+<label class="block text-xs font-bold text-slate-700 mb-2">
+            پیوست اسناد، رزومه یا نقشه‌ها (اختیاری)
+          </label>
+<div class="border-2 border-dashed border-slate-200 hover:border-brand-blue rounded-2xl p-6 text-center bg-slate-50/50 hover:bg-blue-50/20 transition-all cursor-pointer">
+<div class="flex flex-col items-center justify-center">
+<svg class="w-8 h-8 text-slate-400 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
+<path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<p class="text-xs text-slate-600 font-medium">فایل خود را اینجا بکشید یا برای انتخاب فایل <span class="text-brand-blue font-bold">کلیک کنید</span></p>
+<span class="text-[11px] text-slate-400 mt-1">فرمت‌های مجاز: PDF, JPG, PNG, ZIP (حداکثر ۱۰ مگابایت)</span>
+</div>
+</div>
+</div>
+<!-- Privacy & Security Row -->
+<div class="pt-4 border-t border-slate-100 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+<!-- Consent Checkbox -->
+<div class="flex items-start gap-3">
+<input checked="" class="w-4 h-4 mt-0.5 rounded text-brand-blue focus:ring-brand-blue border-slate-300" id="privacy-consent" required="" type="checkbox"/>
+<label class="text-xs text-slate-600 leading-relaxed cursor-pointer" for="privacy-consent">
+              قوانین محرمانگی، حفظ حریم شخصی و شیوه‌نامه صیانت از داده‌های هلدینگ بین‌المللی توسعه ساختمان (ثاخت) را مطالعه نموده و می‌پذیرم.
+              <a class="text-brand-blue underline mr-1 font-bold" href="#">مطالعه قوانین</a>
+</label>
+</div>
+<!-- Captcha / Verification Simulation -->
+<div class="flex items-center justify-start lg:justify-end">
+<div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center gap-4 w-full sm:w-auto">
+<label class="flex items-center gap-3 cursor-pointer select-none">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" type="checkbox"/>
+<span class="text-xs font-semibold text-slate-700">من ربات نیستم (اعتبارسنجی امنیتی)</span>
+</label>
+<div class="flex flex-col items-center pl-2 border-r border-slate-200 text-[10px] text-slate-400">
+<svg class="w-5 h-5 text-brand-blue mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>امنیت ICD</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Submit Button & SLA Guarantee Notice -->
+<div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+<button class="w-full sm:w-auto px-10 py-4 bg-brand-blue hover:bg-brand-hoverBlue text-white font-black text-sm rounded-full shadow-lg shadow-blue-600/25 transition-all flex items-center justify-center gap-3" type="submit">
+<span>ثبت درخواست و صدور کد رهگیری آنی</span>
+<svg class="w-4 h-4 transform -rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>کلیه مکاتبات با کد یکتای پیامکی و در سیستم اتوماسیون سازمانی ثبت می‌گردد.</span>
+</div>
+</div>
+</form>
+</div>
+</section>
+<!-- END: Main Lead Capture Section -->
+<!-- BEGIN: Fast Direct Contact & Help Desk Banner -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+<div class="bg-brand-navy text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+<!-- Background Ambient Glow -->
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-blue/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+<!-- Left: Text & Info -->
+<div class="lg:col-span-2 space-y-4">
+<span class="text-xs font-bold text-brand-accent tracking-wider uppercase bg-white/10 px-3 py-1 rounded-full">
+            میز خدمت مستقیم ذی‌نفعان
+          </span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            نیاز به گفتگوی فوری با مشاوران ارشد فروش دارید؟
+          </h2>
+<p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+            کارشناسان دپارتمان سرمایه‌گذاری و امور سهامداری هلدینگ بین‌المللی توسعه ساختمان در ساعات اداری پاسخگوی سوالات شما هستند. همچنین امکان تعیین وقت مشاوره حضوری در برج مرکزی وزرا فراهم است.
+          </p>
+<div class="flex flex-wrap items-center gap-6 pt-2 text-xs text-slate-300">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>ساعات کاری: شنبه تا چهارشنبه ۸:۰۰ الی ۱۶:۳۰</span>
+</div>
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>دفتر مرکزی: تهران، آرژانتین، خیابان وزرا</span>
+</div>
+</div>
+</div>
+<!-- Right: Action Phone Badges -->
+<div class="flex flex-col gap-3">
+<a class="bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl p-4 flex items-center justify-between transition-colors" href="tel:02188554221">
+<div class="text-right">
+<div class="text-xs text-slate-300">مرکز تماس فروش و پیش‌فروش</div>
+<div class="text-lg font-bold text-white tracking-wider" dir="ltr">۰۲۱-۸۸۵۵۴۲۲۱</div>
+</div>
+<span class="bg-brand-blue text-white text-xs px-3 py-1.5 rounded-xl font-bold">داخلی ۱۰۴</span>
+</a>
+<a class="bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl p-4 flex items-center justify-between transition-colors" href="tel:02188200021">
+<div class="text-right">
+<div class="text-xs text-slate-300">پاسخگویی امور سهامداری و کدال</div>
+<div class="text-lg font-bold text-white tracking-wider" dir="ltr">۰۲۱-۸۸۲۰۰۰۲۱</div>
+</div>
+<span class="bg-brand-blue text-white text-xs px-3 py-1.5 rounded-xl font-bold">داخلی ۱۰۸</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Fast Direct Contact & Help Desk Banner -->
+<!-- BEGIN: Institutional Dark Footer -->
+<footer class="bg-brand-navy text-white pt-16 pb-8 border-t border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Newsletter Bar Card -->
+<div class="bg-[#08283d] rounded-2xl p-6 sm:p-8 mb-16 flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-700/60">
+<div>
+<h4 class="text-base sm:text-lg font-extrabold text-white">عضویت در خبرنامه تحلیلی و فرصت‌های پیش‌فروش</h4>
+<p class="text-xs text-slate-400 mt-1">آخرین گزارش‌های کدال، زمان‌بندی عرضه‌ها و تحلیل‌های بازار مسکن مستقیم در ایمیل شما.</p>
+</div>
+<div class="flex w-full md:w-auto gap-2">
+<input class="px-4 py-2.5 rounded-xl bg-[#041c2c] border border-slate-600 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-blue w-full sm:w-72" placeholder="آدرس ایمیل خود را وارد کنید..." type="email"/>
+<button class="px-5 py-2.5 bg-brand-blue hover:bg-brand-hoverBlue rounded-xl text-xs font-bold text-white flex-shrink-0 transition-all" type="button">عضویت</button>
+</div>
+</div>
+<!-- 5-Column Institutional Navigation Grid -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-14 border-b border-slate-800/80 text-xs">
+<!-- Col 1: درباره ثاخت -->
+<div class="space-y-3">
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2">درباره ثاخت</h5>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">افتخارات و جوایز ملی ساخت</a></li>
+<li><a class="hover:text-white transition-colors" href="#">فرصت‌های همکاری و استخدام</a></li>
+</ul>
+</div>
+<!-- Col 2: پروژه‌ها -->
+<div class="space-y-3">
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2">پروژه‌های عمرانی</h5>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">برج‌های مسکونی لوکس</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مجموعه‌های تجاری و اداری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">هتل‌ها و کاربری‌های گردشگری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پروژه‌های در حال احداث</a></li>
+</ul>
+</div>
+<!-- Col 3: سهامداران -->
+<div class="space-y-3">
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2">سهامداران و کدال</h5>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">صورت‌های مالی حسابرسی‌شده</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مجمع عمومی و پرداخت سود</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+<li><a class="hover:text-white transition-colors" href="#">تحلیل ارزش خالص دارایی‌ها (NAV)</a></li>
+</ul>
+</div>
+<!-- Col 4: رسانه و اخبار -->
+<div class="space-y-3">
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2">رسانه و اخبار</h5>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مقالات و نشریات BIM</a></li>
+<li><a class="hover:text-white transition-colors" href="#">ویدیوها و تور مجازی پروژه‌ها</a></li>
+<li><a class="hover:text-white transition-colors" href="#">آرشیو اطلاعیه‌های رسمی</a></li>
+</ul>
+</div>
+<!-- Col 5: امور مشتریان و دفاتر -->
+<div class="space-y-3 col-span-2 md:col-span-1">
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2">امور مشتریان و دفاتر</h5>
+<ul class="space-y-2.5 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><a class="hover:text-white transition-colors" href="#">صدور اسناد و تحویل کلید</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پاسخگویی به شکایات مشتریان</a></li>
+<li><span class="text-slate-300 font-bold block mt-1">دفتر مرکزی: تهران، خ وزرا</span></li>
+<li><span class="text-brand-accent font-bold block" dir="ltr">تلفن: ۰۲۱-۸۸۲۰۰۰۲۱</span></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar: Stock Info, Copyright & Social -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+<!-- Stock Ticker Badge -->
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="font-bold text-white">نماد بورس: ثاخت (ICD1)</span>
+<span class="text-slate-500">|</span>
+<span>بازار اول بورس اوراق بهادار تهران</span>
+</div>
+<!-- Social Icons (Matching Clark Reference style) -->
+<div class="flex items-center gap-2 text-white">
+<a class="w-8 h-8 rounded-lg bg-[#08283d] flex items-center justify-center hover:bg-brand-blue transition-colors" href="#" title="لینکدین">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.65 1.65 0 0 0 1.66-1.66 1.66 1.66 0 0 0-3.32 0 1.65 1.65 0 0 0 1.66 1.66m1.39 9.94v-8.37H5.07v8.37h2.78z"></path></svg>
+</a>
+<a class="w-8 h-8 rounded-lg bg-[#08283d] flex items-center justify-center hover:bg-brand-blue transition-colors" href="#" title="آپارات">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>
+</a>
+<a class="w-8 h-8 rounded-lg bg-[#08283d] flex items-center justify-center hover:bg-brand-blue transition-colors" href="#" title="اینستاگرام">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+<a class="w-8 h-8 rounded-lg bg-[#08283d] flex items-center justify-center hover:bg-brand-blue transition-colors" href="#" title="تلگرام">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"></path></svg>
+</a>
+</div>
+<!-- Copyright -->
+<p>© ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.</p>
+</div>
+</div>
+</footer>
+<!-- END: Institutional Dark Footer -->
+</body></html>

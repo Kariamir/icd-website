@@ -1,0 +1,512 @@
+<!DOCTYPE html><html dir="rtl" lang="fa"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>فروش و سرمایه‌گذاری املاک و مستغلات | هلدینگ بین‌المللی توسعه ساختمان (ثاخت)</title>
+<!-- Tailwind CSS v3 with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching icd3d Design System -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sakht: {
+              navy: '#041C2C',      // سرمه‌ای تیره برند ثاخت
+              blue: '#005EB8',      // آبی اصلی سازمانی
+              blueHover: '#004A94',
+              softBlue: '#CDE2FF',  // رنگ تأکیدی و پس‌زمینه ملایم
+              grayBg: '#F4F4F4',    // خاکستری روشن بدنه
+              grayCard: '#E8E8E8',  // سطح خاکستری کارتی
+              border: '#D0D5D2',    // خطوط جداکننده مهندسی
+              muted: '#6B7280'
+            }
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'Tahoma', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Google Fonts: Vazirmatn -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<!-- Core Typography and Custom Styles -->
+<style data-purpose="typography">
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      background-color: #FFFFFF;
+      color: #041C2C;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .num-en {
+      font-feature-settings: "tnum" 1;
+      direction: ltr;
+      display: inline-block;
+    }
+  </style>
+<!-- Sharp Geometric Architecture Style -->
+<style data-purpose="architectural-geometry">
+    .sharp-edge {
+      border-radius: 0px !important;
+    }
+    .hero-banner-mask {
+      border-radius: 2rem;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .hero-banner-mask {
+        border-radius: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-sakht-navy selection:bg-sakht-blue selection:text-white">
+<!-- BEGIN: TopNotificationBar -->
+
+<!-- END: TopNotificationBar -->
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-sakht-border">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Right: Brand Logo & Title -->
+    <div class="flex items-center gap-4">
+      <a class="flex items-center gap-3" href="/">
+        <div class="w-10 h-10 bg-sakht-navy text-white rounded-xl flex items-center justify-center font-black text-xl shadow-sm">
+          <span class="border-b-2 border-sakht-blue">ثا</span>
+        </div>
+        <div>
+          <span class="text-lg font-black text-sakht-navy block leading-none tracking-tight">هلدینگ ساختمانی ثاخت</span>
+          <span class="text-[11px] font-medium text-gray-500 block mt-1">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Center: 4 Minimal Navigation Items -->
+    <nav class="hidden lg:flex items-center gap-8 text-[15px] font-medium text-sakht-navy">
+      <a class="hover:text-sakht-blue transition-colors" href="#projects">پروژه‌ها</a>
+      <a class="text-sakht-blue font-bold border-b-2 border-sakht-blue pb-1" href="#catalog">فروش و پیش‌فروش</a>
+      <a class="hover:text-sakht-blue transition-colors" href="#investors">دیده‌بان ثاخت</a>
+      <a class="hover:text-sakht-blue transition-colors" href="#about">درباره ثاخت</a>
+    </nav>
+
+    <!-- Left: Actions & Fast CTA -->
+    <div class="flex items-center gap-3">
+      <button aria-label="جستجو" class="w-10 h-10 rounded-full border border-sakht-border flex items-center justify-center text-sakht-navy hover:text-sakht-blue hover:bg-sakht-grayBg transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      </button>
+      <button class="px-3 py-1.5 rounded-full border border-sakht-border text-xs font-bold text-sakht-navy hover:bg-sakht-grayBg transition-colors">
+        EN
+      </button>
+      <a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-sakht-border text-xs font-bold text-sakht-navy hover:bg-sakht-grayBg hover:text-sakht-blue transition-colors" href="#shareholders">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        ورود سهامداران
+      </a>
+      <a class="inline-flex items-center justify-center bg-sakht-blue hover:bg-sakht-blueHover text-white px-5 py-2.5 text-xs font-bold rounded-full transition-all shadow-sm" href="#contact">
+        مشاوره و تماس سریع
+      </a>
+    </div>
+  </div>
+</header>
+<!-- END: MainHeader -->
+<main>
+<!-- BEGIN: ClusterHeroBanner -->
+<!-- Modeled directly after Reference Hero layout with large architectural background, bold title, and curved capsule mask -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12" data-purpose="pillar-hero">
+<div class="hero-banner-mask relative min-h-[440px] md:min-h-[500px] bg-sakht-navy flex flex-col justify-end p-8 md:p-16 text-white overflow-hidden shadow-2xl">
+<!-- Architectural Background Asset from Provided Image -->
+<img alt="معماری سازمانی و پروژه‌های هلدینگ ثاخت" class="absolute inset-0 w-full h-full object-cover object-center brightness-75 contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAa2Di0kotvXDD69BwciW7bFpamWK6AkMHX-RfAVuj4DSz7vAv4kzioor7diwIqS56Jh9sxn7AgU0_VBGA72ANXqMLWzg360SWvmhxt3z7iyb12buuUcDOmum5c3Qrqv3bPdBIxONRKz3hNBgCGOIYNcPUiPb4p0Dcx-2gAlBt1IZF_dbvyYuZR6oJMQUeUUw3O6HEE1IMbBd2IpMPXBIK4jR-lnhgyVBdhwZYTFLmv2O34xWOV_qEXqTEoqAYbgYBuQc">
+<!-- Gradient Contrast Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-sakht-navy via-sakht-navy/70 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-sakht-navy/90 via-sakht-navy/40 to-transparent"></div>
+<!-- Pillar Content Block -->
+<div class="relative z-10 max-w-2xl">
+<span class="inline-block px-3 py-1 bg-sakht-blue text-white text-xs font-bold uppercase tracking-wider mb-4 sharp-edge">
+            پرتفوی جامع فروش و توسعه املاک تجاری، اداری و مسکونی
+          </span>
+<h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
+            املاک راهبردی <br class="hidden sm:inline"> برای کسب‌وکار و سرمایه‌گذاری
+          </h1>
+<p class="text-base sm:text-lg text-gray-200 leading-relaxed font-normal mb-8 max-w-xl">
+            واگذاری قطعی، پیش‌فروش مطمئن، ساخت سفارشی و مدیریت جامع بهره‌برداری از پروژه‌های شاخص مقیاس‌بزرگ در سراسر پهنه ملی کشور.
+          </p>
+<div class="flex flex-wrap gap-4">
+<a class="inline-flex items-center gap-2 bg-white text-sakht-navy hover:bg-sakht-softBlue hover:text-sakht-navy px-8 py-3.5 text-base font-bold transition-all shadow-lg rounded-full" href="#catalog">
+              شروع فرآیند همکاری
+              <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+</a>
+<a class="inline-flex items-center justify-center border border-white/40 hover:bg-white/10 text-white px-7 py-3.5 text-base font-medium transition-all rounded-full backdrop-blur-sm" href="#stats">
+              کارنامه ثاخت
+            </a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ClusterHeroBanner -->
+<!-- BEGIN: AboutAndStatsSection -->
+<!-- Two-column narrative & institutional stats, matching the rhythm of the reference visual -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16" data-purpose="about-and-metrics" id="stats">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<!-- Left: Pillar Narrative Context -->
+<div class="lg:col-span-6 space-y-5">
+<div class="inline-flex items-center gap-2 text-sakht-blue font-bold text-sm tracking-wider uppercase">
+<span class="w-6 h-[2px] bg-sakht-blue"></span>
+            درباره هلدینگ ثاخت
+          </div>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-sakht-navy leading-tight">
+            پیشگام مهندسی ارزش و خلق فضاهای تراز اول سرمایه‌گذاری
+          </h2>
+<p class="text-base text-gray-600 leading-relaxed font-normal text-justify">
+            شرکت بین‌المللی توسعه ساختمان (ثاخت) با تکیه بر شبکه گسترده شرکت‌های تابعه تخصصی، به عنوان یکی از ستون‌های راهبردی توسعه املاک تجاری، برج‌های اداری و مجتمع‌های مسکونی لوکس فعالیت می‌نماید. از مراحل تملیک، طراحی مهندسی، انبوه‌سازی تا انتقال مالکیت رسمی، منافع پایدار خریداران و شرکای تجاری را تضمین می‌کنیم.
+          </p>
+<div class="pt-2">
+<a class="inline-flex items-center gap-2 text-sakht-blue font-bold hover:gap-3 transition-all text-sm" href="#process">
+              آشنایی با پروتکل اعتبارسنجی اسناد و قراردادها
+              <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Right: 4-Grid Big Metrics Box matching Reference 01a -->
+<div class="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-10 border-t lg:border-t-0 lg:border-r border-sakht-border pt-8 lg:pt-0 lg:pr-12">
+<div class="space-y-1">
+<div class="text-4xl sm:text-5xl font-black text-sakht-navy tracking-tight font-sans">
+<span class="text-sakht-blue">+</span><span class="num-en">25</span>
+</div>
+<p class="text-sm sm:text-base font-bold text-sakht-navy">سال سابقه تخصصی</p>
+<p class="text-xs text-sakht-muted">حضور پیشرو در انبوه‌سازی و بورس</p>
+</div>
+<div class="space-y-1">
+<div class="text-4xl sm:text-5xl font-black text-sakht-navy tracking-tight font-sans">
+<span class="text-sakht-blue">+</span><span class="num-en">1,200</span>
+</div>
+<p class="text-sm sm:text-base font-bold text-sakht-navy">قرارداد موفق و واگذاری</p>
+<p class="text-xs text-sakht-muted">انتقال سند و رضایت شفاف طرفین</p>
+</div>
+<div class="space-y-1">
+<div class="text-4xl sm:text-5xl font-black text-sakht-navy tracking-tight font-sans">
+<span class="text-sakht-blue">+</span><span class="num-en">4,500</span>
+</div>
+<p class="text-sm sm:text-base font-bold text-sakht-navy">واحد در بانک داده پروژه‌ها</p>
+<p class="text-xs text-sakht-muted">موجودی تجاری، اداری و سکونتی</p>
+</div>
+<div class="space-y-1">
+<div class="text-4xl sm:text-5xl font-black text-sakht-navy tracking-tight font-sans">
+<span class="num-en">96</span><span class="text-sakht-blue">%</span>
+</div>
+<p class="text-sm sm:text-base font-bold text-sakht-navy">رضایت سرمایه‌گذاران</p>
+<p class="text-xs text-sakht-muted">بر اساس پایش عملکرد خدمات پس از فروش</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AboutAndStatsSection -->
+<!-- BEGIN: InstitutionalPartnersRow -->
+<!-- Row of institutional subsidiaries / audit and governance entities -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-y border-sakht-border my-6" data-purpose="partners-bar">
+<div class="flex flex-wrap items-center justify-between gap-8 opacity-75 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2 text-sakht-navy font-bold text-sm tracking-widest">
+<span class="w-2.5 h-2.5 bg-sakht-navy"></span>
+<span class="">شرکت‌های وابسته هلدینگ</span>
+</div>
+<div class="text-sm font-extrabold tracking-tight text-gray-700">توسعه صنعت مسکن خاورمیانه</div>
+<div class="text-sm font-extrabold tracking-tight text-gray-700">پارس سازه</div>
+<div class="text-sm font-extrabold tracking-tight text-gray-700">مهندسی آ.س.پ</div>
+<div class="text-sm font-extrabold tracking-tight text-gray-700">سرمایه‌گذاری ساختمانی کیش</div>
+<div class="text-sm font-extrabold tracking-tight text-gray-700">شرکت پایا عمران سازه</div>
+</div>
+</section>
+<!-- END: InstitutionalPartnersRow -->
+<!-- BEGIN: SubPagesCatalogHub -->
+<!-- Cluster Pillar Cards: Vertical architecture cards with rounded tops as shown in reference 01a -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" data-purpose="sub-cluster-catalog" id="catalog">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+<div>
+<h2 class="text-3xl sm:text-4xl font-black text-sakht-navy tracking-tight mb-2">
+            کاتالوگ دسته‌بندی املاک
+          </h2>
+<p class="text-gray-600 text-base">
+            طیف گسترده‌ای از املاک با توجیه اقتصادی ممتاز، آماده واگذاری، رهن بلندمدت و سرمایه‌گذاری مشارکتی
+          </p>
+</div>
+<!-- Navigation Arrows (Pill/Circular Sharp Controls) -->
+<div class="flex items-center gap-2">
+<button aria-label="قبلی" class="w-11 h-11 rounded-full border border-sakht-border flex items-center justify-center hover:bg-sakht-grayBg text-sakht-navy transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<button aria-label="بعدی" class="w-11 h-11 rounded-full bg-sakht-navy text-white flex items-center justify-center hover:bg-sakht-blue transition-colors">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+<!-- 3-Column Visual Grid strictly echoing reference 01a layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+<!-- Pillar Card 1: Commercial & Offices -->
+<article class="group cursor-pointer flex flex-col">
+<div class="h-[420px] w-full rounded-3xl overflow-hidden bg-gray-100 relative mb-4">
+<img alt="واحدهای اداری و برج‌های تجاری ثاخت" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdG8frl8-aaDC1euZOrGCeoiFZFUSyqAsZmYQL4ZQlN1o08EkS6lH0PRkREvrI_d5lA2lv6pfzwnzzipsxeR2wulNrleoNh7iTIq0630KZe0xazJaYA4wQTzLJaNj5OUkAgsaIB9jKfMQZSzyNU1jcLZocSEkKctuzsTyrnaVLySDyCLJ5OBLhhZWaobb0SRKMe83vlyyH-As0QH94VfqqfZzmqfO1ekPiDlXPYNalWA7txeI8AUctBq0ZPUMbUnoTFyI">
+<div class="absolute inset-0 bg-gradient-to-t from-sakht-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+                مشاهده واحدهای آماده تحویل
+                <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+</div>
+</div>
+<h3 class="text-xl font-black text-sakht-navy group-hover:text-sakht-blue transition-colors mb-1">
+            فضاهای اداری و دیپلماتیک
+          </h3>
+<p class="text-sm text-gray-500 font-medium">
+            بیش از <span class="num-en font-bold text-sakht-navy">4,000+</span> مترمربع فضای مفید قابل واگذاری
+          </p>
+</article>
+<!-- Pillar Card 2: Logistics & Commercial Complexes -->
+<article class="group cursor-pointer flex flex-col">
+<div class="h-[420px] w-full rounded-3xl overflow-hidden bg-gray-100 relative mb-4">
+<img alt="مجتمع‌های چندمنظوره و انبارهای صنعتی ثاخت" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLff_9_SrcXY5E3prZiFk79A-k7anP6hzfyhOAPXsw7p6l0BuGGl8KKMGLOLH7Uvh3ryDp6rP3T7p1JRqk-EsLWwWPpNzbxuylYhtLhiANXn1CNtjE5cdErpqxXzyshAhBiPdiUYIRtPYPv4k0iC2BMPQYK_gl6f3rVGX0-dgrlF7JqAV6wyyqVt5mg8us_hIm2YCGAbwQuqw9lPXsnVjfG_sLcl89fUEzPte4_CbnK2xoPE2ITRxabwcqvUvlGdcWiYg">
+<div class="absolute inset-0 bg-gradient-to-t from-sakht-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+                بررسی مراکز لجستیک و تجاری
+                <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+</div>
+</div>
+<h3 class="text-xl font-black text-sakht-navy group-hover:text-sakht-blue transition-colors mb-1">
+            مجموعه‌های چندمنظوره و لجستیک
+          </h3>
+<p class="text-sm text-gray-500 font-medium">
+            بیش از <span class="num-en font-bold text-sakht-navy">1,000+</span> فرصت سرمایه‌گذاری و غرفه تجاری
+          </p>
+</article>
+<!-- Pillar Card 3: Mega Land Plots & Development Opportunities -->
+<article class="group cursor-pointer flex flex-col">
+<div class="h-[420px] w-full rounded-3xl overflow-hidden bg-gray-100 relative mb-4">
+<img alt="زمین‌های دارای پروانه ساخت و توسعه اراضی ثاخت" class="w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ_1N3XFc2O7uRYtQBgOksoMjdMMlBKmLfdfF61Tyg_gBhM9SNlAudZFF3d7dLvf71jMS_eEsxJ5EoXlr8t9UWJL-bpjg6qNi0ngXEHr8PSasptMNNQdON-n2U3wJwlQDmvzGXNPYbiDTtp6tBTnw_r_wQJSsWiJwDY5F4ppMi_35ECmXPV5Bnz_USHOJjA0HrmGB7J5jiFkHmdgWysUyv2-I3wdQ8PMc1Aa00aiey77eWeoJxi0SgVbpiUiFDGyXrZ5w">
+<div class="absolute inset-0 bg-gradient-to-t from-sakht-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+                مشاهده طرح‌های مشارکتی اراضی
+                <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+</div>
+</div>
+<h3 class="text-xl font-black text-sakht-navy group-hover:text-sakht-blue transition-colors mb-1">
+            اراضی توسعه و پروژه‌های کلان
+          </h3>
+<p class="text-sm text-gray-500 font-medium">
+            بیش از <span class="num-en font-bold text-sakht-navy">2,000+</span> هکتار پتانسیل ساخت و انبوه‌سازی
+          </p>
+</article>
+</div>
+</section>
+<!-- END: SubPagesCatalogHub -->
+<!-- BEGIN: HowWeWorkProcessSection -->
+<!-- Replicating the distinct vertical flow: Left image with circular badge, right step-by-step list -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-sakht-border" data-purpose="work-process" id="process">
+<!-- Section Header -->
+<div class="max-w-2xl mb-12">
+<h2 class="text-3xl sm:text-4xl font-black text-sakht-navy tracking-tight mb-3">
+          فرآیند شفاف و استاندارد معامله
+        </h2>
+<p class="text-gray-600 text-base">
+          ما مسیر تصمیم‌گیری و سرمایه‌گذاری ملکی را در کمال سلامت اداری، شفافیت حقوقی و سرعت بالا برای شما تدوین کرده‌ایم.
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+<!-- Left Side: Architectural Vertical Image with Floating Badge -->
+<div class="lg:col-span-5 relative order-2 lg:order-1">
+<div class="rounded-3xl overflow-hidden h-[620px] shadow-xl bg-gray-100">
+<img alt="آسمان‌خراش و شیشه‌بندی پروژه‌های مهندسی ثاخت" class="w-full h-full object-cover object-bottom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh2KAtDnBTFczz-qtQ_axLuLZaokdP3hD1A6a1g08zkVw7pax3npSPFFhAP8J8vW6O0GGk99aNyB0xs4E3N8vVJMy47ScSxH4URuiagSsNUxzOzuqjHtFaZnxO-sOYOpDyAI1HD9HImI0njeY6uzQS8NQRfySTlJ4islY7rQkzM07YNNYUFk06S0OKreHX6t-vD1I0AOulG7ODxJiAvWT5H0JcTCqNjEt2Y2T9gUfoALwGIDHB4Z5sHx17blOJr_6nkS0">
+</div>
+<!-- Circular Floating Consultation Badge matching the Russian/Reference template position -->
+<div class="absolute -top-5 -right-5 md:-right-8 w-32 h-32 md:w-36 md:h-36 rounded-full bg-slate-500/90 backdrop-blur-md text-white flex items-center justify-center p-4 text-center shadow-2xl border-4 border-white">
+<span class="text-xs md:text-sm font-bold leading-tight">
+              مشاوره تخصصی <br> و رایگان سرمایه‌گذاری
+            </span>
+</div>
+</div>
+<!-- Right Side: Step-by-Step Items with Round Black Icons -->
+<div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+<!-- Step 1 -->
+<div class="flex items-start gap-5 pb-6 border-b border-sakht-border">
+<div class="w-12 h-12 rounded-full bg-sakht-navy text-white flex-shrink-0 flex items-center justify-center shadow-md">
+<!-- Chat icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-sakht-navy">۱. مشاوره تخصصی و نیازسنجی سرمایه</h3>
+<p class="text-sm text-gray-600 leading-relaxed font-normal">
+                بررسی اهداف کسب‌وکار یا بودجه سرمایه‌گذار و تحلیل نیازسنجی متراژ، پهنه شهری و افق بازدهی مالی.
+              </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start gap-5 pb-6 border-b border-sakht-border">
+<div class="w-12 h-12 rounded-full bg-sakht-navy text-white flex-shrink-0 flex items-center justify-center shadow-md">
+<!-- Search Pin icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-sakht-navy">۲. انتخاب هوشمند و فیلتر فایل‌های اختصاصی</h3>
+<p class="text-sm text-gray-600 leading-relaxed font-normal">
+                ارائه مستندات و نقشه‌های مهندسی تنها برای واحدهایی که تطابق ۱۰۰ درصدی با معیارهای متقاضی دارند.
+              </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-start gap-5 pb-6 border-b border-sakht-border">
+<div class="w-12 h-12 rounded-full bg-sakht-navy text-white flex-shrink-0 flex items-center justify-center shadow-md">
+<!-- Sliders assessment icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-sakht-navy">۳. بازدید میدانی و کارشناسی فنی ملک</h3>
+<p class="text-sm text-gray-600 leading-relaxed font-normal">
+                هماهنگی بازدید پروژه به همراه تیم کارشناسان ارشد سازه و تاسیسات جهت ارائه گزارش مکتوب کیفی.
+              </p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex items-start gap-5 pb-6 border-b border-sakht-border">
+<div class="w-12 h-12 rounded-full bg-sakht-navy text-white flex-shrink-0 flex items-center justify-center shadow-md">
+<!-- Document verified icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-sakht-navy">۴. صحه‌گذاری اسناد و استعلام‌های حقوقی</h3>
+<p class="text-sm text-gray-600 leading-relaxed font-normal">
+                بررسی سلامت سند مالکیت تک‌برگی، پایان‌کار، پروانه ساختمانی و عدم هرگونه بازداشت قانونی در کارگروه حقوقی ثاخت.
+              </p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="flex items-start gap-5 pb-2">
+<div class="w-12 h-12 rounded-full bg-sakht-navy text-white flex-shrink-0 flex items-center justify-center shadow-md">
+<!-- Handshake Deal icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-sakht-navy">۵. انعقاد قرارداد رسمی و تحویل کلید</h3>
+<p class="text-sm text-gray-600 leading-relaxed font-normal">
+                عقد مبایعه‌نامه رسمی در دفاتر شرکت و همراهی تا تحویل فیزیکی قطعی واحد و خدمات پس از فروش.
+              </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HowWeWorkProcessSection -->
+<!-- BEGIN: QuickContactCTA -->
+<section class="bg-sakht-grayBg border-t border-sakht-border py-12" data-purpose="bottom-cta" id="contact">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+<div>
+<h3 class="text-2xl font-black text-sakht-navy">نیاز به دریافت کاتالوگ تفصیلی پروژه‌ها دارید؟</h3>
+<p class="text-sakht-muted text-sm mt-1">کارشناسان معاونت بازاریابی و فروش هلدینگ آماده پاسخگویی هستند.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<input class="sharp-edge border-sakht-border px-4 py-3 text-sm focus:ring-sakht-blue focus:border-sakht-blue w-full md:w-64 bg-white" placeholder="شماره تماس همراه..." type="text">
+<button class="sharp-edge bg-sakht-blue hover:bg-sakht-blueHover text-white font-bold px-6 py-3 text-sm flex-shrink-0 transition-colors">
+            ثبت درخواست
+          </button>
+</div>
+</div>
+</section>
+<!-- END: QuickContactCTA -->
+</main>
+<!-- BEGIN: MainFooter -->
+<!-- 5-Column Institutional Footer matching Design System -->
+<footer class="bg-sakht-navy text-white pt-16 pb-12 border-t border-sakht-border/20" data-purpose="institutional-footer">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+    <!-- Newsletter Subscription Section -->
+    <div class="flex flex-col lg:flex-row items-center justify-between pb-12 mb-12 border-b border-white/10 gap-6">
+      <div>
+        <h3 class="text-xl font-bold text-white mb-1">عضویت در خبرنامه تحلیلی و گزارش‌های فصلی ثاخت</h3>
+        <p class="text-xs text-gray-400 font-normal">جدیدترین گزارش‌های پیشرفت فیزیکی پروژه‌ها و تحلیل‌های بازار مسکن و بورس را دریافت نمایید.</p>
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <input class="bg-white/10 border border-white/20 rounded-full px-5 py-2.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-sakht-blue w-full sm:w-72" placeholder="پست الکترونیکی شما..." type="email">
+        <button class="bg-sakht-blue hover:bg-sakht-blueHover text-white text-xs font-bold px-6 py-2.5 rounded-full transition-colors flex-shrink-0 shadow-sm">
+          ثبت و اشتراک
+        </button>
+      </div>
+    </div>
+
+    <!-- 5 Clean Categorized Link Columns -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 pb-12 border-b border-white/10 text-xs">
+      <!-- Column 1: هلدینگ ثاخت -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm">هلدینگ ثاخت</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li class=""><a class="hover:text-white transition-colors" href="#">تاریخچه و سند چشم‌انداز</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">هیئت‌مدیره و ارکان راهبری</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">منشور سازمانی و حاکمیت شرکتی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">مسئولیت‌های اجتماعی و زیست‌محیطی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">گواهینامه‌ها و استانداردها</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 2: پروژه‌های عمرانی -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm">پروژه‌های عمرانی</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li class=""><a class="hover:text-white transition-colors" href="#">برج‌های تجاری و اداری</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">مجموعه‌های لوکس مسکونی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">مراکز گردشگری و اقامتی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">پروژه‌های در دست احداث</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">طرح‌های مشارکتی و توسعه‌ای</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: سهامداران و کدال -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm">سهامداران و کدال</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li class=""><a class="hover:text-white transition-colors" href="#">اطلاعیه‌های سامانه جامع کدال</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">صورت‌های مالی حسابرسی‌شده</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">تقویم مجامع عمومی و سود سهام</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">ترکیب سهامداران عمده</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">پرتفوی سرمایه‌گذاری بورسی</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: رسانه و اخبار -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm">رسانه و اخبار</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li class=""><a class="hover:text-white transition-colors" href="#">تازه‌ترین رویدادهای هلدینگ</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">نشست‌های خبری و همایش‌ها</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">گزارش‌های ویدیویی پیشرفت</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">نشریه داخلی و مقالات تخصصی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">آرشیو تصاویر و تیزرهای رسمی</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 5: امور مشتریان -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-white text-sm">امور مشتریان</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li class=""><a class="hover:text-white transition-colors" href="#">شرایط فروش و پیش‌فروش</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">خدمات پس از فروش و گارانتی</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">صدور سند و استعلام مالکیت</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">ثبت پیشنهادات و شکایات</a></li>
+          <li class=""><a class="hover:text-white transition-colors" href="#">پرسش‌های متداول خریداران</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Legal & Social Bar -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p class="">© ۱۴۰۳ کلیه حقوق مادی و معنوی این پایگاه متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) است.</p>
+      <div class="flex items-center gap-6">
+        <a class="hover:text-white transition-colors" href="#">حریم خصوصی</a>
+        <a class="hover:text-white transition-colors" href="#">قوانین و مقررات</a>
+        <a class="hover:text-white transition-colors" href="#">امنیت سامانه</a>
+        <a class="hover:text-white transition-colors" href="#">نقشه سایت</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- END: MainFooter -->
+
+
+
+
+</body></html>

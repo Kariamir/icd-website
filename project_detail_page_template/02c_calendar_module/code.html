@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تقویم مالی و رویدادهای بازار سرمایه | هلدینگ ساختمانی ثاخت</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Persian & Latin Typography (Vazirmatn + Work Sans) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;family=Work+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#34495b",
+            "on-secondary-fixed": "#051d2d",
+            "surface": "#F4F4F4",
+            "inverse-surface": "#2c3230",
+            "tertiary-container": "#9f4300",
+            "ink": "#041C2C",
+            "brand-blue-deep": "#0056A7",
+            "primary-fixed-dim": "#a9c7ff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed-variant": "#00468c",
+            "surface-container": "#eaefec",
+            "secondary-fixed-dim": "#b3c9df",
+            "outline": "#727783",
+            "secondary-container": "#cce2f8",
+            "on-surface-variant": "#424752",
+            "secondary": "#4b6173",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#edf2ef",
+            "surface-dim": "#d6dbd8",
+            "on-tertiary-fixed": "#341100",
+            "brand-tint": "#CDE2FF",
+            "surface-bright": "#f6faf7",
+            "on-error": "#ffffff",
+            "inverse-primary": "#a9c7ff",
+            "border": "#D0D5D2",
+            "surface-alt": "#E8E8E8",
+            "status-error": "#C23B3B",
+            "outline-variant": "#c2c6d4",
+            "secondary-fixed": "#cfe5fb",
+            "primary": "#00478d",
+            "status-success": "#1F8A4C",
+            "surface-tint": "#005db6",
+            "on-tertiary-container": "#ffcfb9",
+            "surface-container-low": "#f0f5f2",
+            "on-primary-container": "#c8daff",
+            "background": "#f6faf7",
+            "on-primary": "#ffffff",
+            "on-background": "#171d1b",
+            "on-tertiary-fixed-variant": "#793100",
+            "tertiary": "#793100",
+            "on-surface": "#171d1b",
+            "on-primary-fixed": "#001b3d",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed": "#ffdbcb",
+            "surface-variant": "#dfe4e0",
+            "on-secondary": "#ffffff",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#d6e3ff",
+            "error": "#ba1a1a",
+            "surface-container-highest": "#dfe4e0",
+            "primary-container": "#005eb8",
+            "surface-container-high": "#e4e9e6",
+            "tertiary-fixed-dim": "#ffb691",
+            "on-secondary-container": "#506578"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-sm": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "label-md": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-lg": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-sm": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-lg": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-xl-mobile": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-md": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "label-lg": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-lg-mobile": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-md": ["Vazirmatn", "Work Sans", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-xl": ["64px", { "lineHeight": "72px", "fontWeight": "800" }],
+            "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-lg": ["38px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "headline-sm": ["19px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Vazirmatn', 'Work Sans', sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col antialiased selection:bg-brand-tint selection:text-ink">
+<!-- ========================================================================= -->
+<!-- 1. TOP NAVIGATION BAR (Shared Component: TopNavBar)                      -->
+<!-- ========================================================================= -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest dark:bg-inverse-surface border-b border-border dark:border-outline-variant">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Right: Brand Logo & Emblem (RTL Anchor) -->
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-3 group focus:outline-none" href="#">
+<div class="w-10 h-10 bg-ink text-surface-container-lowest flex items-center justify-center font-black text-xl tracking-tighter shadow-none">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-ink dark:text-surface-container-lowest tracking-tight leading-none">
+              هلدینگ ساختمانی ثاخت
+            </span>
+<span class="text-[11px] font-medium text-secondary mt-1">
+              شرکت بین‌المللی توسعه ساختمان (سهامی عام) · نماد بورسی: ICD1
+            </span>
+</div>
+</a>
+</div>
+<!-- Center: Strategic Navigation Links (Active item: دیده‌بان ثاخت) -->
+<nav aria-label="ناوبری اصلی" class="hidden lg:flex items-center gap-8">
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
+          درباره ثاخت
+        </a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
+          پروژه‌ها
+        </a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
+          فروش و پیش‌فروش
+        </a>
+<!-- ACTIVE TAB: دیده‌بان ثاخت (Calendar is part of this pillar) -->
+<a class="border-b-2 border-primary-container text-primary-container dark:text-inverse-primary font-bold pb-1 text-label-lg font-label-lg" href="#">
+          دیده‌بان ثاخت
+        </a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
+          رسانه ثاخت
+        </a>
+</nav>
+<!-- Left: Actions Cluster (Calls to Action & Utility) -->
+<div class="flex items-center gap-3">
+<!-- Search icon action -->
+<button class="w-10 h-10 flex items-center justify-center text-ink hover:bg-surface-container-high transition-colors duration-150 focus:outline-none" title="جستجو">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<!-- Language Switcher -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-label-md font-label-md text-ink hover:bg-surface-container-high transition-colors duration-150" title="تغییر زبان">
+<span class="material-symbols-outlined text-[18px]" data-icon="language">language</span>
+<span class="font-sans font-bold">EN</span>
+</button>
+<!-- Investor Portal Access (Secondary Trailing Action) -->
+<a class="hidden sm:inline-flex items-center gap-2 border border-primary-container text-primary-container px-4 py-2 text-label-lg font-label-lg hover:bg-brand-tint transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock">lock</span>
+<span>ورود سهامداران</span>
+</a>
+<!-- Fast Contact CTA (Primary Trailing Action) -->
+<a class="bg-primary-container text-on-primary px-5 py-2 text-label-lg font-label-lg hover:bg-brand-blue-deep transition-colors duration-150" href="#">
+          مشاوره و تماس سریع
+        </a>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MAIN CONTENT CANVAS                                                       -->
+<!-- ========================================================================= -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-space-lg md:px-margin py-8 md:py-12">
+<!-- Breadcrumbs Section -->
+<nav aria-label="مسیر راهنما" class="flex items-center gap-2 text-body-sm font-body-sm text-secondary mb-6">
+<a class="hover:text-primary-container transition-colors" href="#">صفحه اصلی</a>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="chevron_left">chevron_left</span>
+<a class="hover:text-primary-container transition-colors" href="#">دیده‌بان ثاخت</a>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="chevron_left">chevron_left</span>
+<span aria-current="page" class="text-ink font-semibold">تقویم مالی و رویدادهای بازار سرمایه</span>
+</nav>
+<!-- Hero Header / Intro (Modeled accurately after Skanska Calendar reference) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pb-10 border-b border-border">
+<!-- Primary Headline -->
+<div class="lg:col-span-6">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 bg-brand-tint text-primary-container text-label-md font-label-md mb-3">
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+          شفافیت شرکتی و افشای اطلاعات کدال
+        </div>
+<h1 class="text-headline-xl-mobile md:text-headline-xl font-headline-xl text-ink tracking-tight">
+          تقویم مالی ثاخت
+        </h1>
+<p class="mt-2 text-body-md font-body-md text-secondary max-w-xl">
+          شرکت بین‌المللی توسعه ساختمان (سهامی عام) — نماد بورسی: <strong class="text-ink font-semibold">ثاخت (ICD1)</strong>
+</p>
+</div>
+<!-- Description Block (Direct Skanska Inspired Editorial Anchor) -->
+<div class="lg:col-span-6 lg:pt-2">
+<p class="text-body-lg font-body-lg text-ink leading-relaxed">
+          در ارائه‌های گزارش‌های دوره‌ای، کنفرانس‌های برخط تحلیل سودآوری و مجامع عمومی سالیانه شرکت بین‌المللی توسعه ساختمان (ثاخت) شرکت نمایید. در ادامه، زمان‌بندی دقیق رویدادهای مالی پیش‌رو، دوره‌های سکوت اطلاعاتی، مواعد پرداخت سود و پیوندهای مستقیم اسناد کدال را مشاهده فرمایید.
+        </p>
+<!-- Live Quick-Metric Indicators -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t border-border">
+<div class="bg-surface p-3.5 border border-border">
+<span class="text-label-md font-label-md text-secondary block">رویداد نزدیک بعدی</span>
+<span class="text-headline-sm font-headline-sm text-ink block mt-0.5">۳۰ اردیبهشت ۱۴۰۴</span>
+<span class="text-[11px] text-primary font-medium">وب‌کست عملکرد ۶ ماهه</span>
+</div>
+<div class="bg-surface p-3.5 border border-border">
+<span class="text-label-md font-label-md text-secondary block">سال مالی جاری منتهی به</span>
+<span class="text-headline-sm font-headline-sm text-ink block mt-0.5">۳۱ شهریور ۱۴۰۴</span>
+<span class="text-[11px] text-secondary font-medium">دوره ۱۲ ماهه حسابرسی</span>
+</div>
+<div class="bg-surface p-3.5 border border-border">
+<span class="text-label-md font-label-md text-secondary block">وضعیت دوره سکوت</span>
+<span class="text-headline-sm font-headline-sm text-status-success flex items-center gap-1.5 mt-0.5">
+<span class="w-2.5 h-2.5 bg-status-success"></span>
+              غیرفعال (آزاد)
+            </span>
+<span class="text-[11px] text-secondary font-medium">امکان مصاحبه و اطلاع‌رسانی</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- 3. INTERACTIVE CALENDAR WORKSPACE (Navigation & Filter Grid)              -->
+<!-- ========================================================================= -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-10">
+<!-- Left (Right in RTL): Sidebar Filters & Calendar States -->
+<aside class="lg:col-span-3 space-y-8">
+<!-- Primary Events State Navigation (Direct match to Skanska Sidebar) -->
+<div class="space-y-4">
+<h2 class="text-headline-sm font-headline-sm text-ink tracking-tight">رویدادها</h2>
+<nav aria-label="حالت‌های زمانی رویدادها" class="flex flex-col space-y-1.5">
+<button class="flex items-center gap-3 text-right py-2 text-label-lg font-label-lg text-primary-container font-bold group">
+<span class="material-symbols-outlined text-[18px] transform rotate-180" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>رویدادهای پیش‌رو (Current Events)</span>
+</button>
+<button class="flex items-center gap-3 text-right py-2 text-label-lg font-label-lg text-secondary hover:text-ink transition-colors pl-6">
+<span class="w-3"></span>
+<span>رویدادهای گذشته و آرشیو (Past Events)</span>
+</button>
+</nav>
+</div>
+<!-- Filter by Category -->
+<div class="pt-6 border-t border-border space-y-3">
+<label class="text-label-lg font-label-lg text-ink block font-bold">دسته‌بندی موضوعی</label>
+<div class="space-y-2">
+<label class="flex items-center gap-2.5 text-body-sm font-body-sm text-ink cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary-container border-border rounded-none focus:ring-0" type="checkbox"/>
+<span>همه رویدادها (۶)</span>
+</label>
+<label class="flex items-center gap-2.5 text-body-sm font-body-sm text-secondary hover:text-ink cursor-pointer">
+<input class="w-4 h-4 text-primary-container border-border rounded-none focus:ring-0" type="checkbox"/>
+<span>مجامع عمومی و فوق‌العاده (۱)</span>
+</label>
+<label class="flex items-center gap-2.5 text-body-sm font-body-sm text-secondary hover:text-ink cursor-pointer">
+<input class="w-4 h-4 text-primary-container border-border rounded-none focus:ring-0" type="checkbox"/>
+<span>گزارش‌ها و وبینارهای تحلیلی (۲)</span>
+</label>
+<label class="flex items-center gap-2.5 text-body-sm font-body-sm text-secondary hover:text-ink cursor-pointer">
+<input class="w-4 h-4 text-primary-container border-border rounded-none focus:ring-0" type="checkbox"/>
+<span>دوره سکوت معاملاتی (Silent Period) (۲)</span>
+</label>
+<label class="flex items-center gap-2.5 text-body-sm font-body-sm text-secondary hover:text-ink cursor-pointer">
+<input class="w-4 h-4 text-primary-container border-border rounded-none focus:ring-0" type="checkbox"/>
+<span>پرداخت سود سهام و سجام (۱)</span>
+</label>
+</div>
+</div>
+<!-- Fiscal Year Selector -->
+<div class="pt-6 border-t border-border space-y-3">
+<label class="text-label-lg font-label-lg text-ink block font-bold">سال مالی</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-border text-ink text-body-sm font-body-sm p-3 rounded-none focus:border-primary-container focus:ring-0">
+<option>سال مالی ۱۴۰۳ - ۱۴۰۴ (جاری)</option>
+<option>سال مالی ۱۴۰۲ - ۱۴۰۳</option>
+<option>سال مالی ۱۴۰۱ - ۱۴۰۲</option>
+</select>
+</div>
+</div>
+<!-- Calendar Export / Sync Card -->
+<div class="bg-surface p-5 border border-border space-y-3">
+<div class="flex items-center gap-2 text-ink font-bold text-label-lg">
+<span class="material-symbols-outlined text-primary-container" data-icon="calendar_month">calendar_month</span>
+<span>همگام‌سازی با تقویم شخصی</span>
+</div>
+<p class="text-body-sm text-secondary leading-relaxed">
+            مشترک تقویم رسمی رویدادهای ثاخت در Google Calendar، Outlook یا فرمت تقویم iCal شوید.
+          </p>
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full bg-surface-container-lowest hover:bg-surface-alt border border-border text-ink text-label-md font-label-md py-2 px-3 flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+<span>دریافت فایل استاندارد (.ics)</span>
+</button>
+<button class="w-full bg-surface-container-lowest hover:bg-surface-alt border border-border text-ink text-label-md font-label-md py-2 px-3 flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync">sync</span>
+<span>افزودن به گوگل کلندر</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Right (Left in RTL): Clean Minimalist Event Rows (Faithful Skanska Architecture) -->
+<section class="lg:col-span-9">
+<div class="divide-y divide-border border-t border-b border-border bg-surface-container-lowest">
+<!-- ================================================================= -->
+<!-- EVENT ROW 1: دوره سکوت معاملاتی (Silent Period)                  -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation (Skanska Style) -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">اردیبهشت</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-ink">۲۵</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 05-15</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-surface-alt text-ink border border-border text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    دوره سکوت معاملاتی (Silent Period)
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                    از ساعت ۰۸:۰۰ صبح به مدت ۱۰ روز کاری
+                  </span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  آغاز دوره سکوت اطلاعاتی منتهی به انتشار صورت‌های مالی میاندوره‌ای ۳ ماهه
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  بر اساس دستورالعمل انضباطی سازمان بورس، هرگونه مصاحبه، افشای زودهنگام و تبادل اطلاعات غیرعلنی با سهامداران و رسانه‌ها تا انتشار رسمی گزارش در کدال متوقف می‌باشد.
+                </p>
+</div>
+</div>
+<!-- Trailing Action: Round Navigation Link (Direct from Ref Skanska Arrow) -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به یادآور">
+<span class="material-symbols-outlined text-[20px]" data-icon="notification_add">notification_add</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="مشاهده جزئیات ضوابط">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- ================================================================= -->
+<!-- EVENT ROW 2: وب‌کست و کنفرانس برخط تحلیل عملکرد ۶ ماهه           -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">اردیبهشت</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-primary-container">۳۰</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 05-20</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-brand-tint text-primary-container text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    کنفرانس برخط و وب‌کست
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                    ساعت ۱۰:۰۰ قبل از ظهر
+                  </span>
+<span class="bg-status-success/10 text-status-success text-[11px] font-semibold px-2 py-0.5">
+                    ثبت‌نام آزاد
+                  </span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  کنفرانس مطبوعاتی و وب‌کست تعاملی تحلیل عملکرد مالی نیم‌ساله اول هلدینگ ثاخت
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  با حضور معاونت مالی و سرمایه‌گذاری و مدیران عامل شرکت‌های تابعه جهت پاسخ به پرسش‌های تحلیل‌گران ارشد بازار سرمایه، نهادهای مالی و سهامداران خرد.
+                </p>
+<!-- Quick Download & Join Links -->
+<div class="flex items-center gap-4 pt-1">
+<a class="inline-flex items-center gap-1.5 text-label-md font-label-md text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="videocam">videocam</span>
+                    ورود به تالار پخش زنده
+                  </a>
+<span class="text-outline">|</span>
+<a class="inline-flex items-center gap-1.5 text-label-md font-label-md text-secondary hover:text-ink" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="description">description</span>
+                    دریافت فایل ارائه پرزنتیشن (PDF)
+                  </a>
+</div>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به تقویم">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="ورود به صفحه رویداد">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- ================================================================= -->
+<!-- EVENT ROW 3: مجمع عمومی عادی سالیانه                            -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">تیر</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-ink">۲۸</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 07-19</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-primary-container text-surface-container-lowest text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    مجمع عمومی عادی سالیانه
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                    تهران، سالن همایش‌های بین‌المللی رازی
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary font-medium">ساعت ۰۹:۰۰ صبح</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  مجمع عمومی عادی سالیانه صاحبان سهام منتهی به سال مالی ۱۴۰۳ شرکت بین‌المللی توسعه ساختمان
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  دستور جلسه: استماع گزارش هیئت‌مدیره و بازرس قانونی، تصویب صورت‌های مالی ترازنامه، تصمیم‌گیری در خصوص تقسیم سود نقدی (DPS)، انتخاب بازرس قانونی و روزنامه کثیرالانتشار.
+                </p>
+<div class="flex items-center gap-4 pt-1 text-label-md">
+<a class="inline-flex items-center gap-1 text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="live_tv">live_tv</span>
+                    دریافت پیوند پخش برخط زنده
+                  </a>
+<span class="text-outline">|</span>
+<a class="inline-flex items-center gap-1 text-secondary hover:text-ink" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+                    آگهی دعوت به مجمع منتشره در کدال
+                  </a>
+</div>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به تقویم">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="جزئیات مجمع">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- ================================================================= -->
+<!-- EVENT ROW 4: آغاز پرداخت سود نقدی سهامداران از طریق سجام         -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">مرداد</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-ink">۱۵</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 08-06</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-surface-alt text-ink border border-border text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    پرداخت سود سهام (سجام)
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary">سپرده‌گذاری مرکزی اوراق بهادار</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  آغاز واریز متمرکز سود نقدی مصوب سهامداران حقیقی از طریق سامانه سجام
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  سود مصوب مجمع سالیانه به حساب بانکی معتبر معرفی‌شده سهامداران حقیقی در سامانه سجام واریز خواهد شد. سهامداران فاقد کد سجام می‌توانند از شعب بانک تجارت نسبت به دریافت سود اقدام نمایند.
+                </p>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به تقویم">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="جدول زمان‌بندی سود">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- ================================================================= -->
+<!-- EVENT ROW 5: پایان سال مالی ۱۴۰۳ - ۱۴۰۴                         -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">شهریور</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-ink">۳۱</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 09-22</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-ink text-surface-container-lowest text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    سال مالی
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary">بستن دفاتر و انبارگردانی</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  پایان سال مالی ۱۴۰۳–۱۴۰۴ هلدینگ ثاخت و شروع حسابرسی مستقل صورت‌های تلفیقی
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  خاتمه دوره دوازده‌ماهه مالی و آغاز فرایند بررسی دفاتر قانونی توسط حسابرس معتمد سازمان بورس و اوراق بهادار تهران.
+                </p>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به تقویم">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="مشاهده تقویم">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- ================================================================= -->
+<!-- EVENT ROW 6: دوره سکوت صورت‌های مالی سالانه                      -->
+<!-- ================================================================= -->
+<article class="py-6 px-4 md:px-6 hover:bg-surface/60 transition-colors duration-150 flex flex-col md:flex-row md:items-center justify-between gap-6 group">
+<div class="flex items-start gap-6">
+<!-- Big Date Presentation -->
+<div class="w-24 flex-shrink-0 text-right">
+<span class="block text-label-md font-label-md uppercase tracking-wider text-secondary">آبان</span>
+<span class="block text-headline-xl leading-none font-headline-xl text-ink">۱۵</span>
+<span class="block text-[11px] text-outline mt-1 font-mono">۱۴۰۴ / 11-06</span>
+</div>
+<!-- Content Detail -->
+<div class="space-y-1.5">
+<div class="flex items-center gap-2.5 flex-wrap">
+<span class="bg-surface-alt text-ink border border-border text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider">
+                    دوره سکوت معاملاتی (Silent Period)
+                  </span>
+<span class="text-body-sm font-body-sm text-secondary font-medium">قبل از انتشار گزارش حسابرسی‌شده</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">
+                  دوره سکوت اطلاعاتی منتهی به انتشار صورت‌های مالی سالانه تلفیقی هلدینگ ثاخت
+                </h3>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl leading-normal">
+                  دوره عدم افشای گزارش‌های پیش‌بینی تا زمان بارگذاری کامل گزارش ۱۲ ماهه حسابرسی‌شده بر روی سامانه جامع اطلاع‌رسانی ناشران (کدال).
+                </p>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-3 self-end md:self-center flex-shrink-0">
+<button class="p-2 text-secondary hover:text-primary-container border border-border hover:border-primary-container transition-colors" title="افزودن به تقویم">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_add_on">calendar_add_on</span>
+</button>
+<a class="w-10 h-10 rounded-full bg-status-success text-surface-container-lowest flex items-center justify-center hover:opacity-90 transition-opacity" href="#" title="ضوابط دوره سکوت">
+<span class="material-symbols-outlined transform -rotate-45" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Load More Button (Skanska Style Pill Action) -->
+<div class="mt-8 flex justify-center">
+<button class="inline-flex items-center gap-2 border border-ink px-6 py-2.5 text-label-lg font-label-lg text-ink hover:bg-surface-alt transition-colors duration-150">
+<span>بارگذاری ۶ رویداد دیگر</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+</button>
+</div>
+</section>
+</div>
+<!-- ========================================================================= -->
+<!-- 4. SHAREHOLDER INQUIRY & SUPPORT MODULE                                   -->
+<!-- ========================================================================= -->
+<section class="mt-16 bg-surface p-8 border border-border">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-8 space-y-2">
+<div class="inline-flex items-center gap-2 text-primary-container text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="headset_mic">headset_mic</span>
+            امور سهام و پشتیبانی مجامع عمومی
+          </div>
+<h2 class="text-headline-md font-headline-md text-ink">
+            پرسش یا ابهامی در خصوص مجامع و زمان‌بندی سود دارید؟
+          </h2>
+<p class="text-body-md font-body-md text-secondary max-w-2xl">
+            کارشناسان اداره امور سهام شرکت بین‌المللی توسعه ساختمان در روزهای کاری از ساعت ۰۸:۰۰ الی ۱۶:۰۰ آماده پاسخگویی به پرسش‌های سهامداران محترم حقیقی و حقوقی می‌باشند.
+          </p>
+</div>
+<div class="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-3">
+<a class="bg-primary-container text-on-primary px-5 py-3 text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-brand-blue-deep transition-colors" href="tel:02188888888">
+<span class="material-symbols-outlined text-[20px]" data-icon="call">call</span>
+<span>تماس با امور سهام: ۰۲۱-۸۸۵۵۴۳۲۱</span>
+</a>
+<a class="bg-surface-container-lowest border border-border text-ink px-5 py-3 text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-surface-alt transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="mail">mail</span>
+<span>ارسال پیام به دبیرخانه مجمع</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- ========================================================================= -->
+<!-- 5. FOOTER (Shared Component: Footer)                                      -->
+<!-- ========================================================================= -->
+<footer class="bg-ink dark:bg-surface-container-lowest text-surface-container-lowest dark:text-ink border-t border-border dark:border-outline-variant mt-16">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
+<!-- Upper Section: Institutional Statement & Newsletter -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-secondary/30">
+<div class="lg:col-span-5 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-lowest text-ink flex items-center justify-center font-bold text-lg">
+              ث
+            </div>
+<span class="text-headline-md font-headline-md text-surface-container-lowest dark:text-ink">
+              هلدینگ ساختمانی ثاخت
+            </span>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim dark:text-on-surface-variant max-w-md leading-relaxed">
+            شرکت بین‌المللی توسعه ساختمان (سهامی عام)؛ پیشگام در توسعه مگاپروژه‌های ساختمانی، سرمایه‌گذاری‌های زیرساختی، با بالاترین استاندارد مهندسی و انضباط کامل در بازار سرمایه ایران.
+          </p>
+<div class="flex items-center gap-4 text-surface-dim pt-2">
+<span class="text-label-md font-mono">ISIN: IRO1SAKT0001</span>
+<span class="text-outline">|</span>
+<span class="text-label-md">نماد بورس: ثاخت</span>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="bg-secondary/15 p-6 border border-secondary/30">
+<span class="text-label-lg font-label-lg text-surface-container-lowest block mb-1">
+              اشتراک در دیده‌بان ثاخت و گزارش‌های تحلیلی کدال
+            </span>
+<p class="text-body-sm text-surface-dim mb-4">
+              اعلان آخرین رویدادهای مالی، مصوبات مجامع و گزارش‌های افشای بااهمیت را مستقیم در ایمیل خود دریافت کنید.
+            </p>
+<form class="flex flex-col sm:flex-row gap-2">
+<input class="bg-surface-container-lowest text-ink placeholder:text-outline text-body-sm px-4 py-2.5 rounded-none flex-grow border-0 focus:ring-1 focus:ring-primary-container" placeholder="آدرس ایمیل سازمانی شما..." type="email"/>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 text-label-lg font-label-lg hover:bg-brand-blue-deep transition-colors whitespace-nowrap" type="submit">
+                عضویت در خبرنامه
+              </button>
+</form>
+</div>
+</div>
+</div>
+<!-- Links Columns Hierarchy -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 py-12 border-b border-secondary/30">
+<!-- Col 1 -->
+<div class="space-y-3">
+<span class="text-label-lg font-label-lg text-surface-container-lowest dark:text-on-surface font-bold block">
+            هلدینگ ثاخت
+          </span>
+<ul class="space-y-2 text-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">شرکت‌های زیرمجموعه و تابعه</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">حاکمیت شرکتی و منشور اخلاقی</a></li>
+</ul>
+</div>
+<!-- Col 2 -->
+<div class="space-y-3">
+<span class="text-label-lg font-label-lg text-surface-container-lowest dark:text-on-surface font-bold block">
+            پروژه‌های عمرانی
+          </span>
+<ul class="space-y-2 text-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">مگاپروژه‌های تجاری و اداری</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">مجموعه‌های اقامتی و گردشگری</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">مجتمع‌های مسکونی لوکس</a></li>
+</ul>
+</div>
+<!-- Col 3 -->
+<div class="space-y-3">
+<span class="text-label-lg font-label-lg text-surface-container-lowest dark:text-on-surface font-bold block">
+            امور سهام و کدال
+          </span>
+<ul class="space-y-2 text-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="text-surface-container-lowest font-bold text-brand-tint hover:underline transition-colors" href="#">تقویم مالی و مجامع عمومی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">صورت‌های مالی و گزارش تفسیری</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<!-- Col 4 -->
+<div class="space-y-3">
+<span class="text-label-lg font-label-lg text-surface-container-lowest dark:text-on-surface font-bold block">
+            رسانه و اخبار
+          </span>
+<ul class="space-y-2 text-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">ویدیوها و مصاحبه‌ها</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+</ul>
+</div>
+<!-- Col 5 -->
+<div class="space-y-3">
+<span class="text-label-lg font-label-lg text-surface-container-lowest dark:text-on-surface font-bold block">
+            ارتباطات
+          </span>
+<ul class="space-y-2 text-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">میز پاسخگویی کدال</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">دفتر مرکزی تهران</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar: Legal Copyright & Social Links -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 text-body-sm font-body-sm text-surface-dim">
+<p class="text-center md:text-right">
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </p>
+<!-- Social Media / Network Icons -->
+<div class="flex items-center gap-4">
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#" title="لینکدین">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</a>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#" title="آپارات و ویدیوها">
+<span class="material-symbols-outlined text-[20px]" data-icon="smart_display">smart_display</span>
+</a>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#" title="اخبار تلگرام">
+<span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

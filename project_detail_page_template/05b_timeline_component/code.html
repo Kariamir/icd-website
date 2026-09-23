@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>تاریخچه، نقاط عطف و تایم‌لاین ۴۰ ساله هلدینگ ثاخت (از ۱۳۶۴ تا امروز)</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Vazirmatn Persian Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#041C2C',
+              blue: '#005EB8',
+              hover: '#004a94',
+              soft: '#CDE2FF',
+              surface: '#F4F4F4',
+              subtle: '#D0D5D2',
+              card: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-typography">
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #FAFCFE;
+      color: #041C2C;
+      overflow-x: hidden;
+    }
+    .num-tabular {
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+<style data-purpose="timeline-connectors">
+    /* Central timeline vertical spine */
+    .timeline-spine {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #CDE2FF 0%, #005EB8 15%, #005EB8 85%, #CDE2FF 100%);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @media (max-width: 1024px) {
+      .timeline-spine {
+        left: 28px;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between">
+<!-- BEGIN: MinimalStandardHeader -->
+<!-- Header exactly matching design system from previous corporate screens -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Right Side: Logo & Entity Title -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-3 group" href="#" title="صفحه اصلی هلدینگ ساختمانی ثاخت">
+<div class="w-11 h-11 rounded-2xl bg-brand-navy flex items-center justify-center text-white font-black text-2xl shadow-sm group-hover:bg-brand-blue transition-colors">
+<!-- Geometric T Logo Mark -->
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24">
+<path d="M4 4h16v4H14v12h-4V8H4V4z"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-extrabold text-lg text-brand-navy tracking-tight leading-tight">هلدینگ ساختمانی ثاخت</span>
+<span class="text-[11px] text-gray-500 font-medium leading-none mt-1">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+</div>
+</a>
+</div>
+<!-- Center: Navigation (Clean minimal 4 items) -->
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
+<a class="hover:text-brand-blue transition-colors py-2" href="#">پروژه‌ها</a>
+<a class="hover:text-brand-blue transition-colors py-2" href="#">فروش و پیش‌فروش</a>
+<a class="hover:text-brand-blue transition-colors py-2" href="#">دیده‌بان ثاخت</a>
+<a class="text-brand-blue font-bold py-2 relative flex items-center gap-1" href="#">
+          درباره ثاخت
+          <span class="absolute bottom-0 inset-x-0 h-0.5 bg-brand-blue rounded-full"></span>
+</a>
+</nav>
+<!-- Left Side: Interactive CTA & Quick Buttons -->
+<div class="flex items-center gap-2.5">
+<!-- Search Icon Button -->
+<button aria-label="جستجو در پورتال" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-brand-blue hover:border-brand-blue transition-colors" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- EN Switcher Button -->
+<button class="w-10 h-10 rounded-full border border-gray-200 text-xs font-semibold text-gray-700 hover:text-brand-blue hover:border-brand-blue flex items-center justify-center transition-colors" type="button">
+          EN
+        </button>
+<!-- Shareholders Login Pill -->
+<a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-300 text-xs font-semibold text-brand-navy hover:bg-gray-50 transition-colors" href="#">
+<svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          ورود سهامداران
+        </a>
+<!-- Fast Contact Consultation Pill -->
+<a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-blue text-white text-xs font-semibold hover:bg-brand-hover shadow-sm transition-all" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          مشاوره و تماس سریع
+        </a>
+</div>
+</div>
+</header>
+<!-- END: MinimalStandardHeader -->
+<!-- BEGIN: BreadcrumbNavigation -->
+<nav aria-label="راهنمای مسیر" class="bg-white border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center gap-2 text-xs text-gray-500 font-medium">
+<a class="hover:text-brand-blue flex items-center gap-1" href="#">
+<svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+        صفحه اصلی
+      </a>
+<span class="text-gray-300">/</span>
+<a class="hover:text-brand-blue" href="#">درباره ثاخت</a>
+<span class="text-gray-300">/</span>
+<span class="text-brand-navy font-semibold">تاریخچه و نقاط عطف ۴۰ ساله (از ۱۳۶۴ تا امروز)</span>
+</div>
+</nav>
+<!-- END: BreadcrumbNavigation -->
+<main class="flex-grow">
+<!-- BEGIN: HeroCorporateHeader -->
+<section class="relative bg-gradient-to-b from-[#F0F6FC] to-[#FAFCFE] py-14 lg:py-20 border-b border-gray-100 overflow-hidden" data-purpose="hero-section">
+<!-- Decorative Backdrop Geometry -->
+<div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#005EB8_1px,transparent_1px)] [background-size:24px_24px]"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+<!-- Category Badge -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft/60 border border-brand-blue/20 text-brand-blue text-xs font-bold mb-5">
+<span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+          روایت ۴۰ سال تعالی مهندسی و انضباط اجرایی
+        </div>
+<!-- Headline -->
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-brand-navy tracking-tight leading-tight max-w-4xl mx-auto mb-5">
+          چهار دهه سازندگی، رهبری در صنعت ساختمان و توسعه نمادهای ملی
+        </h1>
+<!-- Subtitle -->
+<p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-3xl mx-auto mb-10">
+          از بنیان‌گذاری در سال ۱۳۶۴ با باور به دانش مهندسان ایرانی تا تکامل به بزرگ‌ترین هلدینگ ساختمانی بورس اوراق بهادار تهران و بازوی توانمند سرمایه‌گذاری غدیر در تحول چهره شهری کشور.
+        </p>
+<!-- KPI Metric Cards Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+<!-- Stat 1 -->
+<div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-sm text-center">
+<span class="block text-3xl sm:text-4xl font-black text-brand-blue num-tabular">۴۰</span>
+<span class="text-xs text-gray-500 font-medium mt-1 block">سال پیشتازی مستمر سازمانی</span>
+</div>
+<!-- Stat 2 -->
+<div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-sm text-center">
+<span class="block text-3xl sm:text-4xl font-black text-brand-navy num-tabular">۵M+</span>
+<span class="text-xs text-gray-500 font-medium mt-1 block">مترمربع زیربنای اجراشده مگاپروژه‌ها</span>
+</div>
+<!-- Stat 3 -->
+<div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-sm text-center">
+<span class="block text-3xl sm:text-4xl font-black text-brand-blue num-tabular">۸</span>
+<span class="text-xs text-gray-500 font-medium mt-1 block">شرکت تخصصی و تابعه زنجیره ساخت</span>
+</div>
+<!-- Stat 4 -->
+<div class="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-sm text-center">
+<span class="block text-2xl sm:text-3xl font-black text-emerald-600">ICD1</span>
+<span class="text-xs text-gray-500 font-medium mt-1 block">نماد رسمی معتبر در بورس تهران</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroCorporateHeader -->
+<!-- BEGIN: QuickEraNavStickyFilter -->
+<nav class="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm py-3.5" data-purpose="era-filter-bar">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto no-scrollbar gap-3">
+<span class="text-xs font-bold text-gray-400 whitespace-nowrap hidden lg:inline-flex items-center gap-1.5">
+<svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          فیلتر دوران تاریخی:
+        </span>
+<div class="flex items-center gap-2 overflow-x-auto w-full lg:w-auto">
+<a class="px-4 py-2 rounded-full bg-brand-navy text-white text-xs font-bold whitespace-nowrap transition-all shadow-sm" href="#all">همه دوران‌ها</a>
+<a class="px-4 py-2 rounded-full bg-gray-100 hover:bg-brand-soft/70 text-gray-700 text-xs font-medium whitespace-nowrap transition-all" href="#era-1400">دهه ۱۴۰۰ (عصر نوین و هوشمندسازی)</a>
+<a class="px-4 py-2 rounded-full bg-gray-100 hover:bg-brand-soft/70 text-gray-700 text-xs font-medium whitespace-nowrap transition-all" href="#era-1390">دهه ۱۳۹۰ (توسعه مگاپروژه‌ها)</a>
+<a class="px-4 py-2 rounded-full bg-gray-100 hover:bg-brand-soft/70 text-gray-700 text-xs font-medium whitespace-nowrap transition-all" href="#era-1380">دهه ۱۳۸۰ (ورود به بورس تهران)</a>
+<a class="px-4 py-2 rounded-full bg-gray-100 hover:bg-brand-soft/70 text-gray-700 text-xs font-medium whitespace-nowrap transition-all" href="#era-1370">دهه ۱۳۷۰ (پروژه‌های شاخص)</a>
+<a class="px-4 py-2 rounded-full bg-gray-100 hover:bg-brand-soft/70 text-gray-700 text-xs font-medium whitespace-nowrap transition-all" href="#era-1364">۱۳۶۴ (آغاز و تاسیس)</a>
+</div>
+</div>
+</nav>
+<!-- END: QuickEraNavStickyFilter -->
+<!-- BEGIN: MainTimelineContainer -->
+<section class="py-16 lg:py-24 relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-purpose="interactive-timeline">
+<!-- Central Line Architecture -->
+<div class="timeline-spine"></div>
+<div class="space-y-20 relative">
+<!-- ============================================== -->
+<!-- DECADE 1400: Modern Era & Smart Engineering -->
+<!-- ============================================== -->
+<div class="relative" id="era-1400">
+<!-- Decade Master Badge (Centered Anchor) -->
+<div class="relative z-10 flex justify-start lg:justify-center mb-12">
+<div class="bg-brand-navy text-white text-center py-3 px-6 rounded-3xl shadow-lg border-4 border-white flex flex-col items-center">
+<span class="text-xs font-medium text-brand-soft tracking-wider">دوران نوین</span>
+<span class="text-2xl font-extrabold num-tabular">۱۴۰۰ - ۱۴۰۳</span>
+<span class="text-[10px] text-gray-300">هوشمندسازی، پایداری و سلامت سازه</span>
+</div>
+</div>
+<!-- Timeline Item 1: Year 1403-1402 (Left Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<!-- Content Card -->
+<div class="w-full lg:w-[46%] ml-auto pr-14 lg:pr-0 pl-0 lg:pl-8 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-brand-blue bg-blue-50 px-3 py-1 rounded-full">دستاوردهای مهندسی نوین</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۴۰۳ - ۱۴۰۲</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  پیشگامی در ساختمان‌های پایدار سبز و سامانه پایش ژئوتکنیک بلادرنگ
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  ورود رسمی به حوزه ساخت‌وساز همگام با استانداردهای LEED و کاهش ۲۵ درصدی مصرف فولاد و انرژی در پروژه‌های تجاری و اقامتی. استقرار سیستم ابزاربندی ژئوتکنیک و مانیتورینگ آنلاین رفتار خاک در پروژه‌های کلان‌شهری.
+                </p>
+<div class="grid grid-cols-2 gap-2 text-xs font-semibold text-gray-700 bg-gray-50 p-3 rounded-2xl">
+<div class="flex items-center gap-1.5">
+<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path>
+</svg>
+<span>افتتاح درگاه دیده‌بان سهامدار</span>
+</div>
+<div class="flex items-center gap-1.5">
+<svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"></path>
+</svg>
+<span>کدال شفاف و گزارشگری ESG</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-brand-blue flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-brand-navy"></div>
+</div>
+<!-- Empty / Supplementary column for Desktop balance -->
+<div class="hidden lg:block w-[46%] mr-auto pl-8">
+<div class="text-xs text-gray-400 font-medium leading-relaxed bg-brand-soft/20 p-4 rounded-2xl border border-brand-soft/40">
+<span class="font-bold text-brand-navy block mb-1">شاخص محوری ۱۴۰۳:</span>
+                تعهد به بازدهی متوازن سرمایه، شفافیت مالی بر بستر سامانه اختصاصی کدال و ارتقای حاکمیت شرکتی پایدار.
+              </div>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- DECADE 1390: Megaprojects & Regional Scale -->
+<!-- ============================================== -->
+<div class="relative" id="era-1390">
+<!-- Decade Master Badge -->
+<div class="relative z-10 flex justify-start lg:justify-center mb-12">
+<div class="bg-brand-blue text-white text-center py-3 px-6 rounded-3xl shadow-lg border-4 border-white flex flex-col items-center">
+<span class="text-xs font-medium text-blue-100 tracking-wider">عصر مگاپروژه‌ها</span>
+<span class="text-2xl font-extrabold num-tabular">۱۳۹۰ - ۱۳۹۹</span>
+<span class="text-[10px] text-blue-100">توسعه مگاپارس، برج‌های تجاری و گردشگری</span>
+</div>
+</div>
+<!-- Timeline Item 2: Year 1398-1395 (Right Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<!-- Empty column on Left -->
+<div class="hidden lg:block w-[46%] ml-auto pr-8">
+<div class="bg-white p-4 rounded-2xl border border-gray-200 text-xs text-gray-500 shadow-sm flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center font-bold text-lg">
+                  BMS
+                </div>
+<div>
+<strong class="text-brand-navy block">سیستم‌های هوشمند یکپارچه ساختمانی</strong>
+                  پیاده‌سازی نخستین سیستم جامع مدیریت بهینه انرژی و پایش تأسیسات در هتل‌آپارتمان‌های تجاری.
+                </div>
+</div>
+</div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-brand-blue flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-brand-blue"></div>
+</div>
+<!-- Content Card (Right Side) -->
+<div class="w-full lg:w-[46%] mr-auto pr-14 lg:pr-8 pl-0 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">اجرای مهندسی سنگین</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۹۸ - ۱۳۹۵</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  پیشرفت فازهای تکمیلی مگاپروژه تجاری-اداری مگاپارس تهران
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  پیشبرد بزرگ‌ترین پروژه تجاری سبز خاورمیانه با زیربنای ۲۱۵,۰۰۰ مترمربع، فناوری سازه‌های فولادی-بتنی مرکب و سازگار با سیستم‌های تصفیه بازچرخانی آب و اکسیژن‌رسانی پویا.
+                </p>
+<!-- Archival Highlight Box -->
+<div class="bg-gradient-to-r from-gray-50 to-blue-50/40 p-3.5 rounded-2xl border border-gray-200/60 text-xs flex items-center justify-between">
+<div>
+<span class="text-gray-500 block">پروژه آ.اس.پ مشهد</span>
+<span class="font-bold text-brand-navy">تحویل فاز مسکونی ۸۵,۰۰۰ متری</span>
+</div>
+<span class="text-brand-blue font-bold">سال ۱۳۹۶</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3: Year 1391-1389 (Left Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<!-- Content Card -->
+<div class="w-full lg:w-[46%] ml-auto pr-14 lg:pr-0 pl-0 lg:pl-8 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full">توسعه گردشگری و اقامتی</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۹۱ - ۱۳۸۹</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  پهنه‌بندی مجتمع‌های گردشگری کیش و نوار ساحلی شمال
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  ورود به احداث پروژه‌های تفریحی-اقامتی لوکس در مناطق آزاد تجاری نظیر پروژه «رویای کیش» و دهکده‌های گردشگری اقامتی شمال کشور با سازه‌های مقاوم در برابر اقلیم مرطوب.
+                </p>
+<div class="flex items-center gap-2 text-xs font-medium text-gray-500">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+<span>رعایت الزامات مقاومتی در رطوبت ساحلی ۹۵٪</span>
+</div>
+</div>
+</div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-indigo-600 flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-indigo-600"></div>
+</div>
+<!-- Right side balance info -->
+<div class="hidden lg:block w-[46%] mr-auto pr-8">
+<div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+<span class="text-xs font-bold text-gray-500 block mb-1">پروژه رویای کیش</span>
+<p class="text-xs text-gray-600 leading-relaxed">
+                  احداث مجتمع مسکونی و تفریحی با دید مستقیم خلیج فارس، مهندسی بتن ضدسولفات و تکنولوژی سقف‌های دال مجوف.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- DECADE 1380: IPO & Capital Market Leadership -->
+<!-- ============================================== -->
+<div class="relative" id="era-1380">
+<!-- Decade Master Badge -->
+<div class="relative z-10 flex justify-start lg:justify-center mb-12">
+<div class="bg-emerald-800 text-white text-center py-3 px-6 rounded-3xl shadow-lg border-4 border-white flex flex-col items-center">
+<span class="text-xs font-medium text-emerald-200 tracking-wider">ورود به بازار سرمایه</span>
+<span class="text-2xl font-extrabold num-tabular">۱۳۸۰ - ۱۳۸۹</span>
+<span class="text-[10px] text-emerald-100">پذیرش در بورس تهران و شفافیت مالی سهامداری</span>
+</div>
+</div>
+<!-- Timeline Item 4: Year 1383 (Right Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<!-- Left Info Card / Historical Note -->
+<div class="hidden lg:block w-[46%] ml-auto pr-8">
+<div class="bg-emerald-50/50 border border-emerald-200/80 rounded-2xl p-4 text-xs">
+<span class="font-bold text-emerald-900 block mb-1">شفافیت معاملاتی نماد ICD1:</span>
+                پذیرش شرکت در بورس اوراق بهادار تهران آغازگر دورانی نوین در گزارشگری دوره‌ای، رعایت استانداردهای حسابرسی و ایجاد اعتماد میان سهامداران خرد و حقوقی بود.
+              </div>
+</div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-emerald-600 flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-600"></div>
+</div>
+<!-- Content Card (Right Side) -->
+<div class="w-full lg:w-[46%] mr-auto pr-14 lg:pr-8 pl-0 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full">نقطه عطف تاریخی</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۸۳ - ۱۳۸۲</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  پذیرش رسمی در بورس اوراق بهادار تهران با نماد «ثاخت»
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  تبدیل ماهیت شرکت به سهامی عام و عرضه سهام در تالار شیشه‌ای بورس تهران به عنوان معتبرترین شاخص سهام ساختمانی کشور و ایجاد سرمایه در گردش پرقدرت برای مگاپروژه‌ها.
+                </p>
+<div class="bg-gray-50 p-3 rounded-2xl text-xs flex items-center justify-between font-semibold text-gray-700">
+<span>نماد معاملاتی: ICD1</span>
+<span>گروه: املاک و مستغلات با مدیریت ارزش</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- DECADE 1370: Engineering Megastructures -->
+<!-- ============================================== -->
+<div class="relative" id="era-1370">
+<!-- Decade Master Badge -->
+<div class="relative z-10 flex justify-start lg:justify-center mb-12">
+<div class="bg-brand-navy text-white text-center py-3 px-6 rounded-3xl shadow-lg border-4 border-white flex flex-col items-center">
+<span class="text-xs font-medium text-brand-soft tracking-wider">دوران پروژه‌های نمادین</span>
+<span class="text-2xl font-extrabold num-tabular">۱۳۷۰ - ۱۳۷۹</span>
+<span class="text-[10px] text-gray-300">برج بین‌المللی تهران و شرکت‌های تخصصی</span>
+</div>
+</div>
+<!-- Timeline Item 5: Year 1375 (Left Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<!-- Content Card -->
+<div class="w-full lg:w-[46%] ml-auto pr-14 lg:pr-0 pl-0 lg:pl-8 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full">نماد معماری معاصر</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۷۹ - ۱۳۷۵</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  آغاز عملیات احداث برج بین‌المللی تهران (TIT)
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  طراحی و آغاز بزرگ‌ترین برج مسکونی ایران با ۵۶ طبقه و زیربنای ۲۲۰,۰۰۰ مترمربع در تقاطع بزرگراه حکیم و کردستان. به‌کارگیری فناوری دیوار برشی بتنی، میراگرهای لرزه‌ای و اجرای عمیق‌ترین گودبرداری مهندسی زمان خود.
+                </p>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+<div class="bg-gray-50 p-2.5 rounded-xl text-center">
+<span class="font-bold text-brand-navy block text-sm num-tabular">۵۶</span>
+<span>طبقه سازه‌ای</span>
+</div>
+<div class="bg-gray-50 p-2.5 rounded-xl text-center">
+<span class="font-bold text-brand-navy block text-sm num-tabular">۲۲۰,۰۰۰</span>
+<span>مترمربع زیربنا</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-amber-600 flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-amber-600"></div>
+</div>
+<!-- Right Archival Quote -->
+<div class="hidden lg:block w-[46%] mr-auto pr-8">
+<blockquote class="bg-white p-5 rounded-2xl border-r-4 border-amber-500 border border-gray-200/80 text-xs text-gray-600 italic leading-relaxed">
+                «برج تهران فراتر از یک مجتمع مسکونی، نماد خودباوری مهندسی ایران پس از دوران دفاع مقدس و نمایش قدرت فنی هلدینگ در پروژه‌های بلندمرتبه‌سازی بود.»
+                <span class="block mt-2 font-bold text-brand-navy not-italic">— اسناد آرشیو مهندسی هلدینگ ثاخت (۱۳۷۶)</span>
+</blockquote>
+</div>
+</div>
+<!-- Timeline Item 6: Year 1372 (Right Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center mb-14">
+<div class="hidden lg:block w-[46%] ml-auto pr-8 text-xs text-gray-400">
+              توسعه ساختار هلدینگی چندرشته‌ای
+            </div>
+<!-- Central Node Point -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-8 h-8 rounded-full bg-white border-4 border-gray-400 flex items-center justify-center shadow-md z-20">
+<div class="w-2.5 h-2.5 rounded-full bg-gray-500"></div>
+</div>
+<!-- Content Card -->
+<div class="w-full lg:w-[46%] mr-auto pr-14 lg:pr-8 pl-0 text-right">
+<div class="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+<span class="text-xs font-bold text-gray-700 bg-gray-100 px-3 py-1 rounded-full">تکوین ساختار سازمانی</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۷۲ - ۱۳۶۹</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  پایه‌گذاری شرکت‌های تخصصی زنجیره ارزش ساخت و ساز
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed">
+                  تاسیس شرکت‌های اقماری و تابعه تخصصی شامل شرکت‌های مهندسی ژئوتکنیک، طراحان مشاور، بازرگانی مصالح ساختمانی نوین و شرکت‌های مدیریت و بهره‌برداری املاک.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- FOUNDATION 1364: The Genesis -->
+<!-- ============================================== -->
+<div class="relative" id="era-1364">
+<!-- Decade Master Badge -->
+<div class="relative z-10 flex justify-start lg:justify-center mb-12">
+<div class="bg-slate-900 text-white text-center py-3 px-6 rounded-3xl shadow-lg border-4 border-white flex flex-col items-center">
+<span class="text-xs font-medium text-gray-400 tracking-wider">نقطه آغازین</span>
+<span class="text-2xl font-extrabold num-tabular">۱۳۶۴</span>
+<span class="text-[10px] text-gray-400">تاسیس شرکت بین‌المللی توسعه ساختمان</span>
+</div>
+</div>
+<!-- Timeline Item 7: Year 1364 (Left Card on Desktop) -->
+<div class="relative flex flex-col lg:flex-row items-center">
+<!-- Content Card -->
+<div class="w-full lg:w-[46%] ml-auto pr-14 lg:pr-0 pl-0 lg:pl-8 text-right">
+<div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-6 sm:p-7 border-2 border-brand-blue/30 shadow-md">
+<div class="flex items-center justify-between mb-3 border-b border-gray-200 pb-3">
+<span class="text-xs font-bold text-brand-blue bg-blue-50 px-3 py-1 rounded-full">سند بنیادین تاسیس</span>
+<span class="text-sm font-black text-brand-navy num-tabular">۱۳۶۴/۰۲/۱۵</span>
+</div>
+<h3 class="text-lg sm:text-xl font-black text-brand-navy mb-2.5">
+                  تاسیس شرکت با آرمان آبادانی میهن و تکیه بر انضباط مهندسی
+                </h3>
+<p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
+                  ثبت رسمی شرکت با هدف تامین نیازهای زیرساختی، بلندمرتبه‌سازی مهندسی، انضباط محاسباتی و تضمین کیفیت پایدار در چرخه‌های بلندمدت عمر پروژه‌ها با سرمایه اولیه متعهدانه.
+                </p>
+<div class="flex items-center gap-3 pt-2 text-xs font-medium text-gray-500 border-t border-gray-100">
+<svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>ثبت در اداره کل ثبت شرکت‌ها و موسسات غیرتجاری تهران</span>
+</div>
+</div>
+</div>
+<!-- Central Node Point (Foundation Base) -->
+<div class="absolute right-3 lg:right-1/2 lg:translate-x-1/2 top-4 lg:top-8 w-10 h-10 rounded-full bg-brand-navy border-4 border-white flex items-center justify-center shadow-lg z-20">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Empty Right Column with badge -->
+<div class="hidden lg:block w-[46%] mr-auto pr-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white border border-gray-200 text-xs font-semibold text-gray-600">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                آغاز ۴۰ سال خدمات شایسته به جامعه عمرانی ایران
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MainTimelineContainer -->
+<!-- BEGIN: ArchivalSpotlightSection -->
+<section class="bg-[#F8FAFC] py-16 border-t border-b border-gray-200/80" data-purpose="archival-spotlight">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-12">
+<h2 class="text-2xl sm:text-3xl font-black text-brand-navy mb-3">گنجینه تصویری و اسناد تاریخی ثاخت</h2>
+<p class="text-gray-600 text-xs sm:text-sm">اسناد افتخار، لوح‌های سپاس و لحظات ماندگار مهندسی از چهار دهه فعالیت میدانی</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white rounded-3xl p-5 border border-gray-200/80 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 mb-4 overflow-hidden relative">
+<!-- Placeholder Graphic -->
+<svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+<div class="absolute top-3 right-3 bg-brand-navy/80 text-white text-[10px] px-2.5 py-1 rounded-full font-bold">سال ۱۳۷۶</div>
+</div>
+<h3 class="font-black text-brand-navy text-sm mb-1.5">بتن‌ریزی فونداسیون برج تهران</h3>
+<p class="text-gray-500 text-xs leading-relaxed">
+              ثبت رکورد بتن‌ریزی مداوم فوق‌مقاوم و خودتراکم در پی عمیق پروژه نمادین پایتخت با حضور مهندسان برجسته کشور.
+            </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-3xl p-5 border border-gray-200/80 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 mb-4 overflow-hidden relative">
+<svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+<div class="absolute top-3 right-3 bg-brand-blue text-white text-[10px] px-2.5 py-1 rounded-full font-bold">سال ۱۳۸۳</div>
+</div>
+<h3 class="font-black text-brand-navy text-sm mb-1.5">زنگ آغاز معاملات تالار بورس</h3>
+<p class="text-gray-500 text-xs leading-relaxed">
+              مراسم گشایش نماد معاملاتی ثاخت در تالار شیشه‌ای حافظ به عنوان پیشگام شرکت‌های انبوه‌سازی و املاک.
+            </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-3xl p-5 border border-gray-200/80 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 mb-4 overflow-hidden relative">
+<svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+<div class="absolute top-3 right-3 bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded-full font-bold">سال ۱۴۰۲</div>
+</div>
+<h3 class="font-black text-brand-navy text-sm mb-1.5">تندیس ملی بتن برتر و سازه مقاوم</h3>
+<p class="text-gray-500 text-xs leading-relaxed">
+              اهدای نشان زرین انجمن بتن ایران جهت دستیابی به بالاترین استاندارد پایایی بتن در مگاپروژه‌های تجاری.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ArchivalSpotlightSection -->
+<!-- BEGIN: PreFooterCtaStrip -->
+<section class="py-14 bg-white" data-purpose="download-booklet-banner">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-gradient-to-r from-brand-navy to-[#0A304C] rounded-3xl p-8 sm:p-12 text-white flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
+<div class="text-center lg:text-right max-w-2xl">
+<span class="text-xs font-bold text-brand-soft bg-white/10 px-3.5 py-1 rounded-full inline-block mb-3">کتابچه رسمی مستندات تاریخی</span>
+<h3 class="text-2xl sm:text-3xl font-black leading-snug mb-3">
+              علاقه‌مند به دریافت نسخه کامل کتابچه تاریخچه و کارنامه ۴۰ ساله ثاخت هستید؟
+            </h3>
+<p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+              نسخه دیجیتال شامل مشخصات فنی تفصیلی مگاپروژه‌ها، نمودارهای رشد سرمایه، دستاوردهای حاکمیت شرکتی و گفت‌وگو با بنیان‌گذاران مهندسی هلدینگ.
+            </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand-blue text-white font-bold text-xs hover:bg-brand-hover transition-all shadow-md" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              دریافت کتابچه ۴۰ سالگی (PDF)
+            </a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all" href="#">
+              مشاهده چارت سازمانی و مدیران
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PreFooterCtaStrip -->
+</main>
+<!-- BEGIN: StandardFooter -->
+<!-- Consistent 5-column corporate footer across all templates -->
+<footer class="bg-brand-navy text-white pt-16 pb-12 border-t border-gray-800" data-purpose="corporate-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Newsletter Row -->
+<div class="bg-[#0A263B] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 border border-white/5">
+<div class="text-right">
+<h4 class="text-base sm:text-lg font-bold text-white mb-1">عضویت در خبرنامه سرمایه‌گذاری و گزارش‌های دیده‌بان ثاخت</h4>
+<p class="text-xs text-gray-400">آخرین تحلیل‌های تکنیکال، زمان‌بندی عرضه‌ها و تحلیل‌های بازار مسکن مستقیم در ایمیل شما.</p>
+</div>
+<div class="flex items-center w-full md:w-auto gap-2">
+<input class="bg-white/10 border border-white/15 text-white placeholder-gray-400 text-xs rounded-full px-4 py-2.5 w-full md:w-72 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="آدرس ایمیل خود را وارد نمایید..." type="email"/>
+<button class="bg-brand-blue hover:bg-brand-hover text-white text-xs font-bold px-5 py-2.5 rounded-full whitespace-nowrap transition-colors" type="button">
+            ثبت و اشتراک
+          </button>
+</div>
+</div>
+<!-- 5-Column Navigation Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-14 text-right">
+<!-- Col 1: هلدینگ ثاخت -->
+<div>
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2.5">هلدینگ ثاخت</h5>
+<ul class="space-y-2.5 text-xs text-gray-400">
+<li><a class="hover:text-white transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="hover:text-white transition-colors" href="#">شرکت‌های زیرمجموعه و تابعه</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">تاریخچه و مسیر رشد چهار دهه‌ای</a></li>
+<li><a class="hover:text-white transition-colors" href="#">حاکمیت شرکتی و منشور اخلاقی</a></li>
+</ul>
+</div>
+<!-- Col 2: پروژه‌های عمرانی -->
+<div>
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2.5">پروژه‌های عمرانی</h5>
+<ul class="space-y-2.5 text-xs text-gray-400">
+<li><a class="hover:text-white transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مگاپروژه‌های تجاری و اداری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مجموعه‌های اقامتی و گردشگری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مجتمع‌های مسکونی لوکس</a></li>
+<li><a class="hover:text-white transition-colors" href="#">پروژه‌های در حال احداث</a></li>
+</ul>
+</div>
+<!-- Col 3: سهامداران و کدال -->
+<div>
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2.5">سهامداران و کدال</h5>
+<ul class="space-y-2.5 text-xs text-gray-400">
+<li><a class="hover:text-white transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">تقویم مالی و مجامع عمومی</a></li>
+<li><a class="hover:text-white transition-colors" href="#">صورت‌های مالی و گزارش تفسیری</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<!-- Col 4: رسانه و اخبار -->
+<div>
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2.5">رسانه و اخبار</h5>
+<ul class="space-y-2.5 text-xs text-gray-400">
+<li><a class="hover:text-white transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="hover:text-white transition-colors" href="#">ویدیوها و مصاحبه‌ها</a></li>
+<li><a class="hover:text-white transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+</ul>
+</div>
+<!-- Col 5: امور مشتریان -->
+<div>
+<h5 class="text-sm font-bold text-white mb-4 border-r-2 border-brand-blue pr-2.5">امور مشتریان</h5>
+<ul class="space-y-2.5 text-xs text-gray-400">
+<li><a class="hover:text-white transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><a class="hover:text-white transition-colors" href="#">مرکز تماس: ۸۸۸۸۳۲۴۲-۰۲۱</a></li>
+<li><a class="hover:text-white transition-colors" href="#">میز پاسخگویی کدال</a></li>
+<li><a class="hover:text-white transition-colors" href="#">دفتر مرکزی: تهران، خ ملاصدرا</a></li>
+</ul>
+</div>
+</div>
+<!-- Legal Bottom Row with Ticker -->
+<div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white font-semibold">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            نماد بورس: ثاخت (ICD1)
+          </span>
+<span>© ۱۴۰۳ تمامی حقوق مادی و معنوی متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.</span>
+</div>
+<div class="flex items-center gap-4 text-gray-400">
+<a class="hover:text-white transition-colors" href="#">شرایط استفاده</a>
+<span>•</span>
+<a class="hover:text-white transition-colors" href="#">حریم خصوصی</a>
+<span>•</span>
+<a class="hover:text-white transition-colors" href="#">نقشه سایت</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: StandardFooter -->
+</body></html>

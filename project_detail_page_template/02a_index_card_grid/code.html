@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>پروژه‌ها و شاهکارهای عمرانی هلدینگ ثاخت | شرکت بین‌المللی توسعه ساختمان</title>
+<!-- Google Fonts: Vazirmatn for Persian & Work Sans for numbers/latin -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&amp;family=Work+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-container": "#c8daff",
+            "on-primary-fixed": "#001b3d",
+            "on-secondary-fixed-variant": "#34495b",
+            "surface-variant": "#dfe4e0",
+            "on-error": "#ffffff",
+            "surface": "#F4F4F4",
+            "secondary-fixed": "#cfe5fb",
+            "on-background": "#171d1b",
+            "on-tertiary-container": "#ffcfb9",
+            "surface-bright": "#f6faf7",
+            "surface-tint": "#005db6",
+            "surface-container": "#eaefec",
+            "surface-container-highest": "#dfe4e0",
+            "status-success": "#1F8A4C",
+            "on-primary-fixed-variant": "#00468c",
+            "error": "#ba1a1a",
+            "ink": "#041C2C",
+            "on-surface": "#171d1b",
+            "brand-tint": "#CDE2FF",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb691",
+            "inverse-surface": "#2c3230",
+            "primary-fixed-dim": "#a9c7ff",
+            "inverse-primary": "#a9c7ff",
+            "tertiary-fixed": "#ffdbcb",
+            "border": "#D0D5D2",
+            "surface-container-high": "#e4e9e6",
+            "tertiary": "#793100",
+            "primary-container": "#005eb8",
+            "on-secondary-fixed": "#051d2d",
+            "secondary": "#4b6173",
+            "status-error": "#C23B3B",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#9f4300",
+            "on-secondary-container": "#506578",
+            "on-primary": "#ffffff",
+            "surface-dim": "#d6dbd8",
+            "inverse-on-surface": "#edf2ef",
+            "on-tertiary-fixed-variant": "#793100",
+            "primary-fixed": "#d6e3ff",
+            "on-error-container": "#93000a",
+            "surface-alt": "#E8E8E8",
+            "on-surface-variant": "#424752",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00478d",
+            "secondary-fixed-dim": "#b3c9df",
+            "outline": "#727783",
+            "outline-variant": "#c2c6d4",
+            "background": "#f6faf7",
+            "error-container": "#ffdad6",
+            "secondary-container": "#cce2f8",
+            "brand-blue-deep": "#0056A7",
+            "on-tertiary-fixed": "#341100",
+            "surface-container-low": "#f0f5f2"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "margin": "2rem"
+          },
+          fontFamily: {
+            "headline-xl": ["Vazirmatn", "Work Sans"],
+            "headline-lg": ["Vazirmatn", "Work Sans"],
+            "headline-md": ["Vazirmatn", "Work Sans"],
+            "headline-sm": ["Vazirmatn", "Work Sans"],
+            "body-lg": ["Vazirmatn", "Work Sans"],
+            "body-md": ["Vazirmatn", "Work Sans"],
+            "body-sm": ["Vazirmatn", "Work Sans"],
+            "label-lg": ["Vazirmatn", "Work Sans"],
+            "label-md": ["Vazirmatn", "Work Sans"]
+          },
+          fontSize: {
+            "headline-xl": ["56px", { lineHeight: "64px", fontWeight: "800" }],
+            "headline-lg": ["36px", { lineHeight: "46px", fontWeight: "700" }],
+            "headline-md": ["24px", { lineHeight: "34px", fontWeight: "700" }],
+            "headline-sm": ["19px", { lineHeight: "28px", fontWeight: "600" }],
+            "body-lg": ["18px", { lineHeight: "30px", fontWeight: "400" }],
+            "body-md": ["15px", { lineHeight: "26px", fontWeight: "400" }],
+            "body-sm": ["13px", { lineHeight: "22px", fontWeight: "400" }],
+            "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+            "label-md": ["12px", { lineHeight: "16px", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #041C2C;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Smooth card hover lift */
+    .project-card {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -10px rgba(4, 28, 44, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+<!-- ================= TOP NAVIGATION BAR (Shared Header) ================= -->
+<header class="w-full bg-surface-container-lowest border-b border-border sticky top-0 z-50 transition-colors">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Right: Corporate Logo & Brand identity -->
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-10 h-10 bg-primary-container text-surface-container-lowest flex items-center justify-center font-headline-md font-bold tracking-tight rounded-lg shadow-sm group-hover:bg-brand-blue-deep transition-colors">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-ink tracking-tight font-extrabold leading-tight">هلدینگ ساختمانی ثاخت</span>
+<span class="text-body-sm font-body-sm text-secondary">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+</div>
+</a>
+<!-- Desktop Navigation Items -->
+<nav class="hidden lg:flex items-center gap-8 mr-8">
+<a class="border-b-2 border-primary-container text-primary-container font-bold pb-1 text-label-lg font-label-lg flex items-center gap-1.5 transition-colors" href="#">
+<span>پروژه‌ها</span>
+</a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            فروش و پیش‌فروش
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            دیده‌بان ثاخت
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            درباره ثاخت
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            رسانه ثاخت
+          </a>
+</nav>
+</div>
+<!-- Left Actions: Search, Language, Stock Portal CTA -->
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-secondary hover:text-primary-container hover:bg-surface-container transition-colors" title="جستجو در آرشیو">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</button>
+<a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-label-md font-label-md text-secondary hover:text-ink hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">language</span>
+<span class="font-body-sm">EN</span>
+</a>
+<a class="hidden md:inline-flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-label-lg font-label-lg text-ink hover:bg-surface-container hover:text-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>ورود سهامداران</span>
+</a>
+<a class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-container text-on-primary rounded-xl text-label-lg font-label-lg hover:bg-brand-blue-deep transition-all shadow-sm active:opacity-90" href="#">
+<span class="material-symbols-outlined text-[18px]">phone_in_talk</span>
+<span>مشاوره و تماس سریع</span>
+</a>
+</div>
+</div>
+</header>
+<!-- ================= BREADCRUMBS & HERO INTRO ================= -->
+<main class="w-full max-w-[1440px] mx-auto px-space-lg md:px-margin pt-6 pb-20">
+<!-- Subtle Breadcrumb Path -->
+<nav class="flex items-center gap-2 text-body-sm font-body-sm text-secondary mb-6">
+<a class="hover:text-primary-container transition-colors" href="#">صفحه اصلی</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_left</span>
+<a class="hover:text-primary-container transition-colors" href="#">پروژه‌ها</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_left</span>
+<span class="text-ink font-semibold">آرشیو جامع پروژه‌های عمرانی و ساختمانی</span>
+</nav>
+<!-- Header Section with Title and Corporate Architectural Banner Frame -->
+<div class="relative bg-surface-container-lowest border border-border rounded-2xl p-6 md:p-10 mb-8 overflow-hidden shadow-sm">
+<div class="relative z-10 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full mb-3">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>پرتفوی مگاپروژه‌های ملی و بین‌المللی</span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-ink mb-3 tracking-tight">
+          پروژه‌ها و شاهکارهای عمرانی هلدینگ ثاخت
+        </h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-2xl leading-relaxed">
+          مجموعه‌ای از مگاپروژه‌های تجاری، اداری، مسکونی و گردشگری در مقیاس ملی با رعایت دقیق‌ترین استانداردهای مهندسی سازه و معماری پایدار.
+        </p>
+</div>
+<!-- Architectural Graphic Motif / Watermark Layer -->
+<div class="absolute -left-10 -bottom-10 opacity-10 pointer-events-none hidden md:block">
+<span class="material-symbols-outlined text-[280px] text-ink font-thin">apartment</span>
+</div>
+</div>
+<!-- ================= FILTER & SEARCH MODULE (Mirrored from Reference) ================= -->
+<section class="bg-surface-container-lowest border border-border rounded-2xl p-6 md:p-8 mb-8 shadow-sm">
+<!-- Top Row: Select Dropdowns -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-6 border-b border-surface-container">
+<!-- Dropdown 1: Geographic Location -->
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface-variant flex items-center justify-between">
+<span>موقعیت جغرافیایی</span>
+<span class="material-symbols-outlined text-[16px] text-outline">location_on</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-border rounded-xl py-3 px-4 text-ink font-body-md focus:ring-2 focus:ring-primary-container focus:outline-none appearance-none cursor-pointer">
+<option value="all">تمام استان‌ها و مناطق (سراسری)</option>
+<option value="tehran">تهران بزرگ (منطقه ۱، ۳ و ۷)</option>
+<option value="mashhad">خراسان رضوی (مشهد مقدس)</option>
+<option value="shiraz">فارس (شیراز)</option>
+<option value="kish">منطقه آزاد کیش</option>
+<option value="north">نوار ساحلی شمال (مازندران و نوشهر)</option>
+</select>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Dropdown 2: Project Stage / Status -->
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface-variant flex items-center justify-between">
+<span>وضعیت عملیاتی و مهندسی</span>
+<span class="material-symbols-outlined text-[16px] text-outline">engineering</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-border rounded-xl py-3 px-4 text-ink font-body-md focus:ring-2 focus:ring-primary-container focus:outline-none appearance-none cursor-pointer">
+<option value="all">تمام وضعیت‌ها</option>
+<option value="under_construction">در حال ساخت و تجهیز</option>
+<option value="operational">در حال بهره‌برداری</option>
+<option value="completed">تکمیل‌شده و تحویل قطعی</option>
+<option value="upcoming">آتی (طراحی و فاز مطالعاتی)</option>
+</select>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Dropdown 3: Usage Type -->
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface-variant flex items-center justify-between">
+<span>نوع کاربری و ساختار پروژه</span>
+<span class="material-symbols-outlined text-[16px] text-outline">domain</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-border rounded-xl py-3 px-4 text-ink font-body-md focus:ring-2 focus:ring-primary-container focus:outline-none appearance-none cursor-pointer">
+<option value="all">تمامی کاربری‌ها</option>
+<option value="commercial">چندمنظوره تجاری و اداری</option>
+<option value="residential">برج‌ها و مجموعه‌های مسکونی</option>
+<option value="hospitality">هتلینگ و اقامتی گردشگری</option>
+<option value="mixed">مختلط شهری و خدماتی</option>
+</select>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Range Sliders & Filter Actions (Inspired directly by reference layout) -->
+<div class="pt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<!-- Range 1: Infrastructure Area (مساحت زیربنا) -->
+<div class="lg:col-span-4 flex flex-col gap-2">
+<div class="flex justify-between items-center text-label-md font-label-md text-on-surface-variant">
+<span>محدوده زیربنا (مترمربع)</span>
+<span class="text-ink font-bold font-work dir-ltr">۵,۰۰۰ - ۳۰۰,۰۰۰ m²</span>
+</div>
+<div class="relative flex items-center h-8">
+<div class="w-full h-1.5 bg-surface-container rounded-full relative">
+<div class="absolute right-1/4 left-1/6 h-full bg-primary-container rounded-full"></div>
+<!-- Simulated Slider Thumbs with Reference styling -->
+<div class="w-4 h-4 bg-primary-container rounded-full shadow border-2 border-surface-container-lowest absolute right-1/4 -top-1.5 cursor-pointer"></div>
+<div class="w-4 h-4 bg-primary-container rounded-full shadow border-2 border-surface-container-lowest absolute left-1/6 -top-1.5 cursor-pointer"></div>
+</div>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm text-secondary">
+<span>۵,۰۰۰ متر</span>
+<span>۳۰۰,۰۰۰ متر</span>
+</div>
+</div>
+<!-- Range 2: Horizon / Floors Range -->
+<div class="lg:col-span-4 flex flex-col gap-2">
+<div class="flex justify-between items-center text-label-md font-label-md text-on-surface-variant">
+<span>تعداد طبقات و ارتفاع سازه</span>
+<span class="text-ink font-bold dir-ltr">از ۵ الی ۵۶ طبقه</span>
+</div>
+<div class="relative flex items-center h-8">
+<div class="w-full h-1.5 bg-surface-container rounded-full relative">
+<div class="absolute right-1/6 left-1/4 h-full bg-primary-container rounded-full"></div>
+<div class="w-4 h-4 bg-primary-container rounded-full shadow border-2 border-surface-container-lowest absolute right-1/6 -top-1.5 cursor-pointer"></div>
+<div class="w-4 h-4 bg-primary-container rounded-full shadow border-2 border-surface-container-lowest absolute left-1/4 -top-1.5 cursor-pointer"></div>
+</div>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm text-secondary">
+<span>کم‌مرتبه (۵+)</span>
+<span>آسمان‌خراش (۵۶+)</span>
+</div>
+</div>
+<!-- Action CTA Buttons -->
+<div class="lg:col-span-4 flex items-center justify-end gap-3 pt-2 lg:pt-0">
+<button class="w-full sm:w-auto px-6 py-3 bg-primary-container text-on-primary font-label-lg text-label-lg rounded-xl hover:bg-brand-blue-deep transition-all shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_alt</span>
+<span>اعمال فیلتر</span>
+</button>
+<button class="w-full sm:w-auto px-5 py-3 bg-surface-container-low hover:bg-surface-container text-secondary font-label-lg text-label-lg rounded-xl border border-border transition-all flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+<span>بازنشانی</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ================= RESULTS BAR WITH SORT PILLS ================= -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-primary-container rounded-full animate-pulse"></span>
+<span class="text-label-lg font-label-lg text-ink font-bold">نمایش ۱۲ پروژه فعال</span>
+<span class="text-body-sm font-body-sm text-secondary">(از مجموع ۳۴ پروژه ملی در دست هلدینگ)</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+<span class="text-body-sm font-body-sm text-secondary ml-1 shrink-0">مرتب‌سازی بر اساس:</span>
+<button class="px-3.5 py-1.5 rounded-full text-label-md font-label-md bg-primary-container text-on-primary shrink-0 transition-colors">
+          جدیدترین پروژه‌ها
+        </button>
+<button class="px-3.5 py-1.5 rounded-full text-label-md font-label-md bg-surface-container-lowest border border-border text-ink hover:bg-surface-container shrink-0 transition-colors">
+          بیشترین متراژ زیربنا
+        </button>
+<button class="px-3.5 py-1.5 rounded-full text-label-md font-label-md bg-surface-container-lowest border border-border text-ink hover:bg-surface-container shrink-0 transition-colors">
+          پیشرفته‌ترین فاز اجرایی
+        </button>
+</div>
+</div>
+<!-- ================= 3-COLUMN MODERN CARD GRID ================= -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1: Mega Pars Tehran -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Modern architectural photography of Mega Pars commercial complex in Tehran featuring geometric clean facade glass curtain walls and steel framework under crisp midday clear sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG4AFzGQULwkQwuPqUe5SAGtY9c-jb28zBocAbewI9n_Mi6GvH9VqO4OklM0eFeT3II2jwZBbaAzfEQGpxQu9jbWRzuNhNkid8aRtTp9RMwfW9ferF-fGIspqVVIliwTaVOreG_oRY-X6eXpjQDV0p17O3Y9mMkli9K_mAi75IivISKz6FwyIqg5npAx3VZq5AVggpjeQa7dzuCi_-I0QIf06svpRd8ubAgYJNTd-kFZcHkPNtMXkGAg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<!-- Status Badge -->
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-brand-tint text-primary-container text-label-md font-label-md font-bold rounded-lg border border-primary-container/20 backdrop-blur-sm">
+              در حال ساخت
+            </span>
+</div>
+<!-- Bottom Image Meta -->
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">منطقه ۷ تهران - خیابان شریعتی</span>
+<span class="text-headline-sm font-headline-sm font-bold">مگاپارس تهران</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">چندمنظوره اداری، تجاری و تفریحی</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: توسعه خاورمیانه</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              بزرگ‌ترین مگاپروژه اداری-تجاری هوشمند پایتخت با بام سبز پیوسته و سازه مدرن مقاوم در برابر زلزله تا ۹ ریشتر.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۲۱۰,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۲۸ طبقه سازه‌ای</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Tehran International Tower -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Tehran International Tower tall skyscraper standing high in the skyline with pristine modern brutalist architectural design and soft daylight reflections on white structural concrete." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzCiRvUExxmoj_s5Ve10xT7-ReJYnC33gpIqqpURCwefoINNJrtblqHpYPohO8Bj827M85ZhLaeTTIX7dDj6cOSjUNGuYA9LpI97y8wSario5AORMInykwITuxXyc_aMAxxNxjpxLjoACiTPGnT37mVRmhvmFMxha-NZLm6gFWB_aaRJ8EAjAdUV7LnMTZCi-mAVso1t6SQGaPigmr1wSgTPbzr44Elxs4IemAZ0JYoj9GNR9ge4lFYA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-primary-container text-white text-label-md font-label-md font-bold rounded-lg backdrop-blur-sm">
+              در حال بهره‌برداری
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">شیخ بهایی - یوسف‌آباد</span>
+<span class="text-headline-sm font-headline-sm font-bold">برج بین‌المللی تهران (TIT)</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">مسکونی لوکس و نمادین</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: شرکت آ.اس.پ</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              بلندترین برج مسکونی شاخص ایران با چشم‌انداز ۳۶۰ درجه البرز و مدرن‌ترین سیستم‌های مدیریت هوشمند ساختمان (BMS).
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۲۲۰,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۵۶ طبقه مرتفع</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: A.S.P Mashhad Complex -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Luxury commercial and hospitality hotel apartment building in Mashhad with intricate modern limestone and glass facade under sunset illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB78Nijkc6PZldAE2Lnhv0Aa9rfAo24YKPajr8UK30aITOJ-uwj27ll8d4YOdLk_67L8X_hl1mZRGYzdIPkTeBXYXwNVPKaM71hcpXksaomnCFHVFg79WW5onfwLRm1yg5T09oPfOs6snur6cYaUc3cWonkL8GTNIrFrei5Ct2x2v11XYzKxn3jQFYjCqrCaK8r3PxB_XKBa9xf9uVoke-hQnwEza2-qhNeeY4nJX0EKLnx_WmAfhLn_A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-primary-container text-white text-label-md font-label-md font-bold rounded-lg backdrop-blur-sm">
+              در حال بهره‌برداری
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">خراسان رضوی - مشهد</span>
+<span class="text-headline-sm font-headline-sm font-bold">مجتمع تجاری-اقامتی آ.اس.پ</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">هتل‌آپارتمان و مرکز خرید</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: آ.اس.پ</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              هتل‌آپارتمان مجلل پنج ستاره در مجاورت حرم رضوی همراه با گالری‌های تجاری برندهای معتبر و تالارهای همایش بین‌المللی.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۸۵,۵۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۲۱ طبقه اقامتی</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: Setareh Shiraz Commercial Center -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Modern architectural rendering of Setareh Shiraz multi-functional entertainment and commercial mall with expansive skylight and dynamic metal curved louvers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmT6_6FfeuQ79XoX6-AjmyDMsn889ISVZLBvQ569mA73_zZgAPfF7HjhE4tQ6ep2vfWB3Si3_WUH5wxMttRf0LJk37h_aEvoebeiz9IYacQBNMC8tLVm2rpgXBNBJT05Y6wY8YHP2dppKMRW7qUWwqhngVm2QmCFqjwlKxMv45Kb-m8CGS8O_qUwihIRlMrCZ5rQHEzLVMCLCFnNyzZt6g0fQ5eUOlZxcl2axhu6rmrRDSJAT5MNtrOw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-brand-tint text-primary-container text-label-md font-label-md font-bold rounded-lg border border-primary-container/20 backdrop-blur-sm">
+              در حال ساخت
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">فارس - خیابان عفیف‌آباد شیراز</span>
+<span class="text-headline-sm font-headline-sm font-bold">مرکز تجارت و تفریح ستاره شیراز</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">تجاری و پردیس سینمایی</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: توسعه عمران پارس</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              قطب نوین تفریحی و تجاری جنوب کشور مجهز به فودکورت بین‌المللی، سالن‌های سینمایی مدرن و هایپرمارکت جامع.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۱۱۰,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۹ طبقه تجاری</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5: Royaye Kish Coastal Towers -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Aerial architectural view of pristine white twin residential towers located along the Persian Gulf turquoise coastline on Kish Island with lavish balcony green terraces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvsKm68bfFPzChBlPi4wnyUYRjBuC0n8iImUUXhhFm50w66FNuFU-5FvpqeHsnIgj89z7-PJ0-DC-lKrxpEMKrOF4oYIHuMSmCWJRriazYpFc8qQi-kcYaqLpAcc6o6q-Yw9n--smIRaVdPMcZl5h5_iQUIjLozBMo70L4SwEAZrpV80edzlRwFGFBex1191XAwrwVqJk_J896z12ftTIvD579b0_qFdtMf7Ej8rV-dbn16h3iuRZXTg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-ink text-white text-label-md font-label-md font-bold rounded-lg backdrop-blur-sm">
+              تکمیل‌شده
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">جزیره کیش - ساحل مرجان</span>
+<span class="text-headline-sm font-headline-sm font-bold">پروژه مسکونی رویای کیش</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">مسکونی ساحلی فوق لوکس</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: پایا عمران کیش</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              واحدهای هوشمند با تراس‌های عریض رو به خلیج فارس، کلوپ دریایی اختصاصی و معماری سازگار با اقلیم گرم و مرطوب.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۷۵,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۱۸ طبقه مسکونی</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6: Nowshahr Seaside Resort -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Modern seaside residential resort on the Caspian Sea coast near Nowshahr surrounded by lush forested mountains and clean Scandinavian concrete wood finishes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1n21TELCyHZyfaDySjzJ2mgaAJzEbCZHjrW6wO08_QFDbWsjOFJlVsZflm6sA6zElixgtI2QyvSEv_PDJ5zdjFNJrpvd4NvccH1i-7HpGj7jka9_DQg9U0KXSENs9qJ2jO5x6T2VojOqbada2FKnFYSsQVzjCSSNYhOH98qvZcuhAWcGYUgYd1aoTyveBKOFziXxrpbt6DEbrRAapJ9CDnSrjgUPv_VWngwaSscGAzTBTjdIK_LPalQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-brand-tint text-primary-container text-label-md font-label-md font-bold rounded-lg border border-primary-container/20 backdrop-blur-sm">
+              در حال ساخت
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">مازندران - نوار ساحلی نوشهر</span>
+<span class="text-headline-sm font-headline-sm font-bold">مجتمع اقامتی ساحل نوشهر</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">اقامتی و تفریحی ساحلی</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: مهندسی شمال</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              ویلای آپارتمان‌های لوکس متصل به خط ساحلی دریای خزر با طراحی مینیمال و متریال ضد رطوبت هیدرولیکی.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۴۲,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۱۲ طبقه اقامتی</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 7: Afaf-Abad Residential Shiraz -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Contemporary sustainable residential complex in Shiraz with perforated brick facade patterns and courtyard gardens under bright Mediterranean daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC68ELmyW1rAaxQqxW3LJTVIz7vJT887IEnnbQuRaQMsiV8oJyc63PWXIOFLRwMJMW3ql0kktYXI6nDrt7lFwxhaFm1TPN4zNWZo2kAh8Hm8tNe1FT610CO15a708fetE_ZuqwrsOw3czWCtor0emykO8eu1L-AJW4jPhXRysi_35r6eSE0Zzl6UNg6eIdxi3DkL1s6R83YLvvzIqZGJKnFkYUbxyYfdtvwV_RLFT4HXOr7k8ckI_QFzA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-ink text-white text-label-md font-label-md font-bold rounded-lg backdrop-blur-sm">
+              تکمیل‌شده
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">فارس - شیراز مرکزی</span>
+<span class="text-headline-sm font-headline-sm font-bold">مجتمع مسکونی عفاف‌آباد</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">مسکونی مدرن اقلیمی</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: ثاخت شیراز</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              ترکیب معماری اصیل شیرازی با فناوری مدرن پوسته دو لایه تهویه طبیعی و بهینه‌سازی حداکثری مصرف انرژی.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۶۵,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۱۴ طبقه</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 8: Narenjestan Izadshahr Resort -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Expansive architectural eco resort in Izadshahr featuring lush landscape garden villas private boardwalks and luxury hotel suites bathed in soft morning mist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOFsIeKKFhrD91L1JXpDoPv5qVFiL7DPeNnByCbQPvOzZJ8LKsBL_rC0q4E6idTewdcP5CWCeQXrhXNnJif-bf5fqTEa5bvbiZfTfE9JnQ2ufrL9p1ml0dCdSvLxaQiyb27QP08b6qmV35Ym6jCd_dEyB41csCyoOnU0xbrW-wtk-5aqoRQWZaS34IQv9BnUkKVBkqq6zxmTaod3NIjz1TAdoUdbrAAJMSuqiU4w0AMW3pN4FShlKsnw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-primary-container text-white text-label-md font-label-md font-bold rounded-lg backdrop-blur-sm">
+              در حال بهره‌برداری
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">مازندران - ایزدشهر</span>
+<span class="text-headline-sm font-headline-sm font-bold">مجتمع گردشگری نارنجستان</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">هتلینگ و اکوتوریسم</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">سازنده: نارنجستان</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              بزرگ‌ترین دهکده اقامتی و گردشگری ساحلی شمال کشور با استانداردهای هتلداری لوکس و زمین‌های ورزشی ساحلی.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۹۰,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">ظرفیت کل</span>
+<span class="text-body-lg font-bold text-ink">۲۴۰ واحد ویلایی</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 9: Almas Gharb Commercial Tower -->
+<div class="project-card bg-surface-container-lowest rounded-2xl border border-border overflow-hidden flex flex-col group">
+<div class="relative h-72 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="Futuristic architectural concept rendering of Almas Gharb commercial office tower in West Tehran featuring parametric crystalline glass facade." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjFJZZzS8v0SCRKCqOfSgo5FpgFtWk0JvCMlRJCw5pmLxF3Ym4ZkfICYHszg8gUYaitOuw4Hg4ozbi5yxqSgaObagmJbkaeXMt8f9c4MS7e1X905uK92xSLaZAFgKlSI8qijQ2TNH8umOKKiq6_QFoSfyKSmnMtntiJ8dbrSZjMnYa1Rsw8sJvblLjLTUyI6WE8hyvgyuixYW7zlW_bMUhUMeXeiVOLo4Y6Scla0uphO3VVj0LZ1fq-w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-black/10"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 bg-surface-alt text-ink text-label-md font-label-md font-bold rounded-lg border border-border backdrop-blur-sm">
+              آتی (در دست طراحی)
+            </span>
+</div>
+<div class="absolute bottom-4 right-4 left-4 flex justify-between items-end text-white">
+<div>
+<span class="text-label-md text-white/80 block">غرب تهران - بلوار علامه</span>
+<span class="text-headline-sm font-headline-sm font-bold">پروژه الماس غرب تهران</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-blue-deep transition-all">
+<span class="material-symbols-outlined text-[20px] rotate-180">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 bg-surface-container text-secondary text-label-md font-label-md rounded">تجاری و اداری هوشمند</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-body-sm font-body-sm text-secondary">فاز مطالعات مفهومی</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-5 leading-relaxed">
+              طراحی مفهومی نماد الماس با به کارگیری سلول‌های خورشیدی فتوولتائیک و ایستگاه‌های اختصاصی شارژ خودروهای الکتریکی.
+            </p>
+</div>
+<div class="pt-4 border-t border-border grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-md text-secondary block">متراژ زیربنا</span>
+<span class="text-body-lg font-bold text-ink dir-ltr font-work">۵۵,۰۰۰ m²</span>
+</div>
+<div>
+<span class="text-label-md text-secondary block">تعداد طبقات</span>
+<span class="text-body-lg font-bold text-ink">۲۲ طبقه اداری</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= PAGINATION & LOAD MORE ================= -->
+<div class="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-border">
+<!-- Page numbers -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-xl border border-border bg-surface-container-lowest text-secondary hover:text-ink hover:bg-surface-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary-container text-on-primary font-bold text-body-md flex items-center justify-center shadow-sm">
+          ۱
+        </button>
+<button class="w-10 h-10 rounded-xl border border-border bg-surface-container-lowest text-ink hover:bg-surface-container font-semibold text-body-md flex items-center justify-center transition-colors">
+          ۲
+        </button>
+<button class="w-10 h-10 rounded-xl border border-border bg-surface-container-lowest text-ink hover:bg-surface-container font-semibold text-body-md flex items-center justify-center transition-colors">
+          ۳
+        </button>
+<button class="w-10 h-10 rounded-xl border border-border bg-surface-container-lowest text-ink hover:bg-surface-container font-semibold text-body-md flex items-center justify-center transition-colors">
+          ۴
+        </button>
+<button class="w-10 h-10 rounded-xl border border-border bg-surface-container-lowest text-secondary hover:text-ink hover:bg-surface-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<span class="text-body-sm font-body-sm text-secondary mr-3">
+          صفحه ۱ از ۴ (۳۴ پروژه)
+        </span>
+</div>
+<!-- Secondary Load More Button -->
+<button class="w-full sm:w-auto px-8 py-3 bg-surface-container-lowest border-2 border-primary-container text-primary-container font-label-lg text-label-lg rounded-xl hover:bg-brand-tint transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+<span>بارگذاری پروژه‌های بیشتر</span>
+</button>
+</div>
+</main>
+<!-- ================= INSTITUTIONAL FOOTER (Shared Component) ================= -->
+<footer class="w-full bg-ink text-surface-container-lowest border-t border-border mt-12 transition-colors">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
+<!-- Top Brand & Newsletter Row -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-surface-container-highest/20">
+<div class="lg:col-span-5">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-9 h-9 bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-headline-sm rounded">
+              ث
+            </div>
+<span class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight">شرکت بین‌المللی توسعه ساختمان (ثاخت)</span>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed max-w-md mb-6">
+            پیشگام انبوه‌سازی و سرمایه‌گذاری در مگاپروژه‌های ساختمانی، تجاری و توریستی ایران با اتکا به دانش مهندسی روز و تعهد به خلق ارزش پایدار برای سهامداران و جامعه.
+          </p>
+<div class="flex items-center gap-3 text-surface-dim">
+<span class="text-label-md">شناسه نماد بورس:</span>
+<span class="px-2.5 py-1 bg-surface-container-highest/20 rounded font-bold text-brand-tint">ثاخت</span>
+<span class="text-body-sm text-outline">|</span>
+<span class="text-label-md">کد معاملاتی:</span>
+<span class="font-work dir-ltr text-surface-container-lowest">ICD1</span>
+</div>
+</div>
+<div class="lg:col-span-7 flex flex-col justify-center">
+<div class="bg-surface-container-highest/10 border border-surface-container-highest/20 p-6 rounded-2xl">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-2">عضویت در خبرنامه سرمایه‌گذاری و گزارش‌های دیده‌بان ثاخت</h4>
+<p class="text-body-sm font-body-sm text-surface-dim mb-4">دریافت بی‌واسطه آخرین تحلیل‌های تحلیلی کدال، مزایده‌ها و فرصت‌های پیش‌فروش واحدهای هلدینگ.</p>
+<form class="flex flex-col sm:flex-row gap-3">
+<input class="flex-grow bg-surface-container-lowest text-ink placeholder:text-outline py-3 px-4 rounded-xl border border-border focus:ring-2 focus:ring-primary-container focus:outline-none font-body-md" placeholder="آدرس پست الکترونیکی خود را وارد نمایید..." type="email"/>
+<button class="px-6 py-3 bg-primary-container hover:bg-brand-blue-deep text-white font-label-lg text-label-lg rounded-xl transition-colors whitespace-nowrap" type="button">
+                ثبت و اشتراک
+              </button>
+</form>
+</div>
+</div>
+</div>
+<!-- Links Columns (From Shared Components JSON) -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 py-10 text-body-sm font-body-sm">
+<div>
+<h5 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-2 border-b border-surface-container-highest/20">هلدینگ ثاخت</h5>
+<ul class="space-y-2.5">
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-2 border-b border-surface-container-highest/20">پروژه‌های عمرانی</h5>
+<ul class="space-y-2.5">
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-2 border-b border-surface-container-highest/20">سهامداران و کدال</h5>
+<ul class="space-y-2.5">
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">مجمع عمومی و سود سهام</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-2 border-b border-surface-container-highest/20">رسانه و اخبار</h5>
+<ul class="space-y-2.5">
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">آرشیو چندرسانه‌ای پروژه‌ها</a></li>
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">ارتباط با رسانه‌ها</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-2 border-b border-surface-container-highest/20">امور مشتریان</h5>
+<ul class="space-y-2.5">
+<li><a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><span class="text-surface-dim block">مرکز تماس: ۰۲۱-۸۸۸۸۳۳۲۲</span></li>
+<li><span class="text-surface-dim block">تهران، میدان ونک، ملاصدرا</span></li>
+</ul>
+</div>
+</div>
+<!-- Copyright Bottom Bar -->
+<div class="pt-8 border-t border-surface-container-highest/20 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-body-sm font-body-sm text-surface-dim text-center md:text-right">
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </p>
+<div class="flex items-center gap-4 text-surface-dim">
+<a class="hover:text-brand-tint transition-colors" href="#" title="شبکه لینکدین">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</a>
+<a class="hover:text-brand-tint transition-colors" href="#" title="تماس مستقیم">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</a>
+<a class="hover:text-brand-tint transition-colors" href="#" title="نقشه سایت">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

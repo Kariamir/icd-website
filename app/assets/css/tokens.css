@@ -1,0 +1,83 @@
+/*
+ * Design tokens — single source of truth is docs/design-system-icd3d.md.
+ * Do not add new colors/fonts here without updating that document first
+ * (project CLAUDE.md rule: "رنگ یا فونت جدید اضافه نکن").
+ */
+:root {
+  /* --- palette (docs/design-system-icd3d.md §2) --- */
+  --color-ink: #041c2c;
+  --color-brand-blue: #005eb8;
+  --color-brand-blue-deep: #0056a7;
+  --color-tint: #cde2ff;
+  --color-surface: #f4f4f4;
+  --color-surface-alt: #e8e8e8;
+  --color-border: #d0d5d2;
+  --color-white: #ffffff;
+  --color-overlay-black: rgb(0 0 0 / 40%);
+  --color-status-success: #1f8a4c;
+  --color-status-error: #c23b3b;
+
+  /* --- semantic aliases (consumed by components, per wpnuxt ui-system.md) --- */
+  --color-background: var(--color-white);
+  --color-surface-default: var(--color-surface);
+  --color-text: var(--color-ink);
+  --color-text-muted: #4a5a63;
+  --color-primary: var(--color-brand-blue);
+  --color-primary-hover: var(--color-brand-blue-deep);
+  --color-danger: var(--color-status-error);
+  --color-success: var(--color-status-success);
+
+  /* --- status badges (docs/design-system-icd3d.md §2) --- */
+  --badge-upcoming-bg: var(--color-surface-alt);
+  --badge-upcoming-text: var(--color-ink);
+  --badge-under-construction-bg: var(--color-tint);
+  --badge-under-construction-text: var(--color-brand-blue);
+  --badge-operating-bg: var(--color-brand-blue);
+  --badge-operating-text: var(--color-white);
+  --badge-completed-bg: var(--color-ink);
+  --badge-completed-text: var(--color-white);
+
+  /* --- typography (docs/design-system-icd3d.md §3) --- */
+  --font-fa: 'Vazirmatn', sans-serif;
+  --font-en: 'Work Sans', sans-serif;
+  --font-body: var(--font-fa);
+
+  --text-h1: 700 92px/1.05 var(--font-body);
+  --text-h1-mobile: 700 40px/1.1 var(--font-body);
+  --text-h2: 500 38px/1.2 var(--font-body);
+  --text-h3: 600 19px/1.35 var(--font-body);
+  --text-body: 400 18px/1.7 var(--font-body);
+  --text-body-sm: 400 14px/1.6 var(--font-body);
+  --text-label: 700 14px/1 var(--font-body);
+
+  /* --- spacing (8px base unit — §7) --- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+
+  /* --- layout --- */
+  --container-max: 1280px;
+  --container-max-tabular: 960px;
+
+  /* --- shape --- */
+  --radius-none: 0px;
+
+  /* --- motion (PRODUCT.md: heavy/deliberate, no bounce) --- */
+  --motion-duration: 1s;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* `en` locale switch flips direction + font, per design-system §8 */
+:root[lang='en'] {
+  --font-body: var(--font-en);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0ms;
+  }
+}

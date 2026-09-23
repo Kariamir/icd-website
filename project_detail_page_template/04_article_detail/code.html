@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه تفصیلی مقاله و گزارش تحلیلی (04-article-detail) - هلدینگ ثاخت</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#005EB8',
+            'brand-blue-deep': '#0056A7',
+            'brand-tint': '#CDE2FF',
+            'ink': '#041C2C',
+            'surface': '#F4F4F4',
+            'surface-alt': '#E8E8E8',
+            'border-subtle': '#D0D5D2',
+            'status-success': '#1F8A4C',
+            'status-error': '#C23B3B'
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(4, 28, 44, 0.05)',
+            'soft-lg': '0 10px 30px -4px rgba(4, 28, 44, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #FAFAFA;
+      color: #041C2C;
+      -webkit-font-smoothing: antialiased;
+    }
+    .num-tabular {
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+      direction: ltr;
+      display: inline-block;
+    }
+    ::selection {
+      background-color: #CDE2FF;
+      color: #005EB8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- ==================== HEADER (یکپارچه و هماهنگ با تمپلیت‌های 02a, 02b, 02c) ==================== -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border-subtle">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+      
+      <!-- راست: برندینگ هلدینگ ثاخت -->
+      <div class="flex items-center gap-4">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 bg-ink text-white rounded-xl flex items-center justify-center font-black text-xl shadow-soft group-hover:bg-brand-blue transition-colors duration-200">
+            ث
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-extrabold text-ink tracking-tight group-hover:text-brand-blue transition-colors">هلدینگ ساختمانی ثاخت</span>
+            <span class="text-[11px] text-gray-500 font-medium">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- مرکز: ناوبری اصلی (۴ محور استراتژیک با نشانگر فعال) -->
+      <nav class="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-gray-700">
+        <a href="#" class="hover:text-brand-blue transition-colors py-2">پروژه‌ها</a>
+        <a href="#" class="hover:text-brand-blue transition-colors py-2">فروش و پیش‌فروش</a>
+        <a href="#" class="hover:text-brand-blue transition-colors py-2">دیده‌بان ثاخت</a>
+        <a href="#" class="hover:text-brand-blue transition-colors py-2">درباره ثاخت</a>
+        <a href="#" class="text-brand-blue border-b-2 border-brand-blue font-bold py-2 flex items-center gap-1.5">
+          <span>رسانه و اخبار</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>
+        </a>
+      </nav>
+
+      <!-- چپ: اکشن‌ها و ابزارها -->
+      <div class="flex items-center gap-3">
+        <button class="w-10 h-10 rounded-full border border-border-subtle text-gray-700 hover:text-brand-blue hover:border-brand-blue flex items-center justify-center transition-all" title="جستجو در مقالات">
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        </button>
+        <button class="px-3.5 h-10 rounded-full border border-border-subtle text-gray-700 text-xs font-bold hover:text-brand-blue hover:border-brand-blue flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-globe text-xs"></i>
+          <span>EN</span>
+        </button>
+        <a href="#" class="hidden sm:flex items-center gap-2 px-4 h-10 rounded-full border border-border-subtle text-gray-800 text-xs font-bold hover:border-brand-blue hover:text-brand-blue transition-all bg-white shadow-sm">
+          <i class="fa-regular fa-user text-sm"></i>
+          <span>ورود سهامداران</span>
+        </a>
+        <a href="#" class="px-5 h-10 rounded-full bg-brand-blue text-white text-xs font-bold hover:bg-brand-blue-deep transition-all shadow-sm flex items-center justify-center">
+          مشاوره و تماس سریع
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="flex-grow">
+    
+    <!-- نوار مسیر راهنما (Breadcrumb) -->
+    <div class="bg-surface border-b border-border-subtle/60 py-3">
+      <div class="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between text-xs text-gray-500 font-medium">
+        <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap">
+          <a href="#" class="hover:text-brand-blue transition-colors">صفحه اصلی</a>
+          <i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
+          <a href="#" class="hover:text-brand-blue transition-colors">رسانه و دانش ثاخت</a>
+          <i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
+          <a href="#" class="hover:text-brand-blue transition-colors text-brand-blue font-semibold">روایت مهندسی و توسعه</a>
+          <i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
+          <span class="text-gray-700 font-semibold truncate max-w-[280px] sm:max-w-md">رویکرد نوین مهندسی ژئوتکنیک در ابرپروژه‌های چندمنظوره</span>
+        </div>
+        <div class="hidden md:flex items-center gap-3 text-gray-400">
+          <span class="flex items-center gap-1.5"><i class="fa-regular fa-clock"></i> زمان مطالعه: ۸ دقیقه</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- بدنه مقاله و گرید محتوایی دو ستونه -->
+    <div class="max-w-[1280px] mx-auto px-4 md:px-8 py-10 md:py-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+        
+        <!-- ================= ستون اصلی مقاله (۸ ستون از ۱۲) ================= -->
+        <article class="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-10 border border-border-subtle shadow-soft">
+          
+          <!-- برچسب دسته‌بندی و نشان‌ها -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <div class="flex items-center gap-2">
+              <span class="px-3.5 py-1 rounded-full text-xs font-bold bg-brand-tint text-brand-blue">
+                گزارش تخصصی و مهندسی
+              </span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 flex items-center gap-1">
+                <i class="fa-solid fa-podcast text-brand-blue"></i> همراه با نسخه صوتی
+              </span>
+            </div>
+            <div class="flex items-center gap-4 text-xs text-gray-500 font-medium">
+              <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-gray-400"></i> ۲۴ اردیبهشت ۱۴۰۳</span>
+              <span class="hidden sm:inline-block text-gray-300">|</span>
+              <span class="hidden sm:flex items-center gap-1.5"><i class="fa-regular fa-eye text-gray-400"></i> ۲,۴۸۰ بازدید</span>
+            </div>
+          </div>
+
+          <!-- تیتر اصلی مقاله -->
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink leading-tight sm:leading-snug mb-6">
+            رویکرد نوین مهندسی ژئوتکنیک و پایداری سازه‌ای در مگاپروژه‌های هلدینگ ساختمانی ثاخت
+          </h1>
+
+          <!-- لید / خلاصه مقاله -->
+          <p class="text-base sm:text-lg text-gray-600 font-medium leading-relaxed mb-8 pb-6 border-b border-border-subtle/80">
+            بررسی جامع تمهیدات مهندسی گودبرداری‌های عمیق، اجرای دیوارهای آب‌بند و تکنولوژی‌های روز تحکیم بستر در پروژه‌های مقیاس‌بزرگ تجاری و مسکونی هلدینگ بین‌المللی توسعه ساختمان، با تمرکز بر مدیریت ریسک‌های ژئوتکنیکی و استانداردهای پایداری زیست‌محیطی.
+          </p>
+
+          <!-- مشخصات نویسنده و دکمه‌های اشتراک‌گذاری سریع -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-surface p-4 rounded-2xl">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-lg border border-brand-blue/20">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-ink">دکتر کاوه رضوانی</h4>
+                <p class="text-xs text-gray-500">معاونت فنی و مهندسی گروه توسعه ساختمان (ثاخت)</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-gray-500 font-medium ml-1">اشتراک‌گذاری:</span>
+              <button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="لینکدین">
+                <i class="fa-brands fa-linkedin-in text-xs"></i>
+              </button>
+              <button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="تلگرام">
+                <i class="fa-brands fa-telegram text-xs"></i>
+              </button>
+              <button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="کپی لینک مقاله">
+                <i class="fa-solid fa-link text-xs"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- تصویر شاخص مقاله (Hero Article Image) -->
+          <div class="mb-8 rounded-2xl overflow-hidden border border-border-subtle shadow-soft group">
+            <div class="relative aspect-[16/9] w-full bg-gray-100">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqN46VmqTCZ7S6o9-zSq2eMy9NVnCW7GrpgLh7edIVAWBJSlLF-ajmykVt_Cf2s3ZBuxww-CuESj-lkBeXJWo9ZdXVNd5EGk6oQEyxTjz7FeGEHbPJ3iJO0H-nADi9UbTi86q_sQt-DcyZG1o1kucxg4QKr6HfDtJym4dMpvzZ8ovznjvir6vaPhv05AOOvMiTmxwiap3iKmzEwXtTPHJQ9ga34DTp7xZwjaZCPg-36tfiLZad2ycUQ" alt="تصویر ابرپروژه مگاپارس و معماری شاخص هلدینگ ثاخت" class="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-500">
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-ink/80 via-ink/40 to-transparent p-4 text-white text-xs flex justify-between items-end">
+                <span>نمای مهندسی از پروژه شاخص چندمنظوره هلدینگ ساختمانی ثاخت در هنگام غروب</span>
+                <span class="text-[11px] opacity-80">عکاسی آرشیو روابط عمومی</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= ماژول پلیر صوت اختصاصی (پادکست روایت ثاخت) ================= -->
+          <div class="mb-10 bg-gradient-to-br from-surface to-surface-alt/70 border border-brand-blue/20 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2 text-brand-blue font-bold text-sm">
+                <i class="fa-solid fa-waveform-lines text-lg animate-pulse"></i>
+                <span>نسخه شنیداری مقاله: پادکست «روایت ثاخت» (قسمت ۱۸)</span>
+              </div>
+              <span class="text-xs text-gray-500 font-medium">مدت زمان: ۱۲ دقیقه</span>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              <!-- دکمه پلی -->
+              <button class="w-12 h-12 rounded-full bg-brand-blue text-white flex items-center justify-center hover:bg-brand-blue-deep transition-colors shadow-soft flex-shrink-0">
+                <i class="fa-solid fa-play text-base mr-0.5"></i>
+              </button>
+              <!-- نوار پیشرفت صوت -->
+              <div class="w-full flex-grow flex flex-col gap-1.5">
+                <div class="w-full bg-white h-2.5 rounded-full overflow-hidden border border-border-subtle cursor-pointer relative">
+                  <div class="bg-brand-blue h-full w-[38%] rounded-full relative">
+                    <span class="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white border-2 border-brand-blue rounded-full shadow"></span>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center text-[11px] text-gray-500 font-medium">
+                  <span>۰۴:۳۵</span>
+                  <span class="text-gray-400">گوینده: رادیو ثاخت</span>
+                  <span>۱۲:۱۰</span>
+                </div>
+              </div>
+              <!-- دکمه‌های کنترل و دانلود -->
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button class="w-9 h-9 rounded-full bg-white border border-border-subtle text-gray-600 hover:text-brand-blue flex items-center justify-center text-xs transition-colors" title="سرعت پخش 1.25x">
+                  <span class="font-bold">1.2x</span>
+                </button>
+                <a href="#" class="w-9 h-9 rounded-full bg-white border border-border-subtle text-gray-600 hover:text-brand-blue flex items-center justify-center text-xs transition-colors" title="دانلود فایل صوتی">
+                  <i class="fa-solid fa-download"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= بدنه متن مقاله (Typography & Content) ================= -->
+          <div class="prose max-w-none text-gray-700 leading-8 text-[16px] space-y-6">
+            
+            <p>
+              در دهه‌های اخیر، توسعه زیرساخت‌های کلان‌شهری و احداث مجتمع‌های چندمنظوره با حجم سرمایه‌گذاری سنگین، چالش‌های ژئوتکنیکی پیچیده‌ای را پیش روی طراحان و مجریان پروژه‌های عمرانی قرار داده است. هلدینگ بین‌المللی توسعه ساختمان با در اختیار داشتن سبدی بالغ بر ده‌ها پروژه شاخص در پهنه‌های مختلف جغرافیایی کشور، همواره رویکردی متکی بر مهندسی دقیق ارزش و سیستم‌های تاب‌آور سازه‌ای را اتخاذ کرده است.
+            </p>
+
+            <!-- تیتر داخلی ۱ -->
+            <h2 class="text-xl sm:text-2xl font-bold text-ink pt-4 pb-2 border-r-4 border-brand-blue pr-3">
+              ۱. مدیریت ریسک در گودبرداری‌های فوق‌عمیق شهری
+            </h2>
+
+            <p>
+              احداث سازه‌هایی با بیش از ۲۰ طبقه زیرسطحی در بافت‌های متراکم کلان‌شهرهایی نظیر تهران و مشهد، مستلزم ارزیابی لایه‌نگاری دقیق خاک، سنجش جریان‌های هیدرودینامیکی آب‌های زیرزمینی و به‌کارگیری مدل‌سازی سه‌بعدی اندرکنش خاک و سازه است. در این راستا، بهره‌گیری از ترکیب روش‌های نیلینگ پیش‌تنیده (Pre-stressed Ground Anchors) و دیوارهای دیافراگمی بتنی پیوسته، ریسک تغییرشکل‌های مجاورتی را به حداقل رسانده است.
+            </p>
+
+            <!-- جعبه نقل‌قول برجسته (Pull Quote) -->
+            <figure class="my-8 p-6 sm:p-8 bg-brand-tint/30 rounded-2xl border-r-4 border-brand-blue">
+              <blockquote class="text-lg sm:text-xl font-bold text-ink leading-relaxed">
+                «استانداردهای مهندسی امروز دیگر صرفاً ساخت یک بنای پایدار نیست؛ بلکه کنترل رفتار پویای ساختگاه در چرخه عمر ۵۰ ساله و جلوگیری از هرگونه تنش به محیط پیرامونی شهری است.»
+              </blockquote>
+              <figcaption class="mt-3 text-xs text-brand-blue font-bold flex items-center gap-2">
+                <span>— مهندس حسینی</span>
+                <span class="text-gray-400">•</span>
+                <span class="text-gray-600 font-normal">مدیر پروژه پروژه‌های زیربنایی ثاخت</span>
+              </figcaption>
+            </figure>
+
+            <!-- تصویر داخل متن با زیرنویس فنی -->
+            <div class="my-8 rounded-2xl overflow-hidden border border-border-subtle bg-surface p-3">
+              <div class="aspect-[16/8] rounded-xl overflow-hidden bg-gray-200">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqN46VmqTCZ7S6o9-zSq2eMy9NVnCW7GrpgLh7edIVAWBJSlLF-ajmykVt_Cf2s3ZBuxww-CuESj-lkBeXJWo9ZdXVNd5EGk6oQEyxTjz7FeGEHbPJ3iJO0H-nADi9UbTi86q_sQt-DcyZG1o1kucxg4QKr6HfDtJym4dMpvzZ8ovznjvir6vaPhv05AOOvMiTmxwiap3iKmzEwXtTPHJQ9ga34DTp7xZwjaZCPg-36tfiLZad2ycUQ" alt="جزئیات فنی دیواره‌های پایدارسازی" class="w-full h-full object-cover">
+              </div>
+              <p class="text-xs text-gray-500 text-center mt-2.5 font-medium">
+                تصویر ۲: پایش رفتار بستر خاک و قرائت میکروکرنش‌سنج‌ها در عملیات تحکیم سازه
+              </p>
+            </div>
+
+            <!-- تیتر داخلی ۲ -->
+            <h3 class="text-lg sm:text-xl font-bold text-ink pt-2">
+              ۲. به‌کارگیری سنسورهای پایش بلادرنگ (Real-Time Structural Health Monitoring)
+            </h3>
+
+            <p>
+              یکی از دستاوردهای مهندسی نوین در پروژه‌های اخیر ثاخت، نصب حسگرهای پیزوالکتریک و ژئوفون‌های دقیق جهت مانیتورینگ آنلاین نشست‌ها و ارتعاشات ناشی از ساخت بوده است. اطلاعات به دست آمده به‌صورت لحظه‌ای در اتاق فرمان ژئوتکنیک پروژه تحلیل شده و حاشیه ایمنی سازه‌های هم‌جوار در تمامی مراحل حفاری و بتن‌ریزی تضمین می‌گردد.
+            </p>
+
+            <ul class="list-none space-y-2.5 my-4 pr-1">
+              <li class="flex items-start gap-2 text-sm">
+                <i class="fa-solid fa-circle-check text-brand-blue mt-1"></i>
+                <span>کاهش ۲۵ درصدی مصرف فولاد در دیوارهای نگهبان با بهره‌گیری از مدل‌سازی عددی پیشرفته.</span>
+              </li>
+              <li class="flex items-start gap-2 text-sm">
+                <i class="fa-solid fa-circle-check text-brand-blue mt-1"></i>
+                <span>عایق‌کاری چندلایه ژئوممبران ضد نفوذ آب با استاندارد بین‌المللی ASTM.</span>
+              </li>
+              <li class="flex items-start gap-2 text-sm">
+                <i class="fa-solid fa-circle-check text-brand-blue mt-1"></i>
+                <span>پایداری در برابر زلزله‌های حوزه نزدیک با طراحی میراگرهای نوین ویسکوز.</span>
+              </li>
+            </ul>
+
+            <p>
+              هلدینگ ثاخت با تلفیق این دانش مهندسی با نظام شفافیت و گزارش‌گری کدال، بستر مطمئنی برای سرمایه‌گذاران و خریداران نهایی فراهم آورده است که کیفیت نهایی سازه‌ها را در بالاترین تراز مهندسی کشور تثبیت می‌کند.
+            </p>
+
+          </div>
+
+          <!-- تگ‌ها و برچسب‌های موضوعی مقاله -->
+          <div class="mt-10 pt-6 border-t border-border-subtle flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs text-gray-500 font-bold ml-1">برچسب‌ها:</span>
+              <a href="#" class="px-3 py-1 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors">#مهندسی_ژئوتکنیک</a>
+              <a href="#" class="px-3 py-1 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors">#مگاپروژه</a>
+              <a href="#" class="px-3 py-1 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors">#ایمنی_سازه</a>
+              <a href="#" class="px-3 py-1 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors">#تکنولوژی_ساخت</a>
+            </div>
+            <!-- دکمه پرینت یا ذخیره PDF -->
+            <button class="text-xs font-bold text-gray-500 hover:text-brand-blue flex items-center gap-1.5 transition-colors">
+              <i class="fa-regular fa-file-pdf text-sm text-red-500"></i> دریافت نسخه PDF مقاله
+            </button>
+          </div>
+
+          <!-- ناوبری مقاله قبل و بعد (Previous & Next Articles) -->
+          <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-border-subtle">
+            <a href="#" class="p-4 rounded-2xl bg-surface hover:bg-surface-alt/70 transition-colors flex items-center justify-between group border border-border-subtle/50">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-500 group-hover:text-brand-blue shadow-sm">
+                  <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+                <div>
+                  <span class="text-[11px] text-gray-400 block font-medium">مطلب قبلی</span>
+                  <span class="text-xs font-bold text-ink group-hover:text-brand-blue line-clamp-1">تحلیل روند بازار مسکن و افق پیش‌فروش در سال ۱۴۰۳</span>
+                </div>
+              </div>
+            </a>
+            <a href="#" class="p-4 rounded-2xl bg-surface hover:bg-surface-alt/70 transition-colors flex items-center justify-between group border border-border-subtle/50 text-left">
+              <div class="flex items-center gap-3 justify-end w-full">
+                <div>
+                  <span class="text-[11px] text-gray-400 block font-medium">مطلب بعدی</span>
+                  <span class="text-xs font-bold text-ink group-hover:text-brand-blue line-clamp-1">گزارش پیشرفت فیزیکی مگاپروژه تجاری اداری مگاپارس</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-500 group-hover:text-brand-blue shadow-sm flex-shrink-0">
+                  <i class="fa-solid fa-arrow-left text-xs"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- ================= فرم ارسال دیدگاه و پرسش‌های تخصصی ================= -->
+          <div class="mt-12 pt-8 border-t border-border-subtle">
+            <h3 class="text-lg font-bold text-ink mb-2">دیدگاه و پرسش‌های تخصصی شما</h3>
+            <p class="text-xs text-gray-500 mb-6">نظرات و سوالات شما پس از تایید مدیر سامانه، در این بخش نمایش داده خواهد شد.</p>
+            
+            <form class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1.5">نام و نام خانوادگی <span class="text-red-500">*</span></label>
+                  <input type="text" placeholder="مثلاً: علی محمدی" class="w-full h-11 px-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1.5">پست الکترونیکی <span class="text-red-500">*</span></label>
+                  <input type="email" placeholder="example@domain.com" class="w-full h-11 px-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface">
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1.5">متن دیدگاه یا پرسش <span class="text-red-500">*</span></label>
+                <textarea rows="4" placeholder="دیدگاه تخصصی خود را بنویسید..." class="w-full p-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface"></textarea>
+              </div>
+              <div class="flex items-center justify-between pt-2">
+                <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                  <span>اطلاع‌رسانی از پاسخ به دیدگاه از طریق ایمیل</span>
+                </label>
+                <button type="button" class="px-6 h-11 rounded-full bg-brand-blue hover:bg-brand-blue-deep text-white text-xs font-bold transition-colors shadow-sm">
+                  ثبت و ارسال دیدگاه
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </article>
+
+        <!-- ================= ستون کناری (سایدبار ۴ ستون از ۱۲) ================= -->
+        <aside class="lg:col-span-4 space-y-8">
+          
+          <!-- باکس ۱: جستجو در مقالات و اخبار رسانه -->
+          <div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft">
+            <h3 class="text-sm font-bold text-ink mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass text-brand-blue"></i>
+              <span>جستجو در رسانه و مقالات</span>
+            </h3>
+            <div class="relative">
+              <input type="text" placeholder="جستجوی عنوان، کلیدواژه یا نویسنده..." class="w-full h-11 pr-4 pl-10 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface">
+              <button class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-blue">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- باکس ۲: دسته‌بندی‌های رسانه و اخبار (Categories Widget) -->
+          <div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft">
+            <h3 class="text-sm font-bold text-ink mb-4 pb-3 border-b border-border-subtle flex items-center justify-between">
+              <span>دسته‌بندی‌های محتوایی</span>
+              <span class="text-xs text-gray-400 font-normal">کل مطالب</span>
+            </h3>
+            <ul class="space-y-2 text-xs font-medium text-gray-700">
+              <li>
+                <a href="#" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue transition-colors group">
+                  <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-blue"></span>
+                    <span>روایت مهندسی و توسعه</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-[11px] group-hover:bg-brand-tint group-hover:text-brand-blue">۲۴</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue transition-colors group">
+                  <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-brand-blue"></span>
+                    <span>نبض ثاخت (اخبار رسمی)</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-[11px] group-hover:bg-brand-tint group-hover:text-brand-blue">۸۶</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue transition-colors group">
+                  <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-brand-blue"></span>
+                    <span>گزارش‌های ماهانه دیده‌بان</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-[11px] group-hover:bg-brand-tint group-hover:text-brand-blue">۱۲</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue transition-colors group">
+                  <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-brand-blue"></span>
+                    <span>پادکست‌ها و چندرسانه‌ای</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-[11px] group-hover:bg-brand-tint group-hover:text-brand-blue">۱۸</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue transition-colors group">
+                  <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gray-300 group-hover:bg-brand-blue"></span>
+                    <span>مسئولیت اجتماعی و پایداری (ESG)</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-[11px] group-hover:bg-brand-tint group-hover:text-brand-blue">۹</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- باکس ۳: مطالب برگزیده و پربازدید (Top / Trending Articles) -->
+          <div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft">
+            <h3 class="text-sm font-bold text-ink mb-4 pb-3 border-b border-border-subtle flex items-center justify-between">
+              <span>پرخواننده‌ترین مطالب اخیر</span>
+              <i class="fa-solid fa-fire text-amber-500 text-xs"></i>
+            </h3>
+            
+            <div class="space-y-4">
+              <!-- آیتم ۱ -->
+              <a href="#" class="flex gap-3.5 group items-start">
+                <span class="w-6 h-6 rounded-full bg-brand-tint text-brand-blue flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">۱</span>
+                <div>
+                  <h4 class="text-xs font-bold text-ink group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                    معرفی برج بین‌المللی تهران؛ شاهکار معماری مقاوم در برابر لرزه
+                  </h4>
+                  <span class="text-[11px] text-gray-400 mt-1 block">۱۹ اردیبهشت ۱۴۰۳ • ۵ دقیقه مطالعه</span>
+                </div>
+              </a>
+              <!-- آیتم ۲ -->
+              <a href="#" class="flex gap-3.5 group items-start">
+                <span class="w-6 h-6 rounded-full bg-surface text-gray-600 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">۲</span>
+                <div>
+                  <h4 class="text-xs font-bold text-ink group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                    تحلیل نرخ بازده پروژه‌های مسکونی لوکس کیش و فرصت‌های آتی
+                  </h4>
+                  <span class="text-[11px] text-gray-400 mt-1 block">۱۴ اردیبهشت ۱۴۰۳ • ۶ دقیقه مطالعه</span>
+                </div>
+              </a>
+              <!-- آیتم ۳ -->
+              <a href="#" class="flex gap-3.5 group items-start">
+                <span class="w-6 h-6 rounded-full bg-surface text-gray-600 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">۳</span>
+                <div>
+                  <h4 class="text-xs font-bold text-ink group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                    بررسی سیستم‌های نوین مدیریت هوشمند انرژی (BMS) در هتل آپارتمان آ.اس.پ
+                  </h4>
+                  <span class="text-[11px] text-gray-400 mt-1 block">۰۸ اردیبهشت ۱۴۰۳ • ۹ دقیقه مطالعه</span>
+                </div>
+              </a>
+              <!-- آیتم ۴ -->
+              <a href="#" class="flex gap-3.5 group items-start">
+                <span class="w-6 h-6 rounded-full bg-surface text-gray-600 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">۴</span>
+                <div>
+                  <h4 class="text-xs font-bold text-ink group-hover:text-brand-blue transition-colors line-clamp-2 leading-snug">
+                    روایت تاسیس ثاخت از سال ۱۳۶۴ تا ورود به بازار سرمایه و نماد ICD1
+                  </h4>
+                  <span class="text-[11px] text-gray-400 mt-1 block">۲۸ فروردین ۱۴۰۳ • پادکست ۱۸ دقیقه</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- باکس ۴: بنر اقدام و مشاوره پروژه مرتبط (Contextual Project Lead CTA) -->
+          <div class="bg-gradient-to-br from-ink to-slate-900 text-white rounded-3xl p-6 shadow-soft relative overflow-hidden">
+            <div class="relative z-10">
+              <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-white/10 text-brand-tint border border-white/10 inline-block mb-3">
+                فرصت سرمایه‌گذاری
+              </span>
+              <h3 class="text-base font-bold leading-snug mb-2">علاقه‌مند به دریافت اطلاعات واحدهای تجاری مگاپارس هستید؟</h3>
+              <p class="text-xs text-gray-300 leading-relaxed mb-5">
+                کاتالوگ تخصصی، پلن‌های معماری و شرایط پیش‌فروش اقساطی مگاپروژه را از کارشناسان فروش ثاخت دریافت نمایید.
+              </p>
+              <a href="#" class="w-full h-10 rounded-full bg-brand-blue hover:bg-brand-blue-deep text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                <span>درخواست تماس مشاوره خرید</span>
+                <i class="fa-solid fa-arrow-left text-[11px]"></i>
+              </a>
+            </div>
+            <!-- دایره‌های ترنسپرنت تزیینی پس‌زمینه -->
+            <div class="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-brand-blue/20 blur-2xl pointer-events-none"></div>
+          </div>
+
+          <!-- باکس ۵: گالری بصری پروژه‌های مرتبط (Visual Project Teaser) -->
+          <div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft">
+            <h3 class="text-sm font-bold text-ink mb-3 flex items-center justify-between">
+              <span>پروژه‌های شاخص گروه</span>
+              <a href="#" class="text-xs text-brand-blue font-semibold hover:underline">مشاهده همه</a>
+            </h3>
+            <div class="grid grid-cols-2 gap-2.5">
+              <a href="#" class="group relative rounded-xl overflow-hidden aspect-square bg-gray-100 block">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqN46VmqTCZ7S6o9-zSq2eMy9NVnCW7GrpgLh7edIVAWBJSlLF-ajmykVt_Cf2s3ZBuxww-CuESj-lkBeXJWo9ZdXVNd5EGk6oQEyxTjz7FeGEHbPJ3iJO0H-nADi9UbTi86q_sQt-DcyZG1o1kucxg4QKr6HfDtJym4dMpvzZ8ovznjvir6vaPhv05AOOvMiTmxwiap3iKmzEwXtTPHJQ9ga34DTp7xZwjaZCPg-36tfiLZad2ycUQ" alt="پروژه مگاپارس" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent flex items-end p-2">
+                  <span class="text-[10px] font-bold text-white line-clamp-1">مگاپارس تهران</span>
+                </div>
+              </a>
+              <a href="#" class="group relative rounded-xl overflow-hidden aspect-square bg-gray-100 block">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqN46VmqTCZ7S6o9-zSq2eMy9NVnCW7GrpgLh7edIVAWBJSlLF-ajmykVt_Cf2s3ZBuxww-CuESj-lkBeXJWo9ZdXVNd5EGk6oQEyxTjz7FeGEHbPJ3iJO0H-nADi9UbTi86q_sQt-DcyZG1o1kucxg4QKr6HfDtJym4dMpvzZ8ovznjvir6vaPhv05AOOvMiTmxwiap3iKmzEwXtTPHJQ9ga34DTp7xZwjaZCPg-36tfiLZad2ycUQ" alt="پروژه رویای کیش" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent flex items-end p-2">
+                  <span class="text-[10px] font-bold text-white line-clamp-1">برج بین‌المللی</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER (یکپارچه و هماهنگ با تمپلیت‌های 02a, 02b, 02c) ==================== -->
+  <footer class="bg-ink text-white pt-16 pb-8 border-t border-border-subtle/20">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+      
+      <!-- نوار بالای فوتر: عضویت در خبرنامه تحلیلی و مجامع -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 mb-14 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="max-w-xl text-center lg:text-right">
+          <h3 class="text-lg md:text-xl font-extrabold text-white mb-2">عضویت در خبرنامه سرمایه‌گذاری و گزارش‌های دیده‌بان ثاخت</h3>
+          <p class="text-xs md:text-sm text-gray-300 font-normal">دریافت بی‌واسطه آخرین تحلیل‌های تحلیلی کدال، مزایده‌ها و فرصت‌های پیش‌فروش واحدهای هلدینگ.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+          <input type="email" placeholder="آدرس پست الکترونیکی خود را وارد نمایید..." class="h-11 px-5 rounded-full bg-white text-ink text-xs sm:w-80 outline-none focus:ring-2 focus:ring-brand-blue font-medium placeholder-gray-400">
+          <button class="h-11 px-6 rounded-full bg-brand-blue hover:bg-brand-blue-deep text-white text-xs font-bold transition-all shadow-sm flex-shrink-0">
+            ثبت و اشتراک
+          </button>
+        </div>
+      </div>
+
+      <!-- گرید ۵ ستونه اصلی فوتر -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-white/10 text-xs">
+        
+        <!-- ستون ۱: هلدینگ ثاخت -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white mb-4">هلدینگ ثاخت</h4>
+          <ul class="space-y-2.5 text-gray-300">
+            <li><a href="#" class="hover:text-brand-tint transition-colors">معرفی هلدینگ و هیئت‌مدیره</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">شرکت‌های زیرمجموعه و تابعه</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">پایداری و استانداردهای مهندسی</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">حاکمیت شرکتی و منشور اخلاقی</a></li>
+          </ul>
+        </div>
+
+        <!-- ستون ۲: پروژه‌های عمرانی -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white mb-4">پروژه‌های عمرانی</h4>
+          <ul class="space-y-2.5 text-gray-300">
+            <li><a href="#" class="hover:text-brand-tint transition-colors">پرتفوی پروژه‌های عمرانی</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">مگاپروژه‌های تجاری و اداری</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">مجموعه‌های اقامتی و گردشگری</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">مجتمع‌های مسکونی لوکس</a></li>
+          </ul>
+        </div>
+
+        <!-- ستون ۳: سهامداران و کدال -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white mb-4">سهامداران و کدال</h4>
+          <ul class="space-y-2.5 text-gray-300">
+            <li><a href="#" class="hover:text-brand-tint transition-colors">سامانه سهامداران و کدال</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">گزارش‌های ماهانه دیده‌بان</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">مجمع عمومی و سود سهام</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">مناقصات و مزایده‌ها</a></li>
+          </ul>
+        </div>
+
+        <!-- ستون ۴: رسانه و اخبار -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white mb-4">رسانه و اخبار</h4>
+          <ul class="space-y-2.5 text-gray-300">
+            <li><a href="#" class="hover:text-brand-tint transition-colors font-semibold text-brand-tint">اخبار و رسانه دیجیتال</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">آرشیو چندرسانه‌ای پروژه‌ها</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">پادکست‌ها و مصاحبه‌ها</a></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+          </ul>
+        </div>
+
+        <!-- ستون ۵: امور مشتریان و تماس -->
+        <div class="space-y-3 col-span-2 md:col-span-1">
+          <h4 class="text-sm font-bold text-white mb-4">امور مشتریان</h4>
+          <ul class="space-y-2.5 text-gray-300">
+            <li><a href="#" class="hover:text-brand-tint transition-colors">تماس و امور مشتریان</a></li>
+            <li><span class="text-gray-400">مرکز تماس: </span><span class="num-tabular font-bold text-white">۰۲۱-۸۸۸۸۳۲۴۲</span></li>
+            <li><a href="#" class="hover:text-brand-tint transition-colors">حریم خصوصی و شفافیت مالی</a></li>
+            <li><span class="text-gray-400">تهران، میدان ونک، ملاصدرا</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- نوار پایین فوتر: حق امتیاز، نماد بورسی، شبکه‌ها -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-blue text-white flex items-center justify-center font-bold text-sm">
+            ث
+          </div>
+          <div>
+            <p class="font-medium text-gray-300">شرکت بین‌المللی توسعه ساختمان (ثاخت)</p>
+            <p class="text-[11px]">پیشگام انبوه‌سازی و سرمایه‌گذاری در مگاپروژه‌های ساختمانی ایران با اتکا به دانش مهندسی روز و تعهد به خلق ارزش پایدار برای سهامداران و جامعه.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6">
+          <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+            <span class="text-[11px] text-gray-400">شناسه نماد بورس:</span>
+            <span class="font-bold text-brand-tint">ثاخت</span>
+            <span class="text-gray-500">|</span>
+            <span class="text-[11px] text-gray-400">کد معاملاتی:</span>
+            <span class="font-bold text-white num-tabular">ICD1</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-400 text-sm">
+            <a href="#" class="hover:text-brand-tint transition-colors"><i class="fa-brands fa-telegram"></i></a>
+            <a href="#" class="hover:text-brand-tint transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" class="hover:text-brand-tint transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-brand-tint transition-colors"><i class="fa-solid fa-share-nodes"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-white/5 text-center text-[11px] text-gray-500">
+        © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

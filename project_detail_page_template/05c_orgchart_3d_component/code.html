@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>چارت سازمانی و ساختار حاکمیت شرکتی | هلدینگ بین‌المللی توسعه ساختمان (ثاخت)</title>
+<!-- Google Fonts: Work Sans & Vazirmatn for Persian typography precision -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;family=Work+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error-container": "#ffdad6",
+            "tertiary": "#793100",
+            "inverse-primary": "#a9c7ff",
+            "surface": "#F4F4F4",
+            "on-background": "#171d1b",
+            "ink": "#041C2C",
+            "border": "#D0D5D2",
+            "surface-container": "#eaefec",
+            "background": "#f6faf7",
+            "tertiary-fixed-dim": "#ffb691",
+            "brand-tint": "#CDE2FF",
+            "brand-blue-deep": "#0056A7",
+            "on-primary-fixed-variant": "#00468c",
+            "outline": "#727783",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed-variant": "#34495b",
+            "on-surface": "#171d1b",
+            "surface-variant": "#dfe4e0",
+            "on-secondary": "#ffffff",
+            "secondary": "#4b6173",
+            "on-tertiary-fixed": "#341100",
+            "surface-container-high": "#e4e9e6",
+            "on-secondary-container": "#506578",
+            "surface-container-highest": "#dfe4e0",
+            "surface-bright": "#f6faf7",
+            "secondary-fixed": "#cfe5fb",
+            "primary-fixed-dim": "#a9c7ff",
+            "tertiary-container": "#9f4300",
+            "status-success": "#1F8A4C",
+            "on-error": "#ffffff",
+            "surface-dim": "#d6dbd8",
+            "on-tertiary-fixed-variant": "#793100",
+            "on-primary": "#ffffff",
+            "secondary-fixed-dim": "#b3c9df",
+            "surface-alt": "#E8E8E8",
+            "status-error": "#C23B3B",
+            "inverse-surface": "#2c3230",
+            "secondary-container": "#cce2f8",
+            "on-primary-container": "#c8daff",
+            "on-secondary-fixed": "#051d2d",
+            "inverse-on-surface": "#edf2ef",
+            "on-surface-variant": "#424752",
+            "error": "#ba1a1a",
+            "primary-container": "#005eb8",
+            "outline-variant": "#c2c6d4",
+            "surface-container-low": "#f0f5f2",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#001b3d",
+            "primary": "#00478d",
+            "on-tertiary-container": "#ffcfb9",
+            "surface-tint": "#005db6",
+            "primary-fixed": "#d6e3ff",
+            "tertiary-fixed": "#ffdbcb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "headline-xl-mobile": ["Vazirmatn", "Work Sans"],
+            "headline-lg-mobile": ["Vazirmatn", "Work Sans"],
+            "body-lg": ["Vazirmatn", "Work Sans"],
+            "body-sm": ["Vazirmatn", "Work Sans"],
+            "headline-md": ["Vazirmatn", "Work Sans"],
+            "label-md": ["Vazirmatn", "Work Sans"],
+            "headline-lg": ["Vazirmatn", "Work Sans"],
+            "label-lg": ["Vazirmatn", "Work Sans"],
+            "body-md": ["Vazirmatn", "Work Sans"],
+            "headline-sm": ["Vazirmatn", "Work Sans"],
+            "headline-xl": ["Vazirmatn", "Work Sans"]
+          },
+          "fontSize": {
+            "headline-xl-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-lg": ["38px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-sm": ["19px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-xl": ["64px", { "lineHeight": "72px", "fontWeight": "800" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .connector-line-v {
+      position: relative;
+    }
+    .connector-line-v::before {
+      content: '';
+      position: absolute;
+      top: -24px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 2px;
+      height: 24px;
+      background-color: #D0D5D2;
+    }
+  </style>
+</head>
+<body class="bg-surface text-ink antialiased selection:bg-brand-tint selection:text-ink">
+<!-- ========================================================================= -->
+<!-- 1. TOP NAVBAR (Shared Component: TopNavBar)                               -->
+<!-- ========================================================================= -->
+<header class="bg-surface-container-lowest border-b border-border sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Brand & Strategic Navigation Links -->
+<div class="flex items-center gap-8">
+<!-- Corporate Emblem & Brand Name -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-10 h-10 bg-ink text-surface-container-lowest flex items-center justify-center font-black text-xl tracking-tighter shadow-sm">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-ink tracking-tight">هلدینگ ساختمانی ثاخت</span>
+<span class="text-[10px] tracking-wider text-secondary uppercase font-semibold">ICD Investment &amp; Construction</span>
+</div>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden lg:flex items-center gap-6">
+<!-- Active Tab: درباره ثاخت -->
+<a class="border-b-2 border-primary-container text-primary-container font-bold pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            درباره ثاخت
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            پروژه‌ها
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            فروش و پیش‌فروش
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            دیده‌بان ثاخت
+          </a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors" href="#">
+            رسانه ثاخت
+          </a>
+</nav>
+</div>
+<!-- Trailing Action Cluster & Tools -->
+<div class="flex items-center gap-3">
+<!-- Language Switcher & Search Buttons -->
+<div class="flex items-center gap-1 border-l border-border pl-3 ml-1">
+<button class="w-9 h-9 flex items-center justify-center text-ink hover:bg-surface-container-high transition-colors duration-150" title="تغییر زبان">
+<span class="material-symbols-outlined text-[20px]">language</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center text-ink hover:bg-surface-container-high transition-colors duration-150" title="جستجو در سامانه">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+<!-- Shareholders Portal (Secondary Action) -->
+<a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 border border-primary-container text-primary-container text-label-lg font-label-lg hover:bg-brand-tint transition-colors duration-150 rounded-full" href="#">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+          ورود سهامداران
+        </a>
+<!-- Fast Contact & Consultation (Primary Action) -->
+<a class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-primary-container hover:bg-brand-blue-deep text-surface-container-lowest text-label-lg font-label-lg shadow-sm transition-colors duration-150 rounded-full" href="#">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+          مشاوره و تماس سریع
+        </a>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- 2. BREADCRUMB & PAGE HERO BANNER                                          -->
+<!-- ========================================================================= -->
+<section class="bg-ink text-surface-container-lowest border-b border-border">
+<div class="max-w-[1440px] mx-auto px-space-lg md:px-margin py-8">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="مسیر راهبردی" class="flex items-center gap-2 text-label-md font-label-md text-surface-dim mb-4">
+<a class="hover:text-surface-container-lowest transition-colors" href="#">صفحه اصلی</a>
+<span class="material-symbols-outlined text-[14px]">chevron_left</span>
+<a class="hover:text-surface-container-lowest transition-colors" href="#">درباره ثاخت</a>
+<span class="material-symbols-outlined text-[14px]">chevron_left</span>
+<span class="text-brand-tint font-bold">چارت سازمانی و ساختار حاکمیت شرکتی</span>
+</nav>
+<!-- Page Headline with Engineering Utility Metadata -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-2">
+<div class="space-y-3 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-ink/80 border border-primary-container/40 text-brand-tint text-label-md font-label-md rounded-full">
+<span class="material-symbols-outlined text-[16px]">corporate_fare</span>
+            شفافیت اطلاعاتی و اصول حاکمیت شرکتی بورس اوراق بهادار (نماد ثاخت - ICD1)
+          </div>
+<h1 class="text-headline-lg font-headline-lg text-surface-container-lowest tracking-tight">
+            ساختار حاکمیت شرکتی و ارکان مدیریتی هلدینگ ثاخت
+          </h1>
+<p class="text-body-md font-body-md text-surface-dim leading-relaxed">
+            نمودار ارکان نظارتی، هیات‌مدیره، کمیته‌های تخصصی راهبردی و ساختار اجرایی هلدینگ بین‌المللی توسعه ساختمان بر اساس استانداردهای بین‌المللی مدیریت دارایی و مهندسی ارزش.
+          </p>
+</div>
+<!-- Quick Governance Actions -->
+<div class="flex items-center gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest text-primary-container text-label-lg font-label-lg hover:bg-surface transition-colors shadow-sm rounded-full">
+<span class="material-symbols-outlined text-[20px]">download</span>
+            دانلود نمودار مصوب PDF
+          </button>
+<button class="inline-flex items-center gap-2 px-4 py-2.5 border border-border text-surface-container-lowest hover:bg-surface/10 text-label-lg font-label-lg transition-colors rounded-full">
+<span class="material-symbols-outlined text-[20px]">print</span>
+            چاپ ساختار
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 3. INTERACTIVE PILL TABS & FILTER WORKSPACE                               -->
+<!-- ========================================================================= -->
+<section class="bg-surface-container-lowest border-b border-border sticky top-20 z-40">
+<div class="max-w-[1440px] mx-auto px-space-lg md:px-margin py-4">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Category Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+<button class="px-5 py-2 bg-ink text-surface-container-lowest font-bold text-label-lg font-label-lg rounded-full shrink-0 shadow-sm transition-colors">
+            ساختار کامل ارکان حاکمیت
+          </button>
+<button class="px-5 py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-lg font-label-lg rounded-full shrink-0 transition-colors border border-border">
+            مجمع عمومی و هیات‌مدیره (Board)
+          </button>
+<button class="px-5 py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-lg font-label-lg rounded-full shrink-0 transition-colors border border-border">
+            کمیته‌های تخصصی حاکمیت شرکتی
+          </button>
+<button class="px-5 py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-lg font-label-lg rounded-full shrink-0 transition-colors border border-border">
+            مدیرعامل و معاونت‌های اجرایی
+          </button>
+<button class="px-5 py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-lg font-label-lg rounded-full shrink-0 transition-colors border border-border">
+            شرکت‌های تابعه تخصصی (۸ شرکت)
+          </button>
+</div>
+<!-- Search Member Input -->
+<div class="relative w-full md:w-72 shrink-0">
+<input class="w-full pl-9 pr-4 py-2 bg-surface border border-border text-body-sm font-body-sm text-ink placeholder:text-outline focus:outline-none focus:border-primary-container focus:bg-surface-container-lowest transition-colors rounded-full" placeholder="جستجوی نام مدیر یا واحد سازمانی..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline pointer-events-none">search</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- 4. MAIN ORG CHART CANVAS: INSPIRED BY POSCO GOVERNANCE REPORT             -->
+<!-- ========================================================================= -->
+<main class="max-w-[1440px] mx-auto px-space-lg md:px-margin py-10 space-y-16">
+<!-- LEVEL 0: مجمع عمومی صاحبان سهام (Top Institutional Governance) -->
+<div class="flex flex-col items-center">
+<div class="bg-surface-container-lowest border-2 border-primary-container p-6 w-full max-w-xl text-center rounded-3xl shadow-sm relative">
+<span class="inline-block px-3 py-0.5 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full mb-2">رکن عالی قانون تجارت</span>
+<h2 class="text-headline-md font-headline-md text-ink">مجمع عمومی صاحبان سهام</h2>
+<p class="text-body-sm font-body-sm text-secondary mt-1">نظارت بر تطبیق عملکرد با منافع سهامداران حقیقی و حقوقی و تایید صورت‌های مالی حسابرسی‌شده</p>
+<!-- Pillar metrics -->
+<div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-border text-center">
+<div>
+<span class="text-label-md font-label-md text-secondary block">سرمایه ثبت‌شده</span>
+<span class="text-headline-sm font-headline-sm text-ink font-bold">۲,۵۰۰ میلیارد</span>
+</div>
+<div>
+<span class="text-label-md font-label-md text-secondary block">سهام شناور آزاد</span>
+<span class="text-headline-sm font-headline-sm text-primary-container font-bold">۲۱.۴٪</span>
+</div>
+<div>
+<span class="text-label-md font-label-md text-secondary block">آخرین مجمع</span>
+<span class="text-headline-sm font-headline-sm text-ink font-bold">تیرماه ۱۴۰۳</span>
+</div>
+</div>
+</div>
+<!-- Connector Vertical Line -->
+<div class="w-0.5 h-10 bg-border"></div>
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<div class="w-0.5 h-6 bg-border"></div>
+</div>
+<!-- LEVEL 1: هیات‌مدیره هلدینگ ثاخت (Board of Directors - POSCO Style Card Matrix) -->
+<section class="bg-surface-container-lowest border border-border rounded-3xl overflow-hidden shadow-sm">
+<!-- Tier Header -->
+<div class="bg-ink text-surface-container-lowest px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-tint text-2xl">groups</span>
+<div>
+<h3 class="text-headline-md font-headline-md">اعضای هیات‌مدیره (Board of Directors)</h3>
+<p class="text-body-sm font-body-sm text-surface-dim">ترکیب اعضای موظف، غیرموظف و مستقل با رویکرد صیانت از دارایی‌ها</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-surface-container-lowest/10 border border-surface-container-lowest/20 text-brand-tint text-label-md font-label-md rounded-full">
+          دوره تصدی قانونی ۱۴۰۳-۱۴۰۵
+        </span>
+</div>
+<!-- Grid of Directors (POSCO Layout: Portrait + Academic Credentials + Position) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 divide-y md:divide-y-0 md:divide-x md:divide-x-reverse divide-border">
+<!-- Director 1: رئیس هیات‌مدیره -->
+<article class="p-6 flex flex-col justify-between hover:bg-surface transition-colors duration-150 group">
+<div>
+<div class="relative w-full aspect-[4/5] bg-surface-alt mb-4 overflow-hidden rounded-2xl border border-border">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Official corporate portrait of an executive Iranian chairman in professional dark business suit and tie, against minimalist architectural concrete studio background with refined daylighting, reflecting institutional prestige and stability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiDCS_6mkOV6LbCYNSzPBDAu4GM_aadEC67cfZhUR4yCnD9IJqIRAdrvCrlVBdGk7Kxdag8UQnq3ykgGwV3kofHJ5Mg4wNBKpTQoJ1anZdodrPg9mN23sZcyGg2jinMEFzkw5x_GYkldqzieQtLHydWIpA_oUOBWfin4ph3P4HT7pfoWWWO_V7A7O0V_oQD3PVjGr2-pQF_7562mVTEdRoFLAxvKjN4WJl7FnM2FlHDDHJ_EcBkpIbMg"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 bg-primary-container text-surface-container-lowest text-label-md font-label-md rounded-full shadow-sm">
+                رئیس هیات‌مدیره
+              </span>
+</div>
+<div class="space-y-1">
+<span class="text-label-md font-label-md text-secondary block">نماینده شرکت سرمایه‌گذاری غدیر</span>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">دکتر محمدرضا صادقی</h4>
+<p class="text-body-sm font-body-sm text-primary font-medium">عضو غیرموظف هیات‌مدیره</p>
+</div>
+<div class="mt-4 pt-3 border-t border-border space-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                دکتری مهندسی عمران - سازه (دانشگاه تهران)
+              </div>
+<p class="text-label-md text-secondary">سوابق: معاون فنی پیشین وزارت مسکن و شهرسازی، مدیرعامل اسبق بنیاد بتن</p>
+</div>
+</div>
+<button class="mt-5 w-full py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-md font-label-md rounded-full transition-colors border border-border flex items-center justify-center gap-1">
+            مشاهده رزومه و سوابق
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</article>
+<!-- Director 2: نایب رئیس و مدیرعامل -->
+<article class="p-6 flex flex-col justify-between hover:bg-surface transition-colors duration-150 group bg-surface-container-low/40">
+<div>
+<div class="relative w-full aspect-[4/5] bg-surface-alt mb-4 overflow-hidden rounded-2xl border-2 border-primary-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Prestigious executive corporate portrait of the CEO and Vice Chairman, middle-aged leader in dark tailored suit, professional architectural engineering office background with subtle warm light, conveying corporate leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByGSnnTCPxMvKRu1SYDkZgUhzbSdefQJDZymh6zhvwKQtX7IEv1HlU8umHP2oLL2ef_3Fg4Aykt4T5fnE6T-mELGo_NlTZ8OZMcjkhJJZO8Ua7P2SYw-Fe9q-Qoxc2165L36Niw9o0PKv-33xtGVBQlSoNUAEEFXPDK_SvUFsGd5lvytCRkIR63XrCZ5kpadSOFMigwFwZFeBl6Ru19PMKLPtHW0cxSV-avP1SVWsKJAfhU7SZP_fNtw"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 bg-ink text-surface-container-lowest text-label-md font-label-md rounded-full shadow-sm">
+                نایب رئیس و مدیرعامل
+              </span>
+</div>
+<div class="space-y-1">
+<span class="text-label-md font-label-md text-primary-container font-bold block">عضو موظف هیات‌مدیره</span>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">مهندس سید علیرضا حسینی</h4>
+<p class="text-body-sm font-body-sm text-ink font-semibold">مدیرعامل هلدینگ توسعه ساختمان</p>
+</div>
+<div class="mt-4 pt-3 border-t border-border space-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                کارشناسی ارشد مدیریت پروژه و ساخت (دانشگاه صنعتی شریف)
+              </div>
+<p class="text-label-md text-secondary">سوابق: مجری مگاپروژه‌های برج‌های بین‌المللی، مدیرعامل سابق شرکت بین‌المللی مهندسی ساخت</p>
+</div>
+</div>
+<button class="mt-5 w-full py-2 bg-primary-container text-surface-container-lowest text-label-lg font-label-lg rounded-full hover:bg-brand-blue-deep transition-colors flex items-center justify-center gap-1 shadow-sm">
+            مشاهده احکام و سوابق
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</article>
+<!-- Director 3: عضو هیات‌مدیره / رئیس کمیته حسابرسی -->
+<article class="p-6 flex flex-col justify-between hover:bg-surface transition-colors duration-150 group">
+<div>
+<div class="relative w-full aspect-[4/5] bg-surface-alt mb-4 overflow-hidden rounded-2xl border border-border">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Professional studio portrait of an experienced financial director in navy suit and glasses, dignified expression, soft neutral lighting, corporate boardroom background reflecting financial audit and risk governance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5r-i9msJnou4aygIWr1lxW9SINUdI8GJY_Y32VsmOggjeiDL2DnceUSYLki7aN4Ycj0sThneupF_EYqAMmhhme7tgfmdCr9WtkfR87z56APh0TEsmF8DQ2moWwkzIo9gv-N47Ib1vVpYqicr8XyyrMmWqFH9SFPc5LybLMXtCKWIJ2ESXcKFGw7BOR_qf09PUbf_Ls5ZNvXXqjA2ovMZWHKa73LDb9NLzjwJ3QjmN3AhFbTBKnzRU9w"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md rounded-full shadow-sm">
+                عضو مستقل
+              </span>
+</div>
+<div class="space-y-1">
+<span class="text-label-md font-label-md text-secondary block">نماینده سهامداران جزء</span>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">دکتر مسعود جهانگیری</h4>
+<p class="text-body-sm font-body-sm text-primary font-medium">رئیس کمیته حسابرسی و ریسک</p>
+</div>
+<div class="mt-4 pt-3 border-t border-border space-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                دکتری حسابداری و حسابرسی رسمی (دانشگاه علامه طباطبایی)
+              </div>
+<p class="text-label-md text-secondary">سوابق: عضو جامعه حسابداران رسمی ایران (IACPA)، عضو سابق کمیته بورس تهران</p>
+</div>
+</div>
+<button class="mt-5 w-full py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-md font-label-md rounded-full transition-colors border border-border flex items-center justify-center gap-1">
+            مشاهده رزومه و سوابق
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</article>
+<!-- Director 4: عضو هیات‌مدیره / کمیته جبران خدمات -->
+<article class="p-6 flex flex-col justify-between hover:bg-surface transition-colors duration-150 group">
+<div>
+<div class="relative w-full aspect-[4/5] bg-surface-alt mb-4 overflow-hidden rounded-2xl border border-border">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Executive portrait of corporate director in formal charcoal suit, confident stance, clean modern corporate background with geometric concrete elements, high contrast monochrome aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKuMcK1IRx3nmiSSwvbohk9LlreTmxngLP15XcE4_ldM95RHlfwh--OMFFdDff1bfpA1BjmSuhs17bOqYz1a9qC0WuYH0wdYbPU-a-eCBzFahrtR6GKKj9P_KFwV4c8f1DmaGxVWxOODXaziKBLmdrX380qVs7pAaDQfC_tZ8C68D0AWFlBqK3F0-MUWLB8nES0ol1R2dFsYJvXppUjXwoWdEr_KdIW8VYg1SFwMKrVixaApEXrlI9Lw"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md rounded-full shadow-sm">
+                عضو غیرموظف
+              </span>
+</div>
+<div class="space-y-1">
+<span class="text-label-md font-label-md text-secondary block">نماینده شرکت گروه مالی پارسیان</span>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">مهندس کامران رستمی</h4>
+<p class="text-body-sm font-body-sm text-primary font-medium">رئیس کمیته انتصابات و جبران خدمات</p>
+</div>
+<div class="mt-4 pt-3 border-t border-border space-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                کارشناسی ارشد معماری و شهرسازی (دانشگاه شهید بهشتی)
+              </div>
+<p class="text-label-md text-secondary">سوابق: قائم‌مقام پیشین هلدینگ عمران شهر جدید پردیس، مشاور ارشد سرمایه‌گذاری ملکی</p>
+</div>
+</div>
+<button class="mt-5 w-full py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-md font-label-md rounded-full transition-colors border border-border flex items-center justify-center gap-1">
+            مشاهده رزومه و سوابق
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</article>
+<!-- Director 5: عضو هیات‌مدیره / کمیته سرمایه‌گذاری -->
+<article class="p-6 flex flex-col justify-between hover:bg-surface transition-colors duration-150 group">
+<div>
+<div class="relative w-full aspect-[4/5] bg-surface-alt mb-4 overflow-hidden rounded-2xl border border-border">
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-300" data-alt="Official portrait of senior board member in dark professional executive attire, warm ambient lighting, modern architectural backdrop, conveying wisdom and seasoned civil engineering background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-A9DyHFmtAAwVMuVJ8F9VUoF7sGzWAUrBRcjoG38UKzXFOqXs49cK-KaCWeSomtzxPjb1lO_i60UYTsGJYDQSOxLyflyTsA0-AjALHkMiXDoJJIxGiWNGzk-9wOoXNKFWOZd4SB4xbkSWlNoV-Jdy3VoHiuyG0Do7Bih-Zbv37Wmnzknx0tGwhcJjQbnJLgxnv-EpleZmx7J8uq2pyhpQE48DUp2bXaKuDKcJuh4tBsNtdCyYwhB5xg"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md rounded-full shadow-sm">
+                عضو غیرموظف
+              </span>
+</div>
+<div class="space-y-1">
+<span class="text-label-md font-label-md text-secondary block">نماینده شرکت سرمایه‌گذاری سپه</span>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors">دکتر بهنام ناصری</h4>
+<p class="text-body-sm font-body-sm text-primary font-medium">عضو کمیته پایش پروژه‌ها</p>
+</div>
+<div class="mt-4 pt-3 border-t border-border space-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-label-md font-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">school</span>
+                دکتری مدیریت مالی و اقتصاد کلان (دانشگاه تهران)
+              </div>
+<p class="text-label-md text-secondary">سوابق: عضو هیات‌مدیره تامین سرمایه تمدن، مشاور اقتصادی کانون نهادهای سرمایه‌گذاری</p>
+</div>
+</div>
+<button class="mt-5 w-full py-2 bg-surface hover:bg-brand-tint hover:text-primary-container text-ink text-label-md font-label-md rounded-full transition-colors border border-border flex items-center justify-center gap-1">
+            مشاهده رزومه و سوابق
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</article>
+</div>
+</section>
+<!-- CONNECTING ARCHITECTURE: COMMITTEE DOCK & EXECUTIVE BRANCH -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEVEL 2A: کمیته‌های تخصصی حاکمیت شرکتی (Governance Specialized Committees) - Col 4 -->
+<div class="lg:col-span-4 space-y-4">
+<div class="bg-surface-alt p-5 rounded-3xl border border-border">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-headline-sm font-headline-sm text-ink flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-xl">policy</span>
+              کمیته‌های تخصصی هیات‌مدیره
+            </h4>
+<span class="px-2 py-0.5 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full">نظارت مستقل</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-4 leading-normal">
+            بازوان نظارتی هیات‌مدیره مطابق با منشور حاکمیت شرکتی بورس، با اختیارات رسیدگی مستقیم به جریان‌های مالی و ریسک‌های عمرانی:
+          </p>
+<div class="space-y-3">
+<!-- Committee 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-border hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-lg font-label-lg text-ink font-bold">کمیته حسابرسی و انضباط مالی</span>
+<span class="text-label-md font-label-md text-status-success bg-surface px-2 py-0.5 rounded-full">فعال و مستقل</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">رئیس: دکتر مسعود جهانگیری (عضو مستقل)</p>
+<div class="mt-2 text-[12px] text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">event_repeat</span>
+                جلسات ماهانه با حسابرس معتمد و بازرس قانونی
+              </div>
+</div>
+<!-- Committee 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-border hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-lg font-label-lg text-ink font-bold">کمیته ریسک و پایش پروژه‌ها</span>
+<span class="text-label-md font-label-md text-primary-container bg-brand-tint px-2 py-0.5 rounded-full">ارزیابی فنی</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">رئیس: دکتر بهنام ناصری</p>
+<div class="mt-2 text-[12px] text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">assignment_turned_in</span>
+                ارزیابی ریسک تاخیرات زمانی و تورم مصالح در ۴۵ کارگاه فعال
+              </div>
+</div>
+<!-- Committee 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-border hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-lg font-label-lg text-ink font-bold">کمیته انتصابات و جبران خدمات</span>
+<span class="text-label-md font-label-md text-secondary bg-surface px-2 py-0.5 rounded-full">راهبری منابع انسانی</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">رئیس: مهندس کامران رستمی</p>
+<div class="mt-2 text-[12px] text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+                شفاف‌سازی حقوق و پاداش مدیران عامل شرکت‌های تابعه
+              </div>
+</div>
+</div>
+</div>
+<!-- Compliance & ESG Transparency Metric Box -->
+<div class="bg-ink text-surface-container-lowest p-6 rounded-3xl border border-border">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-brand-tint text-xl">fact_check</span>
+<span class="text-headline-sm font-headline-sm">شاخص انطباق حاکمیت شرکتی</span>
+</div>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-headline-lg font-headline-lg text-brand-tint">۹۴.۲٪</span>
+<span class="text-label-md text-surface-dim">رتبه الف بورس تهران</span>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim">
+            امتیاز برتر شفافیت در افشای به موقع اطلاعات بااهمیت کدال و کنترل‌های داخلی تاییدشده توسط سازمان حسابرسی.
+          </p>
+</div>
+</div>
+<!-- LEVEL 2B: مدیرعامل، معاونت‌های اجرایی و ستاد مرکزی (Executive Structure) - Col 8 -->
+<div class="lg:col-span-8 space-y-6">
+<!-- CEO Anchor Card -->
+<div class="bg-surface-container-lowest border-2 border-primary-container p-6 rounded-3xl shadow-sm relative">
+<div class="flex flex-col sm:flex-row items-center gap-6">
+<div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 border border-border">
+<img class="w-full h-full object-cover" data-alt="Formal executive headshot of the managing director and CEO of ICD holding, confident expression in tailored navy blue suit with subtle architectural background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr3DtZf_rcW-PzUeQ0FDgzrikY2Cjy_cNh7X64jkwRkMhAA6Q5gfVj-al8baycZfIxO0aV5zfKY6r2wHfOXAXAw1Y_cKDBSQrKGDzd-PK5G_kzIponieNm9N55ViI8rGZLTlT57rNrFS7sp-4otLXuMmhMiGVhmBE0Twgslzi8wzVUy_CC5pqZQCA04DFCjoqalontlLVpDo4_5fS7vmjBKwjmLLGpPtJ3jH0yLJduIAV7dR5n0DfeQQ"/>
+</div>
+<div class="space-y-1 text-center sm:text-right flex-1">
+<span class="px-3 py-1 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full inline-block mb-1">
+                رکن اجرایی هلدینگ
+              </span>
+<h3 class="text-headline-md font-headline-md text-ink">دفتر مدیریت عامل و هیات اجرایی</h3>
+<p class="text-body-md font-body-md text-secondary">
+                فرماندهی عملیاتی، هماهنگی زنجیره تامین عمرانی، پیاده‌سازی مصوبات هیات‌مدیره و مدیریت سبد پروژه‌های ملی
+              </p>
+</div>
+<div class="shrink-0 flex sm:flex-col gap-2">
+<span class="px-3 py-1.5 bg-surface text-ink text-label-md font-label-md rounded-full text-center border border-border">
+                ۴ معاونت کلیدی
+              </span>
+<span class="px-3 py-1.5 bg-surface text-ink text-label-md font-label-md rounded-full text-center border border-border">
+                ۸ شرکت عملیاتی
+              </span>
+</div>
+</div>
+</div>
+<!-- 4 Operational Vice Presidencies (معاونت‌های تخصصی هلدینگ) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- معاونت 1: فنی و مهندسی -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-border hover:border-primary-container transition-all group">
+<div class="w-10 h-10 bg-surface rounded-xl flex items-center justify-center text-primary-container mb-3 group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+<span class="material-symbols-outlined text-[22px]">engineering</span>
+</div>
+<span class="text-label-md font-label-md text-secondary block">معاونت فنی و اجرایی</span>
+<h5 class="text-headline-sm font-headline-sm text-ink mb-1 group-hover:text-primary-container transition-colors">معاونت مهندسی و نظارت عالیه</h5>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+              مسئول کنترل کیفیت ساخت، استانداردسازی مصالح نوین، مدل‌سازی اطلاعات ساخت (BIM) و پایش مهندسی ارزش.
+            </p>
+<div class="pt-3 border-t border-border flex items-center justify-between text-label-md font-label-md">
+<span class="text-ink font-semibold">مهندس فرهاد رضوانی</span>
+<span class="text-primary-container">۴۵ پروژه در حال ساخت</span>
+</div>
+</div>
+<!-- معاونت 2: مالی و سرمایه‌گذاری -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-border hover:border-primary-container transition-all group">
+<div class="w-10 h-10 bg-surface rounded-xl flex items-center justify-center text-primary-container mb-3 group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+<span class="material-symbols-outlined text-[22px]">finance_mode</span>
+</div>
+<span class="text-label-md font-label-md text-secondary block">معاونت مالی و اقتصادی</span>
+<h5 class="text-headline-sm font-headline-sm text-ink mb-1 group-hover:text-primary-container transition-colors">معاونت مالی و تامین سرمایه</h5>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+              مدیریت خزانه‌داری متمرکز، تامین مالی نوین از بازار پول و سرمایه، انتشار اوراق صکوک استصناع و تسهیلات بانکی.
+            </p>
+<div class="pt-3 border-t border-border flex items-center justify-between text-label-md font-label-md">
+<span class="text-ink font-semibold">دکتر امیرحسین کاظمی</span>
+<span class="text-primary-container">رتبه اعتباری A+</span>
+</div>
+</div>
+<!-- معاونت 3: امور شرکت‌ها و مجامع -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-border hover:border-primary-container transition-all group">
+<div class="w-10 h-10 bg-surface rounded-xl flex items-center justify-center text-primary-container mb-3 group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+<span class="material-symbols-outlined text-[22px]">apartment</span>
+</div>
+<span class="text-label-md font-label-md text-secondary block">راهبری تابعه‌ها</span>
+<h5 class="text-headline-sm font-headline-sm text-ink mb-1 group-hover:text-primary-container transition-colors">معاونت امور شرکت‌ها و مجامع</h5>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+              پایش عملکرد بودجه شرکت‌های زیرمجموعه، ارزیابی شاخص‌های کلیدی عملکرد (KPIs) و نظارت بر مجامع سالانه.
+            </p>
+<div class="pt-3 border-t border-border flex items-center justify-between text-label-md font-label-md">
+<span class="text-ink font-semibold">مهندس نیما اعتضادی</span>
+<span class="text-primary-container">۸ شرکت فعال زیرمجموعه</span>
+</div>
+</div>
+<!-- معاونت 4: بازاریابی و فروش متمرکز -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-border hover:border-primary-container transition-all group">
+<div class="w-10 h-10 bg-surface rounded-xl flex items-center justify-center text-primary-container mb-3 group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+<span class="material-symbols-outlined text-[22px]">real_estate_agent</span>
+</div>
+<span class="text-label-md font-label-md text-secondary block">توسعه بازار و عرضه</span>
+<h5 class="text-headline-sm font-headline-sm text-ink mb-1 group-hover:text-primary-container transition-colors">معاونت بازاریابی و واگذاری</h5>
+<p class="text-body-sm font-body-sm text-secondary mb-3">
+              سیاست‌گذاری فروش املاک لوکس و اداری، تسهیلات پیش‌فروش اقساطی، مطالعات بازارسنجی و سامانه یکپارچه مشتریان.
+            </p>
+<div class="pt-3 border-t border-border flex items-center justify-between text-label-md font-label-md">
+<span class="text-ink font-semibold">دکتر هومن شجاعی</span>
+<span class="text-primary-container">سامانه فروش دیده‌بان</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- LEVEL 3: شرکت‌های تابعه تخصصی (۸ شرکت عضو خانواده بزرگ ثاخت) -->
+<section class="space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-4">
+<div>
+<span class="px-3 py-0.5 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full">زنجیره کامل ارزش ساخت</span>
+<h3 class="text-headline-md font-headline-md text-ink mt-1">مدیران عامل و شرکت‌های تابعه هلدینگ ثاخت</h3>
+<p class="text-body-sm font-body-sm text-secondary">
+            بازوهای اجرایی تخصصی در حوزه‌های انبوه‌سازی، ساخت پروژه‌های شاخص، خدمات مهندسی، بازرگانی مصالح و بهره‌برداری
+          </p>
+</div>
+<div class="text-label-md font-label-md text-secondary">
+          دارای ۴ شرکت بورسی و فرابورسی تابعه
+        </div>
+</div>
+<!-- Subsidiary Companies Bento Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Subsidiary 1: آ.اس.پ (A.S.P) -->
+<div class="bg-surface-container-lowest border border-border p-5 rounded-3xl flex flex-col justify-between hover:border-primary-container transition-all group">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-1 bg-ink text-surface-container-lowest text-label-md font-label-md rounded-full">نماد فرابورس: آسپ</span>
+<span class="text-label-md font-label-md text-primary-container font-bold">سهامداری ثاخت: ۷۸.۲٪</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-1">
+              شرکت ساختمانی آ.اس.پ
+            </h4>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+              پیشگام ساخت بلندمرتبه‌سازی مدرن، مجتمع‌های تجاری اداری مگاپارس و مجتمع‌های مسکونی مجلل پایتخت.
+            </p>
+<div class="bg-surface p-3 rounded-2xl space-y-1 text-label-md font-label-md">
+<div class="text-ink font-semibold">مدیرعامل: مهندس بهروز باقری</div>
+<div class="text-secondary">سرمایه: ۱,۰۰۰ میلیارد ریال</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between text-body-sm font-body-sm text-primary-container font-semibold">
+<span>مشاهده صفحه و پروژه‌ها</span>
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</div>
+</div>
+<!-- Subsidiary 2: توسعه صنعت ساختمان غدیر خوزستان -->
+<div class="bg-surface-container-lowest border border-border p-5 rounded-3xl flex flex-col justify-between hover:border-primary-container transition-all group">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md rounded-full">منطقه جنوب غرب</span>
+<span class="text-label-md font-label-md text-primary-container font-bold">سهامداری ثاخت: ۹۹.۹٪</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-1">
+              توسعه ساختمان غدیر خوزستان
+            </h4>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+              اجرای پروژه‌های انبوه‌سازی مسکونی و تجاری، توسعه زیرساخت‌های عمرانی در استان خوزستان و حاشیه خلیج‌فارس.
+            </p>
+<div class="bg-surface p-3 rounded-2xl space-y-1 text-label-md font-label-md">
+<div class="text-ink font-semibold">مدیرعامل: دکتر رامین سعیدی</div>
+<div class="text-secondary">سرمایه: ۴۰۰ میلیارد ریال</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between text-body-sm font-body-sm text-primary-container font-semibold">
+<span>مشاهده صفحه و پروژه‌ها</span>
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</div>
+</div>
+<!-- Subsidiary 3: مهندسی و مدیریت ساخت یادمان سازه پایا -->
+<div class="bg-surface-container-lowest border border-border p-5 rounded-3xl flex flex-col justify-between hover:border-primary-container transition-all group">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-1 bg-brand-tint text-primary-container text-label-md font-label-md rounded-full">مهندسی مشاوره و نظارت</span>
+<span class="text-label-md font-label-md text-primary-container font-bold">سهامداری ثاخت: ۱۰۰٪</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-1">
+              مهندسی و مدیریت ساخت ثاخت
+            </h4>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+              ارائه خدمات مدیریت طرح (MC)، بازرسی فنی مصالح، ژئوتکنیک و بهینه‌سازی سیستم‌های تاسیساتی هلدینگ.
+            </p>
+<div class="bg-surface p-3 rounded-2xl space-y-1 text-label-md font-label-md">
+<div class="text-ink font-semibold">مدیرعامل: مهندس کوروش افشار</div>
+<div class="text-secondary">سرمایه: ۲۵۰ میلیارد ریال</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between text-body-sm font-body-sm text-primary-container font-semibold">
+<span>مشاهده صفحه و پروژه‌ها</span>
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</div>
+</div>
+<!-- Subsidiary 4: شرکت ساختمانی باگستر کیش -->
+<div class="bg-surface-container-lowest border border-border p-5 rounded-3xl flex flex-col justify-between hover:border-primary-container transition-all group">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="px-2.5 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md rounded-full">گردشگری و اقامتی کیش</span>
+<span class="text-label-md font-label-md text-primary-container font-bold">سهامداری ثاخت: ۸۵.۵٪</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-1">
+              توسعه ساختمانی باگستر کیش
+            </h4>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+              توسعه برج‌های مسکونی ساحلی، هتل‌های ۵ ستاره بین‌المللی و مراکز تجاری لوکس در جزیره مرجانی کیش.
+            </p>
+<div class="bg-surface p-3 rounded-2xl space-y-1 text-label-md font-label-md">
+<div class="text-ink font-semibold">مدیرعامل: مهندس فرزاد مرادی</div>
+<div class="text-secondary">سرمایه: ۶۰۰ میلیارد ریال</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-border flex items-center justify-between text-body-sm font-body-sm text-primary-container font-semibold">
+<span>مشاهده صفحه و پروژه‌ها</span>
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</div>
+</div>
+</div>
+<!-- Additional Subsidiaries Accordion/Strip Banner -->
+<div class="p-6 bg-surface-container-lowest border border-border rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-brand-tint text-primary-container rounded-2xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-2xl">hub</span>
+</div>
+<div>
+<h5 class="text-headline-sm font-headline-sm text-ink">سایر شرکت‌های تابعه و وابسته هلدینگ</h5>
+<p class="text-body-sm font-body-sm text-secondary">
+              شامل بازرگانی مصالح ساختمانی آریا، نگهداری و بهره‌برداری پارس، شرکت ساختمانی نارنجستان و مهندسی بتن فلات.
+            </p>
+</div>
+</div>
+<a class="px-6 py-2.5 bg-ink text-surface-container-lowest text-label-lg font-label-lg rounded-full hover:bg-primary-container transition-colors shrink-0" href="#">
+          مشاهده فهرست کامل زنجیره ارزش ثاخت
+        </a>
+</div>
+</section>
+<!-- LEVEL 4: GOVERNANCE CHARTER & SHAREHOLDER TRANSPARENCY SECTION -->
+<section class="bg-surface-alt border border-border p-8 rounded-3xl">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="space-y-3">
+<span class="px-3 py-1 bg-surface-container-lowest text-ink text-label-md font-label-md rounded-full border border-border inline-block">
+            منشور اخلاقی و حاکمیت شرکتی
+          </span>
+<h3 class="text-headline-md font-headline-md text-ink">تعهد به انضباط مالی و پاسخگویی به بازار سرمایه</h3>
+<p class="text-body-md font-body-md text-secondary">
+            هلدینگ ساختمانی ثاخت به عنوان یکی از بزرگترین شرکت‌های سرمایه‌گذاری ملکی بورس، حاکمیت شرکتی را ضامن ارزش‌آفرینی پایدار و حفاظت از حقوق سهامداران خرد می‌داند.
+          </p>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">task_alt</span>
+<div>
+<h5 class="text-label-lg font-label-lg text-ink font-bold">افشای به موقع گزارشات در سامانه کدال</h5>
+<p class="text-body-sm font-body-sm text-secondary">انتشار ماهانه وضعیت پورتفوی ساخت، پیشرفت فیزیکی پروژه‌ها و گزارشات توجیهی افزایش سرمایه.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">task_alt</span>
+<div>
+<h5 class="text-label-lg font-label-lg text-ink font-bold">استقلال اعضای کمیته حسابرسی</h5>
+<p class="text-body-sm font-body-sm text-secondary">اکثریت اعضای کمیته حسابرسی از کارشناسان مستقل خارج از هیات‌مدیره اجرایی انتخاب شده‌اند.</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">task_alt</span>
+<div>
+<h5 class="text-label-lg font-label-lg text-ink font-bold">صیانت از منافع سهامداران اقلیت</h5>
+<p class="text-body-sm font-body-sm text-secondary">راه‌اندازی میز امور سهامداران و پاسخگویی برخط به سوالات تحلیلی در مجامع عمومی سالیانه.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">task_alt</span>
+<div>
+<h5 class="text-label-lg font-label-lg text-ink font-bold">رعایت استانداردهای بین‌المللی IFRS</h5>
+<p class="text-body-sm font-body-sm text-secondary">تجدید ارزیابی دارایی‌های ساختمانی با شفاف‌ترین متدهای کارشناسی رسمی دادگستری.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ========================================================================= -->
+<!-- 5. FOOTER (Shared Component: Footer)                                     -->
+<!-- ========================================================================= -->
+<footer class="bg-ink text-surface-container-lowest border-t border-border mt-20">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto space-y-12">
+<!-- Newsletter & Strategic Callout Strip -->
+<div class="pb-10 border-b border-surface-container-lowest/15 flex flex-col lg:flex-row items-center justify-between gap-6">
+<div class="space-y-2 text-center lg:text-right">
+<h4 class="text-headline-md font-headline-md text-surface-container-lowest">
+            عضویت در خبرنامه تحلیلی و گزارشات ماهانه دیده‌بان ثاخت
+          </h4>
+<p class="text-body-sm font-body-sm text-surface-dim">
+            آخرین تحلیل‌های بازار املاک، پیشرفت فیزیکی مگاپروژه‌ها و اطلاعیه‌های سهامداران را دریافت کنید.
+          </p>
+</div>
+<div class="flex w-full lg:w-auto gap-2">
+<input class="px-5 py-3 bg-surface-container-lowest/10 border border-surface-container-lowest/20 text-surface-container-lowest placeholder:text-surface-dim text-body-sm font-body-sm focus:outline-none focus:border-brand-tint rounded-full w-full sm:w-80" placeholder="آدرس ایمیل کاری خود را وارد کنید..." type="email"/>
+<button class="px-6 py-3 bg-primary-container hover:bg-brand-blue-deep text-surface-container-lowest text-label-lg font-label-lg rounded-full transition-colors shrink-0 shadow-sm">
+            عضویت در خبرنامه
+          </button>
+</div>
+</div>
+<!-- 5 Main Navigation Columns (From Shared Component JSON) -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-body-sm font-body-sm">
+<!-- Col 1: درباره هلدینگ -->
+<div class="space-y-3">
+<h5 class="text-headline-sm font-headline-sm text-surface-container-lowest border-b border-primary-container pb-2 inline-block">
+            هلدینگ ثاخت
+          </h5>
+<ul class="space-y-2.5 text-surface-dim">
+<li><a class="hover:text-brand-tint transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">چارت سازمانی و حاکمیت شرکتی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">افتخارات و جوایز ملی ساخت</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">فرصت‌های همکاری و استخدام</a></li>
+</ul>
+</div>
+<!-- Col 2: پرتفوی پروژه‌ها -->
+<div class="space-y-3">
+<h5 class="text-headline-sm font-headline-sm text-surface-container-lowest border-b border-primary-container pb-2 inline-block">
+            پروژه‌های عمرانی
+          </h5>
+<ul class="space-y-2.5 text-surface-dim">
+<li><a class="hover:text-brand-tint transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">پروژه‌های شاخص مسکونی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">مجموعه‌های تجاری و اداری</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">هتل‌ها و کاربری‌های گردشگری</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">پروژه‌های در حال بهره‌برداری</a></li>
+</ul>
+</div>
+<!-- Col 3: سهامداران و بازار سرمایه -->
+<div class="space-y-3">
+<h5 class="text-headline-sm font-headline-sm text-surface-container-lowest border-b border-primary-container pb-2 inline-block">
+            سهامداران و کدال
+          </h5>
+<ul class="space-y-2.5 text-surface-dim">
+<li><a class="hover:text-brand-tint transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">صورت‌های مالی حسابرسی‌شده</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">گزارش مجامع و پرداخت سود</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">تحلیل ارزش خالص دارایی‌ها (NAV)</a></li>
+</ul>
+</div>
+<!-- Col 4: رسانه و مناقصات -->
+<div class="space-y-3">
+<h5 class="text-headline-sm font-headline-sm text-surface-container-lowest border-b border-primary-container pb-2 inline-block">
+            رسانه و اخبار
+          </h5>
+<ul class="space-y-2.5 text-surface-dim">
+<li><a class="hover:text-brand-tint transition-colors" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">ویدیوهای پیشرفت کارگاهی</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">نشریات فنی و مقالات BIM</a></li>
+</ul>
+</div>
+<!-- Col 5: تماس و امور مشتریان -->
+<div class="space-y-3">
+<h5 class="text-headline-sm font-headline-sm text-surface-container-lowest border-b border-primary-container pb-2 inline-block">
+            امور مشتریان
+          </h5>
+<ul class="space-y-2.5 text-surface-dim">
+<li><a class="hover:text-brand-tint transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">پاسخگویی به شکایات مشتریان</a></li>
+<li><a class="hover:text-brand-tint transition-colors" href="#">دفتر مرکزی: تهران، آرژانتین، خیابان وزرا</a></li>
+<li class="text-brand-tint font-bold">تلفن هلدینگ: ۰۲۱-۸۸۲۰۰۲۰۰</li>
+</ul>
+</div>
+</div>
+<!-- Bottom Sub-Footer Bar (ICD1 Bourse, Copyright, Legal) -->
+<div class="pt-8 border-t border-surface-container-lowest/15 flex flex-col md:flex-row items-center justify-between gap-4 text-body-sm font-body-sm text-surface-dim">
+<!-- Stock Symbol Badge -->
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-surface-container-lowest/10 border border-surface-container-lowest/20 text-brand-tint text-label-md font-label-md rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+            نماد بورسی: ثاخت (ICD1) | بازار اول بورس اوراق بهادار تهران
+          </div>
+</div>
+<!-- Immutable Copyright String from Shared JSON -->
+<p class="text-center md:text-right text-xs">
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </p>
+<!-- Social Icons -->
+<div class="flex items-center gap-4 text-surface-dim">
+<a class="hover:text-brand-tint transition-colors" href="#" title="لینکدین هلدینگ">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</a>
+<a class="hover:text-brand-tint transition-colors" href="#" title="کانال آپارات و رسانه ویدئویی">
+<span class="material-symbols-outlined text-[20px]">smart_display</span>
+</a>
+<a class="hover:text-brand-tint transition-colors" href="#" title="سامانه پیام‌رسان">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

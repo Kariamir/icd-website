@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>رسانه و دیدبان دانش | هلدینگ ساختمانی ثاخت</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline-variant": "#c2c6d4",
+            "tertiary-container": "#9f4300",
+            "surface-alt": "#E8E8E8",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00478d",
+            "surface-dim": "#d6dbd8",
+            "status-error": "#C23B3B",
+            "on-primary-fixed": "#001b3d",
+            "tertiary-fixed": "#ffdbcb",
+            "primary-container": "#005eb8",
+            "on-secondary-fixed": "#051d2d",
+            "on-tertiary-container": "#ffcfb9",
+            "status-success": "#1F8A4C",
+            "inverse-on-surface": "#edf2ef",
+            "surface-bright": "#f6faf7",
+            "surface-container-low": "#f0f5f2",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#2c3230",
+            "primary-fixed": "#d6e3ff",
+            "on-surface-variant": "#424752",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-primary": "#ffffff",
+            "surface-tint": "#005db6",
+            "secondary": "#4b6173",
+            "error": "#ba1a1a",
+            "secondary-fixed": "#cfe5fb",
+            "on-secondary-container": "#506578",
+            "border": "#D0D5D2",
+            "on-error": "#ffffff",
+            "surface-container-high": "#e4e9e6",
+            "secondary-fixed-dim": "#b3c9df",
+            "surface-container-highest": "#dfe4e0",
+            "on-primary-fixed-variant": "#00468c",
+            "outline": "#727783",
+            "secondary-container": "#cce2f8",
+            "on-tertiary-fixed-variant": "#793100",
+            "brand-blue-deep": "#0056A7",
+            "on-surface": "#171d1b",
+            "tertiary-fixed-dim": "#ffb691",
+            "on-background": "#171d1b",
+            "on-tertiary-fixed": "#341100",
+            "surface-variant": "#dfe4e0",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#34495b",
+            "surface": "#F4F4F4",
+            "ink": "#041C2C",
+            "brand-tint": "#CDE2FF",
+            "on-primary-container": "#c8daff",
+            "on-error-container": "#93000a",
+            "background": "#f6faf7",
+            "error-container": "#ffdad6",
+            "tertiary": "#793100",
+            "inverse-primary": "#a9c7ff",
+            "surface-container": "#eaefec"
+          },
+          "borderRadius": {
+            "DEFAULT": "0px",
+            "none": "0px",
+            "sm": "0px",
+            "md": "0px",
+            "lg": "0px",
+            "xl": "0px",
+            "2xl": "0px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-md": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "label-md": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-lg-mobile": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-xl-mobile": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-lg": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "label-lg": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-xl": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "headline-sm": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-sm": ["Vazirmatn", "Work Sans", "sans-serif"],
+            "body-lg": ["Vazirmatn", "Work Sans", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "headline-xl-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-lg": ["38px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-xl": ["64px", { "lineHeight": "72px", "fontWeight": "800" }],
+            "headline-sm": ["19px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Institutional Planar Borders */
+    .border-sharp {
+      border-radius: 0px !important;
+    }
+  </style>
+</head>
+<body class="bg-surface text-ink antialiased min-h-screen flex flex-col selection:bg-brand-tint selection:text-ink">
+<!-- TOP APP BAR / HEADER -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-border dark:border-outline-variant sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Right: Brand Logo & Navigation Links (RTL anchor) -->
+<div class="flex items-center gap-8">
+<!-- Logo -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-10 h-10 bg-ink flex items-center justify-center text-surface-container-lowest font-bold text-xl border-l-4 border-primary-container">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-ink dark:text-surface-container-lowest tracking-tight leading-none">هلدینگ ساختمانی ثاخت</span>
+<span class="text-[10px] tracking-wider text-secondary font-medium mt-1">شرکت بین‌المللی توسعه ساختمان (سهامی عام)</span>
+</div>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden xl:flex items-center gap-6">
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">درباره ثاخت</a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">پروژه‌ها</a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">فروش و پیش‌فروش</a>
+<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">دیده‌بان ثاخت</a>
+<!-- Active link: رسانه ثاخت -->
+<a class="border-b-2 border-primary-container text-primary-container dark:text-inverse-primary font-bold pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">رسانه ثاخت</a>
+</nav>
+</div>
+<!-- Left: Trailing Actions, Quick Contact, Language, Search -->
+<div class="flex items-center gap-3">
+<!-- Search icon -->
+<button class="p-2 text-ink hover:bg-surface-container-high transition-colors duration-150 focus:outline-none" title="جستجو در رسانه">
+<span class="material-symbols-outlined text-ink">search</span>
+</button>
+<!-- Language toggle -->
+<button class="flex items-center gap-1 px-2.5 py-1.5 text-label-md font-label-md text-ink hover:bg-surface-container-high transition-colors duration-150 border border-border">
+<span class="material-symbols-outlined text-[18px]">language</span>
+<span>FA / EN</span>
+</button>
+<!-- Shareholder Portal CTA -->
+<a class="hidden sm:inline-flex items-center px-4 py-2 border border-primary-container text-primary-container hover:bg-brand-tint transition-colors duration-150 text-label-lg font-label-lg" href="#">
+          ورود سهامداران
+        </a>
+<!-- Quick Advisory CTA -->
+<a class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-container text-surface-container-lowest hover:bg-brand-blue-deep transition-colors duration-150 text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>مشاوره و تماس سریع</span>
+</a>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-space-lg md:px-margin py-8 md:py-12">
+<!-- SUB-HEADER / CATEGORY PILLS BAR -->
+<section class="mb-10 pb-6 border-b border-border">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+<div>
+<div class="inline-flex items-center gap-2 text-primary-container font-label-lg text-label-lg mb-2">
+<span class="inline-block w-2.5 h-2.5 bg-primary-container"></span>
+            مرکز تحلیل و انتشارات شرکت بین‌المللی توسعه ساختمان
+          </div>
+<h1 class="text-headline-lg font-headline-lg text-ink">رسانه و دیدبان دانش هلدینگ ساختمانی ثاخت</h1>
+</div>
+<div class="text-body-sm font-body-sm text-secondary max-w-md">
+          تحلیل‌های راهبردی مهندسی عمران، رصد شاخص‌های بنیادین بازار مسکن، شفافیت شرکتی و روایت پروژه‌های کلان ملی.
+        </div>
+</div>
+<!-- Categories Filter / Pills -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+<!-- Active Filter -->
+<button class="px-5 py-2 rounded-full bg-ink text-surface-container-lowest text-label-lg font-label-lg whitespace-nowrap transition-colors">
+          همه مطالب
+        </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-lowest border border-border text-ink hover:border-primary-container hover:text-primary-container text-label-lg font-label-lg whitespace-nowrap transition-colors">
+          اخبار پروژه‌ها
+        </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-lowest border border-border text-ink hover:border-primary-container hover:text-primary-container text-label-lg font-label-lg whitespace-nowrap transition-colors">
+          مقالات تخصصی و مهندسی عمران
+        </button>
+<button class="px-5 py-2 rounded-full bg-brand-tint text-primary font-bold border border-primary text-label-lg font-label-lg whitespace-nowrap flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">podcasts</span>
+          پادکست روایت ثاخت
+        </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-lowest border border-border text-ink hover:border-primary-container hover:text-primary-container text-label-lg font-label-lg whitespace-nowrap transition-colors">
+          گزارش‌های فصلی و بازار مسکن
+        </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-lowest border border-border text-ink hover:border-primary-container hover:text-primary-container text-label-lg font-label-lg whitespace-nowrap transition-colors">
+          حاکمیت شرکتی و سرمایه‌گذاری
+        </button>
+</div>
+</section>
+<!-- SECTION 1: HERO FEATURED ARTICLE (Bento / Architectural Spread) -->
+<section class="mb-14">
+<div class="relative bg-ink text-surface-container-lowest border border-border overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+<!-- Scrim & Image Side (Desktop: 7 Cols) -->
+<div class="relative lg:col-span-7 h-72 lg:h-full order-1 lg:order-2 overflow-hidden">
+<img class="w-full h-full object-cover grayscale-[25%] contrast-110" data-alt="A dramatic high-angle exterior photograph of a cutting-edge monolithic architectural skyscraper constructed with sleek fair-faced concrete and high-performance reflective glass facade. Construction cranes and steel frame infrastructure are visible under crisp dramatic daylight, conveying monumental scale and civil engineering precision. The primary color palette features deep institutional navy blues, cool industrial grays, and pure bright highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB5v5B29oab2Qa5SJ79la6UDi5HoR1mVBIeY-TrD-sRJzYEl2kgLsjzqPAx9DDV9alumjzqMgi6dYztv15zCK2GvTLO8zJWeDkWCMomJbcRdiH39yIbd0kZhSTlh_wJhaHv7MqAEZS62j2kN_EGA9v-xz4bGD1SwXhMwmGMHQXAW0tQlvBzUVDCRH_X52YNzgxwSq8rPltOh_QO5QT6mqKROSyRG2VeBEwEhUO4JH-8LghLX0ngTTQaw"/>
+<div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-ink via-ink/40 to-transparent"></div>
+<!-- Badge on Image -->
+<div class="absolute top-6 left-6 bg-primary-container text-surface-container-lowest px-3 py-1 text-label-md font-label-md">
+            پرونده ویژه شماره ۴۲
+          </div>
+</div>
+<!-- Content Side (Desktop: 5 Cols) -->
+<div class="lg:col-span-5 p-8 md:p-12 flex flex-col justify-between order-2 lg:order-1 relative z-10">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="px-2.5 py-0.5 bg-brand-tint text-primary text-label-md font-label-md">
+                مقاله تحلیلی و راهبردی
+              </span>
+<span class="text-surface-dim text-body-sm font-body-sm">| ۲۰ اردیبهشت ۱۴۰۳</span>
+</div>
+<h2 class="text-headline-md md:text-headline-lg font-headline-lg text-surface-container-lowest mb-4 leading-tight">
+              استراتژی تاب‌آوری ابرسازه‌ها در افق ۱۴۱۰؛ ادغام مهندسی ارزش و مالی‌سازی مدرن املاک
+            </h2>
+<p class="text-surface-variant text-body-md font-body-md line-clamp-3 mb-6">
+              بررسی همگرایی میان مدل‌های نوین مدلسازی اطلاعات ساختمان (BIM) سطح ۴ و ساختار نوین انتشار اوراق سلف مسکن در بازار بورس تهران برای تضمین سرعت و کاهش ریسک ساخت در پروژه‌های مقیاس ملی.
+            </p>
+</div>
+<div class="pt-6 border-t border-secondary/40 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center font-bold text-surface-container-lowest">
+                د.م
+              </div>
+<div>
+<p class="text-label-lg font-label-lg text-surface-container-lowest">دکتر مهرداد صنیعی</p>
+<p class="text-label-md font-label-md text-surface-dim">معاونت مهندسی و توسعه پایدار هلدینگ</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-md font-label-md text-surface-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                ۸ دقیقه مطالعه
+              </span>
+<a class="inline-flex items-center justify-center w-9 h-9 bg-surface-container-lowest text-ink hover:bg-brand-tint transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: SPECIAL PODCAST SECTION (روایت ثاخت) -->
+<section class="mb-14 bg-surface-container-lowest border border-border p-6 md:p-8">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-border gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">graphic_eq</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-headline-md font-headline-md text-ink">پادکست اختصاصی «روایت ثاخت»</h2>
+<span class="bg-brand-tint text-primary text-[11px] font-bold px-2 py-0.5">فصل دوم</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary">گفتگوی بی‌پرده با طراحان سازه، معماران برجسته و مدیران ارشد بازار سرمایه و مسکن</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<a class="text-primary-container hover:text-brand-blue-deep font-label-lg text-label-lg flex items-center gap-1" href="#">
+<span>آرشیو کامل اپیزودها</span>
+<span class="material-symbols-outlined text-[18px]">arrow_left_alt</span>
+</a>
+</div>
+</div>
+<!-- Main Podcast Player Showcase & Recent Episodes -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Active Episode Player Box (7 cols) -->
+<div class="lg:col-span-7 bg-ink text-surface-container-lowest p-6 md:p-8 flex flex-col justify-between border-l-4 border-primary-container">
+<div>
+<div class="flex items-center justify-between text-label-md font-label-md text-brand-tint mb-3">
+<span>اپیزود ۱۸ • تازه‌ترین پخش</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+                پخش آنلاین با کیفیت 320kbps
+              </span>
+</div>
+<h3 class="text-headline-md font-headline-md mb-2 text-surface-container-lowest">
+              تکنولوژی بتن‌های خودتراکم (SCC) در پروژه‌های بلندمرتبه ساحلی
+            </h3>
+<p class="text-body-sm font-body-sm text-surface-dim mb-6">
+              میهمان این قسمت: دکتر کامبیز محتشمی (استاد دانشگاه و مشاور عالی تکنولوژی بتن در پروژه‌های برج ساحلی مروارید کیش). بررسی آزمایشگاهی مقاومت کلریدی و دوام سازه.
+            </p>
+</div>
+<!-- Minimal Player Console -->
+<div class="bg-[#0b283d] p-4 border border-secondary/30 mt-4">
+<div class="flex items-center gap-4 mb-3">
+<!-- Play Button -->
+<button class="w-12 h-12 bg-primary-container hover:bg-brand-blue-deep text-surface-container-lowest flex items-center justify-center transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[28px]" data-weight="fill">play_arrow</span>
+</button>
+<!-- Track Waveform / Progress Slider -->
+<div class="flex-1">
+<div class="flex items-center justify-between text-[11px] text-surface-dim mb-1 font-mono">
+<span>۱۴:۲۵</span>
+<span>۴۲:۱۰</span>
+</div>
+<div class="w-full bg-surface-variant/30 h-2 cursor-pointer relative overflow-hidden">
+<div class="bg-primary-container h-full w-[35%]"></div>
+</div>
+</div>
+<!-- Speed and Vol -->
+<div class="hidden sm:flex items-center gap-2">
+<button class="px-2 py-1 text-label-md font-label-md bg-ink hover:bg-secondary/40 text-surface-container-lowest border border-secondary/40">1.0x</button>
+<button class="p-2 text-surface-dim hover:text-surface-container-lowest" title="دانلود فایل صوتی">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between text-label-md text-surface-variant pt-2 border-t border-secondary/20">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">headphones</span>
+                بیش از ۴,۸۲۰ شنونده تخصصی
+              </span>
+<div class="flex items-center gap-2">
+<span class="text-xs">قابل دریافت در:</span>
+<span class="font-bold text-surface-container-lowest">Castbox</span>
+<span>•</span>
+<span class="font-bold text-surface-container-lowest">Apple Podcasts</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Podcast Episodes List (5 cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-3">
+<!-- Ep 1 -->
+<div class="p-4 bg-surface hover:bg-surface-container-low transition-colors border border-border flex items-start gap-4 cursor-pointer group">
+<div class="w-16 h-16 bg-surface-alt flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Modern close up of high-rise building blueprint drawings laid over textured gray concrete surface with architectural drafting compass. Moody directional office lighting highlighting precision measurements and engineering diagrams." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt5LaJunimOb7GU35jo0sTBJo_oOlJ4JYT5Z7g1A1OUGmwEh2CBAjLfKKMFEilzXNEHUX8aZUt15kyRkoV18D4bMR8bXcYS3ZcBIXWVKonnQUc_mqBEO4AYd0k8G7KoF97ZtKcEFL3atJkLGpKJYOLToentQJIFHZi23Q6lZq7LvuFk2U2ozGRvYhgtavKwg7GSTNLqIsYiEeRt1Sh3iZesqgy_kSxzY_p_bd_4I1q2XbGph3c2fHP_g"/>
+<div class="absolute inset-0 bg-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface-container-lowest text-[22px]">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between text-label-md font-label-md text-secondary mb-1">
+<span>اپیزود ۱۷</span>
+<span>۳۸ دقیقه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container truncate transition-colors">
+                تامین مالی املاک و ساخت مسکن در تالار بورس
+              </h4>
+<p class="text-body-sm font-body-sm text-secondary truncate mt-1">
+                گفتگو با مدیر صندوق املاک و مستغلات پیرامون روش‌های نوآورانه جذب سرمایه خرد.
+              </p>
+</div>
+</div>
+<!-- Ep 2 -->
+<div class="p-4 bg-surface hover:bg-surface-container-low transition-colors border border-border flex items-start gap-4 cursor-pointer group">
+<div class="w-16 h-16 bg-surface-alt flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Architectural scale model of a sustainable commercial complex placed on a clean wooden design table. Architects hands adjusting structural components under balanced daylight studio lighting. Clean minimal industrial look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuwshMjyPmkhZJMdYCU4ZKYLMlsRRDR6rtKVJpz3C2s2ZAw5m1RYRdutuGu2vKoEfXFpsD1sKenqrlcHs5-Qyyw5u3jy4gSF3Yc9dfXdj1ph8clH9QFN4DilKcZgtp1wlh_ZbVJWi4y6Mf4krxZnqqma_KTbUYznJkmx1MHNetjiE-dW-Psh2R5WontKbXoHPB1-bLVjwo19MEZ04L4NCBMDXX5vD2o_gOJgpoBnELmRQzsLzQ4zlNig"/>
+<div class="absolute inset-0 bg-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface-container-lowest text-[22px]">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between text-label-md font-label-md text-secondary mb-1">
+<span>اپیزود ۱۶</span>
+<span>۴۶ دقیقه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container truncate transition-colors">
+                استانداردهای گواهی سبز LEED در معماری ایران
+              </h4>
+<p class="text-body-sm font-body-sm text-secondary truncate mt-1">
+                راهکارهای واقعی کاهش مصرف انرژی در سیستم‌های نوین سرمایش و گرمایش برج‌ها.
+              </p>
+</div>
+</div>
+<!-- Ep 3 -->
+<div class="p-4 bg-surface hover:bg-surface-container-low transition-colors border border-border flex items-start gap-4 cursor-pointer group">
+<div class="w-16 h-16 bg-surface-alt flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Panoramic perspective of an active construction site with massive yellow tower cranes silhouetted against a sharp dawn sky. High structural detail of reinforced steel frames and scaffolding indicating heavy civil development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_a-QK01xdNJH66DoFMevT1zb5cPgiZqHaaQCAYTp_tzBTuN9U8rC3QRQG3nkOE1J14mdE5qchHAms2O90kf-4MXztTp9KIxdgFj-8-1vdJkbYXV7oqX1eSWAY2Fjc66hUDEX5C159juvH9NCJNsSEMxRz-VkQYpqk5Md17Dwmoph-UTk-1KcxpAQTWlHe-bcmiLSb1BpuH6ZGce4NPM74rNZXl1jzQeTPGDoETLaqzR4LXtOXPh4xdQ"/>
+<div class="absolute inset-0 bg-ink/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-surface-container-lowest text-[22px]">play_circle</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between text-label-md font-label-md text-secondary mb-1">
+<span>اپیزود ۱۵</span>
+<span>۵۱ دقیقه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container truncate transition-colors">
+                مدیریت زنجیره تامین فولاد و سیمان در پروژه‌های EPC
+              </h4>
+<p class="text-body-sm font-body-sm text-secondary truncate mt-1">
+                راهکارهای کنترل تورم نهاده‌های ساختمانی در قراردادهای کلان هلدینگ.
+              </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: ARTICLES GRID & SIDEBAR (Phanatik-Inspired Layout) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- MAIN ARTICLES COLUMN (8 cols) -->
+<div class="lg:col-span-8">
+<!-- Subsection Title -->
+<div class="flex items-center justify-between pb-3 mb-6 border-b-2 border-ink">
+<h3 class="text-headline-md font-headline-md text-ink flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-primary-container"></span>
+            تازه‌ترین مقالات و گزارش‌های تحلیلی
+          </h3>
+<span class="text-label-md font-label-md text-secondary">مرتب‌سازی: جدیدترین مطالب</span>
+</div>
+<!-- Articles Grid (2-columns on tablet/desktop) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest border border-border flex flex-col justify-between group hover:border-primary-container transition-colors">
+<div>
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Ultra modern commercial tower exterior showing angled glass curtain walls and steel framing against crisp blue sky. High precision facade engineering visual with clean geometrical symmetry and high contrast shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLf94X3MlApS2_vZwo52LqIgPC-vvz7gOEAGZdM_mlzmFi2M45sz1uDbQNiwyXi8IK4AOcOQB8cOp8Q_BfFE_5YwYfgKaZVlcfVh-KZVWLAt_7Bu8yDuZL9tmavqiOI9JjQFh1xMP3-GSp50isGHNDkBOQbTPDFMjU7xllRG45yAJqxqOJlbCBwpozGsD-U8lWiqP9yq6NwbeaKku2ip6CtJMoGT9ixzJcv0nHdC8eBNRgAHAlJnppVg"/>
+<span class="absolute top-3 right-3 bg-surface-container-lowest text-ink border border-border px-2 py-0.5 text-label-md font-label-md">
+                  توسعه پایدار
+                </span>
+</div>
+<div class="p-5">
+<div class="flex items-center gap-2 text-label-md text-secondary mb-2">
+<span>۱۸ اردیبهشت ۱۴۰۳</span>
+<span>•</span>
+<span>۶ دقیقه مطالعه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-2 leading-snug">
+                  طراحی نمای پارامتریک در اقلیم‌های گرم؛ کاهش ۴۰ درصدی بار برودتی ساختمان
+                </h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+                  بررسی محاسبات ترمودینامیکی در پروژه‌های تجاری کیش و شیراز با استفاده از الگوریتم‌های ژنتیک در معماری محاسباتی.
+                </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-3 border-t border-surface flex items-center justify-between">
+<span class="text-label-md text-secondary font-medium">مهندس علیرضا کیانی</span>
+<a class="text-primary-container font-label-lg text-label-lg flex items-center gap-1 group-hover:underline" href="#">
+                مطالعه کامل
+                <span class="material-symbols-outlined text-[16px]">arrow_left_alt</span>
+</a>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest border border-border flex flex-col justify-between group hover:border-primary-container transition-colors">
+<div>
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Interior architectural view of a vast modern concrete atrium with geometric skylights pouring natural light onto polished granite flooring. Professional minimal civil engineering aesthetic with high clarity and cool tonal palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrt3gPtgszGrISrtmOFS6Zvn5nyJkAOjGHQgD0IAbY5vXG38Sy4G7zt2nmafw-YB3WjoIYwMQhJ0Mg7r76o1CkmOk6nw4a9s0NDLG0W3ZRivQTiK6Hp4yoLkra4XgNs-DHH3mRqJqQol3U3b7Ed-EI_7wUS2pyRnjJfdWbAJ72g6g4w2tDhD5qhHKMTkc9BQHkiLsTI8ZTm8dz4Bk42q4CqW_McAfqEzu00oaub4VPkLRIW1oQATKVqg"/>
+<span class="absolute top-3 right-3 bg-brand-tint text-primary px-2 py-0.5 text-label-md font-label-md">
+                  بازار سرمایه و مسکن
+                </span>
+</div>
+<div class="p-5">
+<div class="flex items-center gap-2 text-label-md text-secondary mb-2">
+<span>۱۵ اردیبهشت ۱۴۰۳</span>
+<span>•</span>
+<span>۵ دقیقه مطالعه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-2 leading-snug">
+                  گزارش فصلی شاخص قیمت مسکن؛ ارزیابی سودآوری سرمایه‌گذاری ملکی در بهار ۱۴۰۳
+                </h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+                  تحلیل داده‌های آماری مناطق بیست‌ودوگانه تهران و مقایسه نرخ بازدهی دارایی‌های ساختمانی با بازارهای موازی طلا و ارز.
+                </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-3 border-t border-surface flex items-center justify-between">
+<span class="text-label-md text-secondary font-medium">دپارتمان تحلیل اقتصادی ثاخت</span>
+<a class="text-primary-container font-label-lg text-label-lg flex items-center gap-1 group-hover:underline" href="#">
+                مطالعه کامل
+                <span class="material-symbols-outlined text-[16px]">arrow_left_alt</span>
+</a>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest border border-border flex flex-col justify-between group hover:border-primary-container transition-colors">
+<div>
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Under construction mega infrastructure tunnel or subterranean foundation reinforced with dense rebar cages and wet shotcrete walls. Bright work lamps creating high key industrial lighting and sharp textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtpjKyI26kuYNT1TJwamSTy0qljhSxpKLTSdc4kfEVXYahkz73g3A3G7ydgaScOhy71zQvRit1lBDFg5NYcROVGceGP-yGsgbfhZp1SHMV-XNHGbIXcGaQyNmK1Hrjo_LFaaFhG4KT5t63LDkfIjiqahrQe6rpjm_l7bjNltLFM_3iTg4z27jz4ggb8QDh7UsEyxO26iZHQRsmQqWeWlnQbiS47X_CtYEYIIYsXDPR4Vv-EX6a3bolWA"/>
+<span class="absolute top-3 right-3 bg-surface-alt text-ink border border-border px-2 py-0.5 text-label-md font-label-md">
+                  مهندسی ژئوتکنیک
+                </span>
+</div>
+<div class="p-5">
+<div class="flex items-center gap-2 text-label-md text-secondary mb-2">
+<span>۱۰ اردیبهشت ۱۴۰۳</span>
+<span>•</span>
+<span>۱۰ دقیقه مطالعه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-2 leading-snug">
+                  پایش ژئوتکنیکی گودهای عمیق در مجاورت خطوط مترو شهری
+                </h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+                  مطالعه موردی پروژه برج نگین ثاخت؛ تکنیک‌های مانیتورینگ آنلاین انحراف دیواره نیلینگ با سنسورهای تار نوری.
+                </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-3 border-t border-surface flex items-center justify-between">
+<span class="text-label-md text-secondary font-medium">دکتر بهنام فرهمند</span>
+<a class="text-primary-container font-label-lg text-label-lg flex items-center gap-1 group-hover:underline" href="#">
+                مطالعه کامل
+                <span class="material-symbols-outlined text-[16px]">arrow_left_alt</span>
+</a>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest border border-border flex flex-col justify-between group hover:border-primary-container transition-colors">
+<div>
+<div class="h-48 w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Executive boardroom meeting of civil engineers and financial analysts reviewing blueprints and BIM 3D models on large presentation displays. Modern corporate setting with deep dark blue accents and crisp daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyrpPzoqbVWBbgIqqVeJHkQIVTNLlahwFj5po9HeTZratvLbjdG80DSHSs-lrC1H_5SFg3fq7dcBHMmCt-ojgfyF5cA6w-XUc8nb_xbaUfQg_mIIBsOWZbUvBzcN0d4f_vUz4xizuhLYH0XBIjhCskY982MmVHP8UgZsZJTBJGgf8MGzpvkEqyYt5_vECbajWnK0FGZH0hxUCQZuX3Iv-6oZq8ZkqOxdaizCoBMJdx5vUriqCkt1FezA"/>
+<span class="absolute top-3 right-3 bg-brand-tint text-primary px-2 py-0.5 text-label-md font-label-md">
+                  حاکمیت شرکتی
+                </span>
+</div>
+<div class="p-5">
+<div class="flex items-center gap-2 text-label-md text-secondary mb-2">
+<span>۵ اردیبهشت ۱۴۰۳</span>
+<span>•</span>
+<span>۷ دقیقه مطالعه</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-ink group-hover:text-primary-container transition-colors mb-2 leading-snug">
+                  شفافیت زنجیره قراردادهای پیمانکاری بر بستر سامانه تدارکات الکترونیک
+                </h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+                  چگونه پیاده‌سازی سازوکار حاکمیت شرکتی نوین در ثاخت باعث صیانت حداکثری از منافع سهامداران حقیقی و حقوقی گردید.
+                </p>
+</div>
+</div>
+<div class="px-5 pb-5 pt-3 border-t border-surface flex items-center justify-between">
+<span class="text-label-md text-secondary font-medium">کمیته حسابرسی و ریسک</span>
+<a class="text-primary-container font-label-lg text-label-lg flex items-center gap-1 group-hover:underline" href="#">
+                مطالعه کامل
+                <span class="material-symbols-outlined text-[16px]">arrow_left_alt</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-10 flex items-center justify-between p-4 bg-surface-container-lowest border border-border">
+<button class="px-4 py-2 border border-border text-ink hover:bg-surface-alt font-label-lg text-label-lg transition-colors">
+            صفحه قبلی
+          </button>
+<div class="flex items-center gap-2 font-label-lg text-label-lg">
+<span class="w-8 h-8 flex items-center justify-center bg-primary-container text-surface-container-lowest">۱</span>
+<span class="w-8 h-8 flex items-center justify-center text-ink hover:bg-surface-alt cursor-pointer">۲</span>
+<span class="w-8 h-8 flex items-center justify-center text-ink hover:bg-surface-alt cursor-pointer">۳</span>
+<span class="text-secondary">...</span>
+<span class="w-8 h-8 flex items-center justify-center text-ink hover:bg-surface-alt cursor-pointer">۱۲</span>
+</div>
+<button class="px-4 py-2 bg-primary-container text-surface-container-lowest hover:bg-brand-blue-deep font-label-lg text-label-lg transition-colors">
+            صفحه بعدی
+          </button>
+</div>
+</div>
+<!-- SIDEBAR COLUMN (4 cols) -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Widget 1: Trending / Editor's Pick (Phanatik List Style) -->
+<div class="bg-surface-container-lowest border border-border p-6">
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-border">
+<h4 class="text-headline-sm font-headline-sm text-ink flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">trending_up</span>
+              پربازدیدترین مقالات هفته
+            </h4>
+<span class="text-[11px] bg-surface-alt px-2 py-0.5 text-secondary font-bold">دیده‌بان</span>
+</div>
+<div class="space-y-4 divide-y divide-border">
+<a class="block pt-3 first:pt-0 group" href="#">
+<div class="text-[11px] text-primary font-bold mb-1">۰۱ • مهندسی سازه</div>
+<h5 class="text-label-lg font-label-lg text-ink group-hover:text-primary-container transition-colors line-clamp-2">
+                بررسی رفتار لرزه‌ای اتصالات صلب در سازه‌های فلزی بلندمرتبه
+              </h5>
+<span class="text-body-sm text-secondary text-xs mt-1 inline-block">۴,۲۱۰ بازدید • ۳ روز پیش</span>
+</a>
+<a class="block pt-3 group" href="#">
+<div class="text-[11px] text-primary font-bold mb-1">۰۲ • بازار مسکن</div>
+<h5 class="text-label-lg font-label-lg text-ink group-hover:text-primary-container transition-colors line-clamp-2">
+                پیش‌بینی تاثیر مصوبات جدید تراکم ساختمانی بر قیمت تمام‌شده در منطقه ۱
+              </h5>
+<span class="text-body-sm text-secondary text-xs mt-1 inline-block">۳,۹۵۰ بازدید • ۵ روز پیش</span>
+</a>
+<a class="block pt-3 group" href="#">
+<div class="text-[11px] text-primary font-bold mb-1">۰۳ • بورس و سهام</div>
+<h5 class="text-label-lg font-label-lg text-ink group-hover:text-primary-container transition-colors line-clamp-2">
+                تحلیل جامع ارزش خالص دارایی‌ها (NAV) نماد ثاخت در اردیبهشت ماه
+              </h5>
+<span class="text-body-sm text-secondary text-xs mt-1 inline-block">۲,۸۰۰ بازدید • ۱ هفته پیش</span>
+</a>
+<a class="block pt-3 group" href="#">
+<div class="text-[11px] text-primary font-bold mb-1">۰۴ • مصالح نوین</div>
+<h5 class="text-label-lg font-label-lg text-ink group-hover:text-primary-container transition-colors line-clamp-2">
+                کاربرد پنل‌های عایق آئروژل در بهینه‌سازی حرارتی دیوارهای خارجی
+              </h5>
+<span class="text-body-sm text-secondary text-xs mt-1 inline-block">۲,۱۵۰ بازدید • ۱ هفته پیش</span>
+</a>
+</div>
+</div>
+<!-- Widget 2: Expert Quote of the Week -->
+<div class="bg-ink text-surface-container-lowest p-6 border-l-4 border-primary-container relative overflow-hidden">
+<div class="absolute -bottom-6 -left-6 text-secondary/20 select-none pointer-events-none">
+<span class="material-symbols-outlined text-[110px]">format_quote</span>
+</div>
+<div class="relative z-10">
+<span class="text-brand-tint text-label-md font-label-md mb-2 block">نقل‌قول تحلیلی هفته</span>
+<blockquote class="text-body-md font-body-md leading-relaxed text-surface-container-lowest mb-4">
+              «توسعه شهری پایدار صرفاً با فناوری بتن حاصل نمی‌شود؛ پیوند شفاف میان مهندسی ارزش، تامین مالی خرد و احترام به بستر زیست‌محیطی ضامن ماندگاری ابرسازه‌ها در قرن آینده است.»
+            </blockquote>
+<div class="pt-3 border-t border-secondary/40">
+<div class="font-bold text-label-lg">دکتر اردشیر دادفر</div>
+<div class="text-surface-dim text-xs">عضو هیئت‌مدیره و استاد دانشگاه علم و صنعت</div>
+</div>
+</div>
+</div>
+<!-- Widget 3: Newsletter Subscription -->
+<div class="bg-surface-container-lowest border border-border p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary-container">mail</span>
+<h4 class="text-headline-sm font-headline-sm text-ink">خبرنامه دیده‌بان مسکن</h4>
+</div>
+<p class="text-body-sm font-body-sm text-secondary mb-4">
+            تحلیل‌های هفتگی بازار املاک و مستجدات پروژه‌های ثاخت مستقیماً به ایمیل شما ارسال می‌شود.
+          </p>
+<form class="space-y-3" onsubmit="event.preventDefault();">
+<div>
+<label class="sr-only">ایمیل یا شماره همراه</label>
+<input class="w-full bg-surface-container-lowest border border-border px-3.5 py-2.5 text-body-sm font-body-sm text-ink placeholder-secondary focus:outline-none focus:border-primary-container border-sharp" placeholder="ایمیل سازمانی یا شماره تماس شما" type="email"/>
+</div>
+<button class="w-full bg-primary-container text-surface-container-lowest py-2.5 text-label-lg font-label-lg hover:bg-brand-blue-deep transition-colors border-sharp" type="submit">
+              عضویت در خبرنامه تحلیلی
+            </button>
+<p class="text-[11px] text-secondary text-center">اطلاعات شما نزد هلدینگ محفوظ است.</p>
+</form>
+</div>
+<!-- Widget 4: Official Whitepapers Download -->
+<div class="bg-surface-alt border border-border p-6">
+<h4 class="text-headline-sm font-headline-sm text-ink mb-2">گزارشات و اسناد فنی (PDF)</h4>
+<p class="text-body-sm font-body-sm text-secondary mb-4">دریافت نسخه چاپی سفیدنامه‌ها و گزارش‌های ارزیابی عملکرد سالانه.</p>
+<ul class="space-y-2">
+<li>
+<a class="flex items-center justify-between p-2.5 bg-surface-container-lowest border border-border hover:border-primary-container transition-colors text-label-md font-label-md" href="#">
+<span class="truncate">گزارش عملکرد هیئت‌مدیره سال ۱۴۰۲</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">picture_as_pdf</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between p-2.5 bg-surface-container-lowest border border-border hover:border-primary-container transition-colors text-label-md font-label-md" href="#">
+<span class="truncate">سفیدنامه مهندسی ارزش در برج‌سازی</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">picture_as_pdf</span>
+</a>
+</li>
+</ul>
+</div>
+</aside>
+</section>
+</main>
+<!-- WEB FOOTER (Shared Component: Footer) -->
+<footer class="bg-ink dark:bg-surface-container-lowest border-t border-border dark:border-outline-variant mt-16 text-surface-container-lowest">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
+<!-- Footer Top: Corporate Brand Statement & Status -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-secondary/40">
+<div class="md:col-span-5 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container text-surface-container-lowest font-bold text-xl flex items-center justify-center">
+              ث
+            </div>
+<div>
+<span class="text-headline-md font-headline-md text-surface-container-lowest dark:text-ink">هلدینگ ساختمانی ثاخت</span>
+<p class="text-xs text-brand-tint">شرکت بین‌المللی توسعه ساختمان (نماد بورس: ثاخت)</p>
+</div>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed max-w-lg">
+            پیشگام در اجرای پروژه‌های عظیم ساختمانی، مجتمع‌های تجاری، مسکونی و اقامتی در پهنه جغرافیایی ایران با تکیه بر استانداردهای مهندسی عمران، شفافیت در بازار سرمایه و تعهد پایدار به ذی‌نفعان.
+          </p>
+</div>
+<div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-6">
+<!-- Column 1 -->
+<div>
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">هلدینگ و پروژه‌ها</h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<!-- Column 2 -->
+<div>
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">سهام و شفافیت</h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">حریم خصوصی و شفافیت مالی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+</ul>
+</div>
+<!-- Column 3 -->
+<div>
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">رسانه و ارتباطات</h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li><a class="text-surface-container-lowest dark:text-on-surface font-bold" href="#">اخبار و رسانه دیجیتال</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">تماس و امور مشتریان</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">صدای سهامدار: ۰۲۱-۸۸۹۹۰۰</a></li>
+<li><a class="text-surface-dim dark:text-on-surface-variant hover:text-brand-tint transition-colors" href="#">تهران، خیابان ولیعصر، برج ثاخت</a></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Footer Bottom: Copyright & Regulatory Notes -->
+<div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-body-sm font-body-sm text-surface-dim">
+<div>
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </div>
+<div class="flex items-center gap-6 text-label-md font-label-md">
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">نقشه سایت</a>
+<span>•</span>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">سلب مسئولیت بورسی</a>
+<span>•</span>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">کمیته اخلاق و حاکمیت شرکتی</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
