@@ -56,7 +56,7 @@
 - [x] `07-unit-detail` — /sales/units/[id] (کامپوننت UnitDetailView) + /sales/available, /sales/pre-sale (UnitIndexList) با داده mock
 - [ ] `08-ir-symbol` — /ir/symbol — نساخته (نیازمند اتصال داده لحظه‌ای بورس)
 - [ ] `09-account-app` — /auth/login, /account/* — نساخته (طبق build-checklist در فاز P2، نیازمند بک‌اند احراز هویت)
-- [ ] `10-search-results` — /search — نساخته
+- [x] `10-search-results` — /search (کامپوننت SearchResultsView، جستجوی سمت کلاینت واقعی روی محتوای mock موجود — نه placeholder؛ با اتصال به داده واقعی جایگزین می‌شود)
 - [x] `11-error-system` — 404/500 (app/error.vue)
 
 ### 4. Cross-cutting requirements
