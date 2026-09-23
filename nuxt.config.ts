@@ -13,13 +13,19 @@ export default defineNuxtConfig({
   modules: [
     ...(process.env.WPNUXT_WORDPRESS_URL ? ['@wpnuxt/core', '@wpnuxt/blocks'] : []),
     '@nuxt/image',
-    '@nuxt/fonts',
+    // '@nuxt/fonts' removed: it resolved Vazirmatn/Work Sans from the Google
+    // provider at dev/build time, which fails from inside Iran and silently
+    // fell back to a system font. Fonts are now self-hosted in public/fonts
+    // with plain @font-face rules in app/assets/css/main.css.
     '@nuxt/eslint',
   ],
 
   app: {
     head: {
       htmlAttrs: { lang: 'fa', dir: 'rtl' },
+      link: [
+        { rel: 'preload', href: '/fonts/Vazirmatn-Variable.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
+      ],
     },
   },
 
@@ -52,16 +58,6 @@ export default defineNuxtConfig({
       },
     },
   } : {}),
-
-  fonts: {
-    // Vazirmatn (fa) + a Latin pairing for the `en` locale, self-hosted at build time —
-    // never fetched from a runtime CDN (Google Fonts is blocked from inside Iran; see
-    // docs/02-build-checklist.md Phase 0).
-    families: [
-      { name: 'Vazirmatn', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'Work Sans', provider: 'google', weights: [400, 500, 600, 700] },
-    ],
-  },
 
   typescript: {
     strict: true,
