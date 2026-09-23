@@ -173,7 +173,7 @@ const props = defineProps<{ article: ArticleDetailViewModel; hubLabel: string; h
   background: var(--color-surface);
   padding: var(--space-1) var(--space-2);
   font: var(--text-body-sm);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-pill);
 }
 
 .article-detail__sidebar { display: flex; flex-direction: column; gap: var(--space-3); }

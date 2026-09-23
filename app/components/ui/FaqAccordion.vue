@@ -36,7 +36,7 @@ defineProps<{ groups: FaqGroupViewModel[] }>()
 .faq-accordion__item {
   background: var(--color-white);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
 }
 .faq-accordion__item + .faq-accordion__item { margin-block-start: var(--space-1); }
 .faq-accordion__item[open] { border-color: var(--color-primary); }

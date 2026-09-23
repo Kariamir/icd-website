@@ -26,7 +26,7 @@ const label = computed(() => labels[props.status])
   padding-block: 4px;
   padding-inline: var(--space-2);
   font: var(--text-label);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-pill);
 }
 .status-badge--upcoming {
   background: var(--badge-upcoming-bg);

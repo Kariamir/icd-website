@@ -52,7 +52,7 @@ defineProps<{ title: string; description?: string; items: SimpleIndexItem[] }>()
 @media (min-width: 640px) { .simple-index__grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1024px) { .simple-index__grid { grid-template-columns: repeat(3, 1fr); } }
 
-.simple-index__card { display: flex; flex-direction: column; background: var(--color-white); border: 1px solid var(--color-border); color: inherit; text-decoration: none; }
+.simple-index__card { display: flex; flex-direction: column; background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; color: inherit; text-decoration: none; }
 .simple-index__media { aspect-ratio: 4 / 3; background: var(--color-surface); overflow: hidden; }
 .simple-index__media :deep(img) { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .simple-index__body { padding: var(--space-2); display: flex; flex-direction: column; gap: 4px; }

@@ -109,7 +109,7 @@ function handleSubmit() {
   background: var(--color-surface);
   padding: var(--space-1) var(--space-2);
   font: var(--text-body-sm);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
   font-family: inherit;
 }
 .lead-form__required { color: var(--color-danger); margin-inline-start: 4px; }

@@ -42,7 +42,7 @@
 ### 3. UI and pages — پیشرفت به‌ازای هرکدام از ۱۸ تمپلیت (docs/page-templates-icd3d.md)
 - [ ] `00-home` هوم‌پیج — ۱۰ بلاک ساخته شد با داده mock؛ ویجت دیده‌بان ثاخت زنده نیست؛ هیرو سه‌بعدی جایگزین fallback نشده (ADR-003)
 - [x] `01a-cluster-hub-simple` — /about, /sales, /ir, /media (بازسازی وفادار از پیاده‌سازی React قبلی)
-- [x] `01b-cluster-hub-visual` — /projects, /projects/map (بازسازی وفادار + پالایش طراحی: فهرست کارت پروژه‌های قابل‌اسکرول جایگزین پنل خلاصه شد و با نقشه همگام است؛ نقشه سه‌بعدی واقعی هنوز جایگزین پنل placeholder نشده)
+- [x] `01b-cluster-hub-visual` — /projects, /projects/map (بازسازی ساختاری کامل مطابق mockup مرجع: نوار فیلتر ۵ فیلده واقعی (جستجو/کاربری/استان/شرکت/متراژ)، ردیف نتیجه+مرتب‌سازی+تغییر نما، کارت پروژه با accent bar/کد/آیکون نشان/مینی‌استت مهندسی مطابق کد مرجع، نوار خلاصه پرتفوی؛ زاویه گوشه‌ها به مقیاس متعادل §4.1 تغییر کرد (نه تیز مطلق، نه گرد کامل)؛ نقشه سه‌بعدی واقعی هنوز جایگزین پنل placeholder نشده)
 - [x] `02a-index-card-grid` — تکمیل شد: ۴ ایندکس وضعیت پروژه، اخبار/روایت/گزارش (ArticleIndexList)، هیات‌مدیره و افتخارات (SimpleIndexGrid)، واحدهای فروش (UnitIndexList)، استخدام (careers)
 - [x] `02b-index-simple-list` — /ir/financials, /ir/governance (کامپوننت DocumentIndexList + داده mock)
 - [x] `02c-calendar-module` — /ir/calendar (کامپوننت CalendarIndexList + داده mock)
@@ -53,7 +53,7 @@
 - [ ] `05c-orgchart-3d-component` — /about/org-chart — نساخته (سه‌بعدی)
 - [x] `05d-faq-accordion` — /ir/faq, /sales/guide (کامپوننت FaqAccordion + داده mock)
 - [x] `06-form-lead` — /about/ceo, /sales/consultation, /contact, /complaints (کامپوننت LeadForm؛ ارسال واقعی به بک‌اند وجود ندارد، فقط تایید بصری)
-- [x] `07-unit-detail` — /sales/units/[id] (کامپوننت UnitDetailView) + /sales/available, /sales/pre-sale (UnitIndexList) با داده mock؛ پالایش طراحی: گالری bento با دکمه‌های تور ۳۶۰/BIM و مشخصات فنی گروه‌بندی‌شده در چند بخش
+- [x] `07-unit-detail` — /sales/units/[id] (کامپوننت UnitDetailView) + /sales/available, /sales/pre-sale (UnitIndexList) با داده mock؛ بازسازی ساختاری کامل مطابق mockup مرجع: breadcrumb + دکمه‌های نشان/دانلود/اشتراک، گالری bento با ۳۶۰/BIM، پنل مشخصات چندبخشی، بخش پلان معماری با تب و SVG بلوپرینت، گرید امکانات و تاسیسات، سایدبار قیمت/تسهیلات/رزرو بازدید/مشاور فروش؛ زاویه گوشه‌ها به مقیاس متعادل §4.1 تغییر کرد
 - [ ] `08-ir-symbol` — /ir/symbol — نساخته (نیازمند اتصال داده لحظه‌ای بورس)
 - [ ] `09-account-app` — /auth/login, /account/* — نساخته (طبق build-checklist در فاز P2، نیازمند بک‌اند احراز هویت)
 - [x] `10-search-results` — /search (کامپوننت SearchResultsView، جستجوی سمت کلاینت واقعی روی محتوای mock موجود — نه placeholder؛ با اتصال به داده واقعی جایگزین می‌شود)

@@ -35,7 +35,7 @@ defineProps<{ member: BoardMemberViewModel }>()
 
 .board-member__layout { display: grid; grid-template-columns: 1fr; gap: var(--space-4); padding-block: var(--space-3) var(--space-8); max-inline-size: 880px; }
 @media (min-width: 640px) { .board-member__layout { grid-template-columns: 220px 1fr; } }
-.board-member__media { aspect-ratio: 1 / 1; inline-size: 100%; max-inline-size: 220px; border: 1px solid var(--color-border); overflow: hidden; }
+.board-member__media { aspect-ratio: 1 / 1; inline-size: 100%; max-inline-size: 220px; border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
 .board-member__media :deep(img) { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .board-member__body h1 { font: var(--text-h2); margin-block-end: var(--space-1); }
 .board-member__role { font: var(--text-label); color: var(--color-primary); margin-block-end: var(--space-3); }

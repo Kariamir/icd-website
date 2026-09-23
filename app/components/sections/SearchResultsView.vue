@@ -50,7 +50,7 @@ watch(() => props.initialQuery, (next) => {
   background: var(--color-white);
   padding: var(--space-2) var(--space-3);
   font: var(--text-body);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
 }
 .search-results__form input:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 

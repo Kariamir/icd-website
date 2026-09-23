@@ -83,7 +83,7 @@ defineProps<ClusterHubContent>()
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
-  border-radius: 0;
+  border-radius: var(--radius-pill);
   transition: background 160ms ease;
 }
 

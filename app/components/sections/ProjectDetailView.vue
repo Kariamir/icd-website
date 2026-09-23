@@ -133,7 +133,7 @@ const specs = computed(() => {
 .project-detail__location { font-size: 14px; opacity: 0.85; }
 
 .project-detail__actions { display: flex; gap: var(--space-2); max-width: var(--container-max); margin-inline: auto; padding: var(--space-3) var(--space-3) 0; }
-.project-detail__cta { padding: 14px 28px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 0; transition: background 160ms ease, color 160ms ease; }
+.project-detail__cta { padding: 14px 28px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: var(--radius-pill); transition: background 160ms ease, color 160ms ease; }
 .project-detail__cta--primary { background: var(--color-brand-blue); color: var(--color-white); }
 .project-detail__cta--primary:hover { background: var(--color-brand-blue-deep); }
 .project-detail__cta--outline { background: transparent; color: var(--color-brand-blue); border: 1px solid var(--color-brand-blue); }

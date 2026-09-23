@@ -52,6 +52,7 @@ defineProps<{ page: EditorialPageViewModel }>()
   padding: var(--space-2);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   margin-block-end: var(--space-6);
 }
 .static-editorial__toc-label { font: var(--text-label); margin-inline-end: var(--space-1); }
@@ -59,6 +60,7 @@ defineProps<{ page: EditorialPageViewModel }>()
   padding: 6px var(--space-2);
   background: var(--color-white);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
   color: var(--color-text);
   text-decoration: none;
   font: var(--text-body-sm);

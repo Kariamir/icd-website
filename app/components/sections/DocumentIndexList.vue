@@ -32,7 +32,7 @@ defineProps<{ title: string; description?: string; documents: DocumentViewModel[
 .document-index__header h1 { font: var(--text-h2); margin-block-end: var(--space-2); }
 .document-index__header p { font: var(--text-body); color: var(--color-text-muted); }
 
-.document-index__list { display: flex; flex-direction: column; border: 1px solid var(--color-border); margin-block-end: var(--space-8); }
+.document-index__list { display: flex; flex-direction: column; border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; margin-block-end: var(--space-8); }
 .document-index__row {
   display: flex;
   align-items: center;

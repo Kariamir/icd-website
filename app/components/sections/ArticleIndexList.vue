@@ -60,6 +60,8 @@ const props = defineProps<{
   flex-direction: column;
   background: var(--color-white);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
   color: inherit;
   text-decoration: none;
   transition: border-color var(--motion-duration) var(--motion-ease);

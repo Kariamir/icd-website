@@ -44,7 +44,7 @@ withDefaults(defineProps<{
   gap: var(--space-1);
   font: var(--text-label);
   letter-spacing: 0;
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-pill);
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;

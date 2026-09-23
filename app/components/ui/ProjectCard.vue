@@ -18,7 +18,7 @@ defineProps<{ project: ProjectCardViewModel }>()
 
 <style scoped>
 .project-card { display: block; text-decoration: none; color: inherit; }
-.project-card__media { aspect-ratio: 4 / 3; background: var(--color-surface); overflow: hidden; }
+.project-card__media { aspect-ratio: 4 / 3; background: var(--color-surface); overflow: hidden; border-radius: var(--radius-md); }
 .project-card__media :deep(img) { block-size: 100%; inline-size: 100%; object-fit: cover; }
 .project-card__body { padding-block-start: var(--space-2); display: flex; flex-direction: column; gap: 6px; }
 .project-card__title { font: var(--text-h3); }

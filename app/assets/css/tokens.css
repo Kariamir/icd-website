@@ -63,8 +63,17 @@
   --container-max: 1280px;
   --container-max-tabular: 960px;
 
-  /* --- shape --- */
+  /* --- shape (balanced minimalist scale — docs/design-system-icd3d.md §4.1) ---
+   * Corners are softened, not sharp: small elements get a light 6-8px
+   * round, cards/panels/images 14px, large hero/bento panels 22px, and
+   * pills/buttons/badges stay fully rounded. `--radius-none` is kept only
+   * for structural dividers that should never round (e.g. table rules). */
   --radius-none: 0px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
 
   /* --- motion (PRODUCT.md: heavy/deliberate, no bounce) --- */
   --motion-duration: 1s;

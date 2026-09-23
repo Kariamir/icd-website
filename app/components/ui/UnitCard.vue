@@ -20,7 +20,7 @@ defineProps<{ unit: UnitViewModel }>()
 </template>
 
 <style scoped>
-.unit-card { display: block; text-decoration: none; color: inherit; background: var(--color-white); border: 1px solid var(--color-border); transition: border-color var(--motion-duration) var(--motion-ease); }
+.unit-card { display: block; text-decoration: none; color: inherit; background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; transition: border-color var(--motion-duration) var(--motion-ease); }
 .unit-card:hover { border-color: var(--color-primary); }
 .unit-card__media { position: relative; aspect-ratio: 4 / 3; background: var(--color-surface); overflow: hidden; }
 .unit-card__media :deep(img) { block-size: 100%; inline-size: 100%; object-fit: cover; }

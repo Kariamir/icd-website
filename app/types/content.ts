@@ -125,6 +125,23 @@ export interface UnitSpecGroupViewModel {
   items: { label: string; value: string }[]
 }
 
+export interface UnitAmenityViewModel {
+  icon: 'ac' | 'smart' | 'window' | 'elevator' | 'security' | 'pool' | 'power' | 'parking'
+  title: string
+  description: string
+}
+
+export interface UnitFloorPlanViewModel {
+  tabs: string[]
+  rooms: string[]
+}
+
+export interface UnitConsultantViewModel {
+  name: string
+  role: string
+  phone?: string
+}
+
 export interface UnitDetailViewModel extends UnitViewModel {
   trackingCode: string
   parkingCount: number
@@ -134,6 +151,12 @@ export interface UnitDetailViewModel extends UnitViewModel {
   specGroups: UnitSpecGroupViewModel[]
   virtualTourUrl?: string
   bimModelUrl?: string
+  amenities: UnitAmenityViewModel[]
+  floorPlan: UnitFloorPlanViewModel
+  pricePerSqmLabel?: string
+  financingNote?: string
+  inspectionSlotLabel?: string
+  consultant?: UnitConsultantViewModel
 }
 
 export interface BoardMemberViewModel {

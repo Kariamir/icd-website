@@ -69,6 +69,7 @@ defineProps<{ eras: TimelineEraViewModel[] }>()
 .history-timeline__item {
   background: var(--color-white);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: var(--space-3);
 }
 .history-timeline__item-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-block-end: var(--space-2); }
