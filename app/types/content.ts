@@ -115,3 +115,35 @@ export interface FaqItemViewModel {
   question: string
   answer: string
 }
+
+export interface UnitDetailViewModel extends UnitViewModel {
+  trackingCode: string
+  parkingCount: number
+  description: string
+  gallery: ImageViewModel[]
+  specs: { label: string; value: string }[]
+}
+
+export interface BoardMemberViewModel {
+  slug: string
+  name: string
+  role: string
+  bioHtml: string
+  image?: ImageViewModel
+}
+
+export interface HonorViewModel {
+  title: string
+  year: string
+  issuer: string
+  image?: ImageViewModel
+}
+
+export interface JobPostingViewModel {
+  slug: string
+  title: string
+  department: string
+  location: string
+  employmentType: string
+  summary: string
+}

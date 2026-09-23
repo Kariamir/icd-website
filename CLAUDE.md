@@ -43,17 +43,17 @@
 - [ ] `00-home` هوم‌پیج — ۱۰ بلاک ساخته شد با داده mock؛ ویجت دیده‌بان ثاخت زنده نیست؛ هیرو سه‌بعدی جایگزین fallback نشده (ADR-003)
 - [x] `01a-cluster-hub-simple` — /about, /sales, /ir, /media (بازسازی وفادار از پیاده‌سازی React قبلی)
 - [x] `01b-cluster-hub-visual` — /projects, /projects/map (بازسازی وفادار؛ نقشه سه‌بعدی واقعی هنوز جایگزین پنل placeholder نشده)
-- [ ] `02a-index-card-grid` — فقط ۴ ایندکس وضعیت پروژه ساخته شد (upcoming/under-construction/operating/completed)؛ اخبار/روایت/گزارش/هیات‌مدیره/افتخارات/واحدهای فروش/استخدام هنوز نه
+- [x] `02a-index-card-grid` — تکمیل شد: ۴ ایندکس وضعیت پروژه، اخبار/روایت/گزارش (ArticleIndexList)، هیات‌مدیره و افتخارات (SimpleIndexGrid)، واحدهای فروش (UnitIndexList)، استخدام (careers)
 - [x] `02b-index-simple-list` — /ir/financials, /ir/governance (کامپوننت DocumentIndexList + داده mock)
 - [x] `02c-calendar-module` — /ir/calendar (کامپوننت CalendarIndexList + داده mock)
 - [x] `03-project-detail` — /projects/[slug] (بازسازی وفادار)؛ /projects/[slug]/tour نساخته
-- [x] `04-article-detail` / `04-article-main` — /media/news, /media/stories, /media/reports (ایندکس + [slug]) با داده mock ساخته شد؛ /about/board/[slug] هنوز نه (نیازمند مدل محتوایی اعضای هیات‌مدیره، جدا از این تمپلیت)
+- [x] `04-article-detail` / `04-article-main` — /media/news, /media/stories, /media/reports (ایندکس + [slug])؛ /about/board (ایندکس) و /about/board/[slug] (کامپوننت جداگانه BoardMemberProfile) با داده mock
 - [x] `05-static-editorial-plain` — /about/vision, /about/csr, /legal/terms, /legal/privacy (کامپوننت StaticEditorial + داده mock)
 - [x] `05b-timeline-component` — /about/history (کامپوننت HistoryTimeline، نسخه دوبعدی؛ تمپلیت مرجع سه‌بعدی است — طبق ADR-003 فعلاً بازسازی نشده، بلوکر نیست)
 - [ ] `05c-orgchart-3d-component` — /about/org-chart — نساخته (سه‌بعدی)
 - [x] `05d-faq-accordion` — /ir/faq, /sales/guide (کامپوننت FaqAccordion + داده mock)
 - [x] `06-form-lead` — /about/ceo, /sales/consultation, /contact, /complaints (کامپوننت LeadForm؛ ارسال واقعی به بک‌اند وجود ندارد، فقط تایید بصری)
-- [ ] `07-unit-detail` — /sales/units/[id] — نساخته
+- [x] `07-unit-detail` — /sales/units/[id] (کامپوننت UnitDetailView) + /sales/available, /sales/pre-sale (UnitIndexList) با داده mock
 - [ ] `08-ir-symbol` — /ir/symbol — نساخته (نیازمند اتصال داده لحظه‌ای بورس)
 - [ ] `09-account-app` — /auth/login, /account/* — نساخته (طبق build-checklist در فاز P2، نیازمند بک‌اند احراز هویت)
 - [ ] `10-search-results` — /search — نساخته
