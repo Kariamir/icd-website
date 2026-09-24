@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import { getArticlesByType, mediaTypeLabels } from '~/utils/articlesData'
-
-const articleList = getArticlesByType('report')
+import { mediaHubMeta, mediaTypeLabels } from '~/utils/articlesData'
 
 useSeoMeta({
   title: `${mediaTypeLabels.report.hub} — ثاخت`,
-  description: 'گزارش‌های تخصصی مدیریت بازار و کارنامه اجرایی هلدینگ ساختمانی ثاخت.',
+  description: mediaHubMeta.report.description,
 })
 </script>
 
 <template>
   <BaseContainer>
-    <ArticleIndexList
-      :title="mediaTypeLabels.report.hub"
-      description="گزارش‌های تخصصی مدیریت بازار و کارنامه اجرایی هلدینگ ساختمانی ثاخت."
-      :articles="articleList"
-      hub-href="/media/reports"
-    />
+    <ArticleIndexList type="report" />
   </BaseContainer>
 </template>

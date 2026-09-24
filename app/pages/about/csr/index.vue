@@ -8,7 +8,5 @@ useSeoMeta({
 </script>
 
 <template>
-  <BaseContainer>
-    <StaticEditorial :page="csrPage" />
-  </BaseContainer>
+  <StaticEditorial :page="csrPage" />
 </template>

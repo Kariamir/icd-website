@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import { getUnitsByStatus } from '~/utils/unitsData'
-
-const availableUnits = getUnitsByStatus('available')
-
 useSeoMeta({
   title: 'واحدهای آماده فروش — ثاخت',
-  description: 'فهرست واحدهای آماده فروش هلدینگ ساختمانی ثاخت.',
+  description: 'فهرست قابل فیلتر واحدهای آماده فروش هلدینگ ساختمانی ثاخت به تفکیک پروژه، کاربری، متراژ و طبقه.',
 })
 </script>
 
 <template>
   <BaseContainer>
-    <UnitIndexList
-      title="واحدهای آماده فروش"
-      description="واحدهای مسکونی، اداری و تجاری آماده فروش در پروژه‌های هلدینگ ثاخت."
-      :units="availableUnits"
-    />
+    <UnitIndexList status="available" />
   </BaseContainer>
 </template>

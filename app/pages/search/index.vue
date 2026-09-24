@@ -1,15 +1,13 @@
 <script setup lang="ts">
 const route = useRoute()
-const initialQuery = computed(() => (route.query.q as string) || '')
+const initialQuery = computed(() => (typeof route.query.q === 'string' ? route.query.q : ''))
 
 useSeoMeta({
-  title: 'جستجوی سایت — ثاخت',
-  description: 'جستجو در پروژه‌ها، اخبار، افراد و صفحات وب‌سایت هلدینگ ساختمانی ثاخت.',
+  title: () => initialQuery.value ? `نتایج جستجو برای «${initialQuery.value}» — ثاخت` : 'جستجوی سایت — ثاخت',
+  description: 'جستجو در پروژه‌ها، واحدها، اطلاعیه‌های کدال، اخبار، اسناد و فرصت‌های شغلی وب‌سایت هلدینگ ساختمانی ثاخت.',
 })
 </script>
 
 <template>
-  <BaseContainer>
-    <SearchResultsView :initial-query="initialQuery" />
-  </BaseContainer>
+  <SearchResultsView :initial-query="initialQuery" />
 </template>

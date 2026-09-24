@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { clusterHubs } from '~/utils/clusterHubData'
 
-const content = clusterHubs.sales
+const hub = clusterHubs.sales
 
 useSeoMeta({
-  title: `${content.title} — ثاخت`,
-  description: content.intro,
+  title: `${hub.title} — ثاخت`,
+  description: hub.intro,
 })
 </script>
 
 <template>
-  <ClusterHub v-bind="content" />
+  <ClusterHub :hub="hub" />
 </template>

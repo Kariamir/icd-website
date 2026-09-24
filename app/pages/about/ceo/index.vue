@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import type { LeadFormField } from '~/components/sections/LeadForm.vue'
-
-const fields: LeadFormField[] = [
-  { key: 'name', label: 'نام و نام خانوادگی', type: 'text', required: true, placeholder: 'مثال: علی رضایی' },
-  { key: 'email', label: 'پست الکترونیکی', type: 'email', required: true, placeholder: 'example@domain.com' },
-  { key: 'subject', label: 'موضوع پیام', type: 'select', options: ['پیشنهاد', 'گزارش ویژه', 'سایر موارد'] },
-  { key: 'message', label: 'متن پیام', type: 'textarea', required: true, placeholder: 'پیام خود را برای مدیرعامل بنویسید...' },
-]
+import { leadDepartments, leadHelpDesk, leadInquiryTypes } from '~/utils/leadFormData'
 
 useSeoMeta({
   title: 'ارتباط مستقیم با مدیرعامل — ثاخت',
@@ -16,10 +9,20 @@ useSeoMeta({
 
 <template>
   <LeadForm
+    :breadcrumb="[
+      { label: 'صفحه اصلی', href: '/' },
+      { label: 'درباره ثاخت', href: '/about' },
+      { label: 'ارتباط مستقیم با مدیرعامل' },
+    ]"
     eyebrow="درگاه ارتباطی مدیریت"
     title="ارتباط مستقیم با مدیرعامل"
-    description="پیشنهادات، گزارش‌های ویژه و پرسش‌های خود را مستقیماً برای دفتر مدیرعامل هلدینگ ثاخت ارسال کنید."
+    description="پیشنهادات، گزارش‌های ویژه و پرسش‌های خود را مستقیماً برای دفتر مهندس سید علیرضا حسینی، مدیرعامل هلدینگ ثاخت ارسال کنید."
     sla-badge="تعهد پاسخگویی حداکثر ۷۲ ساعت کاری"
-    :fields="fields"
+    :departments="leadDepartments"
+    :inquiry-types="leadInquiryTypes"
+    initial-inquiry="ceo"
+    form-title="ارسال پیام به دفتر مدیرعامل"
+    submit-label="ارسال پیام و صدور کد رهگیری"
+    :help-desk="leadHelpDesk"
   />
 </template>

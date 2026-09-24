@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { financialDocuments } from '~/utils/documentsData'
+import { documentHubs } from '~/utils/documentsData'
+
+const hub = documentHubs.financials
 
 useSeoMeta({
   title: 'صورت‌های مالی و گزارش فعالیت هیات‌مدیره — ثاخت',
-  description: 'آرشیو صورت‌های مالی حسابرسی‌شده و گزارش‌های فعالیت هیات‌مدیره هلدینگ ثاخت.',
+  description: 'آرشیو صورت‌های مالی حسابرسی‌شده، گزارش‌های میان‌دوره‌ای، گزارش تفسیری مدیریت و افشای اطلاعات بااهمیت هلدینگ ثاخت.',
 })
 </script>
 
 <template>
   <BaseContainer>
-    <DocumentIndexList
-      title="صورت‌های مالی و گزارش فعالیت هیات‌مدیره"
-      description="آرشیو صورت‌های مالی حسابرسی‌شده و گزارش‌های فعالیت هیات‌مدیره، به تفکیک سال مالی."
-      :documents="financialDocuments"
-    />
+    <DocumentIndexList :hub="hub" />
   </BaseContainer>
 </template>

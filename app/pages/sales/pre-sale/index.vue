@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import { getUnitsByStatus } from '~/utils/unitsData'
-
-const preSaleUnits = getUnitsByStatus('reserved')
-
 useSeoMeta({
   title: 'پیش‌فروش پروژه‌های در حال ساخت — ثاخت',
-  description: 'فهرست واحدهای پیش‌فروش پروژه‌های در حال ساخت هلدینگ ثاخت.',
+  description: 'فهرست قابل فیلتر واحدهای پیش‌فروش پروژه‌های در حال ساخت هلدینگ ثاخت با شرایط پرداخت اقساطی.',
 })
 </script>
 
 <template>
   <BaseContainer>
-    <UnitIndexList
-      title="پیش‌فروش پروژه‌های در حال ساخت"
-      description="واحدهای قابل پیش‌خرید در پروژه‌های در حال ساخت هلدینگ، با شرایط پرداخت اقساطی."
-      :units="preSaleUnits"
-    />
+    <UnitIndexList status="reserved" />
   </BaseContainer>
 </template>

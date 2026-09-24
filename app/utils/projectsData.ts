@@ -113,3 +113,132 @@ export function getProjectDetail(slug: string) {
 export function getRelatedProjects(slug: string, count = 3) {
   return projects.filter(p => p.slug !== slug).slice(0, count)
 }
+
+// ---------------------------------------------------------------------------
+// Template `02a-index-card-grid` (docs/page-templates-icd3d.md §4) — extra
+// archive fields for the four status indexes (/projects/upcoming, …). Add-only
+// on purpose: `projects`, `details` and `getProjectDetail` above are shared
+// with ProjectsMapExplorer / ProjectDetailView and must not change shape.
+// ---------------------------------------------------------------------------
+
+export type ProjectRegionKey = 'tehran' | 'khorasan' | 'fars' | 'kish' | 'north'
+export type ProjectUsageKey = 'commercial' | 'residential' | 'hospitality' | 'mixed'
+
+/** Region filter options — copy follows the `02a_index_card_grid` mockup. */
+export const PROJECT_REGIONS: Record<ProjectRegionKey, string> = {
+  tehran: 'تهران بزرگ',
+  khorasan: 'خراسان رضوی (مشهد مقدس)',
+  fars: 'فارس (شیراز)',
+  kish: 'منطقه آزاد کیش',
+  north: 'نوار ساحلی شمال (مازندران و نوشهر)',
+}
+
+/** Usage-type filter options — copy follows the `02a_index_card_grid` mockup. */
+export const PROJECT_USAGE_TYPES: Record<ProjectUsageKey, string> = {
+  commercial: 'چندمنظوره تجاری و اداری',
+  residential: 'برج‌ها و مجموعه‌های مسکونی',
+  hospitality: 'هتلینگ و اقامتی گردشگری',
+  mixed: 'مختلط شهری و خدماتی',
+}
+
+interface ProjectArchiveFields {
+  region: ProjectRegionKey
+  usageType: ProjectUsageKey
+  /** Numeric floor count for the floors-range filter. */
+  floorsCount: number
+  /** Solar-hijri start year, drives the «جدیدترین» sort. */
+  startYear: number
+  excerpt: string
+}
+
+const archiveFields: Record<string, ProjectArchiveFields> = {
+  'tehran-international-tower': {
+    region: 'tehran', usageType: 'mixed', floorsCount: 56, startYear: 1402,
+    excerpt: 'بلندترین برج چندمنظوره شاخص ایران با چشم‌انداز ۳۶۰ درجه البرز و مدرن‌ترین سیستم‌های مدیریت هوشمند ساختمان (BMS).',
+  },
+  'royaye-kish': {
+    region: 'kish', usageType: 'residential', floorsCount: 12, startYear: 1403,
+    excerpt: 'واحدهای هوشمند با تراس‌های عریض رو به خلیج فارس، کلوپ دریایی اختصاصی و معماری سازگار با اقلیم گرم و مرطوب.',
+  },
+  'afafabad-shiraz': {
+    region: 'fars', usageType: 'residential', floorsCount: 9, startYear: 1401,
+    excerpt: 'ترکیب معماری اصیل شیرازی با فناوری مدرن پوسته دو لایه، تهویه طبیعی و بهینه‌سازی حداکثری مصرف انرژی.',
+  },
+  'narenjestan-izadshahr': {
+    region: 'north', usageType: 'mixed', floorsCount: 8, startYear: 1402,
+    excerpt: 'شهرک مسکونی و تجاری ساحلی در ایزدشهر با دسترسی مستقیم به ساحل دریای خزر، فضای سبز پیوسته و مرکز خرید محلی.',
+  },
+  'asp-mashhad': {
+    region: 'khorasan', usageType: 'commercial', floorsCount: 7, startYear: 1399,
+    excerpt: 'مجتمع تجاری و اداری در قلب مشهد با گالری‌های تجاری برندهای معتبر، دفاتر اداری مدرن و پارکینگ طبقاتی.',
+  },
+  'asp-tehran': {
+    region: 'tehran', usageType: 'commercial', floorsCount: 10, startYear: 1400,
+    excerpt: 'مجتمع اداری-تجاری شمال پایتخت با لابی‌های مستقل، سیستم تاسیسات مرکزی هوشمند و دسترسی به بزرگراه‌های اصلی.',
+  },
+  'megapars-tehran': {
+    region: 'tehran', usageType: 'commercial', floorsCount: 14, startYear: 1397,
+    excerpt: 'مرکز تجاری چندمنظوره پایتخت با بام سبز پیوسته و سازه مدرن مقاوم در برابر زلزله، میزبان برندهای ملی و بین‌المللی.',
+  },
+  'sahel-noshahr': {
+    region: 'north', usageType: 'hospitality', floorsCount: 6, startYear: 1395,
+    excerpt: 'ویلا آپارتمان‌های لوکس متصل به خط ساحلی دریای خزر با طراحی مینیمال و متریال مقاوم در برابر رطوبت.',
+  },
+}
+
+/** Rank used by the «پیشرفته‌ترین فاز اجرایی» sort (higher = further along). */
+const PHASE_RANK: Record<ProjectStatusKey, number> = {
+  'upcoming': 1,
+  'under-construction': 2,
+  'operating': 3,
+  'completed': 4,
+}
+
+/** Card view model for the status indexes — a superset of `ProjectCardViewModel`. */
+export interface ProjectArchiveCard {
+  slug: string
+  title: string
+  status: ProjectStatusKey
+  location: string
+  image: { src: string; alt: string }
+  excerpt: string
+  category: string
+  builder: string
+  stats: { label: string; value: string }[]
+  region: ProjectRegionKey
+  usageType: ProjectUsageKey
+  areaSqm: number
+  floorsCount: number
+  startYear: number
+  progressPercent?: number
+  phaseScore: number
+}
+
+export function getProjectArchiveCards(): ProjectArchiveCard[] {
+  return projects.flatMap((p) => {
+    const d = getProjectDetail(p.slug)
+    const a = archiveFields[p.slug]
+    if (!d || !a) return []
+    return [{
+      slug: p.slug,
+      title: p.name,
+      status: p.status,
+      location: d.location,
+      image: { src: `https://picsum.photos/seed/project-${p.slug}/960/640`, alt: p.name },
+      excerpt: a.excerpt,
+      category: d.category,
+      builder: d.ownerCompany ?? 'هلدینگ ثاخت',
+      stats: [
+        { label: 'متراژ زیربنا', value: d.area },
+        { label: 'تعداد طبقات', value: d.floors },
+      ],
+      region: a.region,
+      usageType: a.usageType,
+      areaSqm: d.areaSqm,
+      floorsCount: a.floorsCount,
+      startYear: a.startYear,
+      progressPercent: d.progressPercent,
+      phaseScore: PHASE_RANK[p.status] + (d.progressPercent ?? 0) / 100,
+    }]
+  })
+}

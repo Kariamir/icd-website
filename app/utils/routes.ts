@@ -79,7 +79,13 @@ export interface MegaMenuColumn {
   items: NavItem[]
 }
 
-/** Header nav — exactly 5 items + 1 CTA (docs/01-sitemap.md §10). */
+/**
+ * Header nav — exactly 5 items + 1 CTA (docs/01-sitemap.md §10), in the order
+ * the project_detail_page_template mockups use (07_unit_detail, 04_article_main).
+ * Every link here must resolve to a page under app/pages — mockup-only
+ * destinations with no page yet (press kit, subsidiaries, account area) are
+ * intentionally left out until those routes exist.
+ */
 export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
   {
     label: 'درباره ثاخت',
@@ -102,7 +108,7 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.projects,
     megaMenu: [{
       items: [
-        { label: 'نقشه پروژه‌ها', href: routes.projectsMap },
+        { label: 'اطلس و نقشه پروژه‌ها', href: routes.projectsMap },
         { label: 'پروژه‌های آتی', href: routes.projectsUpcoming },
         { label: 'پروژه‌های در حال ساخت', href: routes.projectsUnderConstruction },
         { label: 'پروژه‌های در حال بهره‌برداری', href: routes.projectsOperating },
@@ -140,10 +146,9 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.media,
     megaMenu: [{
       items: [
-        { label: 'نبض ثاخت', href: routes.mediaNews },
-        { label: 'روایت ثاخت', href: routes.mediaStories },
-        { label: 'کارنامه ثاخت', href: routes.mediaReports },
-        { label: 'بسته رسانه‌ای', href: routes.mediaPressKit },
+        { label: 'نبض ثاخت — اخبار', href: routes.mediaNews },
+        { label: 'روایت ثاخت — گفتگو و پادکست', href: routes.mediaStories },
+        { label: 'کارنامه ثاخت — گزارش‌های تخصصی', href: routes.mediaReports },
       ],
     }],
   },
@@ -151,39 +156,83 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
 
 export const headerCta: NavItem = { label: 'مشاوره و تماس سریع', href: routes.salesConsultation }
 
-/** Footer — 5 columns (docs/01-sitemap.md §11). */
+/**
+ * «ورود سهامداران» — the mockups link this to a shareholder portal. The
+ * authenticated area (routes.authLogin / routes.account) is not built yet, so
+ * it points at the IR hub for now. Swap to routes.authLogin once that page exists.
+ */
+export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.ir }
+
+/**
+ * Footer link grid — the 5 columns shared by the mockups' footers
+ * (01a/01b/02a: هلدینگ ثاخت · پروژه‌های عمرانی · سهامداران و کدال ·
+ * رسانه و اخبار · امور مشتریان), mapped onto real routes. The brand block,
+ * newsletter, contact lines and legal bar are rendered by SiteFooter.
+ */
 export const footerColumns: MegaMenuColumn[] = [
-  { items: [] }, // col 1: logo + intro + address, rendered separately in SiteFooter
   {
-    heading: 'دسترسی سریع',
+    heading: 'هلدینگ ثاخت',
     items: [
-      { label: 'درباره ثاخت', href: routes.about },
-      { label: 'پروژه‌ها', href: routes.projects },
-      { label: 'فروش و پیش‌فروش', href: routes.sales },
-      { label: 'تماس با ما', href: routes.contact },
-    ],
-  },
-  {
-    heading: 'سرمایه‌گذاران',
-    items: [
-      { label: 'دیده‌بان ثاخت', href: routes.ir },
-      { label: 'صورت‌های مالی', href: routes.irFinancials },
-      { label: 'تقویم مجامع', href: routes.irCalendar },
-    ],
-  },
-  {
-    heading: 'خدمات و همکاری',
-    items: [
-      { label: 'پروفایل من', href: routes.account },
-      { label: 'سوالات متداول', href: routes.irFaq },
-      { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
+      { label: 'تاریخچه و معرفی شرکت', href: routes.aboutHistory },
+      { label: 'هیئت‌مدیره و ارکان راهبری', href: routes.aboutBoard },
+      { label: 'چشم‌انداز، ماموریت و ارزش‌ها', href: routes.aboutVision },
+      { label: 'مسئولیت اجتماعی و پایداری', href: routes.aboutCsr },
+      { label: 'گواهینامه‌ها و افتخارات', href: routes.aboutHonors },
       { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
     ],
   },
-  { heading: 'خانواده ثاخت', items: [] }, // col 5: subsidiary logo strip, rendered from data
+  {
+    heading: 'پروژه‌های عمرانی',
+    items: [
+      { label: 'اطلس و نقشه پروژه‌ها', href: routes.projectsMap },
+      { label: 'پروژه‌های در دست احداث', href: routes.projectsUnderConstruction },
+      { label: 'پروژه‌های در حال بهره‌برداری', href: routes.projectsOperating },
+      { label: 'پروژه‌های تحویل‌شده', href: routes.projectsCompleted },
+      { label: 'طرح‌های آتی و توسعه‌ای', href: routes.projectsUpcoming },
+    ],
+  },
+  {
+    heading: 'سهامداران و کدال',
+    items: [
+      { label: 'تابلوی نماد ثاخت', href: routes.irSymbol },
+      { label: 'صورت‌های مالی حسابرسی‌شده', href: routes.irFinancials },
+      { label: 'تقویم مجامع عمومی و سود سهام', href: routes.irCalendar },
+      { label: 'حاکمیت شرکتی و شفافیت', href: routes.irGovernance },
+      { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
+    ],
+  },
+  {
+    heading: 'رسانه و اخبار',
+    items: [
+      { label: 'نبض ثاخت — اتاق خبر', href: routes.mediaNews },
+      { label: 'روایت ثاخت — گفتگو و پادکست', href: routes.mediaStories },
+      { label: 'کارنامه ثاخت — گزارش‌های تخصصی', href: routes.mediaReports },
+      { label: 'جستجو در آرشیو سایت', href: routes.search },
+    ],
+  },
+  {
+    heading: 'امور مشتریان',
+    items: [
+      { label: 'واحدهای آماده فروش', href: routes.salesAvailable },
+      { label: 'شرایط فروش و پیش‌فروش', href: routes.salesPreSale },
+      { label: 'راهنمای خرید و قرارداد', href: routes.salesGuide },
+      { label: 'ثبت پیشنهادات و شکایات', href: routes.complaints },
+      { label: 'تماس و امور مشتریان', href: routes.contact },
+    ],
+  },
 ]
 
+/** Legal / utility links in the footer's bottom bar. */
 export const legalNav: NavItem[] = [
-  { label: 'قوانین', href: routes.legalTerms },
   { label: 'حریم خصوصی', href: routes.legalPrivacy },
+  { label: 'قوانین و مقررات', href: routes.legalTerms },
+  { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
 ]
+
+/** Company contact lines shown in the footer (placeholder values from the mockups). */
+export const companyContact = {
+  phone: '۰۲۱-۸۸۸۸۳۳۲۲',
+  phoneHref: 'tel:+982188883322',
+  email: 'info@icd3d.ir',
+  address: 'تهران، میدان ونک، خیابان ملاصدرا',
+} as const

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { calendarEvents } from '~/utils/calendarData'
+import { calendarEventRecords } from '~/utils/calendarData'
 
 useSeoMeta({
-  title: 'تقویم اطلاع‌رسانی و مجامع عمومی — ثاخت',
-  description: 'تقویم رویدادهای افشای اطلاعات، گزارش‌های فصلی و مجامع عمومی هلدینگ ثاخت.',
+  title: 'تقویم مالی و رویدادهای بازار سرمایه — ثاخت',
+  description: 'تقویم رویدادهای افشای اطلاعات، گزارش‌های دوره‌ای، دوره‌های سکوت، پرداخت سود و مجامع عمومی هلدینگ ثاخت.',
 })
 </script>
 
 <template>
   <BaseContainer>
-    <CalendarIndexList :events="calendarEvents" />
+    <CalendarIndexList :events="calendarEventRecords" />
   </BaseContainer>
 </template>
