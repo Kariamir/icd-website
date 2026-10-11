@@ -224,7 +224,7 @@ export function getProjectArchiveCards(): ProjectArchiveCard[] {
       title: p.name,
       status: p.status,
       location: d.location,
-      image: { src: `https://picsum.photos/seed/project-${p.slug}/960/640`, alt: p.name },
+      image: { src: `/img/placeholder.svg`, alt: p.name },
       excerpt: a.excerpt,
       category: d.category,
       builder: d.ownerCompany ?? 'هلدینگ ثاخت',

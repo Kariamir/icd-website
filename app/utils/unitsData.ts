@@ -4,7 +4,7 @@
  */
 import type { UnitDetailViewModel, UnitViewModel } from '~/types/content'
 
-const IMG = (seed: string) => ({ src: `https://picsum.photos/seed/${seed}/960/640`, alt: '' })
+const IMG = (seed: string) => ({ src: `/img/placeholder.svg`, alt: '' })
 
 export const units: UnitDetailViewModel[] = [
   {

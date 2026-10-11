@@ -8,66 +8,21 @@
      ten project colours, not the Material palette
    - sharp corners replaced by the radius scale (design-system 4.1)
    - hrefs remapped onto the real route table
+   - the page <header> and <footer> were lifted out into
+     layouts/default.vue, so every route shares one menu
 
   Still static markup: copy and data are inline. Wire to WPNuxt once
   the content models exist (docs/decisions.md ADR-002).
 -->
 <template>
 <!-- TOP NAVIGATION BAR (Predicted Shared Component: TopNavBar) -->
-<header class="w-full bg-surface-container-lowest dark:bg-inverse-surface border-b border-border dark:border-outline-variant sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
-<!-- Right side in RTL: Brand Identity & Links -->
-<div class="flex items-center gap-8">
-<NuxtLink class="flex items-center gap-3" to="/">
-<div class="w-9 h-9 bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-headline-sm tracking-tighter">
-            ث
-          </div>
-<span class="text-headline-md font-headline-md text-ink dark:text-surface-container-lowest tracking-tight">
-            هلدینگ ساختمانی ثاخت
-          </span>
-</NuxtLink>
-<!-- Desktop Navigation Links -->
-<nav class="hidden lg:flex items-center gap-6">
-<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
-            درباره ثاخت
-          </a>
-<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
-            پروژه‌ها
-          </a>
-<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
-            فروش و پیش‌فروش
-          </a>
-<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
-            دیده‌بان ثاخت
-          </a>
-<a class="text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">
-            رسانه ثاخت
-          </a>
-</nav>
-</div>
-<!-- Left side in RTL: Actions, Language & Search -->
-<div class="flex items-center gap-3">
-<button aria-label="جستجو" class="p-2 text-ink hover:bg-surface-container-high transition-colors duration-150 flex items-center justify-center" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"  /></svg>
-</button>
-<button aria-label="تغییر زبان" class="p-2 text-ink hover:bg-surface-container-high transition-colors duration-150 flex items-center justify-center" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"  /></svg>
-</button>
-<a class="hidden sm:inline-flex items-center border border-primary-container text-primary-container px-4 py-2 text-label-md font-label-md hover:bg-brand-tint transition-colors duration-150" href="#">
-          ورود سهامداران
-        </a>
-<a class="bg-primary-container hover:bg-brand-blue-deep text-surface-container-lowest px-5 py-2.5 text-label-md font-label-md transition-colors duration-150" href="#quick-apply">
-          مشاوره و تماس سریع
-        </a>
-</div>
-</div>
-</header>
+
 <!-- MAIN CANVAS CONTENT -->
 <main class="w-full flex-grow">
 <!-- SECTION 1: HERO -->
 <section class="relative w-full bg-ink text-surface-container-lowest border-b border-border overflow-hidden">
 <!-- Background Architectural Scrim -->
-<div class="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity" data-alt="A massive architectural civil engineering structure in monochrome deep steel blue and gray tones, showcasing imposing concrete framework, sharp geometric lines, and tower cranes under structured industrial morning light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGsDcWzj90RZxWwizz3g8z3NH0e_zWBE7XC3OLnb0C6zap3eHsUrX-zDYPbTl1cukQUGmLZgRJ-HB1_fdEbYjdxxqnV3_UgO4jGrZ0Bk2SrF7g9pgTAmoZSFqZTsCp2mOFGZYMYWVlnc2u4RQMTxAEIOfU9WTXzkFbayZKOeFTj6ualVxf-MV2kMJ7Q2qnJbNZ1r46Vq74MdlQPPEZYkxPuSmpuDiHRp-0NaeV-FwlsoG3Aff2Xr66Eg')"></div>
+<div class="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity" data-alt="A massive architectural civil engineering structure in monochrome deep steel blue and gray tones, showcasing imposing concrete framework, sharp geometric lines, and tower cranes under structured industrial morning light." style="background-image: url('/img/placeholder.svg')"></div>
 <div class="absolute inset-0 bg-gradient-to-l from-ink via-ink/90 to-ink/75"></div>
 <div class="relative max-w-[1440px] mx-auto px-space-lg md:px-margin py-20 lg:py-28 flex flex-col justify-center">
 <!-- Sub-label / Tag -->
@@ -131,7 +86,7 @@
 <div class="text-secondary text-body-sm font-body-sm mt-1">مدیریت مگاپروژه‌های تراز اول</div>
 </div>
 <div class="p-4 bg-surface border border-border">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" /></svg>
 <div class="text-ink font-label-lg text-label-lg">مسیر ارتقا</div>
 <div class="text-secondary text-body-sm font-body-sm mt-1">سیستم ارزیابی شایسته‌محور</div>
 </div>
@@ -139,7 +94,7 @@
 </div>
 <div class="lg:col-span-5">
 <div class="relative border border-border p-2 bg-surface">
-<img alt="سرمایه انسانی هلدینگ ثاخت" class="w-full h-[400px] object-cover filter contrast-105" data-alt="An executive architectural board meeting in a high-rise office with large glass windows overlooking a vast civil construction project. Engineers and corporate strategists dressed in sharp corporate attire are analyzing blueprints and BIM models on a sleek dark conference table in high-contrast neutral lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARIXI48d40xY9KSqi62TAokt3JQhXCm1HOYRMvEll4nsrP0RgyYKEqLbF1L3KWX57bGIKK-ovpnt7DHFWdXbbrS-v2hS-rw1tHZL9IJu56_OikTcu3tzL6M6osSEICztDurbnAjK_ZCzoLk0bPHobVTH4KCxKMHYtK0xqLR-FHcg1Pkkr-Jkm4uEbG_XYk-2zqbSM9le_f-C25gjpahxrjc8U8KPYuh0Y82MvA8hHdWEWNnVjU4vPdhA" />
+<img alt="سرمایه انسانی هلدینگ ثاخت" class="w-full h-[400px] object-cover filter contrast-105" data-alt="An executive architectural board meeting in a high-rise office with large glass windows overlooking a vast civil construction project. Engineers and corporate strategists dressed in sharp corporate attire are analyzing blueprints and BIM models on a sleek dark conference table in high-contrast neutral lighting." src="/img/placeholder.svg" />
 <div class="bg-ink text-surface-container-lowest p-4 mt-2 flex justify-between items-center">
 <div>
 <div class="text-label-lg font-label-lg">شورای راهبری پروژه‌های عمرانی</div>
@@ -189,7 +144,7 @@
 </label>
 <div class="relative">
 <input class="w-full text-right bg-surface-container-lowest border border-border px-4 py-3 text-ink text-body-md font-body-md placeholder:text-secondary/50 focus:border-primary-container focus:outline-none transition-colors duration-150" dir="ltr" id="contactNumber" name="contactNumber" placeholder="۰۹۱۲XXXXXXX" required="" type="tel" />
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
 </div>
 </div>
 <!-- Field 3: File Attachment (Drag & Drop / Browse) -->
@@ -210,14 +165,14 @@
 </div>
 <div class="hidden flex items-center justify-between bg-surface-container-lowest p-3 border border-border mt-2" id="fileSelectedDisplay">
 <div class="flex items-center gap-3 overflow-hidden text-right">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6" /></svg>
 <div>
 <div class="text-ink text-label-md font-label-md truncate max-w-xs md:max-w-md" id="selectedFileName">نام فایل</div>
 <div class="text-secondary text-body-sm font-body-sm" id="selectedFileSize">اندازه فایل</div>
 </div>
 </div>
 <button class="text-status-error hover:bg-surface-container p-1" onclick="clearFile(event)" title="حذف فایل" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
 </button>
 </div>
 </div>
@@ -226,7 +181,7 @@
 <div class="pt-2">
 <button class="w-full bg-primary-container hover:bg-brand-blue-deep active:bg-primary text-surface-container-lowest py-4 px-6 text-label-lg font-label-lg flex items-center justify-center gap-3 transition-colors duration-150 cursor-pointer" type="submit">
 <span>ارسال رزومه کاری</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
 </button>
 </div>
 <!-- Privacy & SLA Note -->
@@ -238,7 +193,7 @@
 </div>
 <!-- Success Notification Alert (Hidden Initially) -->
 <div class="hidden p-4 bg-surface-container border border-status-success text-status-success flex items-center gap-3" id="formSuccessAlert">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>
 <span class="font-label-lg text-label-lg">رزومه شما با موفقیت ثبت شد. کد پیگیری ارسال پیامک گردید.</span>
 </div>
 </form>
@@ -452,7 +407,7 @@
                 تیم منابع انسانی ستاد مرکزی پاسخگوی مکاتبات متقاضیان محترم می‌باشد.
               </p>
 <div class="text-ink text-label-md font-label-md flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" /></svg>
 <span>hr@icd.ir</span>
 </div>
 </div>
@@ -513,128 +468,6 @@
 </section>
 </main>
 <!-- FOOTER (Predicted Shared Component: Footer) -->
-<footer class="w-full bg-ink text-surface-container-lowest border-t border-border dark:border-outline-variant">
-<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
-<!-- Top Grid of Links -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-secondary/30">
-<!-- Column 1: Identity -->
-<div class="lg:col-span-1">
-<div class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight mb-4 flex items-center gap-2">
-<span class="w-7 h-7 bg-primary-container text-surface-container-lowest inline-flex items-center justify-center font-bold text-body-md">ث</span>
-<span>هلدینگ ثاخت</span>
-</div>
-<p class="text-surface-dim text-body-sm font-body-sm leading-relaxed mb-6">
-            شرکت بین‌المللی توسعه ساختمان (سهامی عام)؛ نماد توسعه پایدار و مدیریت مگاپروژه‌های سرمایه‌گذاری و مسکونی در ایران.
-          </p>
-<div class="flex items-center gap-2 text-label-md font-label-md text-brand-tint">
-<span class="w-2 h-2 bg-status-success inline-block"></span>
-<span>نماد بورس: ثاخت (ICD)</span>
-</div>
-</div>
-<!-- Column 2: Governance & Projects -->
-<div>
-<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">
-            معرفی و پروژه‌ها
-          </h4>
-<ul class="space-y-2.5">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                معرفی هلدینگ و هیئت‌مدیره
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                پرتفوی پروژه‌های عمرانی
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                پایداری و استانداردهای مهندسی
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 3: Shareholders & Finance -->
-<div>
-<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">
-            امور سهامداران
-          </h4>
-<ul class="space-y-2.5">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                سامانه سهامداران و کدال
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                فرصت‌های پیش‌فروش و سرمایه‌گذاری
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                مناقصات و مزایده‌ها
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 4: Media & Reports -->
-<div>
-<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">
-            رسانه و نظارت
-          </h4>
-<ul class="space-y-2.5">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                اخبار و رسانه دیجیتال
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                گزارش‌های ماهانه دیده‌بان
-              </a>
-</li>
-<li>
-<NuxtLink class="text-surface-container-lowest font-bold text-body-sm font-body-sm" to="/careers">
-                فرصت‌های همکاری و جذب
-              </NuxtLink>
-</li>
-</ul>
-</div>
-<!-- Column 5: Communication -->
-<div>
-<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4">
-            ارتباطات سازمانی
-          </h4>
-<ul class="space-y-2.5">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                تماس و امور مشتریان
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors text-body-sm font-body-sm" href="#">
-                حریم خصوصی و شفافیت مالی
-              </a>
-</li>
-<li class="pt-2">
-<span class="text-body-sm font-body-sm text-surface-dim block">تلفن ستاد مرکزی:</span>
-<span class="text-label-lg font-label-lg text-surface-container-lowest dir-ltr inline-block">۰۲۱-۸۸۸۸۴۵۲۰</span>
-</li>
-</ul>
-</div>
-</div>
-<!-- Bottom Bar with exact JSON Copyright String -->
-<div class="mt-8 pt-4 flex flex-col md:flex-row items-center justify-between gap-4 text-surface-dim text-body-sm font-body-sm">
-<p class="text-center md:text-right">
-          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
-        </p>
-<div class="flex items-center gap-6">
-<a class="hover:text-brand-tint transition-colors" href="#">قوانین و ضوابط</a>
-<a class="hover:text-brand-tint transition-colors" href="#">منشور اخلاقی</a>
-<a class="hover:text-brand-tint transition-colors" href="#">پرتال درون‌سازمانی</a>
-</div>
-</div>
-</div>
-</footer>
+
 <!-- Micro-interactions Script -->
 </template>

@@ -1,37 +1,22 @@
+<script setup lang="ts">
+/*
+ * One layout for every route (ADR-013).
+ *
+ * The approved designs each shipped a full page including chrome. Mounting
+ * them as-is produced two headers per page, so the ported views were first
+ * given `layout: false` — which left the home page on the old SiteHeader and
+ * every other page on its own inline copy. Two different menus.
+ *
+ * The chrome now lives here once; the ported views are body-only.
+ */
+</script>
+
 <template>
-  <div class="app-shell">
-    <a href="#main" class="app-shell__skip">پرش به محتوای اصلی</a>
+  <div class="min-h-screen flex flex-col bg-background text-ink">
     <SiteHeader />
-    <main id="main" tabindex="-1">
+    <main class="flex-grow">
       <slot />
     </main>
     <SiteFooter />
   </div>
 </template>
-
-<style scoped>
-.app-shell {
-  min-block-size: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.app-shell main {
-  flex: 1;
-  outline: none;
-}
-.app-shell__skip {
-  position: absolute;
-  inset-block-start: var(--space-1);
-  inset-inline-start: var(--space-1);
-  z-index: 70;
-  padding: var(--space-1) var(--space-2);
-  background: var(--color-ink);
-  color: var(--color-white);
-  border-radius: var(--radius-pill);
-  font: var(--text-label);
-  text-decoration: none;
-  transform: translateY(-200%);
-  transition: transform 160ms ease;
-}
-.app-shell__skip:focus { transform: none; }
-</style>

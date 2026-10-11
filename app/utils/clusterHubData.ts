@@ -8,7 +8,7 @@
 // until the CMS/IR feeds exist. Images: picsum placeholders, like the other
 // mock data files.
 
-const IMG = (seed: string, w = 960, h = 640) => `https://picsum.photos/seed/${seed}/${w}/${h}`
+const IMG = (seed: string, w = 960, h = 640) => `/img/placeholder.svg`
 
 export type ClusterHubKey = 'about' | 'sales' | 'ir' | 'media'
 

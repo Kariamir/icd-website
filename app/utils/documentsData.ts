@@ -13,7 +13,7 @@
 import type { DocumentViewModel } from '~/types/content'
 import type { JalaliDate } from '~/utils/irDateUtils'
 
-const IMG = (seed: string) => `https://picsum.photos/seed/${seed}/960/640`
+const IMG = (seed: string) => `/img/placeholder.svg`
 
 /** Official CODAL listing for the ثاخت symbol (mock deep link). */
 export const codalSymbolUrl = 'https://codal.ir/ReportList.aspx?search&Symbol=%D8%AB%D8%A7%D8%AE%D8%AA'
@@ -181,8 +181,8 @@ const irQuickLinks = [
 ]
 
 export const irContacts: DocumentContact[] = [
-  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵', image: 'https://picsum.photos/seed/icd-ir-contact-1/320/320' },
-  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی', image: 'https://picsum.photos/seed/icd-ir-contact-2/320/320' },
+  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵', image: '/img/placeholder.svg' },
+  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی', image: '/img/placeholder.svg' },
 ]
 
 export const documentHubs: Record<'financials' | 'governance', DocumentHubContent> = {

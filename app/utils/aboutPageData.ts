@@ -26,7 +26,7 @@ export const aboutHero = {
   title: 'چهار دهه ساختن',
   lead: 'هلدینگ بین‌المللی توسعه ساختمان — پذیرفته‌شده در بورس تهران.',
   image: {
-    src: 'https://picsum.photos/seed/icd-about-hero/2400/1350',
+    src: '/img/placeholder.svg',
     alt: 'نمایی از پروژه‌های شاخص هلدینگ ثاخت',
   },
 }
@@ -48,19 +48,19 @@ export const aboutPillars: AboutPillar[] = [
     id: 'vision',
     title: 'چشم‌انداز',
     text: 'توسعه‌دهنده نخست مگاپروژه‌های چندمنظوره ایران، با بازدهی متوازن برای سهامدار و شهر.',
-    image: { src: 'https://picsum.photos/seed/icd-pillar-vision/900/1200', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
   },
   {
     id: 'governance',
     title: 'حاکمیت شرکتی',
     text: 'گزارش‌گری شفاف در کدال، کمیته‌های مستقل حسابرسی و ریسک، و پاسخ‌گویی به مجمع.',
-    image: { src: 'https://picsum.photos/seed/icd-pillar-governance/900/1200', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
   },
   {
     id: 'standards',
     title: 'استانداردهای مهندسی',
     text: 'ISO 9001 و 45001، پایش ژئوتکنیک بلادرنگ، و آزمایشگاه مرکزی بتن در زنجیره ساخت.',
-    image: { src: 'https://picsum.photos/seed/icd-pillar-standards/900/1200', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
   },
 ]
 
@@ -95,7 +95,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۳۰',
     title: 'پارس سازه',
     caption: 'در انتظار متن آرشیوی',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1330/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: true,
     placeholder: true,
   },
@@ -104,7 +104,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۴۰',
     title: 'نخستین کارگاه‌ها',
     caption: 'در انتظار متن آرشیوی',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1340/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: true,
     placeholder: true,
   },
@@ -113,7 +113,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۶۴',
     title: 'تأسیس ثاخت',
     caption: 'بنیان‌گذاری هلدینگ',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1364/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: false,
   },
   {
@@ -121,7 +121,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۷۶',
     title: 'برج بین‌المللی تهران',
     caption: 'بتن‌ریزی پی عمیق',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1376/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: false,
   },
   {
@@ -129,7 +129,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۸۳',
     title: 'ورود به بورس تهران',
     caption: 'گشایش نماد ثاخت',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1383/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: false,
   },
   {
@@ -137,7 +137,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۹۶',
     title: 'مگاپارس تهران',
     caption: 'نخستین مگاپروژه چندمنظوره',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1396/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: false,
   },
   {
@@ -145,7 +145,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۴۰۲',
     title: 'ساخت پایدار',
     caption: 'استانداردهای سبز و پایش بلادرنگ',
-    image: { src: 'https://picsum.photos/seed/icd-ms-1402/1200/900', alt: '' },
+    image: { src: '/img/placeholder.svg', alt: '' },
     archival: false,
   },
 ]
@@ -154,7 +154,7 @@ export const aboutMilestones: AboutMilestone[] = [
 export const aboutFilm = {
   title: 'روایت ثاخت',
   caption: 'فیلم کوتاه برند',
-  poster: 'https://picsum.photos/seed/icd-about-film/2000/1125',
+  poster: '/img/placeholder.svg',
   src: null as string | null,
 }
 
@@ -166,12 +166,12 @@ export interface AboutChainStep {
 }
 
 export const aboutChain: AboutChainStep[] = [
-  { id: 'c-1', label: 'طراحی', image: { src: 'https://picsum.photos/seed/icd-chain-1/800/1000', alt: '' } },
-  { id: 'c-2', label: 'تأمین', image: { src: 'https://picsum.photos/seed/icd-chain-2/800/1000', alt: '' } },
-  { id: 'c-3', label: 'بتن', image: { src: 'https://picsum.photos/seed/icd-chain-3/800/1000', alt: '' } },
-  { id: 'c-4', label: 'اجرا', image: { src: 'https://picsum.photos/seed/icd-chain-4/800/1000', alt: '' } },
-  { id: 'c-5', label: 'تحویل', image: { src: 'https://picsum.photos/seed/icd-chain-5/800/1000', alt: '' } },
-  { id: 'c-6', label: 'بهره‌برداری', image: { src: 'https://picsum.photos/seed/icd-chain-6/800/1000', alt: '' } },
+  { id: 'c-1', label: 'طراحی', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-2', label: 'تأمین', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-3', label: 'بتن', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-4', label: 'اجرا', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-5', label: 'تحویل', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-6', label: 'بهره‌برداری', image: { src: '/img/placeholder.svg', alt: '' } },
 ]
 
 // ---------------------------------------------------------------------------
@@ -190,7 +190,7 @@ export const aboutGallery: AboutGalleryItem[] = honors.map((honor, index) => ({
   title: honor.title,
   year: honor.year,
   image: {
-    src: honor.image?.src ?? `https://picsum.photos/seed/icd-gallery-${index}/900/1100`,
+    src: honor.image?.src ?? `/img/placeholder.svg`,
     alt: honor.image?.alt ?? '',
   },
 }))
@@ -213,7 +213,7 @@ export const aboutSubsidiaries: AboutSubsidiary[] = orgSubsidiaries.map(company 
   badge: company.badge,
   stake: company.stake,
   logo: {
-    src: `https://picsum.photos/seed/icd-logo-${company.id}/600/400`,
+    src: `/img/placeholder.svg`,
     alt: company.name,
   },
 }))
@@ -222,7 +222,7 @@ export const aboutSubsidiariesSection = {
   title: 'خانواده ثاخت',
   text: 'هشت شرکت تخصصی، یک زنجیره کامل ساخت.',
   /** Low-opacity blurred backdrop behind the whole section. */
-  backdrop: 'https://picsum.photos/seed/icd-subsidiaries-backdrop/2400/1400',
+  backdrop: '/img/placeholder.svg',
 }
 
 // ---------------------------------------------------------------------------
@@ -253,7 +253,7 @@ export const aboutBoard: AboutBoardCard[] = boardMembers.map(member => ({
   representing: member.representing ?? '—',
   bio: plainBio(member),
   image: {
-    src: member.image?.src ?? `https://picsum.photos/seed/icd-board-${member.slug}/600/750`,
+    src: member.image?.src ?? `/img/placeholder.svg`,
     alt: member.image?.alt ?? member.name,
   },
 }))

@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 
 const fa = (n: number) => n.toLocaleString('fa-IR')
-const image = computed(() => props.unit.floorPlanImage ?? { src: `https://picsum.photos/seed/unit-${props.unit.id}-plan/960/640`, alt: '' })
+const image = computed(() => props.unit.floorPlanImage ?? { src: `/img/placeholder.svg alt: '' })
 const stats = computed(() => {
   const out = [
     { label: 'متراژ', value: props.unit.area },

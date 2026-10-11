@@ -102,7 +102,7 @@ function mockViews(seed: string) {
   return 180 + (h % 4800)
 }
 
-const img = (seed: string, caption: string, alt = '') => ({ src: `https://picsum.photos/seed/${seed}/960/640`, alt, caption })
+const img = (seed: string, caption: string, alt = '') => ({ src: `/img/placeholder.svg`, alt, caption })
 
 // Local mock entries for content types that have no page of their own yet
 // (tenders, subsidiary companies) — so the «مناقصات» and «حاکمیت شرکتی»

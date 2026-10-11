@@ -8,6 +8,8 @@
      ten project colours, not the Material palette
    - sharp corners replaced by the radius scale (design-system 4.1)
    - hrefs remapped onto the real route table
+   - the page <header> and <footer> were lifted out into
+     layouts/default.vue, so every route shares one menu
 
   Still static markup: copy and data are inline. Wire to WPNuxt once
   the content models exist (docs/decisions.md ADR-002).
@@ -16,60 +18,7 @@
 <!-- =========================================================================
        1. HEADER (TopNavBar Shared Component verbatim implementation)
        ========================================================================= -->
-<header class="w-full bg-surface-container-lowest border-b border-border sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
-<!-- Right Side: Logo + Nav Items (RTL Primary Anchor) -->
-<div class="flex items-center gap-10">
-<!-- Brand Identity -->
-<a class="flex items-center gap-3" href="#">
-<div class="w-9 h-9 bg-primary-container flex items-center justify-center text-surface-container-lowest font-headline-md font-bold tracking-tighter">
-            ث
-          </div>
-<span class="text-headline-md font-headline-md text-ink tracking-tight font-extrabold">
-            هلدینگ ساختمانی ثاخت
-          </span>
-</a>
-<!-- Desktop Navigation Links -->
-<nav class="hidden md:flex items-center gap-8 text-label-lg font-label-lg">
-<a class="border-b-2 border-primary-container text-primary-container font-bold pb-1 transition-colors" href="#">
-            درباره ثاخت
-          </a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors" href="#">
-            پروژه‌ها
-          </a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors" href="#">
-            فروش و پیش‌فروش
-          </a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors" href="#">
-            دیده‌بان ثاخت
-          </a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors" href="#">
-            رسانه ثاخت
-          </a>
-</nav>
-</div>
-<!-- Left Side: Global Actions & Utilities -->
-<div class="flex items-center gap-4">
-<!-- Utility Icons -->
-<div class="flex items-center gap-1 border-l border-border pl-4">
-<button aria-label="جستجو" class="w-10 h-10 flex items-center justify-center text-ink hover:bg-surface-container-high transition-colors" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"  /></svg>
-</button>
-<button aria-label="تغییر زبان" class="w-10 h-10 flex items-center justify-center text-ink hover:bg-surface-container-high transition-colors" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"  /></svg>
-</button>
-</div>
-<!-- Secondary Action: ورود سهامداران -->
-<a class="hidden lg:inline-flex items-center justify-center px-4 py-2 border border-primary-container text-primary-container text-label-lg font-label-lg hover:bg-brand-tint transition-colors" href="#">
-          ورود سهامداران
-        </a>
-<!-- Primary Trailing Action: مشاوره و تماس سریع -->
-<a class="inline-flex items-center justify-center px-5 py-2 bg-primary-container text-surface-container-lowest text-label-lg font-label-lg hover:bg-brand-blue-deep transition-colors" href="#">
-          مشاوره و تماس سریع
-        </a>
-</div>
-</div>
-</header>
+
 <!-- Breadcrumb Navigation Bar -->
 <div class="w-full bg-surface border-b border-border">
 <div class="max-w-[1440px] mx-auto px-space-lg md:px-margin py-3 flex items-center justify-between text-label-md font-label-md text-on-surface-variant">
@@ -96,7 +45,7 @@
          Full-bleed architectural photograph, dark overlay (35%), sits low and right
          ========================================================================= -->
 <section class="relative w-full h-[460px] md:h-[520px] bg-ink overflow-hidden border-b border-border">
-<div class="absolute inset-0 bg-cover bg-center" data-alt="A grand, monumental architectural photograph of towering modern reinforced concrete skyscrapers and monumental brutalist structures against a clear sharp daylight sky. The engineering craftsmanship shows clean geometric lines, precise balconies, and industrial structural elements. Deep shadows and cool high-contrast tones dominate the architectural landscape with authoritative civil engineering mood, corporate pristine lighting, and deep charcoal and steel blue accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBvllooFxSwo70ZeLf3PDNwlh-Zbiw89DDIOb1RaaCQD61ediOXjwMikX7fK_O7vNJhzb2iQalrRsfXlpctXUn1WeJRb1b56moIyZnvx_0w0n2hrpHmlY3ZJmqO7_jjqijhkOHYqvVqHz2ubYtY3W8vzTRCkVgoPXI7hZ5gu5IOY5v3-vWCW__H6IEJb4lcG7vxpPsiQgg4luVE5NEkKzR5kkkl6Uyi4kLWNhToCWv7x_WTCxT6WWxgQ')"></div>
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A grand, monumental architectural photograph of towering modern reinforced concrete skyscrapers and monumental brutalist structures against a clear sharp daylight sky. The engineering craftsmanship shows clean geometric lines, precise balconies, and industrial structural elements. Deep shadows and cool high-contrast tones dominate the architectural landscape with authoritative civil engineering mood, corporate pristine lighting, and deep charcoal and steel blue accents." style="background-image: url('/img/placeholder.svg')"></div>
 <!-- Scrim overlay exactly 35% deep #041C2C as instructed -->
 <div class="absolute inset-0 bg-ink/35"></div>
 <!-- Sits low and right content alignment -->
@@ -230,7 +179,7 @@
 <!-- Project 1: برج بین‌المللی تهران (تهران، بزرگراه حکیم) -->
 <article class="bg-surface-container-lowest border border-border group overflow-hidden">
 <div class="relative w-full aspect-[4/3] bg-surface-alt overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="An expansive, commanding daylight architectural photograph of the famous Tehran International Tower standing tall against blue sky. Modern concrete facade, geometric wings, pristine architectural detailing, civil engineering symmetry, institutional clean lighting, and corporate real estate aesthetic with crisp structural outlines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ej7zcVTnXC5eUEdf45kr1Bkm_PUUv0yQ7RYFm1WJ1X6PYLBAOrKuO9JxbJnA0AuGevu4rhYptYdgQOlDHV3TpDE1yNN1Osnx_ja4Ban0KMjSOyrvDppuu8LXKk_7c_eGfRXokfTS-wfkCsfn5Zu1XrzQde9ZnTBrTJXe-bxaHunTtCRq1_Ic6QkECTQ8EyjyNfXDiM6iAVvuB69FRkmbyomqnXscf_pXGqizOZFAwiop29YWmsr7ZQ" />
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="An expansive, commanding daylight architectural photograph of the famous Tehran International Tower standing tall against blue sky. Modern concrete facade, geometric wings, pristine architectural detailing, civil engineering symmetry, institutional clean lighting, and corporate real estate aesthetic with crisp structural outlines." src="/img/placeholder.svg" />
 </div>
 <div class="p-5">
 <h3 class="text-headline-sm font-headline-sm text-ink font-bold group-hover:text-primary-container transition-colors">
@@ -244,7 +193,7 @@
 <!-- Project 2: مجموعه مسکونی تجاری آ.اس.پ (تهران، شیخ بهایی) -->
 <article class="bg-surface-container-lowest border border-border group overflow-hidden">
 <div class="relative w-full aspect-[4/3] bg-surface-alt overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A dignified wide-angle architectural photograph of the iconic ASP Residential and Commercial complex in Tehran. Brutalist concrete stepped modular towers, mid-century modernist precision, geometric balconies and landscaped institutional podiums under bright clear morning light with deep crisp architectural shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpqaszb3nuFjmWmQvmPxNgND97tKKSysco3mcWL_gJB9mbQnsH8_lomOetUdsYNs0kqHqnGrJJu_oZliSHaJsQZf0iYGWm6lGSUNfGTFnkHHWOMNgwXmAo3rJVFrM7_NwjGDKNKPAcQOPsC77BGErzrotvjpJZDfr4j8UrWPijbuf_kGIeJQOw_uz8xcLKhLTEGya3TECpzTUVfjag2Vj0QYLXNf5n9CoWDKGUy1fpeX1sm4qe8aTb5g" />
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A dignified wide-angle architectural photograph of the iconic ASP Residential and Commercial complex in Tehran. Brutalist concrete stepped modular towers, mid-century modernist precision, geometric balconies and landscaped institutional podiums under bright clear morning light with deep crisp architectural shadows." src="/img/placeholder.svg" />
 </div>
 <div class="p-5">
 <h3 class="text-headline-sm font-headline-sm text-ink font-bold group-hover:text-primary-container transition-colors">
@@ -258,7 +207,7 @@
 <!-- Project 3: هتل و برج مسکونی کوهسار (مشهد، بلوار کوهسنگی) -->
 <article class="bg-surface-container-lowest border border-border group overflow-hidden">
 <div class="relative w-full aspect-[4/3] bg-surface-alt overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Modern architectural photography of the luxury high-rise Kohsar residential tower and hotel in Mashhad near mountain backdrop. Contemporary stone and curtain-wall glass facade, geometric steel lines, crisp engineering precision, daylight urban scene with balanced corporate blue tones and zero decorative blur." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKnEvH6LJcqpumma7tGEW3va0atiWKNTiXMHvr12B28as9DfIpkFn1054HLn8w3vqEEYZXRltBtmIUG8isKqviFXE2GoTamtycodwIp485ECXN3qHBZ9kGwL5SQ4jEfKcAE-XFA3LmkVdhxCdBlxpob9WeD6ogmFICL4qIvVLCwETyMWdAJjQk5pkkq-hjnXb7iaweo_8xFLppBaqRkhYIe2Isk6AK7kJ56Hh05W8XWgteQmMW9kEVvw" />
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Modern architectural photography of the luxury high-rise Kohsar residential tower and hotel in Mashhad near mountain backdrop. Contemporary stone and curtain-wall glass facade, geometric steel lines, crisp engineering precision, daylight urban scene with balanced corporate blue tones and zero decorative blur." src="/img/placeholder.svg" />
 </div>
 <div class="p-5">
 <h3 class="text-headline-sm font-headline-sm text-ink font-bold group-hover:text-primary-container transition-colors">
@@ -272,7 +221,7 @@
 <!-- Project 4: مجتمع تجاری اداری فیروزه (تبریز، بلوار ۲۹ بهمن) -->
 <article class="bg-surface-container-lowest border border-border group overflow-hidden">
 <div class="relative w-full aspect-[4/3] bg-surface-alt overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A clean, monolithic architectural perspective of the modern Firoozeh commercial and office complex in Tabriz. Stone and composite facade with rational engineering rhythm, expansive glass storefronts, crisp urban setting, authoritative civil engineering quality with institutional lighting and neutral gray concrete textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU4A0OAkkH90P-mSXL_xRapI1bFZY1cyc20M3gr2ukAAO2LEt2DQVDZwmqAZ-e4LSWhFzQzlNoyvACG5ws_ZElM8dFW_c0DbQ0Y7PAcl4blldeSPe73bSar8Py8SaNY8CgHeau_i6wN2SVNFNANkG4IJvXACq8rxT10lke-ffPBjGGudwimxGlJcBs1ZHHkxmUMx_o2kbNM70dYYtfOnoGNwTPeXfhzKpz3Af4UWbQdrKe47pSOTiiFA" />
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A clean, monolithic architectural perspective of the modern Firoozeh commercial and office complex in Tabriz. Stone and composite facade with rational engineering rhythm, expansive glass storefronts, crisp urban setting, authoritative civil engineering quality with institutional lighting and neutral gray concrete textures." src="/img/placeholder.svg" />
 </div>
 <div class="p-5">
 <h3 class="text-headline-sm font-headline-sm text-ink font-bold group-hover:text-primary-container transition-colors">
@@ -332,182 +281,4 @@
 <!-- =========================================================================
        7. FOOTER (Official 5-column corporate footer of ICD Holding)
        ========================================================================= -->
-<footer class="w-full bg-ink text-surface-container-lowest border-t border-border">
-<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
-<!-- Top Corporate Ribbon -->
-<div class="pb-12 border-b border-outline/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 bg-primary-container flex items-center justify-center text-surface-container-lowest font-headline-md font-bold">
-            ث
-          </div>
-<div>
-<div class="text-headline-sm font-headline-sm text-surface-container-lowest font-extrabold tracking-tight">
-              شرکت بین‌المللی توسعه ساختمان (ثاخت)
-            </div>
-<div class="text-body-sm font-body-sm text-surface-variant/70 mt-0.5">
-              بزرگ‌ترین هلدینگ ساختمانی بازار سرمایه و پیشگام انبوه‌سازی مهندسی کشور
-            </div>
-</div>
-</div>
-<div class="flex items-center gap-3">
-<span class="text-label-md font-label-md text-surface-dim">شماره تماس مرکزی:</span>
-<span class="text-body-md font-body-md font-bold text-surface-container-lowest tabular-nums dir-ltr">۰۲۱-۸۸۸۸۴۵۲۰</span>
-</div>
-</div>
-<!-- 5-Column Architectural Grid -->
-<div class="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 py-12 border-b border-outline/30">
-<!-- Column 1: معرفی و حاکمیت -->
-<div class="space-y-4">
-<h4 class="text-label-lg font-label-lg text-brand-tint font-bold">
-            معرفی و حاکمیت
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                معرفی هلدینگ و هیئت‌مدیره
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                شرکت‌های تابعه و کنسرسیوم
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                اساسنامه و خط‌مشی سازمانی
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                پایداری و استانداردهای مهندسی
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 2: پرتفوی پروژه‌ها -->
-<div class="space-y-4">
-<h4 class="text-label-lg font-label-lg text-brand-tint font-bold">
-            پرتفوی پروژه‌ها
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                پرتفوی پروژه‌های عمرانی
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                پروژه‌های بلندمرتبه‌سازی
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                مجموعه‌های اقامتی و تفریحی
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                ابنیه تجاری، اداری و خدماتی
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 3: امور سهامداران و بازار -->
-<div class="space-y-4">
-<h4 class="text-label-lg font-label-lg text-brand-tint font-bold">
-            امور سهامداران
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                سامانه سهامداران و کدال
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                صورت‌های مالی حسابرسی‌شده
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                گزارش‌های ماهانه دیده‌بان
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                حریم خصوصی و شفافیت مالی
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 4: سرمایه‌گذاری و مناقصات -->
-<div class="space-y-4">
-<h4 class="text-label-lg font-label-lg text-brand-tint font-bold">
-            فروش و معاملات
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                فرصت‌های پیش‌فروش و سرمایه‌گذاری
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                مناقصات و مزایده‌ها
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                واگذاری سهام شرکت‌های تابعه
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                شرایط تسهیلات و تسویه
-              </a>
-</li>
-</ul>
-</div>
-<!-- Column 5: ارتباطات و دفتر مرکزی -->
-<div class="space-y-4 col-span-2 md:col-span-1">
-<h4 class="text-label-lg font-label-lg text-brand-tint font-bold">
-            ارتباطات و رسانه
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                اخبار و رسانه دیجیتال
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                تماس و امور مشتریان
-              </a>
-</li>
-<li>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">
-                میز خدمت و پاسخگویی سریع
-              </a>
-</li>
-<li class="pt-2 text-label-md text-surface-variant/80">
-              تهران، میدان آرژانتین، خیابان احمد قصیر، خیابان هشتم، پلاک ۱۱
-            </li>
-</ul>
-</div>
-</div>
-<!-- Bottom Copyright & Legal Line (Verbatim from JSON) -->
-<div class="pt-8 flex flex-col md:flex-row items-center justify-between text-body-sm font-body-sm text-surface-dim gap-4">
-<p class="text-center md:text-right">
-          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
-        </p>
-<div class="flex items-center gap-6 text-label-md font-label-md">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">پرتال داخلی کارکنان</a>
-<span class="text-outline/40">|</span>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">ضوابط ساخت و مهندسی</a>
-<span class="text-outline/40">|</span>
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">نقشه سایت</a>
-</div>
-</div>
-</div>
-</footer>
 </template>

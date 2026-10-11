@@ -8,62 +8,15 @@
      ten project colours, not the Material palette
    - sharp corners replaced by the radius scale (design-system 4.1)
    - hrefs remapped onto the real route table
+   - the page <header> and <footer> were lifted out into
+     layouts/default.vue, so every route shares one menu
 
   Still static markup: copy and data are inline. Wire to WPNuxt once
   the content models exist (docs/decisions.md ADR-002).
 -->
 <template>
 <!-- BEGIN: StickyMainHeader -->
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border h-20 shadow-sm transition-all duration-200">
-<div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-<!-- Brand Logo & Identity -->
-<div class="flex items-center gap-3 shrink-0">
-<a class="flex items-center gap-3.5 group focus:outline-none" href="#">
-<div class="w-11 h-11 rounded-2xl bg-brand-dark flex items-center justify-center text-white shadow-md group-hover:bg-brand-blue transition-colors">
-<svg class="w-6 h-6 text-brand-tint" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round" /></path>
-</svg>
-</div>
-<div class="flex flex-col">
-<span class="text-base font-extrabold tracking-tight text-brand-dark leading-tight">هلدینگ ساختمانی ثاخت</span>
-<span class="text-[10px] uppercase font-semibold tracking-wider text-brand-muted">ICD Investment &amp; Construction</span>
-</div>
-</a>
-</div>
-<!-- Center Desktop Navigation -->
-<nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-slate-700">
-<a class="hover:text-brand-blue transition-colors" href="#">صفحه اصلی</a>
-<a class="hover:text-brand-blue transition-colors" href="#">درباره ثاخت</a>
-<a class="hover:text-brand-blue transition-colors font-semibold text-brand-blue" href="#">پروژه‌ها</a>
-<a class="hover:text-brand-blue transition-colors" href="#">فروش و پیش‌فروش</a>
-<a class="hover:text-brand-blue transition-colors" href="#">دیده‌بان ثاخت</a>
-<a class="hover:text-brand-blue transition-colors" href="#">رسانه و اخبار</a>
-<a class="hover:text-brand-blue transition-colors" href="#">امور مشتریان و دفاتر</a>
-</nav>
-<!-- Left Utility Actions -->
-<div class="flex items-center gap-3">
-<!-- Search Quick Toggle (Active state) -->
-<button aria-label="جستجوی پیشرفته" class="w-10 h-10 rounded-full bg-brand-tint/60 text-brand-blue flex items-center justify-center hover:bg-brand-tint transition-colors" type="button">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="7" stroke-width="2" /></circle>
-<path d="M21 21l-4.35-4.35" stroke-linecap="round" stroke-width="2" /></path>
-</svg>
-</button>
-<!-- Language Switcher -->
-<button class="px-2.5 py-1 text-xs font-semibold rounded-lg text-slate-500 hover:text-brand-dark hover:bg-slate-100 transition-colors">
-          EN
-        </button>
-<!-- Shareholders Access Button -->
-<a class="hidden sm:inline-flex items-center px-4 py-2 text-xs font-semibold rounded-full border border-slate-300 text-brand-dark hover:border-brand-blue hover:text-brand-blue transition-all" href="#">
-          ورود سهامداران
-        </a>
-<!-- Fast Contact CTA -->
-<a class="inline-flex items-center px-4 py-2 text-xs font-bold rounded-full bg-brand-blue text-white shadow-sm hover:bg-brand-hover hover:shadow-md transition-all" href="#">
-          مشاوره و تماس سریع
-        </a>
-</div>
-</div>
-</header>
+
 <!-- END: StickyMainHeader -->
 <!-- BEGIN: MainContent -->
 <main class="flex-grow py-8 md:py-12">
@@ -72,11 +25,11 @@
 <nav aria-label="مسیریابی" class="mb-6 flex items-center text-xs text-slate-500 font-medium">
 <a class="hover:text-brand-blue transition-colors" href="#">صفحه اصلی</a>
 <svg class="w-3.5 h-3.5 mx-2 text-slate-400 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path>
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
 </svg>
 <span class="text-slate-400">جستجوی سراسری پرتال ثاخت</span>
 <svg class="w-3.5 h-3.5 mx-2 text-slate-400 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path>
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
 </svg>
 <span class="text-brand-blue font-semibold">نتایج مگاپارس</span>
 </nav>
@@ -88,15 +41,15 @@
 <div class="relative flex-grow">
 <span class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<circle cx="11" cy="11" r="7" stroke-width="2" /></circle>
-<path d="M21 21l-4.35-4.35" stroke-linecap="round" stroke-width="2" /></path>
+<circle cx="11" cy="11" r="7" stroke-width="2" />
+<path d="M21 21l-4.35-4.35" stroke-linecap="round" stroke-width="2" />
 </svg>
 </span>
 <input class="w-full h-14 pr-12 pl-12 rounded-2xl border border-slate-200 bg-slate-50 text-brand-dark placeholder-slate-400 focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 text-sm md:text-base font-medium transition-all" name="q" placeholder="جستجو در پروژه‌ها، اطلاعیه‌های کدال، اخبار، واحدها و مناقصات..." type="search" value="مگاپارس و سرمایه‌گذاری" />
 <!-- Clear Query Action -->
 <button aria-label="پاک‌کردن متن" class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 hover:text-brand-dark transition-colors" type="button">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path>
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
 </svg>
 </button>
 </div>
@@ -105,7 +58,7 @@
 <button class="h-14 px-8 rounded-2xl bg-brand-blue hover:bg-brand-hover text-white text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 flex-grow md:flex-grow-0" type="submit">
 <span>جستجو</span>
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path>
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
 </svg>
 </button>
 <button class="h-14 px-5 rounded-2xl border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-brand-dark text-sm font-semibold transition-colors" title="بازنشانی فیلترها" type="reset">
@@ -210,15 +163,15 @@
 <!-- Result Specs Meta -->
 <div class="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-500 pt-3 border-t border-slate-100">
 <span class="flex items-center gap-1.5">
-<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
                   موقعیت: تهران، خیابان دکتر شریعتی، نبش معلم
                 </span>
 <span class="flex items-center gap-1.5">
-<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
                   زیربنا: ۲۱۰,۰۰۰ مترمربع
                 </span>
 <span class="flex items-center gap-1.5">
-<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
                   به‌روزرسانی: ۳ روز پیش
                 </span>
 </div>
@@ -227,7 +180,7 @@
 <div class="w-full md:w-44 h-32 rounded-xl bg-slate-100 overflow-hidden shrink-0 order-1 md:order-2 border border-slate-200">
 <div class="w-full h-full bg-gradient-to-tr from-slate-800 to-slate-600 flex flex-col items-center justify-center text-white relative">
 <svg class="w-8 h-8 opacity-60 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" /></path>
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
 </svg>
 <span class="text-[11px] font-medium tracking-wide">نمای معماری پروژه</span>
 </div>
@@ -266,7 +219,7 @@
 <div class="w-full md:w-44 h-32 rounded-xl bg-slate-100 overflow-hidden shrink-0 order-1 md:order-2 border border-slate-200">
 <div class="w-full h-full bg-gradient-to-tr from-cyan-900 to-blue-700 flex flex-col items-center justify-center text-white relative">
 <svg class="w-8 h-8 opacity-75 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" /></path>
+<path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
 </svg>
 <span class="text-[11px] font-medium tracking-wide">پلان معماری تیپ B1</span>
 </div>
@@ -298,7 +251,7 @@
 <span>تاریخ انتشار: ۱۴۰۳/۰۸/۱۲ - ساعت ۱۰:۱۵</span>
 <span>سود هر سهم تحت تاثیر: +۲۴ ریال</span>
 <span class="flex items-center gap-1 text-brand-blue font-semibold">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
                   دانلود پیوست PDF رسمی کدال (۱.۴ مگابایت)
                 </span>
 </div>
@@ -336,7 +289,7 @@
 <div class="w-full md:w-44 h-32 rounded-xl bg-slate-100 overflow-hidden shrink-0 order-1 md:order-2 border border-slate-200">
 <div class="w-full h-full bg-gradient-to-tr from-slate-900 to-indigo-900 flex flex-col items-center justify-center text-white relative">
 <svg class="w-8 h-8 opacity-70 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" /></path>
+<path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
 </svg>
 <span class="text-[11px] font-medium tracking-wide">گزارش تصویری بازدید</span>
 </div>
@@ -403,7 +356,7 @@
 <div class="w-full md:w-44 h-32 rounded-xl bg-slate-100 overflow-hidden shrink-0 order-1 md:order-2 border border-slate-200">
 <div class="w-full h-full bg-gradient-to-tr from-slate-800 to-slate-900 flex flex-col items-center justify-center text-white relative">
 <svg class="w-8 h-8 opacity-65 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" /></path>
+<path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
 </svg>
 <span class="text-[11px] font-medium tracking-wide">شناسه برند ASP</span>
 </div>
@@ -425,7 +378,7 @@
             ثبت پرسش در سامانه مشتریان
           </a>
 <a class="px-5 py-2.5 rounded-full bg-brand-blue hover:bg-brand-hover text-xs font-bold text-white shadow transition-colors flex items-center gap-2" href="tel:02188888888">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
 <span>مرکز تماس: ۰۲۱-۸۴۵۵</span>
 </a>
 </div>
@@ -435,7 +388,7 @@
 <nav aria-label="صفحات نتایج" class="mt-10 flex items-center justify-center gap-1.5 md:gap-2" data-purpose="results-pagination">
 <!-- Previous Page -->
 <button class="w-10 h-10 rounded-full border border-slate-200 text-slate-300 flex items-center justify-center cursor-not-allowed" disabled="">
-<svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
 </button>
 <!-- Pages -->
 <button class="w-10 h-10 rounded-full bg-brand-blue text-white text-xs font-bold shadow">۱</button>
@@ -447,7 +400,7 @@
 <button class="w-10 h-10 rounded-full bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold transition-colors">۱۲</button>
 <!-- Next Page -->
 <button class="w-10 h-10 rounded-full border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 flex items-center justify-center transition-colors">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></path></svg>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" /></svg>
 </button>
 </nav>
 <!-- END: PaginationSection -->
@@ -455,110 +408,6 @@
 </main>
 <!-- END: MainContent -->
 <!-- BEGIN: UnifiedHoldingFooter -->
-<footer class="bg-brand-dark text-slate-300 pt-16 pb-8 border-t border-slate-800">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<!-- Newsletter Subscription Row -->
-<div class="pb-12 mb-12 border-b border-slate-800/80 flex flex-col lg:flex-row items-center justify-between gap-6">
-<div class="text-center lg:text-right">
-<h4 class="text-lg font-bold text-white mb-1">عضویت در خبرنامه تحلیلی و گزارش‌های فصلی ثاخت</h4>
-<p class="text-xs text-slate-400">آخرین فرصت‌های سرمایه‌گذاری ملکی و اطلاعیه‌های رسمی کدال را در ایمیل خود دریافت نمایید.</p>
-</div>
-<form class="flex items-center w-full max-w-md gap-2" onsubmit="event.preventDefault()">
-<input class="flex-grow h-12 px-4 rounded-full bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:ring-2 focus:ring-brand-blue focus:border-brand-blue" placeholder="آدرس پست الکترونیکی شما..." type="email" />
-<button class="h-12 px-6 rounded-full bg-brand-blue hover:bg-brand-hover text-white text-xs font-bold shrink-0 transition-colors shadow" type="submit">
-            ثبت‌نام
-          </button>
-</form>
-</div>
-<!-- 5-Column Sitemap Structure -->
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12 text-xs">
-<!-- Column 1: About -->
-<div>
-<h5 class="text-white font-bold text-sm mb-4">درباره ثاخت</h5>
-<ul class="space-y-2.5 text-slate-400">
-<li><a class="hover:text-white transition-colors" href="#">تاریخچه و معرفی هلدینگ</a></li>
-<li><a class="hover:text-white transition-colors" href="#">اعضای هیات مدیره و مدیران</a></li>
-<li><a class="hover:text-white transition-colors" href="#">شرکت‌های تابعه و وابسته</a></li>
-<li><a class="hover:text-white transition-colors" href="#">چشم‌انداز و منشور اخلاقی</a></li>
-<li><a class="hover:text-white transition-colors" href="#">جوایز و استانداردهای بین‌المللی</a></li>
-</ul>
-</div>
-<!-- Column 2: Projects -->
-<div>
-<h5 class="text-white font-bold text-sm mb-4">پروژه‌های عمرانی</h5>
-<ul class="space-y-2.5 text-slate-400">
-<li><a class="hover:text-white transition-colors" href="#">مجموعه چندمنظوره مگاپارس</a></li>
-<li><a class="hover:text-white transition-colors" href="#">برج بین‌المللی تهران</a></li>
-<li><a class="hover:text-white transition-colors" href="#">مجتمع اداری-تجاری سعدی شیراز</a></li>
-<li><a class="hover:text-white transition-colors" href="#">پروژه‌های در حال احداث</a></li>
-<li><a class="hover:text-white transition-colors" href="#">فرصت‌های مشارکت و سرمایه‌گذاری</a></li>
-</ul>
-</div>
-<!-- Column 3: Shareholders & CODAL -->
-<div>
-<h5 class="text-white font-bold text-sm mb-4">سهامداران و کدال</h5>
-<ul class="space-y-2.5 text-slate-400">
-<li><a class="hover:text-white transition-colors" href="#">اطلاعیه‌های رسمی کدال</a></li>
-<li><a class="hover:text-white transition-colors" href="#">صورتهای مالی حسابرسی شده</a></li>
-<li><a class="hover:text-white transition-colors" href="#">جدول زمان‌بندی پرداخت سود</a></li>
-<li><a class="hover:text-white transition-colors" href="#">پرتال اختصاصی سهامداران</a></li>
-<li><a class="hover:text-white transition-colors" href="#">ترکیب سهامداران عمده</a></li>
-</ul>
-</div>
-<!-- Column 4: Media & News -->
-<div>
-<h5 class="text-white font-bold text-sm mb-4">رسانه و اخبار</h5>
-<ul class="space-y-2.5 text-slate-400">
-<li><a class="hover:text-white transition-colors" href="#">اخبار رویدادها و همایش‌ها</a></li>
-<li><a class="hover:text-white transition-colors" href="#">گزارش‌های تصویری و ویدیویی</a></li>
-<li><a class="hover:text-white transition-colors" href="#">فصلنامه تخصصی عمران ثاخت</a></li>
-<li><a class="hover:text-white transition-colors" href="#">نشست‌های خبری</a></li>
-<li><a class="hover:text-white transition-colors" href="#">پایگاه مقالات فنی و مهندسی</a></li>
-</ul>
-</div>
-<!-- Column 5: Customer & Support -->
-<div class="col-span-2 md:col-span-1">
-<h5 class="text-white font-bold text-sm mb-4">امور مشتریان و دفاتر</h5>
-<ul class="space-y-2.5 text-slate-400">
-<li><a class="hover:text-white transition-colors" href="#">دفتر فروش مرکزی و شعب</a></li>
-<li><a class="hover:text-white transition-colors" href="#">سامانه رسیدگی به شکایات</a></li>
-<li><a class="hover:text-white transition-colors" href="#">فرم‌های درخواست نمایندگی</a></li>
-<li><a class="hover:text-white transition-colors" href="#">پورتال استخدام و همکاری</a></li>
-<li><a class="hover:text-white transition-colors" href="#">تماس مستقیم با مدیرعامل</a></li>
-</ul>
-</div>
-</div>
-<!-- Bottom Bar: Stock Info & Copyright -->
-<div class="pt-8 border-t border-slate-800 text-[11px] text-slate-500 flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 font-medium">
-<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            نماد بورسی: ثاخت (ICD1)
-          </span>
-<span>بازار اول بورس اوراق بهادار تهران</span>
-<span>•</span>
-<span>شناسه ملی: ۱۰۱۰۱۶۸۸۹۳۲</span>
-</div>
-<!-- Social Icons -->
-<div class="flex items-center gap-4 text-slate-400">
-<a aria-label="لینکدین" class="hover:text-white transition-colors" href="#">
-<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></path></svg>
-</a>
-<a aria-label="آپارات" class="hover:text-white transition-colors font-bold text-xs" href="#">
-            آپارات
-          </a>
-<a aria-label="ایتا" class="hover:text-white transition-colors font-bold text-xs" href="#">
-            ایتا
-          </a>
-<a aria-label="تلگرام" class="hover:text-white transition-colors" href="#">
-<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.979z" /></path></svg>
-</a>
-</div>
-<div class="text-center md:text-left">
-          © ۱۴۰۳ هلدینگ ساختمانی ثاخت. تمامی حقوق مادی و معنوی محفوظ است.
-        </div>
-</div>
-</div>
-</footer>
+
 <!-- END: UnifiedHoldingFooter -->
 </template>

@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const image = computed(() => props.project.image ?? {
-  src: `https://picsum.photos/seed/project-${props.project.slug}/960/640`,
+  src: `/img/placeholder.svg
   alt: props.project.title,
 })
 const hasBody = computed(() => Boolean(props.project.category || props.project.builder || props.project.excerpt || props.project.stats?.length))

@@ -64,7 +64,7 @@ export interface OrgSubsidiary {
   projectSlugs: string[]
 }
 
-const PORTRAIT = (seed: string) => `https://picsum.photos/seed/${seed}/480/600`
+const PORTRAIT = (seed: string) => `/img/placeholder.svg`
 
 export const orgChartHero = {
   badge: 'شفافیت اطلاعاتی و اصول حاکمیت شرکتی بورس اوراق بهادار (نماد ثاخت - ICD1)',

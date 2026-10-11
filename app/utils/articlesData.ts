@@ -13,7 +13,7 @@ import type { ArticleCardViewModel, ArticleDetailViewModel, ImageViewModel } fro
 export type ArticleType = ArticleCardViewModel['contentType']
 
 const IMG = (seed: string): ImageViewModel => ({
-  src: `https://picsum.photos/seed/${seed}/960/640`,
+  src: `/img/placeholder.svg`,
   alt: '',
 })
 

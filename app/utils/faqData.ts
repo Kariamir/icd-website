@@ -163,7 +163,7 @@ export const irFaqCenter: FaqCenterConfig = {
   popularSearches: ['سود', 'پیش‌فروش', 'تضامین', 'NAV', 'سجام'],
   groups: irFaqGroups,
   advisor: {
-    image: 'https://picsum.photos/seed/icd-faq-advisor/800/600',
+    image: '/img/placeholder.svg',
     imageAlt: 'کارشناس امور ذی‌نفعان و مشاوره هلدینگ ثاخت',
     badge: 'پشتیبانی برخط سهام و املاک',
     caption: 'میز خدمت مستقیم ذی‌نفعان هلدینگ',
@@ -195,7 +195,7 @@ export const salesFaqCenter: FaqCenterConfig = {
   popularSearches: ['اقساط', 'تسهیلات', 'تحویل', 'سند', 'فسخ'],
   groups: salesGuideGroups,
   advisor: {
-    image: 'https://picsum.photos/seed/icd-sales-advisor/800/600',
+    image: '/img/placeholder.svg',
     imageAlt: 'مشاور فروش هلدینگ ثاخت در دفتر فروش',
     badge: 'مشاوره فروش و پیش‌فروش',
     caption: 'دفتر فروش مرکزی هلدینگ — تهران',

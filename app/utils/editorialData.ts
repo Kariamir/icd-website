@@ -95,8 +95,8 @@ export interface EditorialPageViewModel {
   blocks: EditorialBlock[]
 }
 
-const IMG = (seed: string) => `https://picsum.photos/seed/${seed}/960/640`
-const HERO = (seed: string) => `https://picsum.photos/seed/${seed}/1600/900`
+const IMG = (seed: string) => `/img/placeholder.svg`
+const HERO = (seed: string) => `/img/placeholder.svg`
 
 function projectCard(slug: string, description: string, image: string): EditorialProjectCard {
   const d = getProjectDetail(slug)

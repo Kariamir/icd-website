@@ -10,7 +10,7 @@
  */
 import type { BoardMemberViewModel } from '~/types/content'
 
-const IMG = (seed: string) => ({ src: `https://picsum.photos/seed/${seed}/480/480`, alt: '' })
+const IMG = (seed: string) => ({ src: `/img/placeholder.svg`, alt: '' })
 
 export interface BoardCareerItem {
   period: string

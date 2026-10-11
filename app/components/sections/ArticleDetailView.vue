@@ -69,7 +69,7 @@ const articleHref = (t: ArticleType, slug: string) => `${mediaHubHref[t]}/${slug
 const projectTiles = ['megapars-tehran', 'tehran-international-tower']
   .map(slug => projects.find(p => p.slug === slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p))
-  .map(p => ({ slug: p.slug, name: p.name, image: `https://picsum.photos/seed/${p.slug}/480/480` }))
+  .map(p => ({ slug: p.slug, name: p.name, image: `/img/placeholder.svg }))
 
 // --- comment form ---
 const comment = reactive({ name: '', email: '', message: '', notify: false })

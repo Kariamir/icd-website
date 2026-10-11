@@ -4,7 +4,7 @@
  */
 import type { HonorViewModel } from '~/types/content'
 
-const IMG = (seed: string) => ({ src: `https://picsum.photos/seed/${seed}/480/320`, alt: '' })
+const IMG = (seed: string) => ({ src: `/img/placeholder.svg`, alt: '' })
 
 export const honors: HonorViewModel[] = [
   { title: 'گواهینامه سیستم مدیریت کیفیت ISO 9001', year: '۱۴۰۲', issuer: 'مرکز صدور گواهینامه بین‌المللی', image: IMG('honor-1') },

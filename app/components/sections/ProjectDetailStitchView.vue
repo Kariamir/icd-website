@@ -8,55 +8,21 @@
      ten project colours, not the Material palette
    - sharp corners replaced by the radius scale (design-system 4.1)
    - hrefs remapped onto the real route table
+   - the page <header> and <footer> were lifted out into
+     layouts/default.vue, so every route shares one menu
 
   Still static markup: copy and data are inline. Wire to WPNuxt once
   the content models exist (docs/decisions.md ADR-002).
 -->
 <template>
 <!-- TOP APP BAR / OFFICIAL WEB HEADER -->
-<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-border dark:border-outline-variant sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
-<!-- Right Side: Brand Logo & Institutional Emblem -->
-<div class="flex items-center gap-8">
-<a class="text-headline-md font-headline-md text-ink dark:text-surface-container-lowest tracking-tight flex items-center gap-3" href="#">
-<span class="w-8 h-8 bg-primary-container text-white flex items-center justify-center font-bold text-lg font-headline-md leading-none">ث</span>
-<span class="">هلدینگ ساختمانی ثاخت</span>
-</a>
-<!-- Desktop Navigation Links -->
-<nav class="hidden lg:flex items-center gap-7 pt-1">
-<a class="text-label-lg font-label-lg text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 transition-colors duration-150" href="#">درباره ثاخت</a>
-<!-- Active State: 'پروژه‌ها' active according to hierarchy protocol -->
-<a class="text-label-lg font-label-lg border-b-2 border-primary-container text-primary-container dark:text-inverse-primary font-bold pb-1" href="#">پروژه‌ها</a>
-<a class="text-label-lg font-label-lg text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 transition-colors duration-150" href="#">فروش و پیش‌فروش</a>
-<a class="text-label-lg font-label-lg text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 transition-colors duration-150" href="#">دیده‌بان ثاخت</a>
-<a class="text-label-lg font-label-lg text-ink dark:text-surface-variant hover:text-primary-container dark:hover:text-inverse-primary pb-1 transition-colors duration-150" href="#">رسانه ثاخت</a>
-</nav>
-</div>
-<!-- Left Side: Interactive Tools, Search & Actions -->
-<div class="flex items-center gap-4">
-<button aria-label="جستجو" class="p-2 text-ink dark:text-surface-container-lowest hover:bg-surface transition-colors" title="جستجو">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"  /></svg>
-</button>
-<button aria-label="تغییر زبان" class="p-2 text-ink dark:text-surface-container-lowest hover:bg-surface transition-colors text-label-md font-label-md flex items-center gap-1" title="تغییر زبان">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"  /></svg>
-<span class="uppercase tracking-wider">EN</span>
-</button>
-<div class="h-6 w-px bg-border hidden sm:block"></div>
-<a class="hidden md:inline-flex items-center text-label-lg font-label-lg text-primary-container hover:text-brand-blue-deep transition-colors px-3 py-2 border border-border hover:border-primary-container" href="#">
-          ورود سهامداران
-        </a>
-<a class="inline-flex items-center justify-center bg-primary-container text-white text-label-lg font-label-lg px-5 py-2.5 hover:bg-brand-blue-deep transition-colors" href="#inquiry">
-          مشاوره و تماس سریع
-        </a>
-</div>
-</div>
-</header>
+
 <!-- MAIN LONG SCROLL CONTENT -->
 <main class="w-full">
 <!-- HERO SECTION: Full-bleed project photograph, dark overlay (30-50%), typography low & right -->
 <section class="relative w-full h-[88vh] min-h-[620px] bg-ink flex items-end overflow-hidden">
 <!-- Background Image Container -->
-<div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Monolithic architectural perspective photograph of the Tehran International Tower rising prominently against the clear sky with Mount Damavand in the distance. The monumental concrete and glass residential structure is captured in crisp daylight, showcasing industrial precision, pristine structural engineering, and deep institutional authority without motion blur." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC2DP-m-oUlR9eY2DSoXBwuBUECmKkULOtMHqnUAghwepdE06a_WQUQ_9yUZh25LOaRy2Wra7M-C66vNCbQFtSwsrkW635RYa0mCouFOr0wnZi-kxSwQjISTbvs0SWy5iiViDXkAPsKLKOuRD2Hz-dCOgfBDqxc50ldWwzq-6FYAxb60SEsVffG2YsKyEz6CuJeyxvMPlYeERBfXX0ehGpGZHF9BQciUKBuFzuk3v2nmYexOUJ4Xv_y3Q')"></div>
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Monolithic architectural perspective photograph of the Tehran International Tower rising prominently against the clear sky with Mount Damavand in the distance. The monumental concrete and glass residential structure is captured in crisp daylight, showcasing industrial precision, pristine structural engineering, and deep institutional authority without motion blur." style="background-image: url('/img/placeholder.svg')"></div>
 <!-- Scrim Overlay (45% opacity deep ink) -->
 <div class="absolute inset-0 bg-ink/45"></div>
 <!-- Hero Typographic Anchor (Strictly low and right, no buttons, no badges) -->
@@ -92,7 +58,7 @@
   <!-- Interactive Tab Headers -->
   <div class="flex flex-wrap border-b border-border gap-0 bg-surface/40" role="tablist">
     <button onclick="switchTab('arch')" id="tab-btn-arch" class="tab-btn active px-6 py-4 text-label-lg font-bold border-b-2 border-primary-container transition-all text-center flex items-center gap-2">
-      <svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2"  /></svg>
+      <svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2" /></svg>
       <span class="">مشخصات معماری و کاربری</span>
     </button>
     <button onclick="switchTab('structure')" id="tab-btn-structure" class="tab-btn px-6 py-4 text-label-lg font-bold text-secondary hover:text-ink hover:bg-surface border-b-2 border-transparent transition-all text-center flex items-center gap-2">
@@ -259,7 +225,7 @@
   <!-- Large Hero Span Item -->
   <figure class="md:col-span-8 group m-0">
     <div class="relative w-full aspect-[16/10] bg-surface-alt overflow-hidden border border-border hover:border-primary-container transition-colors duration-300">
-      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="A dramatic low-angle architectural photograph capturing the striking tripartite wing facade of the monumental residential skyscraper in Tehran. Crisp natural morning light sculpts the structural concrete fins, geometry, and high-tech curtain walls, emphasizing immense vertical scale and pristine industrial engineering in neutral architectural colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5FpeHJoCUZ97gypx-Mx3JQ17O2ButopQ9_Ts61UdsXJOz3rVPdK9q9tmu02QbyI5wJbXtnRhZxZ82HmAhygzr6gwgHCoEhAIgfujna53CEpm5OUmwMtccuxFIOYCOddYUJiws97xDmvt4iKRfgkK58e-sNvsEQRlHquM88AUpJ9_CVtrPKsKRZb6s_8vgLLNxUB3AWotUHD8mJAOcfz268g4T9MEpZazJq4sODZYYkFWJaNYAAfskxQ" />
+      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="A dramatic low-angle architectural photograph capturing the striking tripartite wing facade of the monumental residential skyscraper in Tehran. Crisp natural morning light sculpts the structural concrete fins, geometry, and high-tech curtain walls, emphasizing immense vertical scale and pristine industrial engineering in neutral architectural colors." src="/img/placeholder.svg" />
     </div>
     <figcaption class="mt-3 text-label-lg font-label-lg text-secondary border-r-2 border-primary-container pr-3 flex items-center justify-between">
       <span class="">نمای تندیس‌گون و بال‌های سه‌گانه برج</span>
@@ -269,7 +235,7 @@
   <!-- Vertical Accent Item -->
   <figure class="md:col-span-4 group m-0">
     <div class="relative w-full aspect-[4/3] md:aspect-[3/4] bg-surface-alt overflow-hidden border border-border hover:border-primary-container transition-colors duration-300">
-      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="An expansive interior view of a grandiose corporate residential skyscraper lobby featuring twelve-meter high ceilings, structural stone columns, polished travertine flooring, and ambient minimalist linear architectural lighting designed in a disciplined modernist institutional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkKo6zi9z752O4VBnuvDKep756CAPrmer9a1XqRujj4FHrNvyw9QXoCbPdTOvNYZNlXux4FQWgpa5TVukvpaY5BDsan2SffDifitk9aACVvg7mERr2JtLD4RR3w19-0GT5I6Tl6Ehn64SkClk_xFql1IqGBzYIAA-X083rHkypNWITR3vY-xeQ2f3PdTiuSspMMgmNnUH7gbjsKSCdmohg6DDl2ifabq5j6qLEQGI9899vSYcJti3-SQ" />
+      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="An expansive interior view of a grandiose corporate residential skyscraper lobby featuring twelve-meter high ceilings, structural stone columns, polished travertine flooring, and ambient minimalist linear architectural lighting designed in a disciplined modernist institutional style." src="/img/placeholder.svg" />
     </div>
     <figcaption class="mt-3 text-label-lg font-label-lg text-secondary border-r-2 border-primary-container pr-3 flex items-center justify-between">
       <span class="">لابی مرکزی به ارتفاع ۱۲ متر</span>
@@ -279,7 +245,7 @@
   <!-- Wide Penthouse View Item -->
   <figure class="md:col-span-7 group m-0 md:mt-6">
     <div class="relative w-full aspect-[16/9] bg-surface-alt overflow-hidden border border-border hover:border-primary-container transition-colors duration-300">
-      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="An elevated perspective from an ultra-luxury high-floor skyscraper penthouse overlooking the sprawling cityscape of Tehran and the snow-capped Alborz mountain range during clear late afternoon golden hour with floor-to-ceiling panoramic glass windows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL_zdlupxGBzvmrnrEEaOatxWYqSk3rUNF5nzGcSwndySlEs43EiJg5lAfyw6BTSiUyVOESeGqYsUdWhkwowTgXyj1mTCt26yA2G5zZasuMDUXOtzXT4XKERx6WynuMgyOgQgan7mVeW8_Dmlh61MGNstxxNo5446CLm8gMzcsTpqRy9-8FsdOoN9JbFXKnu29W1NmFqcqeLN4ovmoGO3oBB-qPWMfSzcB430OIWcQ8axnsPSzhMDs4g" />
+      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="An elevated perspective from an ultra-luxury high-floor skyscraper penthouse overlooking the sprawling cityscape of Tehran and the snow-capped Alborz mountain range during clear late afternoon golden hour with floor-to-ceiling panoramic glass windows." src="/img/placeholder.svg" />
     </div>
     <figcaption class="mt-3 text-label-lg font-label-lg text-secondary border-r-2 border-primary-container pr-3 flex items-center justify-between">
       <span class="">پنت‌هاوس و دید ۳۶۰ درجه به البرز</span>
@@ -289,7 +255,7 @@
   <!-- Engineering / Construction Detail Item -->
   <figure class="md:col-span-5 group m-0 md:mt-6">
     <div class="relative w-full aspect-[4/3] bg-surface-alt overflow-hidden border border-border hover:border-primary-container transition-colors duration-300">
-      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="A clean, geometric detail shot of massive reinforced pre-stressed concrete columns and structural joints demonstrating earthquake engineering precision, industrial stability, and monolithic brutalist modernist design with razor-sharp shadow lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-3QUbI_t-jeQVAmKP6q852yZ30u_uzbBE049mk6k_R2flMAV2voLKUo0MgZyfRxkxoimFrHMg78M-WJ5EIAoFc53w0ag9yEt4B1HtN_tiVX2cOagYEnRDVLFd97ttFnUP4hgjeMazRbrQ-gQSTGf0fi19sKgaYYA1CTAi01tCEBMbvhXSH3KGkMzgiWAcXpT_FcF0zWCObyGElzpBiM9uuih-AqfGhWHVriYrQ0UN97B6i5JUmgV2ig" />
+      <img class="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500" data-alt="A clean, geometric detail shot of massive reinforced pre-stressed concrete columns and structural joints demonstrating earthquake engineering precision, industrial stability, and monolithic brutalist modernist design with razor-sharp shadow lines." src="/img/placeholder.svg" />
     </div>
     <figcaption class="mt-3 text-label-lg font-label-lg text-secondary border-r-2 border-primary-container pr-3 flex items-center justify-between">
       <span class="">جزئیات سازه‌ای و اتصالات مقاوم‌سازی لرزه‌ای</span>
@@ -311,7 +277,7 @@
 <!-- Architectural Map Plane -->
 <div class="relative w-full h-[440px] bg-surface-alt border border-border overflow-hidden">
 <!-- Minimalist Stylized Map Rendering via Clean Architectural Vector Simulation -->
-<div class="w-full h-full bg-cover bg-center filter grayscale contrast-125" data-alt="A high-contrast monochrome architectural GIS street layout and satellite cartography map focusing on central Tehran around Hakim Highway and Sheikh Fazlollah Nouri junction, styled in sterile graphite gray and stark white gridlines." data-location="Tehran" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAZk6KFczR7k8S_pehfTjSpNZKL-2Y34FBUaabl4msoTbPDolVowd8SFjWQTsDUYQQn1ihPmMlKVU5w-EgUd786qSx0Ir05wAprZ320o5gSTLR51xnQ1azpV9tt0m7yYJ2GGqUSehE9N_XvGh_mC2BneoNM5WKeIan94J1aXqXv77BfBNxpmDVo1pzxkxvBf-E3R3aVk8eQl6HU54x8JYJF9YceibVyyYWtQUTxsUJ5AF18hcHqUqHqg')"></div>
+<div class="w-full h-full bg-cover bg-center filter grayscale contrast-125" data-alt="A high-contrast monochrome architectural GIS street layout and satellite cartography map focusing on central Tehran around Hakim Highway and Sheikh Fazlollah Nouri junction, styled in sterile graphite gray and stark white gridlines." data-location="Tehran" style="background-image: url('/img/placeholder.svg')"></div>
 <!-- GIS Coordinate & Navigation Overlay Card (Flat planar stacking) -->
 <div class="absolute bottom-6 right-6 bg-surface-container-lowest border border-border p-6 max-w-md">
 <div class="flex items-center gap-3 mb-3">
@@ -391,68 +357,4 @@
 </section>
 </main>
 <!-- OFFICIAL WEB FOOTER (Strictly from Shared Components JSON) -->
-<footer class="bg-ink text-surface-dim border-t border-border">
-<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
-<!-- Top Grid: 5-Column Institutional Layout -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-outline-variant/30">
-<!-- Column 1: Corporate Brand Identity -->
-<div class="lg:col-span-1">
-<div class="text-headline-md font-headline-md text-surface-container-lowest mb-4 flex items-center gap-2">
-<span class="w-7 h-7 bg-primary-container text-white flex items-center justify-center font-bold text-base leading-none">ث</span>
-<span class="">هلدینگ ساختمانی ثاخت</span>
-</div>
-<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed">
-            شرکت بین‌المللی توسعه ساختمان (سهامی عام)؛ پیشگام در مهندسی، سرمایه‌گذاری و اجرای مگاپروژه‌های عمرانی در خاورمیانه.
-          </p>
-</div>
-<!-- Column 2: Governance & Projects -->
-<div>
-<h4 class="text-label-lg font-label-lg text-white mb-5 border-r-2 border-primary-container pr-2">معرفی و پروژه‌ها</h4>
-<ul class="space-y-3">
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">پرتفوی پروژه‌های عمرانی</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">پایداری و استانداردهای مهندسی</a></li>
-</ul>
-</div>
-<!-- Column 3: Shareholder Services -->
-<div>
-<h4 class="text-label-lg font-label-lg text-white mb-5 border-r-2 border-primary-container pr-2">امور سهامداران</h4>
-<ul class="space-y-3">
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">سامانه سهامداران و کدال</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">حریم خصوصی و شفافیت مالی</a></li>
-</ul>
-</div>
-<!-- Column 4: Commercial & Investment -->
-<div>
-<h4 class="text-label-lg font-label-lg text-white mb-5 border-r-2 border-primary-container pr-2">فرصت‌های بازرگانی</h4>
-<ul class="space-y-3">
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">مناقصات و مزایده‌ها</a></li>
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">اخبار و رسانه دیجیتال</a></li>
-</ul>
-</div>
-<!-- Column 5: Communication -->
-<div>
-<h4 class="text-label-lg font-label-lg text-white mb-5 border-r-2 border-primary-container pr-2">ارتباط با هلدینگ</h4>
-<ul class="space-y-3">
-<li class=""><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors block" href="#">تماس و امور مشتریان</a></li>
-</ul>
-<div class="mt-6 pt-4 border-t border-outline-variant/20">
-<span class="text-label-md font-label-md text-surface-dim block font-mono" dir="ltr">IRAN / TEHRAN HEADQUARTERS</span>
-<span class="text-body-sm font-body-sm text-brand-tint font-mono mt-1 block" dir="ltr">+98 (21) 8800-0000</span>
-</div>
-</div>
-</div>
-<!-- Bottom Row: Copyright text from JSON -->
-<div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-body-sm font-body-sm text-surface-dim">
-<p class="text-right">
-          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
-        </p>
-<div class="text-label-md font-label-md font-mono text-secondary-fixed-dim" dir="ltr">
-          ICD HOLDING • TEHRAN STOCK EXCHANGE: ثاخت
-        </div>
-</div>
-</div>
-</footer>
 </template>

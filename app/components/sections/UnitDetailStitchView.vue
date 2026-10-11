@@ -8,54 +8,21 @@
      ten project colours, not the Material palette
    - sharp corners replaced by the radius scale (design-system 4.1)
    - hrefs remapped onto the real route table
+   - the page <header> and <footer> were lifted out into
+     layouts/default.vue, so every route shares one menu
 
   Still static markup: copy and data are inline. Wire to WPNuxt once
   the content models exist (docs/decisions.md ADR-002).
 -->
 <template>
 <!-- ================= TOP NAVIGATION BAR ================= -->
-<header class="bg-surface-container-lowest border-b border-border sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-6 md:px-12 max-w-[1440px] mx-auto h-20">
-<!-- Right: Brand Logo + Desktop Nav -->
-<div class="flex items-center gap-10">
-<a class="text-headline-md font-headline-md text-ink tracking-tight flex items-center gap-3" href="#">
-<span class="w-8 h-8 bg-ink text-surface-container-lowest flex items-center justify-center font-bold text-lg">ث</span>
-<span class="">هلدینگ ساختمانی ثاخت</span>
-</a>
-<!-- Desktop Navigation Links -->
-<nav class="hidden lg:flex items-center gap-8 text-label-lg font-label-lg">
-<a class="text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="#">درباره ثاخت</a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="#">پروژه‌ها</a>
-<a class="border-b-2 border-primary-container text-primary-container font-bold pb-1" href="#">فروش و پیش‌فروش</a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="#">دیده‌بان ثاخت</a>
-<a class="text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="#">رسانه ثاخت</a>
-</nav>
-</div>
-<!-- Left: Actions & Icon Controls -->
-<div class="flex items-center gap-4">
-<div class="hidden sm:flex items-center gap-2 border-l border-border pl-4">
-<button aria-label="language" class="p-2 text-ink hover:bg-surface-container-high transition-colors duration-150" title="زبان">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"  /></svg>
-</button>
-<button aria-label="search" class="p-2 text-ink hover:bg-surface-container-high transition-colors duration-150" title="جستجو">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"  /></svg>
-</button>
-</div>
-<a class="hidden md:inline-flex items-center text-body-sm font-label-lg text-ink hover:text-primary-container px-3 py-2 border border-border hover:bg-surface transition-colors" href="#">
-        ورود سهامداران
-      </a>
-<a class="inline-flex items-center text-label-lg font-label-lg bg-primary-container text-on-primary px-5 py-2.5 hover:bg-brand-blue-deep transition-colors duration-150" href="#consultation-form">
-        مشاوره و تماس سریع
-      </a>
-</div>
-</div>
-</header>
+
 <!-- ================= MAIN CONTENT ================= -->
 <main class="flex-grow w-full max-w-[1440px] mx-auto px-6 md:px-12 py-10">
 <!-- 1. BACK LINK & BREADCRUMB -->
 <div class="mb-8">
 <a class="inline-flex items-center gap-2 text-body-md font-body-md text-primary-container hover:text-brand-blue-deep group font-semibold transition-all" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
 <span class="">بازگشت به صفحه پروژه برج بین‌المللی تهران</span>
 </a>
 </div>
@@ -89,7 +56,7 @@
           ۱۸۵ <span class="text-headline-sm font-headline-sm text-secondary font-medium">مترمربع</span>
 </span>
 <span class="text-body-sm font-body-sm text-status-success mt-1.5 flex items-center gap-1 font-semibold">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>
           دارای سند تک‌برگ رسمی عرصه و اعیان
         </span>
 </div>
@@ -99,7 +66,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 <!-- Main Hero Feature Image -->
 <div class="lg:col-span-8 relative aspect-[16/10] bg-ink overflow-hidden group cursor-pointer border border-border">
-<img alt="سالن نشیمن لوکس واحد ۱۴۰۴ با دید پانوراما پایتخت و غروب آفتاب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1Uhzvhxx2CBumGhlmJBGvSMykD3hBHk0UcCBWYmU7Y7dfQiJ_9Wq2uMDNS7-DKaoZzcaJeH1qDiZQNA2w-8MUpWZ2QzI7DmvIKaFTvfz7WQS1lsiYszxZmcxTDPk6ciO4T_JAGWHl_ztetc5Ct5OifRcT6pNQI7ZY0DpwzkM4BCNrte2IQXqYuhAFM7VLEPRhsRzHMzhy4BhsT1W0ffiEWXyNGRQ7EyLaW75K38ACw7FhkTjjea-odcrWk" />
+<img alt="سالن نشیمن لوکس واحد ۱۴۰۴ با دید پانوراما پایتخت و غروب آفتاب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-5 right-5 text-surface-container-lowest z-10 flex items-center gap-2 bg-ink/85 px-4 py-2 backdrop-blur-sm border border-white/20">
 <span data-icon-missing="camera" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
@@ -109,7 +76,7 @@
 <!-- Secondary Mosaic Images -->
 <div class="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
 <div class="relative aspect-[16/10] lg:aspect-auto lg:h-[calc(50%-8px)] bg-ink overflow-hidden group cursor-pointer border border-border">
-<img alt="اتاق خواب مستر رویال با پنجره‌های قدی و دید شبانه" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1WExxsBsvXXD8nv1cmmtZObNhjbyJuNcmTRaJ-Ytw8FgXAP0BYeT6sZkCqxookJ6hZ6mpou4fS2zIPiX391BenKFb7mPEAjxRgkpbPZ235N-kSuIJVLckQUGc8OpgceatLvkBKJPn4QAmisFdcf_dVaWyKnfSb8NS20XjctYiHhENVzVzY4yee9ta3uuiIEUbltugvcHT3Drp4i4kWSav0bNLgk5fCPNWBAl4tPv61IPXeo-ZJaWlYoWYW3" />
+<img alt="اتاق خواب مستر رویال با پنجره‌های قدی و دید شبانه" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-3 right-3 text-surface-container-lowest z-10 flex items-center gap-1.5 bg-ink/85 px-3 py-1.5 text-label-md backdrop-blur-sm border border-white/20">
 <span data-icon-missing="bed" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
@@ -117,7 +84,7 @@
 </div>
 </div>
 <div class="relative aspect-[16/10] lg:aspect-auto lg:h-[calc(50%-8px)] bg-ink overflow-hidden group cursor-pointer border border-border">
-<img alt="آشپزخانه جزیره مدرن با متریال سنگ اسلب و تجهیزات توکار" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1Wk57PyN6FolhTCO_c12PCCfz5nBuGDjZfxPwN2nM9LNnpwvtj43tFvkLdlHnF_fQ3onUbaDeweQqIKoiB4HRkjPGclSM90Z2IkzHlrSWC98S97GsrSv_GMU0gtm4udlN9qyYXDLnBajb4mQK_vW0xil-GF_v299qXx1WN-Rzp_un3X4r-UQXQ0sA9MhJ1XBXpwMdqGIm9N2fEqyRcBxcQ2MkNpT2VkoY2e-hu5nHvPnL0o4F34Y6BzPkBf" />
+<img alt="آشپزخانه جزیره مدرن با متریال سنگ اسلب و تجهیزات توکار" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-3 right-3 text-surface-container-lowest z-10 flex items-center gap-1.5 bg-ink/85 px-3 py-1.5 text-label-md backdrop-blur-sm border border-white/20">
 <span data-icon-missing="countertops" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
@@ -183,7 +150,7 @@
 <span class="">جهت شمال: ↑ ۳۵ درجه زاویه تابش خورشیدی</span>
 </div>
 <div class="w-full aspect-[16/10] bg-surface-alt relative overflow-hidden flex items-center justify-center border border-border">
-<img alt="نقشه معماری دوبعدی مهندسی واحد مسکونی برج با تفکیک فضاها و مقیاس دقیق" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBovhS_18aW-l7R0wVWg6RW1kb8RY3d3hHrgX_kVjjgQSRms-PJHdje3ZZR5hBq0lXLjvenT67iPLl58MqxJ3t-czX-5-HcTxHPkwPpA_TnFMzW51LhdBvALbdvKfKS6RhowlxnQpHnF4Da069JdVtsCbFe8Y3EEGWB4vZiOQrjB6Asn8cZrMznlJaPryEtWR14svsfEPA2yz1oLO2pgg_SlItoLK2Z1LWkE2DLAnIWrvdMEHXH1Ts56A" />
+<img alt="نقشه معماری دوبعدی مهندسی واحد مسکونی برج با تفکیک فضاها و مقیاس دقیق" class="w-full h-full object-contain" src="/img/placeholder.svg" />
 </div>
 <!-- Room Division Tags / Dimension Legend with High Contrast -->
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-5 border-t border-border">
@@ -313,7 +280,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" /></svg>
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">جدارنما و پنجره‌ها</span>
@@ -379,7 +346,7 @@
 <div class="spec-tab-pane hidden grid grid-cols-1 md:grid-cols-2 gap-5" id="tab-legal">
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6"  /></svg>
+<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6" /></svg>
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">نوع سند و وضعیت ثبتی</span>
@@ -481,118 +448,6 @@
 </section>
 </main>
 <!-- ================= OFFICIAL 5-COLUMN FOOTER ================= -->
-<footer class="bg-ink text-surface-container-lowest border-t border-border mt-auto">
-<div class="w-full py-16 px-6 md:px-12 max-w-[1440px] mx-auto">
-<!-- Top Grid: 5 Institutional Columns -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-14 border-b border-inverse-surface">
-<!-- Column 1: Identity & Intro -->
-<div class="lg:col-span-1">
-<div class="text-headline-sm font-headline-sm text-surface-container-lowest mb-4 flex items-center gap-2">
-<span class="w-7 h-7 bg-primary-container text-on-primary flex items-center justify-center font-bold text-sm">ث</span>
-<span class="">هلدینگ ساختمانی ثاخت</span>
-</div>
-<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed">
-          شرکت بین‌المللی توسعه ساختمان (ثاخت)، بزرگترین هلدینگ انبوه‌سازی و توسعه پروژه‌های بلندمرتبه در بورس اوراق بهادار تهران.
-        </p>
-<div class="mt-4 pt-4 border-t border-inverse-surface text-label-md text-brand-tint">
-          نماد بورسی: ثاخت | سرمایه ثبت شده: ۳۰,۰۰۰ میلیارد ریال
-        </div>
-</div>
-<!-- Column 2: Governance & Projects -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-1 border-b border-inverse-surface">
-          معرفی و پروژه‌ها
-        </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">معرفی هلدینگ و هیئت‌مدیره</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">پرتفوی پروژه‌های عمرانی</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">پایداری و استانداردهای مهندسی</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">مناقصات و مزایده‌ها</a>
-</li>
-</ul>
-</div>
-<!-- Column 3: Shareholder & Finance -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-1 border-b border-inverse-surface">
-          سهامداران و شفافیت
-        </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">سامانه سهامداران و کدال</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">گزارش‌های ماهانه دیده‌بان</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">حریم خصوصی و شفافیت مالی</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">افشای اطلاعات بااهمیت الف و ب</a>
-</li>
-</ul>
-</div>
-<!-- Column 4: Sales & Investment -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-1 border-b border-inverse-surface">
-          فروش و سرمایه‌گذاری
-        </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li class="">
-<a class="text-surface-container-lowest font-bold text-brand-tint" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">استعلام وضعیت قراردادها</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">فروش متری در بورس مسکن</a>
-</li>
-<li class="">
-<a class="text-surface-dim hover:text-brand-tint transition-colors" href="#">اخبار و رسانه دیجیتال</a>
-</li>
-</ul>
-</div>
-<!-- Column 5: Communication & Headquarters -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest font-bold mb-4 pb-1 border-b border-inverse-surface">
-          تماس و امور مشتریان
-        </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm text-surface-dim">
-<li class="flex items-start gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"  /></svg>
-<span class="">تهران، میدان ونک، خیابان ملاصدرا، شماره ۱۲۰</span>
-</li>
-<li class="flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"  /></svg>
-<span dir="ltr" class="">+98 (21) 8860 4000</span>
-</li>
-<li class="flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"  /></svg>
-<span class="">sales@sakht-holding.com</span>
-</li>
-<li class="pt-2">
-<span class="inline-block px-3 py-1 bg-inverse-surface text-brand-tint text-label-md">مرکز ارتباط با ذینفعان ۲۴/۷</span>
-</li>
-</ul>
-</div>
-</div>
-<!-- Bottom Bar: Exact Copyright Text -->
-<div class="pt-8 flex flex-col md:flex-row items-center justify-between text-body-sm font-body-sm text-surface-dim gap-4">
-<div class="">
-        © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
-      </div>
-<div class="flex items-center gap-6 text-label-md">
-<span class="">طراحی صنعتی و نظام مهندسی ثاخت</span>
-<span class="">سامانه رسمی نظارت بر انبوه‌سازی</span>
-</div>
-</div>
-</div>
-</footer>
+
 <!-- Interactive Tab Switching Script -->
 </template>
