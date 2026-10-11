@@ -1,5 +1,5 @@
 # ICD (ثاخت) — 3D Website Build Checklist
-**Version:** 1.2 · **Companion to:** `01-sitemap.md` v1.2
+**Version:** 1.3 · **Companion to:** `01-sitemap.md` v1.3
 **Starting point:** page inventory approved. Everything before that is out of scope for this document.
 
 > Working agreement: nothing moves to the next phase until every ⛔ blocker in the current phase is closed. Non-blockers can trail.
@@ -12,6 +12,8 @@
 - [ ] ⛔ **Asset availability audit before any more page design.** The v1.2 direction is image-led (sitemap §14) and fails without images. Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. **This is the critical path — assets, not layout**
 - [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the historical timeline before building `#history` (revisit ADR-008 rather than substituting stock imagery)
 - [ ] ⛔ Confirm whether the current live site serves `/about/*` or `/media/news|stories|reports/*` URLs. If it does, those 301 redirects are launch-blocking (sitemap §13 open question 10)
+- [ ] ⛔ **Locate the existing tender PDFs.** They were previously hosted in the tenders section; their current URLs need redirects to `/ir/financials` and the files need migrating (sitemap §13 question 11)
+- [ ] Decide whether to rename `/ir/financials` to `/ir/documents` now that it carries tenders and registration rules as well as statements. Cheap now, expensive after launch (sitemap §13 question 12)
 - [ ] ⛔ **Option A or Option B** on subsidiary companies (sitemap §5.2). Blocks the content model, the footer, and home block 8. Recommendation is Option B
 - [ ] ⛔ Confirm the four project statuses and whether `completed` / `operating` are mutually exclusive (sitemap §5.1)
 - [ ] ⛔ Confirm hosting: server location, CDN. **Verify the CDN is reachable from inside Iran** — this constrains the whole stack
@@ -31,10 +33,11 @@
 - [x] ⛔ Route table implemented as a single source of truth file (`app/utils/routes.ts`) — every link in the codebase resolves through it
 - [ ] ⛔ **Anchor-id sync.** `/about` and `/careers` are single pages whose mega-menu and footer entries are in-page anchors. The anchor constants in `routes.ts` must match the section ids in `AboutOverview.vue` and the careers page component. **Nothing currently enforces this** — a renamed section id silently breaks navigation. Add a test or a build-time assertion
 - [ ] ⛔ Keep `PENDING_ROUTES` in `routes.ts` accurate: a route constant may exist before its page, but linking to one from navigation produces a 404. Remove each entry in the same commit that adds its page
-- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, Report, FinancialDocument, DisclosureEvent, Honor, JobPosting, **Tender** — plus **Company** under Option B
-- [ ] ⛔ `Article.category` implemented as an enum (`news` / `stories` / `podcast` / `analysis`) filtered by query string, **not** as separate routes (ADR-005). Mirrors the `Project.status` pattern
-- [ ] ⛔ `Tender.status` **derived from the deadline date**, never a manually set flag (ADR-007). An expired tender shown as open is a procurement problem, not a display bug
-- [ ] `Report` model serves `/ir/reports` and must support **both** a readable HTML body and a downloadable file for the same record (ADR-005) — not a file-only record
+- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, FinancialDocument, DisclosureEvent, Honor, JobPosting — plus **Company** under Option B. **No `Tender` model** (ADR-009): a tender notice is an `Article` with `category: 'tenders'`, a tender document is a `FinancialDocument` record
+- [ ] ⛔ `Article.category` implemented as an enum (`news` / `stories` / `podcast` / `analysis` / `tenders`) filtered by query string, **not** as separate routes (ADR-005, ADR-009). Mirrors the `Project.status` pattern
+- [ ] ⛔ `FinancialDocument` needs a **document group** field (statements / board reports / committee reports / tenders / registration rules) so one page can filter by group and year (ADR-009)
+- [ ] ⛔ `FinancialDocument` must support **both** a readable HTML body and a downloadable file for the same record — not a file-only record
+- [ ] Dated tender notices must display a publication date. This is the one risk the deleted deadline logic guarded against that still applies — an old notice read as current (ADR-009)
 - [ ] Resume submissions need a timestamp and a hash of the attached file: a name and phone number alone cannot be deduplicated (ADR-006)
 - [ ] ⛔ `Project.status` implemented as a single enum (`upcoming` / `under-construction` / `operating` / `completed`) driving four filtered index views, **not** four separate content types
 - [ ] Even under Option A, add a nullable `Project.ownerCompany` field now so the Option B migration stays cheap
@@ -104,9 +107,9 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] `/about#board` as one flat card per member — **verify no individual profile route survives**
 - [ ] `/about#contact` form with exactly two «موضوع» options: «ارسال رزومه» and «ارتباط با سهامداران»
 - [ ] `/media` as one categorised feed; `/media/[slug]` as the single detail template with the podcast player; delete the three former index and detail templates
-- [ ] `/ir/reports` + `/ir/reports/[slug]` with readable body **and** download for every record
+- [ ] `/ir/financials` as **the** documents page: statements, board reports, committee reports, tender notices, registration rules, every PDF — filterable by group and year (ADR-009). Build early in P1; it is the most load-bearing route on the site
+- [ ] `/ir/financials/[slug]` with readable HTML body **and** download for every record
 - [ ] `/careers` as one page: intro, two-field resume form, benefits, learning, FAQ — and nothing else
-- [ ] `/tenders` with deadline-derived status, registration rules and required-documents list
 - [ ] Projects cluster: hub, 3D map, all four status indexes, and the `[slug]` template against real data
 - [ ] Companies cluster (`/companies`, `/companies/[slug]`) if Option B — footer column 5 and home block 8 depend on it
 - [ ] Verify every project has exactly one status and appears in exactly one index (or, if tags were chosen, that duplicates are intentional)

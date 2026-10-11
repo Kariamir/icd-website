@@ -6,9 +6,11 @@
  * separate model, /companies/*) is assumed per sitemap §5.2 recommendation —
  * revisit in docs/decisions.md if the client confirms Option A instead.
  *
- * Tracks docs/01-sitemap.md v1.2 (the consolidation pass): About is one page
- * (ADR-004), Media is one categorised blog (ADR-005), /careers absorbs the HR
- * topics (ADR-006) and /tenders is new (ADR-007).
+ * Tracks docs/01-sitemap.md v1.3: About is one page (ADR-004), Media is one
+ * categorised blog (ADR-005), /careers absorbs the HR topics (ADR-006), and
+ * tenders are informational only — no /tenders route, no Tender model, with
+ * notices in the blog's `tenders` category and the documents on /ir/financials
+ * (ADR-009, superseding ADR-007).
  *
  * INVARIANT: every href in primaryNav / footerColumns / legalNav must resolve
  * to a real page under app/pages. Route constants may exist ahead of their
@@ -59,19 +61,25 @@ export const routes = {
   irGovernance: '/ir/governance',
   irFaq: '/ir/faq',
   /**
-   * Company and committee performance reports — moved here from /media/reports
-   * (ADR-005). Each report must be BOTH readable in-page and downloadable;
-   * a PDF-only archive is not acceptable in this cluster.
+   * THE documents page (ADR-009). One destination for every official document:
+   * financial statements, board activity reports, committee performance
+   * reports, tender and auction notices, the legal requirements for document
+   * registration, and every PDF download on the site. Filterable by document
+   * group and year. Each record must be BOTH readable in-page and
+   * downloadable — a PDF-only archive is not acceptable in this cluster.
+   *
+   * The slug still says `financials` while the page carries more than that;
+   * renaming to /ir/documents is sitemap §13 question 12, open.
    */
-  irReports: '/ir/reports',
-  irReport: (slug: string) => `/ir/reports/${slug}`,
+  irDocument: (slug: string) => `/ir/financials/${slug}`,
+  irDocumentGroup: (group: DocumentGroup) => `/ir/financials?group=${group}`,
 
   /**
    * Media is ONE categorised blog (docs/decisions.md ADR-005). Categories are
    * a field on the Article model filtered by query string, NOT routes — adding
    * a category costs a database value, not a route. The three former branded
    * indexes (/media/news, /media/stories, /media/reports) are retired;
-   * formal performance reports moved to irReports below.
+   * formal performance reports moved to the IR documents page (ADR-009).
    */
   media: '/media',
   mediaPost: (slug: string) => `/media/${slug}`,
@@ -98,28 +106,36 @@ export const routes = {
   careersLearning: '/careers#learning',
   careersFaq: '/careers#faq',
 
-  /**
-   * Tenders and auctions, plus registration rules and the required-documents
-   * list (ADR-007). Footer-only: the audience is suppliers and contractors who
-   * arrive by search or direct link, and the header budget is fixed at 5 items.
-   * Tender status must be DERIVED FROM THE DEADLINE DATE, never a manual flag.
-   */
-  tenders: '/tenders',
-
   complaints: '/complaints',
   search: '/search',
   legalTerms: '/legal/terms',
   legalPrivacy: '/legal/privacy',
 } as const
 
-/** Media post categories (ADR-005). Values are the ?category= query values. */
-export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis'
+/** Media post categories (ADR-005, ADR-009). Values are the ?category= query values. */
+export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'tenders'
 
 export const mediaCategories: { value: MediaCategory, label: string }[] = [
   { value: 'news', label: 'نبض ثاخت' },
   { value: 'stories', label: 'روایت ثاخت' },
   { value: 'podcast', label: 'پادکست' },
   { value: 'analysis', label: 'تحلیل بازار' },
+  { value: 'tenders', label: 'مناقصات و مزایدات' },
+]
+
+/**
+ * Document groups on /ir/financials (ADR-009). One page, filtered by group.
+ * Tender notices are a document group here and a blog category above — they
+ * are informational in both places and have no model of their own.
+ */
+export type DocumentGroup = 'statements' | 'board-reports' | 'committee-reports' | 'tenders' | 'registration'
+
+export const documentGroups: { value: DocumentGroup, label: string }[] = [
+  { value: 'statements', label: 'صورت‌های مالی' },
+  { value: 'board-reports', label: 'گزارش فعالیت هیات‌مدیره' },
+  { value: 'committee-reports', label: 'گزارش‌های عملکرد کمیته‌ها' },
+  { value: 'tenders', label: 'مناقصات و مزایدات' },
+  { value: 'registration', label: 'الزامات قانونی ثبت اسناد' },
 ]
 
 export interface NavItem {
@@ -186,7 +202,8 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     megaMenu: [{
       items: [
         { label: 'اطلاعات نماد ثاخت در بورس', href: routes.irSymbol },
-        { label: 'صورت‌های مالی و گزارش فعالیت', href: routes.irFinancials },
+        { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
+        { label: 'مناقصات و مزایدات', href: routes.irDocumentGroup('tenders') },
         { label: 'تقویم اطلاع‌رسانی و مجامع', href: routes.irCalendar },
         { label: 'گزارش‌های شفافیت و حاکمیت شرکتی', href: routes.irGovernance },
         { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
@@ -248,7 +265,7 @@ export const footerColumns: MegaMenuColumn[] = [
     heading: 'سهامداران و کدال',
     items: [
       { label: 'تابلوی نماد ثاخت', href: routes.irSymbol },
-      { label: 'صورت‌های مالی حسابرسی‌شده', href: routes.irFinancials },
+      { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
       { label: 'تقویم مجامع عمومی و سود سهام', href: routes.irCalendar },
       { label: 'حاکمیت شرکتی و شفافیت', href: routes.irGovernance },
       { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
@@ -282,10 +299,9 @@ export const footerColumns: MegaMenuColumn[] = [
  * Linking to one of these produces a 404 — add the nav entry in the same
  * commit that adds the page, and delete it from this list.
  *
- *   routes.tenders      → /tenders            (ADR-007, footer col 4 when built)
- *   routes.irReports    → /ir/reports         (ADR-005, IR mega-menu when built)
- *   routes.irReport     → /ir/reports/[slug]
- *   routes.mediaPost    → /media/[slug]       (replaces the three former detail templates)
+ *   routes.irDocument      → /ir/financials/[slug]   (ADR-009)
+ *   routes.irDocumentGroup → /ir/financials?group=…   (needs group filtering on the page)
+ *   routes.mediaPost       → /media/[slug]            (replaces the three former detail templates)
  *   routes.companies    → /companies          (sitemap §5.2 Option B)
  *   routes.company      → /companies/[slug]
  *   routes.mediaPressKit, routes.authLogin, routes.account* → not built yet
@@ -294,9 +310,8 @@ export const footerColumns: MegaMenuColumn[] = [
  * category filtering still needs implementing.
  */
 export const PENDING_ROUTES = [
-  'tenders',
-  'irReports',
-  'irReport',
+  'irDocument',
+  'irDocumentGroup',
   'mediaPost',
   'companies',
   'company',

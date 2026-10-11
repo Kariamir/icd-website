@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.2 · **Status:** Draft for approval · **Source:** «ساختار پیشنهادی هدر سایت ICD»
+**Version:** 1.3 · **Status:** Draft for approval · **Source:** «ساختار پیشنهادی هدر سایت ICD»
+
+**Changes in 1.3 — the tenders correction.** Tenders and auctions are **purely informational** — notices and updates, not a transactional destination. The standalone `/tenders` page specified in v1.2 is deleted (ADR-007 superseded by ADR-009). Tender and auction notices now appear in two places only: as a `tenders` category in the Media blog, and on the Investor Relations documents page. That documents page is also consolidated: `/ir/financials` and `/ir/reports` merge into one destination carrying financial statements, board reports, committee performance reports, tender and auction notices, the legal requirements for document registration, and every PDF download. **44 → 42 templates** (Option B); the `Tender` content model is no longer needed.
 
 **Changes in 1.2 — the consolidation pass.** The About cluster collapses from nine routes to one scroll page (ADR-004); committees become a section on it. The Media cluster collapses from three branded indexes to one categorised blog, and «کارنامه ثاخت» performance reports move under Investor Relations (ADR-005). `/careers` absorbs the HR topics and reduces to a two-field resume form (ADR-006). A new footer-only `/tenders` page carries tenders, auctions, and their registration rules (ADR-007). Net effect: **48 → 44 templates** under Option B, with the whole site moving to an image-led, minimal treatment (§14).
 
@@ -13,10 +15,10 @@
 
 | Metric | Option A (projects only) | Option B (+ companies) |
 |---|---|---|
-| Unique routes / templates to build | **42** | **44** |
+| Unique routes / templates to build | **40** | **42** |
 | Of which are dynamic templates (`[slug]`) | 5 | 6 |
-| Estimated rendered URLs at launch | ~72 | ~81 |
-| Content models | 11 | 12 |
+| Estimated rendered URLs at launch | ~70 | ~79 |
+| Content models | 10 | 11 |
 | Top-level menu clusters | 5 | 5 |
 | Utility / system pages | 9 | 9 |
 | Pages requiring a 3D scene | 5 | 5 |
@@ -24,7 +26,7 @@
 
 See §5.2 for the Option A / Option B decision. Everything outside the Projects cluster is identical between them.
 
-The route count fell from 48 to 44 in v1.2 while the site gained content. That is the point of the consolidation: fewer, longer, image-led destinations rather than many thin pages.
+The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gained content. That is the point of the consolidation: fewer, longer, image-led destinations rather than many thin pages. No content was dropped to get there — it was relocated to where its audience already was.
 
 **Menu budget (from source doc):** 5 content items + 1 CTA in the header. Everything else lives in the footer, the mega-menus, or the account icon.
 
@@ -189,16 +191,31 @@ Rebrand of the existing «امور سهامداری». Regulatory-sensitive: acc
 |---|---|---|---|---|---|
 | 25 | `/ir` | دیده‌بان ثاخت | `HUB` | IR entry, live widget above the fold | |
 | 26 | `/ir/symbol` | اطلاعات نماد ثاخت در بورس | `STATIC` (live) | Live price/volume widget | **TSETMC integration.** Client-requested |
-| 27 | `/ir/financials` | صورت‌های مالی و گزارش فعالیت هیات‌مدیره | `INDEX` | Document archive, filter by year/type | PDF library. Link out to CODAL |
+| 27 | `/ir/financials` | اسناد و گزارش‌ها | `INDEX` | **The documents page.** See §7.1 | Merges former `/ir/reports` (ADR-009) |
 | 28 | `/ir/calendar` | تقویم اطلاع‌رسانی و مجامع عمومی | `INDEX` | Jalali calendar of disclosures & general assemblies | **New** — TSE transparency requirement |
 | 29 | `/ir/governance` | گزارش‌های شفافیت و حاکمیت شرکتی | `INDEX` | Governance reports | |
 | 30 | `/ir/faq` | پرسش‌های متداول سهامداران | `STATIC` | Shareholder FAQ | **New** |
-| 31 | `/ir/reports` | گزارش‌های عملکرد شرکت و کمیته‌ها | `INDEX` | Company and committee performance reports. Every item must be **both readable in-page and downloadable** | **New in v1.2** — moved here from `/media/reports` (ADR-005) |
-| 32 | `/ir/reports/[slug]` | گزارش عملکرد | `DETAIL` | Full report rendered as readable text, with a PDF download beside it | Readable view is required, not optional |
+| 31 | `/ir/financials/[slug]` | سند / گزارش | `DETAIL` | One document rendered as readable text, with its PDF download beside it | Readable view is required, not optional |
 
-### 7.1 Readable **and** downloadable
+### 7.1 `/ir/financials` — the documents page
 
-v1.1 treated reports as a PDF library. v1.2 requires both forms: the report body renders as HTML on `/ir/reports/[slug]` and the same document is offered as a download. A PDF-only archive is unsearchable, unreadable on a phone, and invisible to crawlers — unacceptable for the one cluster where transparency is a regulatory obligation rather than a preference.
+One destination for every official document the company publishes. v1.2 split this across `/ir/financials` and `/ir/reports`; v1.3 merges them, because the client describes a single page and because a regulated document with two possible homes will drift (ADR-009).
+
+| Document group | Contents |
+|---|---|
+| صورت‌های مالی | Audited financial statements, by year |
+| گزارش فعالیت هیات‌مدیره | Official board activity reports |
+| گزارش‌های عملکرد کمیته‌ها | Committee performance reports — moved from `/media/reports` (ADR-005) |
+| مناقصات و مزایدات | Tender and auction notices. **Informational only** — see §9.2 |
+| الزامات قانونی ثبت اسناد | The legal requirements for document registration, and the required-documents list |
+
+Filterable by group and by year. Links out to CODAL for the filings that live there.
+
+### 7.2 Readable **and** downloadable
+
+v1.1 treated these as a PDF library. From v1.2 onward both forms are required: the document body renders as HTML on `/ir/financials/[slug]`, and the same document is offered as a download. A PDF-only archive is unsearchable, unreadable on a phone, and invisible to crawlers — unacceptable for the one cluster where transparency is a regulatory obligation rather than a preference.
+
+Every PDF the site offers is reached from this page. v1.2 scattered downloads across `/ir/reports` and a standalone tenders page; v1.3 gives them one home.
 
 > This is the one cluster that does **not** take the §14 image-led treatment. See §14.1.
 
@@ -224,6 +241,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | `stories` | روایت ثاخت | `/media/stories` | Long-form blog, interviews |
 | `podcast` | پادکست | part of `/media/stories` | Audio episodes — detail page renders a player |
 | `analysis` | تحلیل بازار | part of `/media/reports` | Market commentary that is editorial, not a formal report |
+| `tenders` | مناقصات و مزایدات | — | **New in v1.3.** Tender and auction notices as news items. Informational only; the documents themselves live on `/ir/financials` (§7.1) |
 
 **What moved out.** Formal company and committee performance reports — the «کارنامه ثاخت» documents — are now at `/ir/reports` (§7). What stays in `/media` is editorial: news, interviews, podcasts, and market commentary.
 
@@ -243,7 +261,6 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets; receives CEO-message threads | |
 | 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Full contact page, offices, map | CTA button links here as secondary |
 | 43 | `/careers` | فرصت‌های همکاری و استخدام | `STATIC` + `FORM` | Short intro, two-field resume form, and the HR topics as sections | **Restructured in v1.2** — see §9.1 |
-| 44 | `/tenders` | مناقصات و مزایدات | `INDEX` + `STATIC` | Open tenders and auctions, plus the registration rules and required-documents list | **New in v1.2**. Footer-only (ADR-007) |
 | 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
 | 46 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | Header icon |
 | 47 | `/legal/terms` | قوانین | `SYSTEM` | Footer bottom row | |
@@ -251,7 +268,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 49 | `/404` | صفحه یافت نشد | `SYSTEM` `3D` | Branded 404 | |
 | 50 | `/500` | خطای سرور | `SYSTEM` | Must render without WebGL | |
 
-> Route numbers run to 50 here; entries 53–54 are the Option B company routes in §5.2. The useful estimating figure is **42 templates (Option A)** or **44 (Option B)**.
+> Route numbers are historical and no longer contiguous — 44 was the deleted `/tenders` (ADR-009), and 53–54 are the Option B company routes in §5.2. Numbers are kept stable so earlier versions and the decision log stay readable. The useful estimating figure is **40 templates (Option A)** or **42 (Option B)**.
 
 ### 9.1 `/careers` — فرصت‌های همکاری و استخدام
 
@@ -269,14 +286,24 @@ One page, in this order (ADR-006):
 
 > The two-field form is a deliberate conversion decision: every additional field costs applicants. Note for implementation — a name and a phone number alone cannot be deduplicated reliably, so the backend needs a submission timestamp and the attached file's hash to catch repeat submissions.
 
-### 9.2 `/tenders` — مناقصات و مزایدات
+### 9.2 Tenders and auctions — informational, not a page
 
-Carries three things: the list of open tenders and auctions, the registration procedure, and the required-documents list (moved here in v1.2 per client instruction).
+**There is no `/tenders` route.** v1.2 specified one; v1.3 deletes it (ADR-009). Tenders and auctions on this site are *purely informational* — the company publishes notices and updates, it does not run a bidding process here. Content that is only ever read belongs where readers already are, not on a destination of its own.
 
-- **Footer-only**, not in the header. The audience is suppliers and contractors who arrive by search or direct link, not visitors browsing the main menu — and the header budget is fixed at 5 items (§10)
-- Each tender needs: title, type (مناقصه / مزایده), publication date, **deadline**, status, documents
-- Deadline handling is the whole point of the page. An expired tender shown as open is a procurement problem, so status must derive from the deadline date rather than a manually set flag
-- Requires a `Tender` content model — this is the 11th model, and the reason the model count rose in §1 while the route count fell
+They therefore appear in exactly two places:
+
+| Where | What | Route |
+|---|---|---|
+| Media blog, own category | Tender and auction notices as dated news items | `/media?category=tenders` (§8.1) |
+| IR documents page | The notices as documents, the legal requirements for document registration, the required-documents list, and all PDF downloads | `/ir/financials` (§7.1) |
+
+**Consequences of this being informational:**
+
+- **No `Tender` content model.** A notice is an `Article` with `category: 'tenders'`; a tender document is a document record on the IR page. This is why the model count in §1 fell back to 10/11
+- **No deadline-derived status logic.** v1.2 required status to be computed from the deadline because an expired tender shown as open would be a procurement problem. That risk does not apply to a notice archive — but dated notices must still carry a visible publication date so nobody reads an old notice as current
+- **No footer navigation entry.** Suppliers reach this content through site search, the blog category, or the IR documents page
+
+> ⚠️ **If this ever becomes transactional** — if the company starts accepting registrations or bids through the site — this decision reverses and ADR-009 should be revisited. At that point a `Tender` model with real deadline logic becomes necessary, and the informational treatment becomes actively unsafe.
 
 ---
 
@@ -297,8 +324,8 @@ Result: ~45% more compact than a conventional 9-item menu.
 |---|---|
 | 1 | Logo + short intro + address + phone + social links |
 | 2 — دسترسی سریع | درباره ثاخت / پروژه‌ها / فروش / تماس با ما / internal systems (اتوماسیون اداری، درگاه هلدینگ) |
-| 3 — سرمایه‌گذاران | دیده‌بان ثاخت / کدال / صورت‌های مالی / تقویم مجامع |
-| 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** / **مناقصات و مزایدات** |
+| 3 — سرمایه‌گذاران | دیده‌بان ثاخت / کدال / اسناد و گزارش‌ها (شامل مناقصات و مزایدات) / تقویم مجامع |
+| 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** |
 | 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/projects/[slug]` (Option A) or `/companies/[slug]` (Option B) |
 
 **Bottom row:** © copyright | قوانین و حریم خصوصی
@@ -312,10 +339,10 @@ Result: ~45% more compact than a conventional 9-item menu.
 | Wave | Scope | Rationale |
 |---|---|---|
 | **P0** | `/`, header, footer, `/projects` + all four status indexes + `/projects/[slug]`, `/companies` + `/companies/[slug]` (if Option B), `/sales/*`, `/contact`, `/ir` + `/ir/symbol`, 404 | Revenue + regulatory minimum viable site. Company routes are P0 under Option B because the footer and home block 8 link to them |
-| **P1** | `/about` (one page), `/media` + `/media/[slug]`, `/ir/reports`, `/ir` remainder, `/search`, legal | Completes the public site |
-| **P2** | Account/auth cluster, `/complaints`, `/careers`, `/tenders`, virtual tours | Requires backend and legal review |
+| **P1** | `/about` (one page), `/media` + `/media/[slug]`, `/ir/financials` + `/ir/financials/[slug]`, `/ir` remainder, `/search`, legal | Completes the public site |
+| **P2** | Account/auth cluster, `/complaints`, `/careers`, virtual tours | Requires backend and legal review |
 
-> `/tenders` sits in P2 only because it needs a `Tender` model and a real document pipeline. If the client has a live tender to publish before launch, it moves to P0 — an open tender with no page is a commercial loss, not a cosmetic gap.
+> `/ir/financials` carries more weight after the v1.3 merge: it is now the only route serving official documents, committee reports, tender notices and every PDF on the site. It should be built early in P1 rather than late.
 
 ---
 
@@ -331,6 +358,8 @@ Result: ~45% more compact than a conventional 9-item menu.
 8. Which projects get a virtual tour at launch?
 9. Does `/account/documents` handle identity documents? If so, it triggers data-residency and retention requirements
 10. Do old `/about/*`, `/media/news/*`, `/media/stories/*` and `/media/reports/*` URLs need 301 redirects? They were deleted rather than redirected. If the current live site uses them, the redirect map in build-checklist Phase 1 must cover them
+11. Where did the tender PDFs live on the current site? v1.3 §9.2 notes they were previously hosted in that section — those URLs need redirects to `/ir/financials` and the files need migrating
+12. Is `اسناد و گزارش‌ها` the right label for `/ir/financials` now that it carries tenders and registration rules as well as financial statements? The route slug still says `financials`, which will read oddly to a developer — renaming it to `/ir/documents` is cheap now and expensive after launch
 
 ---
 
