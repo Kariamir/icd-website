@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { clusterHubs } from '~/utils/clusterHubData'
+import { aboutHero } from '~/utils/aboutPageData'
 
-const hub = clusterHubs.about
+// Merged single-scroll About page. The eight former /about/* sub-routes were
+// removed in favour of this one page — docs/decisions.md ADR-004.
 
 useSeoMeta({
-  title: `${hub.title} — ثاخت`,
-  description: hub.intro,
+  title: 'درباره ثاخت — ثاخت',
+  description: aboutHero.lead,
 })
 </script>
 
 <template>
-  <ClusterHub :hub="hub" />
+  <AboutOverview />
 </template>

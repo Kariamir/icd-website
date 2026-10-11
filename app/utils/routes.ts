@@ -9,15 +9,20 @@
 export const routes = {
   home: '/',
 
+  /**
+   * The About cluster is ONE page (docs/decisions.md ADR-004). The eight
+   * former sub-routes were deleted, not redirected — the entries below are
+   * in-page anchors on /about, not routes, and must stay in sync with the
+   * section ids in components/sections/AboutOverview.vue.
+   */
   about: '/about',
-  aboutHistory: '/about/history',
-  aboutCeo: '/about/ceo',
-  aboutBoard: '/about/board',
-  aboutBoardMember: (slug: string) => `/about/board/${slug}`,
-  aboutVision: '/about/vision',
-  aboutOrgChart: '/about/org-chart',
-  aboutHonors: '/about/honors',
-  aboutCsr: '/about/csr',
+  aboutVision: '/about#vision',
+  aboutHistory: '/about#history',
+  aboutTrackRecord: '/about#track-record',
+  aboutSubsidiaries: '/about#subsidiaries',
+  aboutBoard: '/about#board',
+  aboutCommittees: '/about#committees',
+  aboutContact: '/about#contact',
 
   projects: '/projects',
   projectsMap: '/projects/map',
@@ -92,13 +97,12 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.about,
     megaMenu: [{
       items: [
-        { label: 'معرفی شرکت و تاریخچه', href: routes.aboutHistory },
-        { label: 'ارتباط مستقیم با مدیرعامل', href: routes.aboutCeo },
-        { label: 'مدیران و اعضای هیات‌مدیره', href: routes.aboutBoard },
-        { label: 'چشم‌انداز، ماموریت و ارزش‌ها', href: routes.aboutVision },
-        { label: 'چارت سازمانی', href: routes.aboutOrgChart },
-        { label: 'افتخارات، گواهینامه‌ها و عضویت‌ها', href: routes.aboutHonors },
-        { label: 'مسئولیت اجتماعی و پایداری', href: routes.aboutCsr },
+        { label: 'چشم‌انداز و حاکمیت شرکتی', href: routes.aboutVision },
+        { label: 'تاریخچه', href: routes.aboutHistory },
+        { label: 'کارنامه', href: routes.aboutTrackRecord },
+        { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
+        { label: 'هیات‌مدیره', href: routes.aboutBoard },
+        { label: 'کمیته‌ها', href: routes.aboutCommittees },
         { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
       ],
     }],
@@ -173,11 +177,11 @@ export const footerColumns: MegaMenuColumn[] = [
   {
     heading: 'هلدینگ ثاخت',
     items: [
-      { label: 'تاریخچه و معرفی شرکت', href: routes.aboutHistory },
+      { label: 'درباره ثاخت', href: routes.about },
+      { label: 'تاریخچه', href: routes.aboutHistory },
       { label: 'هیئت‌مدیره و ارکان راهبری', href: routes.aboutBoard },
-      { label: 'چشم‌انداز، ماموریت و ارزش‌ها', href: routes.aboutVision },
-      { label: 'مسئولیت اجتماعی و پایداری', href: routes.aboutCsr },
-      { label: 'گواهینامه‌ها و افتخارات', href: routes.aboutHonors },
+      { label: 'کمیته‌ها', href: routes.aboutCommittees },
+      { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
       { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
     ],
   },
