@@ -1,5 +1,5 @@
 # ICD (ثاخت) — 3D Website Build Checklist
-**Version:** 1.1 · **Companion to:** `01-sitemap.md` v1.1
+**Version:** 1.2 · **Companion to:** `01-sitemap.md` v1.2
 **Starting point:** page inventory approved. Everything before that is out of scope for this document.
 
 > Working agreement: nothing moves to the next phase until every ⛔ blocker in the current phase is closed. Non-blockers can trail.
@@ -8,7 +8,10 @@
 
 ## Phase 0 — Decisions before any code
 
-- [ ] ⛔ Lock the page inventory (`01-sitemap.md` §13 open questions answered)
+- [x] ⛔ Lock the page inventory (`01-sitemap.md` §13 open questions answered) — v1.2 consolidation settled, ADR-004 through ADR-008
+- [ ] ⛔ **Asset availability audit before any more page design.** The v1.2 direction is image-led (sitemap §14) and fails without images. Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. **This is the critical path — assets, not layout**
+- [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the historical timeline before building `#history` (revisit ADR-008 rather than substituting stock imagery)
+- [ ] ⛔ Confirm whether the current live site serves `/about/*` or `/media/news|stories|reports/*` URLs. If it does, those 301 redirects are launch-blocking (sitemap §13 open question 10)
 - [ ] ⛔ **Option A or Option B** on subsidiary companies (sitemap §5.2). Blocks the content model, the footer, and home block 8. Recommendation is Option B
 - [ ] ⛔ Confirm the four project statuses and whether `completed` / `operating` are mutually exclusive (sitemap §5.1)
 - [ ] ⛔ Confirm hosting: server location, CDN. **Verify the CDN is reachable from inside Iran** — this constrains the whole stack
@@ -25,8 +28,14 @@
 
 ## Phase 1 — Information architecture & content model
 
-- [ ] ⛔ Route table implemented as a single source of truth file (`routes.ts`) — every link in the codebase resolves through it
-- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, Report, FinancialDocument, DisclosureEvent, Honor, JobPosting — plus **Company** under Option B
+- [x] ⛔ Route table implemented as a single source of truth file (`app/utils/routes.ts`) — every link in the codebase resolves through it
+- [ ] ⛔ **Anchor-id sync.** `/about` and `/careers` are single pages whose mega-menu and footer entries are in-page anchors. The anchor constants in `routes.ts` must match the section ids in `AboutOverview.vue` and the careers page component. **Nothing currently enforces this** — a renamed section id silently breaks navigation. Add a test or a build-time assertion
+- [ ] ⛔ Keep `PENDING_ROUTES` in `routes.ts` accurate: a route constant may exist before its page, but linking to one from navigation produces a 404. Remove each entry in the same commit that adds its page
+- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, Report, FinancialDocument, DisclosureEvent, Honor, JobPosting, **Tender** — plus **Company** under Option B
+- [ ] ⛔ `Article.category` implemented as an enum (`news` / `stories` / `podcast` / `analysis`) filtered by query string, **not** as separate routes (ADR-005). Mirrors the `Project.status` pattern
+- [ ] ⛔ `Tender.status` **derived from the deadline date**, never a manually set flag (ADR-007). An expired tender shown as open is a procurement problem, not a display bug
+- [ ] `Report` model serves `/ir/reports` and must support **both** a readable HTML body and a downloadable file for the same record (ADR-005) — not a file-only record
+- [ ] Resume submissions need a timestamp and a hash of the attached file: a name and phone number alone cannot be deduplicated (ADR-006)
 - [ ] ⛔ `Project.status` implemented as a single enum (`upcoming` / `under-construction` / `operating` / `completed`) driving four filtered index views, **not** four separate content types
 - [ ] Even under Option A, add a nullable `Project.ownerCompany` field now so the Option B migration stays cheap
 - [ ] Bidirectional link rules: `under-construction` project → its pre-sale listing; pre-sale unit → its parent project; project → owner company; company → its projects
@@ -41,6 +50,10 @@
 ## Phase 2 — Design system & 3D art direction
 
 - [ ] ⛔ RTL-first design tokens: spacing, type scale, logical properties only (`margin-inline-start`, never `margin-left`)
+- [ ] ⛔ **Text budget enforced in review** (sitemap §14): hero 8 words, section heading 4, section body 25, image caption 6, timeline entry 6. Target ~70% reduction against the v1.1 implementation. Without a number, "concise" drifts back to paragraphs by the third review
+- [ ] ⛔ Minimal/flat rules applied: no nested cards, no shadows, no gradients, no decorative icons, one accent colour, minimum 120px between sections
+- [ ] ⛔ **IR is exempt from the image-led style** (ADR-008). There, minimal means fast, plain and dense. Record it in the design system so a later pass does not "fix" the inconsistency
+- [ ] Reusable Stitch/design preamble extracted from the approved About output — spacing scale, type scale, image aspect ratios, the no-cards rules, RTL note — so later screens do not drift from the first
 - [ ] ⛔ Persian typeface licensed and self-hosted (Vazirmatn / IRANSans / Estedad). Subset it. Confirm Persian digit rendering
 - [ ] Latin typeface pairing for the EN locale + numerals
 - [ ] Color system with contrast ratios verified against 3D backgrounds (text over a moving scene is the #1 accessibility failure in 3D sites)
@@ -86,6 +99,14 @@
 Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 
 - [ ] Homepage: all 10 blocks, in the fixed order, each independently lazy-loaded
+- [ ] `/about` as one scroll page, sections in the fixed order of sitemap §4.1, including the new `#committees` section (committee data already exists in `OrgChartView.vue` and `BoardMemberProfile.vue` — reuse, do not re-model)
+- [ ] `/about#subsidiaries` built as the enlarged, full-width section: low-opacity blurred background photo, horizontally scrollable large logo tiles
+- [ ] `/about#board` as one flat card per member — **verify no individual profile route survives**
+- [ ] `/about#contact` form with exactly two «موضوع» options: «ارسال رزومه» and «ارتباط با سهامداران»
+- [ ] `/media` as one categorised feed; `/media/[slug]` as the single detail template with the podcast player; delete the three former index and detail templates
+- [ ] `/ir/reports` + `/ir/reports/[slug]` with readable body **and** download for every record
+- [ ] `/careers` as one page: intro, two-field resume form, benefits, learning, FAQ — and nothing else
+- [ ] `/tenders` with deadline-derived status, registration rules and required-documents list
 - [ ] Projects cluster: hub, 3D map, all four status indexes, and the `[slug]` template against real data
 - [ ] Companies cluster (`/companies`, `/companies/[slug]`) if Option B — footer column 5 and home block 8 depend on it
 - [ ] Verify every project has exactly one status and appears in exactly one index (or, if tags were chosen, that duplicates are intentional)
@@ -162,7 +183,8 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] Structured data: `Organization`, `RealEstateListing` (units), `Article` (media), `BreadcrumbList`, `FAQPage`
 - [ ] `sitemap.xml` generated from the route table; `robots.txt`
 - [ ] OG/Twitter cards with static images (never a live 3D render)
-- [ ] Old-URL redirects deployed (from Phase 1)
+- [ ] Old-URL redirects deployed (from Phase 1), **including the deleted `/about/*` and `/media/*` sub-routes** (ADR-004, ADR-005)
+- [ ] `/about` and `/careers` carry the metadata that eight and four separate pages used to carry. Verify each section has its own heading level so the single page still ranks for the merged topics
 - [ ] Search Console verified
 
 ---
@@ -187,7 +209,8 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] ⛔ WebGL-disabled and WebGL-failure paths tested on every 3D page
 - [ ] Slow-3G and offline behavior
 - [ ] All forms submitted end-to-end and confirmed received
-- [ ] Every link in header, footer, and mega-menus clicked
+- [ ] Every link in header, footer, and mega-menus clicked — **including every `#anchor` entry**, which is where the About and Careers merges will break first
+- [ ] No navigation entry points at a `PENDING_ROUTES` constant
 - [ ] Persian text QA: no broken ZWNJ, no Latin-digit leakage, no LTR bleed
 - [ ] Content proofread by a Persian editor
 - [ ] Memory-leak test: navigate 20+ pages with 3D scenes, watch heap
@@ -221,3 +244,7 @@ Renders SSR · passes budgets · keyboard-navigable · works with WebGL off · c
 | Blocked third-party services | Self-host everything (Phase 0) |
 | Mega-menu unusable on mobile | Separate mobile nav pattern (Phase 4) |
 | RTL bugs found late | RTL-first from Phase 2, not retrofitted |
+| Image-led design with no images | Asset audit gates Phase 2 (Phase 0). Assets are the critical path, not layout |
+| Anchor ids drift from `routes.ts` | Build-time assertion in Phase 1; anchor click-through in Phase 12 |
+| Merged pages lose the old URLs' SEO | Redirect map in Phase 1, verified in Phase 10 |
+| IR gets "beautified" into uselessness | ADR-008 exemption recorded in the design system |
