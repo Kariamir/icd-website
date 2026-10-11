@@ -5,6 +5,15 @@
  * Persian (docs/01-sitemap.md intro). Option B (subsidiary companies as a
  * separate model, /companies/*) is assumed per sitemap §5.2 recommendation —
  * revisit in docs/decisions.md if the client confirms Option A instead.
+ *
+ * Tracks docs/01-sitemap.md v1.2 (the consolidation pass): About is one page
+ * (ADR-004), Media is one categorised blog (ADR-005), /careers absorbs the HR
+ * topics (ADR-006) and /tenders is new (ADR-007).
+ *
+ * INVARIANT: every href in primaryNav / footerColumns / legalNav must resolve
+ * to a real page under app/pages. Route constants may exist ahead of their
+ * page — see PENDING_ROUTES at the bottom for the ones deliberately not yet
+ * linked from navigation.
  */
 export const routes = {
   home: '/',
@@ -49,14 +58,24 @@ export const routes = {
   irCalendar: '/ir/calendar',
   irGovernance: '/ir/governance',
   irFaq: '/ir/faq',
+  /**
+   * Company and committee performance reports — moved here from /media/reports
+   * (ADR-005). Each report must be BOTH readable in-page and downloadable;
+   * a PDF-only archive is not acceptable in this cluster.
+   */
+  irReports: '/ir/reports',
+  irReport: (slug: string) => `/ir/reports/${slug}`,
 
+  /**
+   * Media is ONE categorised blog (docs/decisions.md ADR-005). Categories are
+   * a field on the Article model filtered by query string, NOT routes — adding
+   * a category costs a database value, not a route. The three former branded
+   * indexes (/media/news, /media/stories, /media/reports) are retired;
+   * formal performance reports moved to irReports below.
+   */
   media: '/media',
-  mediaNews: '/media/news',
-  mediaNewsArticle: (slug: string) => `/media/news/${slug}`,
-  mediaStories: '/media/stories',
-  mediaStory: (slug: string) => `/media/stories/${slug}`,
-  mediaReports: '/media/reports',
-  mediaReport: (slug: string) => `/media/reports/${slug}`,
+  mediaPost: (slug: string) => `/media/${slug}`,
+  mediaCategory: (category: MediaCategory) => `/media?category=${category}`,
   mediaPressKit: '/media/press-kit',
 
   authLogin: '/auth/login',
@@ -67,12 +86,41 @@ export const routes = {
   accountTickets: '/account/tickets',
 
   contact: '/contact',
+
+  /**
+   * /careers is ONE page: brief intro, a two-field resume form, then the three
+   * HR topics as sections (ADR-006). The anchors below are in-page, not routes,
+   * and must stay in sync with the section ids in the careers page component.
+   */
   careers: '/careers',
+  careersResume: '/careers#resume',
+  careersBenefits: '/careers#benefits',
+  careersLearning: '/careers#learning',
+  careersFaq: '/careers#faq',
+
+  /**
+   * Tenders and auctions, plus registration rules and the required-documents
+   * list (ADR-007). Footer-only: the audience is suppliers and contractors who
+   * arrive by search or direct link, and the header budget is fixed at 5 items.
+   * Tender status must be DERIVED FROM THE DEADLINE DATE, never a manual flag.
+   */
+  tenders: '/tenders',
+
   complaints: '/complaints',
   search: '/search',
   legalTerms: '/legal/terms',
   legalPrivacy: '/legal/privacy',
 } as const
+
+/** Media post categories (ADR-005). Values are the ?category= query values. */
+export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis'
+
+export const mediaCategories: { value: MediaCategory, label: string }[] = [
+  { value: 'news', label: 'نبض ثاخت' },
+  { value: 'stories', label: 'روایت ثاخت' },
+  { value: 'podcast', label: 'پادکست' },
+  { value: 'analysis', label: 'تحلیل بازار' },
+]
 
 export interface NavItem {
   label: string
@@ -150,9 +198,10 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.media,
     megaMenu: [{
       items: [
-        { label: 'نبض ثاخت — اخبار', href: routes.mediaNews },
-        { label: 'روایت ثاخت — گفتگو و پادکست', href: routes.mediaStories },
-        { label: 'کارنامه ثاخت — گزارش‌های تخصصی', href: routes.mediaReports },
+        { label: 'همه مطالب', href: routes.media },
+        { label: 'نبض ثاخت — اخبار', href: routes.mediaCategory('news') },
+        { label: 'روایت ثاخت — گفتگو', href: routes.mediaCategory('stories') },
+        { label: 'پادکست', href: routes.mediaCategory('podcast') },
       ],
     }],
   },
@@ -208,9 +257,9 @@ export const footerColumns: MegaMenuColumn[] = [
   {
     heading: 'رسانه و اخبار',
     items: [
-      { label: 'نبض ثاخت — اتاق خبر', href: routes.mediaNews },
-      { label: 'روایت ثاخت — گفتگو و پادکست', href: routes.mediaStories },
-      { label: 'کارنامه ثاخت — گزارش‌های تخصصی', href: routes.mediaReports },
+      { label: 'نبض ثاخت — اتاق خبر', href: routes.mediaCategory('news') },
+      { label: 'روایت ثاخت — گفتگو', href: routes.mediaCategory('stories') },
+      { label: 'پادکست', href: routes.mediaCategory('podcast') },
       { label: 'جستجو در آرشیو سایت', href: routes.search },
     ],
   },
@@ -222,9 +271,43 @@ export const footerColumns: MegaMenuColumn[] = [
       { label: 'راهنمای خرید و قرارداد', href: routes.salesGuide },
       { label: 'ثبت پیشنهادات و شکایات', href: routes.complaints },
       { label: 'تماس و امور مشتریان', href: routes.contact },
+      { label: 'ارسال رزومه', href: routes.careersResume },
     ],
   },
 ]
+
+/**
+ * Routes whose constant exists above but which have NO page under app/pages
+ * yet, and are therefore deliberately absent from primaryNav / footerColumns.
+ * Linking to one of these produces a 404 — add the nav entry in the same
+ * commit that adds the page, and delete it from this list.
+ *
+ *   routes.tenders      → /tenders            (ADR-007, footer col 4 when built)
+ *   routes.irReports    → /ir/reports         (ADR-005, IR mega-menu when built)
+ *   routes.irReport     → /ir/reports/[slug]
+ *   routes.mediaPost    → /media/[slug]       (replaces the three former detail templates)
+ *   routes.companies    → /companies          (sitemap §5.2 Option B)
+ *   routes.company      → /companies/[slug]
+ *   routes.mediaPressKit, routes.authLogin, routes.account* → not built yet
+ *
+ * The /media?category= links ARE live: the /media page exists, though its
+ * category filtering still needs implementing.
+ */
+export const PENDING_ROUTES = [
+  'tenders',
+  'irReports',
+  'irReport',
+  'mediaPost',
+  'companies',
+  'company',
+  'mediaPressKit',
+  'authLogin',
+  'account',
+  'accountFavorites',
+  'accountOrders',
+  'accountDocuments',
+  'accountTickets',
+] as const
 
 /** Legal / utility links in the footer's bottom bar. */
 export const legalNav: NavItem[] = [

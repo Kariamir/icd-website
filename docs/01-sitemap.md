@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.1 · **Status:** Draft for approval · **Source:** «ساختار پیشنهادی هدر سایت ICD»
+**Version:** 1.2 · **Status:** Draft for approval · **Source:** «ساختار پیشنهادی هدر سایت ICD»
+
+**Changes in 1.2 — the consolidation pass.** The About cluster collapses from nine routes to one scroll page (ADR-004); committees become a section on it. The Media cluster collapses from three branded indexes to one categorised blog, and «کارنامه ثاخت» performance reports move under Investor Relations (ADR-005). `/careers` absorbs the HR topics and reduces to a two-field resume form (ADR-006). A new footer-only `/tenders` page carries tenders, auctions, and their registration rules (ADR-007). Net effect: **48 → 44 templates** under Option B, with the whole site moving to an image-led, minimal treatment (§14).
 
 **Changes in 1.1:** four-status project model (added «در حال ساخت»); subsidiary companies presented as an explicit Option A / Option B decision for the client.
 
@@ -11,16 +13,18 @@
 
 | Metric | Option A (projects only) | Option B (+ companies) |
 |---|---|---|
-| Unique routes / templates to build | **48** | **50** |
-| Of which are dynamic templates (`[slug]`) | 8 | 9 |
-| Estimated rendered URLs at launch | ~86 | ~95 |
-| Content models | 10 | 11 |
+| Unique routes / templates to build | **42** | **44** |
+| Of which are dynamic templates (`[slug]`) | 5 | 6 |
+| Estimated rendered URLs at launch | ~72 | ~81 |
+| Content models | 11 | 12 |
 | Top-level menu clusters | 5 | 5 |
-| Utility / system pages | 11 | 11 |
+| Utility / system pages | 9 | 9 |
 | Pages requiring a 3D scene | 5 | 5 |
 | Pages requiring live external data | 3 | 3 |
 
 See §5.2 for the Option A / Option B decision. Everything outside the Projects cluster is identical between them.
+
+The route count fell from 48 to 44 in v1.2 while the site gained content. That is the point of the consolidation: fewer, longer, image-led destinations rather than many thin pages.
 
 **Menu budget (from source doc):** 5 content items + 1 CTA in the header. Everything else lives in the footer, the mega-menus, or the account icon.
 
@@ -68,21 +72,32 @@ See §5.2 for the Option A / Option B decision. Everything outside the Projects 
 
 ## 4. Cluster 1 — درباره ثاخت (About)
 
-Mega-menu, 8 items. `HUB` at `/about`.
+**One page.** v1.1 specified nine routes here; v1.2 merges them into a single long-scroll page at `/about` (ADR-004). The mega-menu still shows seven destinations, but they are **in-page anchors, not routes**.
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 2 | `/about` | درباره ثاخت | `HUB` | Cluster overview, links to all sub-pages | |
-| 3 | `/about/history` | معرفی شرکت و تاریخچه | `STATIC` `3D` | Founding 1364, TSE listing, position in Ghadir Holding. Interactive timeline. | Existing content |
-| 4 | `/about/ceo` | ارتباط مستقیم با مدیرعامل | `STATIC` + `FORM` | CEO video/message + direct-message form with published SLA (e.g. max 72h) | **Differentiator.** Needs ticket backend + SLA timer |
-| 5 | `/about/board` | مدیران و اعضای هیات‌مدیره | `INDEX` | Grid of managers/board members | |
-| 6 | `/about/board/[slug]` | پروفایل مدیر | `DETAIL` | Individual bio + short CV | ~10 records |
-| 7 | `/about/vision` | چشم‌انداز، ماموریت و ارزش‌ها | `STATIC` | Rework of existing «استراتژی‌های شرکت» | Existing, renamed |
-| 8 | `/about/org-chart` | چارت سازمانی | `STATIC` `3D` | Interactive org chart | **New** |
-| 9 | `/about/honors` | افتخارات، گواهینامه‌ها و عضویت‌ها | `INDEX` | Certificates, awards, memberships | **New**. Feeds home block 7 |
-| 10 | `/about/csr` | مسئولیت اجتماعی و پایداری | `STATIC` | ESG / sustainability reporting | **New** — driven by TSE regulatory trend |
+| 2 | `/about` | درباره ثاخت | `HUB` `3D` | The entire company story on one image-led scroll page | Replaces 8 deleted sub-routes |
 
-`فرصت‌های همکاری و استخدام` appears here as a **secondary link only**; canonical page is `/careers` (see §9).
+### 4.1 Section order on `/about`
+
+Section ids must stay in sync with `app/components/sections/AboutOverview.vue` and the anchor entries in `app/utils/routes.ts`.
+
+| Order | Anchor | Label | Content | Notes |
+|---|---|---|---|---|
+| 1 | — | Hero | Full-bleed project photograph, company name, one line | |
+| 2 | `#history` | تاریخچه | Visual timeline from «پارس سازه، ۱۳۳۰». Brand-story video block. Production-chain photo strip. **Black-and-white imagery for everything before ۱۳۵۰.** | Merges former `/about/history` + «کارنامه» achievements |
+| 3 | `#track-record` | کارنامه | Pure image gallery of delivered work — masonry grid, names on hover only | Showcase, not prose |
+| 4 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
+| 5 | `#board` | هیات‌مدیره | One flat card per member: portrait, name, position, education, company represented, 2-line bio | **No individual profile pages.** Replaces `/about/board/[slug]` |
+| 6 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue` |
+| 7 | `#vision` | چشم‌انداز، حاکمیت شرکتی و استانداردهای مهندسی | Three short columns, one image and one sentence each | Merges former `/about/vision` + governance + engineering standards |
+| 8 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | Replaces the former CEO-message page as the About entry point |
+
+**Deliberately dropped from `/about`:** the standalone interactive org chart (`/about/org-chart`) and the ESG page (`/about/csr`) as separate routes. Org-chart content is folded into `#committees`; CSR content becomes part of `#vision`. If the client later requires a full standalone ESG disclosure for TSE purposes, it belongs under `/ir`, not here.
+
+> ⚠️ **Cost of the merge.** Eight deep links, eight sets of page metadata, and eight independently indexable pages are gone. `/about` now carries all of that SEO weight alone. This was accepted knowingly in exchange for a single continuous narrative — see ADR-004 for the trade-off and the mitigation (anchor links remain shareable; each section gets its own heading hierarchy).
+
+`فرصت‌های همکاری و استخدام` appears in the About mega-menu as a **secondary link only**; the canonical page is `/careers` (see §9).
 
 ---
 
@@ -178,23 +193,41 @@ Rebrand of the existing «امور سهامداری». Regulatory-sensitive: acc
 | 28 | `/ir/calendar` | تقویم اطلاع‌رسانی و مجامع عمومی | `INDEX` | Jalali calendar of disclosures & general assemblies | **New** — TSE transparency requirement |
 | 29 | `/ir/governance` | گزارش‌های شفافیت و حاکمیت شرکتی | `INDEX` | Governance reports | |
 | 30 | `/ir/faq` | پرسش‌های متداول سهامداران | `STATIC` | Shareholder FAQ | **New** |
+| 31 | `/ir/reports` | گزارش‌های عملکرد شرکت و کمیته‌ها | `INDEX` | Company and committee performance reports. Every item must be **both readable in-page and downloadable** | **New in v1.2** — moved here from `/media/reports` (ADR-005) |
+| 32 | `/ir/reports/[slug]` | گزارش عملکرد | `DETAIL` | Full report rendered as readable text, with a PDF download beside it | Readable view is required, not optional |
+
+### 7.1 Readable **and** downloadable
+
+v1.1 treated reports as a PDF library. v1.2 requires both forms: the report body renders as HTML on `/ir/reports/[slug]` and the same document is offered as a download. A PDF-only archive is unsearchable, unreadable on a phone, and invisible to crawlers — unacceptable for the one cluster where transparency is a regulatory obligation rather than a preference.
+
+> This is the one cluster that does **not** take the §14 image-led treatment. See §14.1.
 
 ---
 
-## 8. Cluster 5 — رسانه ثاخت (Media & Knowledge Hub)
+## 8. Cluster 5 — رسانه ثاخت (Media)
 
-Two client requests («نبض و روایت ثاخت» + «کارنامه ثاخت») merged into one menu slot with branded sub-sections, so the header stays at 5 items.
+**One blog, categorised.** v1.1 split this into three branded indexes (نبض ثاخت / روایت ثاخت / کارنامه ثاخت) plus three detail templates. v1.2 consolidates it into a single feed with categories, and moves the specialist performance reports to `/ir/reports` where their audience actually is (ADR-005).
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 31 | `/media` | رسانه ثاخت | `HUB` | Combined feed | |
-| 32 | `/media/news` | نبض ثاخت | `INDEX` | Daily news & analytical reports | Client item 7 |
-| 33 | `/media/news/[slug]` | خبر | `DETAIL` | Article template | |
-| 34 | `/media/stories` | روایت ثاخت | `INDEX` | Text blog, podcast, interviews with national figures | Client item 7. **Needs audio player** |
-| 35 | `/media/stories/[slug]` | مطلب | `DETAIL` | Article / podcast episode template | |
-| 36 | `/media/reports` | کارنامه ثاخت | `INDEX` | Specialist market-management reports + audience Q&A | Client item 8 |
-| 37 | `/media/reports/[slug]` | گزارش | `DETAIL` | Report template | |
-| 38 | `/media/press-kit` | بسته رسانه‌ای | `STATIC` | Logos, high-res photos, boilerplate for journalists | **New**. Needs ZIP download |
+| 33 | `/media` | رسانه ثاخت | `INDEX` | One feed of all posts, filterable by category | Replaces three separate indexes |
+| 34 | `/media/[slug]` | مطلب | `DETAIL` | One template for every post type. Renders an audio player when the post is a podcast episode | Replaces three detail templates |
+| 35 | `/media/press-kit` | بسته رسانه‌ای | `STATIC` | Logos, high-res photos, boilerplate for journalists | Needs ZIP download |
+
+### 8.1 Categories
+
+Categories are a **field on the `Article` model**, filtered by query string (`/media?category=news`) — not separate routes. Same reasoning as the project status model in §5.1: a new category costs a database value, not a route.
+
+| Category value | Label | Replaces | Content |
+|---|---|---|---|
+| `news` | نبض ثاخت | `/media/news` | Daily news and announcements |
+| `stories` | روایت ثاخت | `/media/stories` | Long-form blog, interviews |
+| `podcast` | پادکست | part of `/media/stories` | Audio episodes — detail page renders a player |
+| `analysis` | تحلیل بازار | part of `/media/reports` | Market commentary that is editorial, not a formal report |
+
+**What moved out.** Formal company and committee performance reports — the «کارنامه ثاخت» documents — are now at `/ir/reports` (§7). What stays in `/media` is editorial: news, interviews, podcasts, and market commentary.
+
+> ⚠️ **Brand-name collision to resolve with the client.** «کارنامه» now appears in three places with three meanings: `/about#track-record` (visual portfolio), `/projects/completed` («کارنامه اجرایی» — delivered projects), and `/ir/reports` (formal performance reports). The Media sub-brand «کارنامه ثاخت» is being retired to reduce this, but the remaining three still need distinct labels in the final copy. Flagged as open question 4 in §13.
 
 ---
 
@@ -208,16 +241,42 @@ Two client requests («نبض و روایت ثاخت» + «کارنامه ثاخ
 | 42 | `/account/orders` | پیگیری وضعیت خرید | `APP` | Purchase status tracking | |
 | 43 | `/account/documents` | مدارک | `APP` | Document upload/download | Sensitive — see security checklist |
 | 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets; receives CEO-message threads | |
-| 45 | `/contact` | تماس با ما | `STATIC` + `FORM` | Full contact page, offices, map | CTA button links here as secondary |
-| 46 | `/careers` | فرصت‌های همکاری و استخدام | `INDEX` + `FORM` | Canonical careers page | Linked from footer col 4 + About |
-| 47 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer col 4 |
-| 48 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | **New**. Header icon |
-| 49 | `/legal/terms` | قوانین | `SYSTEM` | Footer bottom row | |
-| 50 | `/legal/privacy` | حریم خصوصی | `SYSTEM` | Footer bottom row | |
-| 51 | `/404` | صفحه یافت نشد | `SYSTEM` `3D` | Branded 404 | |
-| 52 | `/500` | خطای سرور | `SYSTEM` | Must render without WebGL | |
+| 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Full contact page, offices, map | CTA button links here as secondary |
+| 43 | `/careers` | فرصت‌های همکاری و استخدام | `STATIC` + `FORM` | Short intro, two-field resume form, and the HR topics as sections | **Restructured in v1.2** — see §9.1 |
+| 44 | `/tenders` | مناقصات و مزایدات | `INDEX` + `STATIC` | Open tenders and auctions, plus the registration rules and required-documents list | **New in v1.2**. Footer-only (ADR-007) |
+| 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
+| 46 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | Header icon |
+| 47 | `/legal/terms` | قوانین | `SYSTEM` | Footer bottom row | |
+| 48 | `/legal/privacy` | حریم خصوصی | `SYSTEM` | Footer bottom row | |
+| 49 | `/404` | صفحه یافت نشد | `SYSTEM` `3D` | Branded 404 | |
+| 50 | `/500` | خطای سرور | `SYSTEM` | Must render without WebGL | |
 
-> Route numbers run to 52 here; entries 53–54 are the Option B company routes in §5.2. The useful estimating figure is **48 templates (Option A)** or **50 (Option B)**.
+> Route numbers run to 50 here; entries 53–54 are the Option B company routes in §5.2. The useful estimating figure is **42 templates (Option A)** or **44 (Option B)**.
+
+### 9.1 `/careers` — فرصت‌های همکاری و استخدام
+
+One page, in this order (ADR-006):
+
+| Order | Anchor | Content |
+|---|---|---|
+| 1 | — | **Brief intro only.** Two or three sentences on working at ثاخت, over a photograph. No long employer-brand essay |
+| 2 | `#resume` | **Simple resume form: name and contact number only.** Plus the file attachment itself. No cover letter, no portal account, no multi-step wizard |
+| 3 | `#benefits` | مزایا و رفاه کارکنان — benefits and employee welfare |
+| 4 | `#learning` | آموزش و یادگیری — learning and training |
+| 5 | `#faq` | پرسش‌های متداول — HR FAQ |
+
+**Exactly these HR topics and no others** — benefits/welfare, learning/training, FAQ — per client instruction. No separate `/hr` route; the HR content is why someone scrolls this page, not a destination of its own.
+
+> The two-field form is a deliberate conversion decision: every additional field costs applicants. Note for implementation — a name and a phone number alone cannot be deduplicated reliably, so the backend needs a submission timestamp and the attached file's hash to catch repeat submissions.
+
+### 9.2 `/tenders` — مناقصات و مزایدات
+
+Carries three things: the list of open tenders and auctions, the registration procedure, and the required-documents list (moved here in v1.2 per client instruction).
+
+- **Footer-only**, not in the header. The audience is suppliers and contractors who arrive by search or direct link, not visitors browsing the main menu — and the header budget is fixed at 5 items (§10)
+- Each tender needs: title, type (مناقصه / مزایده), publication date, **deadline**, status, documents
+- Deadline handling is the whole point of the page. An expired tender shown as open is a procurement problem, so status must derive from the deadline date rather than a manually set flag
+- Requires a `Tender` content model — this is the 11th model, and the reason the model count rose in §1 while the route count fell
 
 ---
 
@@ -239,7 +298,7 @@ Result: ~45% more compact than a conventional 9-item menu.
 | 1 | Logo + short intro + address + phone + social links |
 | 2 — دسترسی سریع | درباره ثاخت / پروژه‌ها / فروش / تماس با ما / internal systems (اتوماسیون اداری، درگاه هلدینگ) |
 | 3 — سرمایه‌گذاران | دیده‌بان ثاخت / کدال / صورت‌های مالی / تقویم مجامع |
-| 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** |
+| 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** / **مناقصات و مزایدات** |
 | 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/projects/[slug]` (Option A) or `/companies/[slug]` (Option B) |
 
 **Bottom row:** © copyright | قوانین و حریم خصوصی
@@ -253,17 +312,53 @@ Result: ~45% more compact than a conventional 9-item menu.
 | Wave | Scope | Rationale |
 |---|---|---|
 | **P0** | `/`, header, footer, `/projects` + all four status indexes + `/projects/[slug]`, `/companies` + `/companies/[slug]` (if Option B), `/sales/*`, `/contact`, `/ir` + `/ir/symbol`, 404 | Revenue + regulatory minimum viable site. Company routes are P0 under Option B because the footer and home block 8 link to them |
-| **P1** | Full About cluster, Media cluster, `/ir` remainder, `/search`, legal | Completes the public site |
-| **P2** | Account/auth cluster, `/complaints`, `/careers`, virtual tours | Requires backend and legal review |
+| **P1** | `/about` (one page), `/media` + `/media/[slug]`, `/ir/reports`, `/ir` remainder, `/search`, legal | Completes the public site |
+| **P2** | Account/auth cluster, `/complaints`, `/careers`, `/tenders`, virtual tours | Requires backend and legal review |
+
+> `/tenders` sits in P2 only because it needs a `Tender` model and a real document pipeline. If the client has a live tender to publish before launch, it moves to P0 — an open tender with no page is a commercial loss, not a cosmetic gap.
 
 ---
 
 ## 13. Open questions
 
-1. ⛔ **Option A or Option B** for subsidiary companies? (see §5.2) — blocks content modeling
+1. ⛔ **Option A or Option B** for subsidiary companies? (see §5.2) — blocks content modeling. `app/utils/routes.ts` currently assumes **Option B**
 2. ⛔ Are `completed` and `operating` mutually exclusive statuses, or does a project need tags? (see §5.1)
-3. Is `EN` a full translation of all templates, or a reduced ~10-page English site? Cost difference is significant.
-4. Is TSETMC data pulled via API, official widget, or a manually updated cache? Affects `/ir/symbol` and home block 4.
-5. Does the CEO-message SLA (72h) require a real ticketing backend, or is email routing acceptable for v1?
-6. Which projects get a virtual tour at launch?
-7. Does `/account/documents` handle identity documents? If so, it triggers data-residency and retention requirements.
+3. ⛔ **Does the photography exist?** The v1.2 direction is image-led (§14), which fails without images. Specifically: how many usable photographs per project across the eight; whether any archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; and whether brand-film footage exists or must be commissioned. **This is now the critical-path risk** — layout is not the bottleneck, assets are
+4. The word «کارنامه» now carries three distinct meanings (§8.1). Which label goes where in the final Persian copy?
+5. What happened to the CEO direct-message SLA? v1.1 had a dedicated page with a published 72-hour response commitment; v1.2 folds it into the `/about#contact` form, whose dropdown has only «ارسال رزومه» and «ارتباط با سهامداران». **The CEO channel has no entry point in v1.2** — was that intended, or does it need a third dropdown option?
+6. Is `EN` a full translation of all templates, or a reduced ~10-page English site? Cost difference is significant
+7. Is TSETMC data pulled via API, official widget, or a manually updated cache? Affects `/ir/symbol` and home block 4
+8. Which projects get a virtual tour at launch?
+9. Does `/account/documents` handle identity documents? If so, it triggers data-residency and retention requirements
+10. Do old `/about/*`, `/media/news/*`, `/media/stories/*` and `/media/reports/*` URLs need 301 redirects? They were deleted rather than redirected. If the current live site uses them, the redirect map in build-checklist Phase 1 must cover them
+
+---
+
+## 14. Visual direction — image-led and minimal
+
+Applies to every page unless §14.1 exempts it. This is the v1.2 house style and the reason the consolidation happened.
+
+**Principles**
+1. Image-led. Where a sentence and a photograph say the same thing, keep the photograph
+2. Generous whitespace — minimum 120px of vertical padding between sections
+3. Flat. No cards-within-cards, no shadows, no gradients, no decorative icons
+4. One accent colour. White background, near-black text
+5. Editorial, not brochure — closer to a museum wall label than a corporate pamphlet
+
+**Text budget** (enforceable, so "concise" does not drift back to paragraphs by the third review)
+
+| Element | Maximum |
+|---|---|
+| Hero line | 8 words |
+| Section heading | 4 words |
+| Section body | 25 words |
+| Image caption | 6 words |
+| Timeline entry | 6 words |
+
+Target roughly a 70% reduction in text volume against the v1.1 implementation.
+
+### 14.1 The exemption: Investor Relations
+
+`/ir` and everything under it does **not** take this treatment. Its audience is shareholders, analysts and regulators who need a specific document in under five seconds. For them, minimal means fast, plain and dense: a searchable document list that loads instantly, with timestamps and no hero imagery. Applying the image-led style here would produce a beautiful page that obstructs the only audience that matters.
+
+Recorded explicitly so a later design pass does not "fix" the inconsistency.
