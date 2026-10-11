@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>درخواست مشاوره تخصصی خرید و سرمایه‌گذاری | هلدینگ ساختمانی ثاخت</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Work Sans & Persian System Fonts fallback -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline-variant": "#c2c6d4",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#00468c",
+            "on-surface-variant": "#424752",
+            "on-surface": "#171d1b",
+            "tertiary-fixed-dim": "#ffb691",
+            "secondary-fixed": "#cfe5fb",
+            "on-error": "#ffffff",
+            "surface-container-low": "#f0f5f2",
+            "error-container": "#ffdad6",
+            "tertiary": "#793100",
+            "on-primary-fixed": "#001b3d",
+            "primary-fixed-dim": "#a9c7ff",
+            "brand-tint": "#CDE2FF",
+            "on-tertiary": "#ffffff",
+            "tertiary-container": "#9f4300",
+            "secondary-fixed-dim": "#b3c9df",
+            "primary-fixed": "#d6e3ff",
+            "on-tertiary-fixed": "#341100",
+            "inverse-on-surface": "#edf2ef",
+            "secondary-container": "#cce2f8",
+            "surface-alt": "#E8E8E8",
+            "background": "#f6faf7",
+            "outline": "#727783",
+            "on-error-container": "#93000a",
+            "on-background": "#171d1b",
+            "surface-container-highest": "#dfe4e0",
+            "primary": "#00478d",
+            "surface-container-lowest": "#ffffff",
+            "primary-container": "#005eb8",
+            "surface": "#F4F4F4",
+            "on-secondary-container": "#506578",
+            "tertiary-fixed": "#ffdbcb",
+            "on-secondary-fixed": "#051d2d",
+            "surface-variant": "#dfe4e0",
+            "on-tertiary-container": "#ffcfb9",
+            "surface-bright": "#f6faf7",
+            "inverse-surface": "#2c3230",
+            "border": "#D0D5D2",
+            "ink": "#041C2C",
+            "brand-blue-deep": "#0056A7",
+            "on-secondary-fixed-variant": "#34495b",
+            "surface-dim": "#d6dbd8",
+            "on-primary-container": "#c8daff",
+            "surface-tint": "#005db6",
+            "inverse-primary": "#a9c7ff",
+            "status-error": "#C23B3B",
+            "surface-container": "#eaefec",
+            "secondary": "#4b6173",
+            "on-secondary": "#ffffff",
+            "status-success": "#1F8A4C",
+            "on-tertiary-fixed-variant": "#793100",
+            "surface-container-high": "#e4e9e6",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0px",
+            "lg": "0px",
+            "xl": "0px",
+            "full": "0px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "2rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-md": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-xl-mobile": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-xl": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-lg-mobile": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "label-lg": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-sm": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "body-lg": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "label-md": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "body-md": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"],
+            "headline-lg": ["Work Sans", "Vazirmatn", "system-ui", "sans-serif"]
+          },
+          "fontSize": {
+            "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "headline-xl-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-xl": ["64px", { "lineHeight": "72px", "fontWeight": "800" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "headline-sm": ["19px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-lg": ["38px", { "lineHeight": "48px", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    * {
+      border-radius: 0px !important;
+    }
+    input, select, textarea {
+      border-radius: 0px !important;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased flex flex-col min-h-screen selection:bg-brand-tint selection:text-ink">
+<!-- TopNavBar (Web Header Anchor) -->
+<header class="w-full bg-surface-container-lowest border-b border-border z-50">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Right: Brand Logo & Navigation Cluster -->
+<div class="flex items-center gap-10">
+<!-- Brand Title / Logo -->
+<a class="flex items-center gap-3 group" href="/">
+<div class="w-10 h-10 bg-ink flex items-center justify-center text-surface-container-lowest font-headline-md font-bold tracking-wider">
+            ث
+          </div>
+<span class="text-headline-md font-headline-md text-ink tracking-tight">هلدینگ ساختمانی ثاخت</span>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">درباره ثاخت</a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">پروژه‌ها</a>
+<a class="border-b-2 border-primary-container text-primary-container font-bold pb-1 text-label-lg font-label-lg" href="#">فروش و پیش‌فروش</a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">دیده‌بان ثاخت</a>
+<a class="text-ink hover:text-primary-container pb-1 text-label-lg font-label-lg transition-colors duration-150" href="#">رسانه ثاخت</a>
+</nav>
+</div>
+<!-- Left: Utility & Actions -->
+<div class="flex items-center gap-4">
+<!-- Icons Cluster -->
+<div class="hidden sm:flex items-center gap-2 text-on-surface-variant">
+<button aria-label="جستجو" class="p-2 hover:bg-surface-container-high transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</button>
+<button aria-label="تغییر زبان" class="p-2 hover:bg-surface-container-high transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[22px]">language</span>
+</button>
+</div>
+<!-- Secondary CTA: ورود سهامداران -->
+<a class="hidden md:inline-flex items-center justify-center px-4 py-2 text-body-sm font-label-lg border border-border text-ink hover:bg-surface transition-colors duration-150" href="#">
+          ورود سهامداران
+        </a>
+<!-- Primary CTA: مشاوره و تماس سریع -->
+<a class="inline-flex items-center justify-center px-5 py-2.5 bg-primary-container text-on-primary text-body-sm font-label-lg hover:bg-brand-blue-deep transition-colors duration-150" href="#consultation-form">
+          مشاوره و تماس سریع
+        </a>
+</div>
+</div>
+</header>
+<!-- Main Content: Single Centred Minimal Form on Pure White -->
+<main class="flex-grow flex items-center justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-surface-container-lowest">
+<div class="w-full max-w-xl mx-auto">
+<!-- Section Header: Centred, Authoritative, Clear -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center gap-2 mb-3 text-secondary text-label-md font-label-md tracking-wider">
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+          سامانه یکپارچه واگذاری و پیش‌فروش
+        </div>
+<h1 class="text-headline-lg font-headline-lg text-ink mb-3 tracking-tight">
+          درخواست مشاوره تخصصی خرید و سرمایه‌گذاری
+        </h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-lg mx-auto">
+          کارشناسان فروش هلدینگ ثاخت حداکثر ظرف ۲۴ ساعت کاری با شما تماس خواهند گرفت.
+        </p>
+</div>
+<!-- Centred Short Form -->
+<form action="#" class="border border-border p-8 md:p-10 bg-surface-container-lowest space-y-6" id="consultation-form" method="POST">
+<!-- Field 1: Full Name -->
+<div>
+<label class="block text-label-lg font-label-lg text-ink mb-2" for="full-name">
+            نام و نام خانوادگی <span class="text-status-error">*</span>
+</label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" id="full-name" name="full_name" placeholder="مثال: علیرضا محمدی" required="" type="text"/>
+</div>
+<!-- Field 2: Direct Contact Phone -->
+<div>
+<label class="block text-label-lg font-label-lg text-ink mb-2" for="phone-number">
+            شماره تماس مستقیم <span class="text-status-error">*</span>
+</label>
+<input class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline text-right focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" dir="ltr" id="phone-number" name="phone_number" placeholder="۰۹۱۲XXXXXXX" required="" type="tel"/>
+</div>
+<!-- Field 3: Preferred Project or Budget Range -->
+<div>
+<label class="block text-label-lg font-label-lg text-ink mb-2" for="project-preference">
+            پروژه یا بودجه مدنظر <span class="text-status-error">*</span>
+</label>
+<select class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" id="project-preference" name="project_preference" required="">
+<option disabled="" selected="" value="">انتخاب پروژه یا رده سرمایه‌گذاری</option>
+<option value="residential-tower">واحدهای مسکونی لوکس و برج‌ها</option>
+<option value="commercial-office">مجتمع‌های تجاری، اداری و خدماتی</option>
+<option value="presale-portfolio">فرصت‌های پیش‌فروش با بازدهی بالا</option>
+<option value="budget-under-20b">سرمایه‌گذاری تا ۲۰ میلیارد تومان</option>
+<option value="budget-above-20b">سرمایه‌گذاری کلان (بیش از ۲۰ میلیارد تومان)</option>
+</select>
+</div>
+<!-- Field 4: Optional Notes -->
+<div>
+<label class="block text-label-lg font-label-lg text-ink mb-2 flex items-center justify-between" for="notes">
+<span>توضیحات اختیاری</span>
+<span class="text-body-sm font-body-sm text-outline">اختیاری</span>
+</label>
+<textarea class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150 resize-none" id="notes" name="notes" placeholder="در صورت وجود شرایط یا پرسش خاص، در اینجا درج فرمایید..." rows="3"></textarea>
+</div>
+<!-- Form Submission Button -->
+<div class="pt-2">
+<button class="w-full py-3.5 px-6 bg-primary-container text-on-primary text-headline-sm font-headline-sm hover:bg-brand-blue-deep active:opacity-95 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer" type="submit">
+<span>ثبت درخواست مشاوره</span>
+<span class="material-symbols-outlined text-[20px] transform rotate-180">arrow_right_alt</span>
+</button>
+</div>
+<!-- Privacy & SLA Note -->
+<div class="flex items-center gap-2 pt-2 text-outline text-body-sm font-body-sm justify-center">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>اطلاعات شما نزد هلدینگ ثاخت به صورت محرمانه محفوظ خواهد بود.</span>
+</div>
+</form>
+</div>
+</main>
+<!-- Official 5-Column Holding Footer -->
+<footer class="w-full bg-ink text-surface-container-lowest border-t border-border mt-auto">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
+<!-- Top Grid: 5 Structural Columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-outline-variant/30">
+<!-- Column 1: Holding Identity -->
+<div class="lg:col-span-1 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-lowest text-ink flex items-center justify-center font-bold text-headline-sm">
+              ث
+            </div>
+<span class="text-headline-sm font-headline-sm text-surface-container-lowest">هلدینگ ثاخت</span>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed">
+            شرکت بین‌المللی توسعه ساختمان (ثاخت)، پیشرو در مدیریت مگاپروژه‌های عمرانی، سرمایه‌گذاری و توسعه پایدار املاک در سطح ملی و منطقه‌ای.
+          </p>
+<div class="pt-2 text-label-md font-label-md text-brand-tint">
+            نماد بورسی: ثاخت (بورس اوراق بهادار تهران)
+          </div>
+</div>
+<!-- Column 2: معرفی و ساختار -->
+<div class="space-y-3">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest pb-2 border-b border-outline-variant/20">
+            معرفی و ساختار
+          </h4>
+<ul class="space-y-2.5">
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">معرفی هلدینگ و هیئت‌مدیره</a></li>
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">پایداری و استانداردهای مهندسی</a></li>
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">حریم خصوصی و شفافیت مالی</a></li>
+</ul>
+</div>
+<!-- Column 3: سبد سرمایه‌گذاری و پروژه‌ها -->
+<div class="space-y-3">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest pb-2 border-b border-outline-variant/20">
+            پروژه‌ها و معاملات
+          </h4>
+<ul class="space-y-2.5">
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">پرتفوی پروژه‌های عمرانی</a></li>
+<li><a class="text-body-sm font-body-sm text-brand-tint font-bold hover:underline transition-colors duration-150" href="#">فرصت‌های پیش‌فروش و سرمایه‌گذاری</a></li>
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">مناقصات و مزایده‌ها</a></li>
+</ul>
+</div>
+<!-- Column 4: امور سهامداران و رسانه -->
+<div class="space-y-3">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest pb-2 border-b border-outline-variant/20">
+            امور سهامداران
+          </h4>
+<ul class="space-y-2.5">
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">سامانه سهامداران و کدال</a></li>
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">گزارش‌های ماهانه دیده‌بان</a></li>
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">اخبار و رسانه دیجیتال</a></li>
+</ul>
+</div>
+<!-- Column 5: ارتباط و پشتیبانی -->
+<div class="space-y-3">
+<h4 class="text-headline-sm font-headline-sm text-surface-container-lowest pb-2 border-b border-outline-variant/20">
+            امور مشتریان
+          </h4>
+<ul class="space-y-2.5">
+<li><a class="text-body-sm font-body-sm text-surface-dim hover:text-brand-tint transition-colors duration-150" href="#">تماس و امور مشتریان</a></li>
+<li>
+<div class="text-body-sm font-body-sm text-surface-dim pt-2">
+                مرکز پاسخگویی خریداران:
+                <div class="text-headline-sm font-headline-sm text-surface-container-lowest dir-ltr text-right mt-1">۰۲۱-۸۸۸۸۴۴۰۰</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar: Copyright Text -->
+<div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-surface-dim text-body-sm font-body-sm">
+<p>© ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.</p>
+<div class="flex items-center gap-6">
+<span class="text-label-md font-label-md text-surface-dim">ISO 9001:2015 CERTIFIED</span>
+<span class="text-label-md font-label-md text-surface-dim">رتبه یک انبوه‌سازی و مهندسی عمران</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

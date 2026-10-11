@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { clusterHubs } from '~/utils/clusterHubData'
-
-const hub = clusterHubs.media
+// Route /media — view ported from the approved design (ADR-013).
+//
+// layout: false because the ported view carries its own <header>
+// and <footer> from the approved design. Rendering it inside
+// layouts/default.vue would produce two of each. When the shared
+// SiteHeader/SiteFooter are reconciled with the approved chrome,
+// drop this and strip the inline chrome from the component.
+definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: `${hub.title} — ثاخت`,
-  description: hub.intro,
+  title: 'رسانه ثاخت — هلدینگ ساختمانی ثاخت',
+  description: 'رسانه ثاخت — اخبار، گفتگو، پادکست، تحلیل بازار و مناقصات.',
 })
 </script>
 
 <template>
-  <ClusterHub :hub="hub" />
+  <MediaIndexView />
 </template>

@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { getProjectDetail } from '~/utils/projectsData'
-
-const route = useRoute()
-const slug = route.params.slug as string
-
-const project = getProjectDetail(slug)
-if (!project) {
-  throw createError({ statusCode: 404, statusMessage: 'پروژه یافت نشد' })
-}
+// Route /projects/[slug] — view ported from the approved design (ADR-013).
+//
+// layout: false because the ported view carries its own <header>
+// and <footer> from the approved design. Rendering it inside
+// layouts/default.vue would produce two of each. When the shared
+// SiteHeader/SiteFooter are reconciled with the approved chrome,
+// drop this and strip the inline chrome from the component.
+definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: `${project.name} — ثاخت`,
-  description: `${project.usage} · ${project.location}`,
+  title: 'برج بین‌المللی تهران — هلدینگ ساختمانی ثاخت',
+  description: 'مشخصات فنی، گالری و موقعیت پروژه.',
 })
 </script>
 
 <template>
-  <ProjectDetailView :slug="slug" />
+  <ProjectDetailStitchView />
 </template>

@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { STATUS } from '~/utils/projectsData'
+// Route /projects/upcoming — view ported from the approved design (ADR-013).
+//
+// layout: false because the ported view carries its own <header>
+// and <footer> from the approved design. Rendering it inside
+// layouts/default.vue would produce two of each. When the shared
+// SiteHeader/SiteFooter are reconciled with the approved chrome,
+// drop this and strip the inline chrome from the component.
+definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: `${STATUS['upcoming'].label} — پروژه‌ها — ثاخت`,
-  description: 'فهرست قابل فیلتر پروژه‌های هلدینگ ساختمانی ثاخت به تفکیک موقعیت، وضعیت، کاربری، زیربنا و تعداد طبقات.',
+  title: 'پروژه‌های آتی — هلدینگ ساختمانی ثاخت',
+  description: 'طرح‌های آتی و پروژه‌های در دست مطالعه هلدینگ ساختمانی ثاخت.',
 })
 </script>
 
 <template>
-  <IndexCardGrid status="upcoming" />
+  <ProjectsUpcomingView />
 </template>

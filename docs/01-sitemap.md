@@ -1,5 +1,11 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.3 · **Status:** Draft for approval · **Source:** «ساختار پیشنهادی هدر سایت ICD»
+**Version:** 1.6 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.6 — the financial disclosure specification (ADR-012).** The client's financial workbook is now specified as tabular sections on `/ir/financials` (§7.2): four statement tables and one ratio table, each covering fiscal years ۱۴۰۰–۱۴۰۴ with a pre-created ۱۴۰۵ column, in million rials, for a fiscal year ending **۳۱ شهریور**. The workbook's `توضیحات` sheet turned out to be a **regulatory minimum-disclosure checklist** under the corporate-governance and exchange directive, and checking the site against it exposed three gaps: the management interpretive report (MD&A), the sustainability report, and the major-shareholder and free-float disclosure, none of which existed anywhere in v1.5. Document groups on `/ir/financials` go from five to seven, and a new shareholder-composition table is added. Template count unchanged at **42** — all of this lands on existing routes.
+
+**Changes in 1.5.** Two client decisions (ADR-011). **(1)** «خانواده ثاخت» moves up the homepage to sit **before** «پروژه‌های شاخص» — the funnel now reads brand → group structure → the group's work, rather than showing projects before the companies that built them. Still nine blocks. **(2)** **Option B is decided**, not optional: subsidiary companies are a separate `Company` model with their own pages at `/companies/[slug]`, each listing the projects that belong to it, while projects keep their own detail pages and status categories. §5.2 is rewritten from a choice into a specification and the longest-standing blocker in §13 is closed. Template count is now a single figure: **42**.
+
+**Changes in 1.4.** Three client decisions (ADR-010). **(1)** The CEO section is removed entirely — the homepage «پیام مدیرعامل» block and every remaining reference to a CEO channel or its 72-hour SLA are gone. The homepage drops from ten blocks to nine. **(2)** «کارنامه» (track record) and «افتخارات» (achievements) fold into `#history` on `/about` — one historical narrative section instead of three, and the `#track-record` anchor is retired. **(3)** **Placeholder images are accepted** for the whole build; real photography is substituted later. Template count is unchanged at **42** (Option B) — these are section-level changes.
 
 **Changes in 1.3 — the tenders correction.** Tenders and auctions are **purely informational** — notices and updates, not a transactional destination. The standalone `/tenders` page specified in v1.2 is deleted (ADR-007 superseded by ADR-009). Tender and auction notices now appear in two places only: as a `tenders` category in the Media blog, and on the Investor Relations documents page. That documents page is also consolidated: `/ir/financials` and `/ir/reports` merge into one destination carrying financial statements, board reports, committee performance reports, tender and auction notices, the legal requirements for document registration, and every PDF download. **44 → 42 templates** (Option B); the `Tender` content model is no longer needed.
 
@@ -13,18 +19,18 @@
 
 ## 1. Summary
 
-| Metric | Option A (projects only) | Option B (+ companies) |
-|---|---|---|
-| Unique routes / templates to build | **40** | **42** |
-| Of which are dynamic templates (`[slug]`) | 5 | 6 |
-| Estimated rendered URLs at launch | ~70 | ~79 |
-| Content models | 10 | 11 |
-| Top-level menu clusters | 5 | 5 |
-| Utility / system pages | 9 | 9 |
-| Pages requiring a 3D scene | 5 | 5 |
-| Pages requiring live external data | 3 | 3 |
+| Metric | Count |
+|---|---|
+| Unique routes / templates to build | **42** |
+| Of which are dynamic templates (`[slug]`) | 6 |
+| Estimated rendered URLs at launch | ~79 |
+| Content models | 11 |
+| Top-level menu clusters | 5 |
+| Utility / system pages | 9 |
+| Pages requiring a 3D scene | 5 |
+| Pages requiring live external data | 3 |
 
-See §5.2 for the Option A / Option B decision. Everything outside the Projects cluster is identical between them.
+The Option A / Option B choice that shaped earlier versions is **closed in v1.5**: Option B is the structure (§5.2, ADR-011). A single figure replaces the two-column estimate.
 
 The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gained content. That is the point of the consolidation: fewer, longer, image-led destinations rather than many thin pages. No content was dropped to get there — it was relocated to where its audience already was.
 
@@ -51,7 +57,7 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 
 | # | Route | Label | Type | Function |
 |---|---|---|---|---|
-| 1 | `/` | صفحه اول | `HUB` `3D` | Conversion funnel from brand trust → CTA. Max 9 scroll blocks. Excerpts only, never full archives. |
+| 1 | `/` | صفحه اول | `HUB` `3D` | Conversion funnel from brand trust → CTA. **Nine scroll blocks** (0–8) after the CEO block's removal in v1.4. Excerpts only, never full archives. |
 
 ### 3.1 Homepage block order (fixed — do not reorder without approval)
 
@@ -59,14 +65,17 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 |---|---|---|---|---|
 | 0 | هیرو | — | Brand slogan, 3D animation / holding intro video | «کشف پروژه‌ها» or scroll cue |
 | 1 | ثاخت در یک نگاه | About + کارنامه | Key stats: founding year (۱۳۶۴), built area, project count, registered capital | «بیشتر درباره ثاخت» |
-| 2 | پروژه‌های شاخص | Projects | 3D Tehran map / carousel / featured project + virtual tour entry | «مشاهده همه پروژه‌ها» |
-| 3 | بنر فروش و پیش‌فروش | Sales | Current pre-sale offer | «مشاوره خرید» |
-| 4 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
-| 5 | پیام مدیرعامل | About › CEO | Short pull quote | «ارتباط با مدیرعامل» |
+| 2 | خانواده ثاخت | Companies | 8 subsidiary logo tiles, each linked to `/companies/[slug]` | logo click |
+| 3 | پروژه‌های شاخص | Projects | 3D Tehran map / carousel / featured project + virtual tour entry | «مشاهده همه پروژه‌ها» |
+| 4 | بنر فروش و پیش‌فروش | Sales | Current pre-sale offer | «مشاوره خرید» |
+| 5 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
 | 6 | نبض ثاخت | Media | 3 latest news/blog/podcast cards | «مشاهده همه اخبار» |
-| 7 | افتخارات و اعتماد | About › افتخارات | Certificate / award / membership strip | none (trust signal only) |
-| 8 | خانواده ثاخت | Projects (Opt. A) / Companies (Opt. B) | 8 subsidiary logos, each linked | logo click |
-| 9 | بنر پایانی مشاوره + خبرنامه | Sales + Contact | Final call to action, email/phone form | «درخواست مشاوره» |
+| 7 | افتخارات و اعتماد | About › `#history` | Certificate / award / membership strip | none (trust signal only) |
+| 8 | بنر پایانی مشاوره + خبرنامه | Sales + Contact | Final call to action, email/phone form | «درخواست مشاوره» |
+
+> **Moved in v1.5:** «خانواده ثاخت» was block 7, now block 2 — **before** «پروژه‌های شاخص» (ADR-011). The funnel reads brand → group structure → the group's work, instead of showing projects before the companies that built them. Each logo links to `/companies/[slug]`, which is now a real page under Option B (§5.2).
+>
+> **Removed in v1.4:** the former block 5, «پیام مدیرعامل» (CEO message). Nothing replaces it — the funnel goes from the IR widget straight to the news cards.
 
 **Explicitly excluded from home:** org chart, full financial statements, full FAQ. These are destinations, not shop windows.
 
@@ -74,7 +83,7 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 
 ## 4. Cluster 1 — درباره ثاخت (About)
 
-**One page.** v1.1 specified nine routes here; v1.2 merges them into a single long-scroll page at `/about` (ADR-004). The mega-menu still shows seven destinations, but they are **in-page anchors, not routes**.
+**One page.** v1.1 specified nine routes here; v1.2 merges them into a single long-scroll page at `/about` (ADR-004). The mega-menu shows six destinations, but they are **in-page anchors, not routes**.
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
@@ -87,15 +96,25 @@ Section ids must stay in sync with `app/components/sections/AboutOverview.vue` a
 | Order | Anchor | Label | Content | Notes |
 |---|---|---|---|---|
 | 1 | — | Hero | Full-bleed project photograph, company name, one line | |
-| 2 | `#history` | تاریخچه | Visual timeline from «پارس سازه، ۱۳۳۰». Brand-story video block. Production-chain photo strip. **Black-and-white imagery for everything before ۱۳۵۰.** | Merges former `/about/history` + «کارنامه» achievements |
-| 3 | `#track-record` | کارنامه | Pure image gallery of delivered work — masonry grid, names on hover only | Showcase, not prose |
-| 4 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
-| 5 | `#board` | هیات‌مدیره | One flat card per member: portrait, name, position, education, company represented, 2-line bio | **No individual profile pages.** Replaces `/about/board/[slug]` |
-| 6 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue` |
-| 7 | `#vision` | چشم‌انداز، حاکمیت شرکتی و استانداردهای مهندسی | Three short columns, one image and one sentence each | Merges former `/about/vision` + governance + engineering standards |
-| 8 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | Replaces the former CEO-message page as the About entry point |
+| 2 | `#history` | تاریخچه | **The whole historical narrative, in one section.** See §4.2 | Merges former `/about/history` + «کارنامه» + «افتخارات» (v1.4) |
+| 3 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
+| 4 | `#board` | هیات‌مدیره | One flat card per member: portrait, name, position, education, company represented, 2-line bio | **No individual profile pages.** Replaces `/about/board/[slug]` |
+| 5 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue`. **Not yet built** — no `#committees` id in `AboutOverview.vue` |
+| 6 | `#vision` | چشم‌انداز، حاکمیت شرکتی و استانداردهای مهندسی | Three short columns, one image and one sentence each | Merges former `/about/vision` + governance + engineering standards |
+| 7 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
 
-**Deliberately dropped from `/about`:** the standalone interactive org chart (`/about/org-chart`) and the ESG page (`/about/csr`) as separate routes. Org-chart content is folded into `#committees`; CSR content becomes part of `#vision`. If the client later requires a full standalone ESG disclosure for TSE purposes, it belongs under `/ir`, not here.
+### 4.2 `#history` — one narrative, four movements
+
+v1.2 split the company's past across `#history` (timeline) and `#track-record` (gallery), with achievements implied in both. v1.4 merges them: one section, read top to bottom, because the timeline, the delivered work and the awards are the same story told at different scales (ADR-010). The `#track-record` anchor is retired.
+
+| Movement | Content |
+|---|---|
+| 1 — Opening | Brand-story video block. Dark poster frame, centred play control |
+| 2 — Timeline | Horizontal scrolling timeline from «پارس سازه، ۱۳۳۰». One photo + year + 4–6 words per card. **Black-and-white for everything before ۱۳۵۰** |
+| 3 — Delivered work | Masonry image grid of completed projects. Names on hover only. No descriptions — this is the former `#track-record` gallery, now the timeline's payoff rather than a separate claim |
+| 4 — Recognition | Certificate, award and membership strip. The former «افتخارات». Feeds homepage block 6 |
+
+**Deliberately dropped from `/about`:** the standalone interactive org chart (`/about/org-chart`) and the ESG page (`/about/csr`) as separate routes. Org-chart content is folded into `#committees`; CSR content becomes part of `#vision`. **The CEO section is removed outright in v1.4** — no page, no homepage block, no form option, no SLA (ADR-010). If the client later requires a full standalone ESG disclosure for TSE purposes, it belongs under `/ir`, not here.
 
 > ⚠️ **Cost of the merge.** Eight deep links, eight sets of page metadata, and eight independently indexable pages are gone. `/about` now carries all of that SEO weight alone. This was accepted knowingly in exchange for a single continuous narrative — see ADR-004 for the trade-off and the mitigation (anchor links remain shareable; each section gets its own heading hierarchy).
 
@@ -136,35 +155,38 @@ Status is a **field on a single `Project` model**, not four separate content typ
 
 > ⚠️ **Decision needed: are `completed` and `operating` mutually exclusive?** If «تکمیل‌شده» means *delivered and no longer ours* and «در حال بهره‌برداری» means *still operated by the group*, a single-status field works as specified above. If a project can be both, replace the single status field with **tags** and allow a project to appear in more than one index. Confirm with the client before content modeling.
 
-### 5.2 Subsidiary companies — Option A vs Option B
+### 5.2 Subsidiary companies — decided (Option B)
 
-The source document uses «خانواده ثاخت» in two places: as the 8 operating *projects* (§3.2) and as the 8 subsidiary *companies* in footer column 5 and home block 8. These may or may not be the same entities. Both structures are specified below; **the client picks one before Phase 1 content modeling begins.**
-
-#### Option A — same entities (8 project-companies)
-
-The 8 named entities are project-companies, so a project page and a company page are the same page. No new model.
-
-- Routes: **48** · Models: **10** · `/projects/[slug]` serves the footer strip and home block 8
-- The 8: `رویای کیش` · `عفاف‌آباد شیراز` · `نارنجستان ایزدشهر` · `آ.اس.پ مشهد` · `آ.اس.پ تهران` · `مگاپارس تهران` · `برج بین‌المللی تهران` · `مجتمع ساحل نوشهر`
-- Simpler, cheaper, matches the source document read literally
-- Risk: breaks down the moment one company owns two projects, or one project has two owners
-
-#### Option B — separate entities (companies own projects)
-
-A `Company` model sits above `Project` with a one-to-many relationship. This is the structurally correct shape for a holding, and it is what the group's TSE-listed status implies.
+**Resolved in v1.5 (ADR-011).** The question that shaped v1.1 through v1.4 — whether «خانواده ثاخت» meant the 8 projects or 8 separate companies — is answered: they are **separate companies that own projects**. A `Company` model sits above `Project` in a one-to-many relationship. Option A is withdrawn and is no longer specified anywhere in this document.
 
 | # | Route | Label | Type | Function |
 |---|---|---|---|---|
-| 53 | `/companies` | خانواده ثاخت | `INDEX` | Grid of the 8 subsidiaries |
-| 54 | `/companies/[slug]` | صفحه شرکت | `DETAIL` | Company profile, ownership share, management, **list of its projects** |
+| 53 | `/companies` | خانواده ثاخت | `INDEX` | Grid of the 8 subsidiaries. Target of homepage block 2 and footer column 5 |
+| 54 | `/companies/[slug]` | صفحه شرکت | `DETAIL` | Company profile, ownership share, management, **and the list of projects belonging to that company** |
 
-- Routes: **50** · Models: **11** (adds `Company`) · +8 records
-- `/projects/[slug]` gains an "owner company" field linking up; `/companies/[slug]` lists its projects linking down
-- Footer column 5 and home block 8 point at `/companies/[slug]`, not `/projects/[slug]`
-- Handles one-company-many-projects, ownership percentages, and companies with no live project
-- Cost: one extra template, one extra model, and content for 8 company profiles
+#### The two-way relationship
 
-**Recommendation:** Option B, unless the client confirms the 8 are literally project-companies with a permanent 1:1 relationship. Retrofitting a `Company` model after launch means rewriting every project URL and the footer, which is the expensive version of this decision. If budget forces Option A now, still add a nullable `ownerCompany` field to `Project` so the migration path stays open.
+Both directions are required, not optional:
+
+| Direction | Where | Behaviour |
+|---|---|---|
+| Company → projects | `/companies/[slug]` | Lists every project owned by that company, as project cards linking to `/projects/[slug]` |
+| Project → company | `/projects/[slug]` | Names its owner company, linking up to `/companies/[slug]` |
+
+**Projects keep their own pages and their own categories.** The company relationship is additive — it does not replace the structure in §5 and §5.1. A project is reachable three ways: from its status index (`/projects/operating` and the rest), from the 3D map, and from its owner company's page. The four status indexes remain global across all companies; they are not per-company views.
+
+#### Model consequences
+
+- `Project.ownerCompany` is a **required** field, not the nullable migration hatch v1.2 suggested
+- `Company` is the 11th content model; 8 records at launch, each needing a profile
+- A company with no live project must still render its page — the project list is empty, not broken
+- One company owning several projects is the normal case, and the reason Option A was withdrawn
+
+#### What this closes
+
+The 8 subsidiaries are companies, so the entities named in the source document as operating projects — `رویای کیش` · `عفاف‌آباد شیراز` · `نارنجستان ایزدشهر` · `آ.اس.پ مشهد` · `آ.اس.پ تهران` · `مگاپارس تهران` · `برج بین‌المللی تهران` · `مجتمع ساحل نوشهر` — need sorting into companies and projects during content modelling. Some may be both a company name and its flagship project's name. **That mapping is the first content task** (§13 question 1).
+
+`app/utils/routes.ts` already assumed Option B, so no route rework is needed — only the removal of the conditional language around it.
 
 ---
 
@@ -201,17 +223,95 @@ Rebrand of the existing «امور سهامداری». Regulatory-sensitive: acc
 
 One destination for every official document the company publishes. v1.2 split this across `/ir/financials` and `/ir/reports`; v1.3 merges them, because the client describes a single page and because a regulated document with two possible homes will drift (ADR-009).
 
-| Document group | Contents |
-|---|---|
-| صورت‌های مالی | Audited financial statements, by year |
-| گزارش فعالیت هیات‌مدیره | Official board activity reports |
-| گزارش‌های عملکرد کمیته‌ها | Committee performance reports — moved from `/media/reports` (ADR-005) |
-| مناقصات و مزایدات | Tender and auction notices. **Informational only** — see §9.2 |
-| الزامات قانونی ثبت اسناد | The legal requirements for document registration, and the required-documents list |
+| Document group | `DocumentGroup` value | Contents | Regulatory |
+|---|---|---|---|
+| صورت‌های مالی حسابرسی‌شده | `statements` | Audited financial statements, by year | ✓ required |
+| گزارش تفسیری مدیریت | `mda` | Management interpretive report (MD&A) | ✓ required — **new in v1.6** |
+| گزارش فعالیت هیات‌مدیره | `board-reports` | Official board activity reports | ✓ required |
+| گزارش پایداری | `sustainability` | Sustainability / ESG report | ✓ required — **new in v1.6** |
+| گزارش‌های عملکرد کمیته‌ها | `committee-reports` | Committee performance reports — moved from `/media/reports` (ADR-005) | ✓ required |
+| مناقصات و مزایدات | `tenders` | Tender and auction notices. **Informational only** — see §9.2 | — |
+| الزامات قانونی ثبت اسناد | `registration` | Legal requirements for document registration, and the required-documents list | — |
 
 Filterable by group and by year. Links out to CODAL for the filings that live there.
 
-### 7.2 Readable **and** downloadable
+### 7.1.1 Regulatory minimum-disclosure map
+
+The source workbook's `توضیحات` sheet lists the **minimum data the site must carry** under the corporate-governance and exchange directive («حداقل دیتاهای مورد نیاز در سایت از نظر دستورالعمل حاکمیت شرکتی و بورس»). This is a compliance requirement, not a content preference. All six items and where each is satisfied:
+
+| # | Required item | Where it lives | Status in v1.5 |
+|---|---|---|---|
+| ۱ | فایل صورت‌های مالی حسابرسی شده | `/ir/financials` › `statements` | already specified |
+| ۲ | گزارش تفسیری مدیریت | `/ir/financials` › `mda` | **was missing** |
+| ۳ | گزارش فعالیت هیئت مدیره | `/ir/financials` › `board-reports` | already specified |
+| ۴ | گزارش پایداری | `/ir/financials` › `sustainability` | **was missing as a report.** v1.2 folded CSR content into `/about#vision` as narrative; the directive requires a published report, which narrative prose does not satisfy |
+| ۵ | کمیته های تخصصی (ریسک، حسابرسی، انتصابات …) | `/about#committees` + `/ir/financials` › `committee-reports` + `/ir/governance` | partially — the About section carries the classification, but `/ir/governance` must link to it so the disclosure is reachable from the IR cluster |
+| ۶ | ترکیب سهامداران عمده و درصد سهام شناور آزاد | `/ir/financials` › new table, §7.2 table F | **was missing entirely** |
+
+> ⛔ **Compliance consequence.** Items 2, 4 and 6 did not exist anywhere in the site before v1.6. These are not nice-to-haves — a listed company whose site omits them is non-compliant. The sustainability one is the subtle failure: ESG content existed as prose on `/about`, which reads as satisfied but is not, because the directive requires a *report*.
+
+### 7.2 Financial performance tables
+
+Source: the client's `Financial_Data_.xlsx`. These are **annually republished tables, not live data** — distinct in both audience rhythm and implementation from the TSETMC feed on `/ir/symbol`.
+
+**Shared properties of every table below:**
+
+| Property | Value |
+|---|---|
+| Fiscal year end | **۳۱ شهریور** (not ۲۹ اسفند) — the publication cycle follows this, not the calendar year |
+| Years shown | ۱۴۰۰ – ۱۴۰۴, with a pre-created empty **۱۴۰۵** column the workbook already carries |
+| Unit | **میلیون ریال** (million rials) — must be stated in every table header, never implied |
+| Update cadence | Once per year, after the audited statements are issued |
+| Required furniture | A visible «به‌روزرسانی: سال مالی ۱۴۰۴» stamp, an archive of prior years, and a CSV/Excel download of each table |
+
+#### The five table groups
+
+| | Table | Source sheet | Shape |
+|---|---|---|---|
+| A | صورت سود و زیان تلفیقی | `صورت سود و زیان تلفیقی` | 13 line items × 6 years |
+| B | صورت وضعیت مالی تلفیقی | `صورت وضعیت مالی تلفیقی` | ~47 line items × 6 years, grouped: دارایی‌های غیرجاری / جاری → حقوق مالکانه → بدهی‌های غیرجاری / جاری |
+| C | صورت سود و زیان شرکت اصلی | `صورت سود و زیان شرکت اصلی` | 12 line items × 6 years |
+| D | صورت وضعیت مالی شرکت اصلی | `صورت وضعیت مالی شرکت اصلی` | ~45 line items × 6 years, same grouping as B |
+| E | نسبت‌های مالی | `نسبت های مالی` | Three sub-groups — نسبت‌های نقدینگی, روند ساختار سرمایه, بازده و سود هر سهم |
+| F | ترکیب سهامداران و سهام شناور آزاد | **not in the workbook** | Required by the directive (§7.1.1 item ۶); content still needed from the client |
+
+**Tables A–D each carry three analytical views**, which the workbook holds as three side-by-side blocks per sheet:
+
+1. **مقادیر** — the figures themselves
+2. **تحلیل افقی** — year-on-year percentage change, ۱۴۰۱–۱۴۰۴
+3. **تحلیل عمودی** — each line as a percentage of درآمدهای عملیاتی, ۱۴۰۰–۱۴۰۴
+
+On a phone these cannot sit side by side. Render them as **three switchable views of one table**, not three tables, and default to مقادیر.
+
+**Table E sub-groups** (۱۴۰۰–۱۴۰۴, each metric reported for تلفیقی and شرکت اصلی except where noted):
+
+| Sub-group | Metrics |
+|---|---|
+| نسبت‌های نقدینگی | نسبت جاری · نسبت آنی · سرمایه در گردش |
+| روند ساختار سرمایه | جمع دارایی‌ها · جمع بدهی‌ها · نسبت مالکانه |
+| بازده و سود هر سهم | ROA · ROE · سرمایه · EPS · DPS · درصد تقسیم سود — *شرکت اصلی only* |
+
+#### ⛔ The ۱۴۰۴ capital increase — a correctness requirement, not a styling note
+
+In ۱۴۰۴ the company's سرمایه went from ۹٬۰۰۰٬۰۰۰ to ۸۲٬۳۰۸٬۵۱۲ million rials, and the workbook shows the matching «تعدیل افزایش سرمایه از محل مازاد تجدید ارزیابی» line — a capital increase funded by a **revaluation surplus**. Parent-company total assets move from ۲۶٬۸۸۹٬۷۶۳ to ۱۰۰٬۲۳۲٬۶۱۷ in one year.
+
+This makes several ۱۴۰۴ figures incomparable to prior years:
+
+- **نسبت مالکانه — شرکت اصلی** jumps from ۰٫۵۶ to ۰٫۹۸
+- **نسبت جاری — شرکت اصلی** jumps from ۱٫۶۶ to ۸٫۴۲
+- **EPS — شرکت اصلی** *falls* from ۶۴۰ to ۱۲۹ rials, because the share count rose roughly ninefold while profit rose
+
+Presented as a plain five-year trend, this reads as a dramatic operational improvement in solvency and a collapse in earnings. **Neither is what happened.** Every affected row needs a footnote marker explaining the revaluation, and the ۱۴۰۴ column needs a visible note. A reader who draws the wrong conclusion from an uncaveated table on a listed company's own IR page is a disclosure problem, not a UX one.
+
+The same applies to any derived chart: do not draw a five-year line through ۱۴۰۴ on these metrics without the break annotated.
+
+#### Placement
+
+These tables sit on **`/ir/financials`**, above the document archive, as a separate tabbed area. Rationale: they are annual, they are derived from the documents immediately below them, and they share that page's audience and update rhythm. `/ir/symbol` is kept for the live TSETMC feed only — mixing a yearly publication into a live-price page confuses two different freshness contracts.
+
+> If the client specifically wants these on the live symbol page instead, that is a one-line change here, but the live widget and the annual tables should still be visually separated with their own "as of" stamps.
+
+### 7.3 Readable **and** downloadable
 
 v1.1 treated these as a PDF library. From v1.2 onward both forms are required: the document body renders as HTML on `/ir/financials/[slug]`, and the same document is offered as a download. A PDF-only archive is unsearchable, unreadable on a phone, and invisible to crawlers — unacceptable for the one cluster where transparency is a regulatory obligation rather than a preference.
 
@@ -245,7 +345,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 
 **What moved out.** Formal company and committee performance reports — the «کارنامه ثاخت» documents — are now at `/ir/reports` (§7). What stays in `/media` is editorial: news, interviews, podcasts, and market commentary.
 
-> ⚠️ **Brand-name collision to resolve with the client.** «کارنامه» now appears in three places with three meanings: `/about#track-record` (visual portfolio), `/projects/completed` («کارنامه اجرایی» — delivered projects), and `/ir/reports` (formal performance reports). The Media sub-brand «کارنامه ثاخت» is being retired to reduce this, but the remaining three still need distinct labels in the final copy. Flagged as open question 4 in §13.
+> **Brand-name collision — mostly resolved.** «کارنامه» once appeared in four places. Retiring the Media sub-brand «کارنامه ثاخت» (ADR-005) removed one; folding `#track-record` into `#history` (ADR-010) removed another. Two remain: `/projects/completed` («کارنامه اجرایی» — delivered projects) and the committee performance reports on `/ir/financials`. These are distinct enough in context that no rename is strictly required, but the final Persian copy should not use the bare word «کارنامه» for both. Open question 4 in §13.
 
 ---
 
@@ -258,7 +358,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 41 | `/account/favorites` | واحدهای موردعلاقه | `APP` | Saved units | |
 | 42 | `/account/orders` | پیگیری وضعیت خرید | `APP` | Purchase status tracking | |
 | 43 | `/account/documents` | مدارک | `APP` | Document upload/download | Sensitive — see security checklist |
-| 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets; receives CEO-message threads | |
+| 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets | CEO-message threads removed in v1.4 |
 | 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Full contact page, offices, map | CTA button links here as secondary |
 | 43 | `/careers` | فرصت‌های همکاری و استخدام | `STATIC` + `FORM` | Short intro, two-field resume form, and the HR topics as sections | **Restructured in v1.2** — see §9.1 |
 | 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
@@ -268,7 +368,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 49 | `/404` | صفحه یافت نشد | `SYSTEM` `3D` | Branded 404 | |
 | 50 | `/500` | خطای سرور | `SYSTEM` | Must render without WebGL | |
 
-> Route numbers are historical and no longer contiguous — 44 was the deleted `/tenders` (ADR-009), and 53–54 are the Option B company routes in §5.2. Numbers are kept stable so earlier versions and the decision log stay readable. The useful estimating figure is **40 templates (Option A)** or **42 (Option B)**.
+> Route numbers are historical and no longer contiguous — 44 was the deleted `/tenders` (ADR-009), and 53–54 are the Option B company routes in §5.2. Numbers are kept stable so earlier versions and the decision log stay readable. The useful estimating figure is **42 templates** (§1).
 
 ### 9.1 `/careers` — فرصت‌های همکاری و استخدام
 
@@ -326,7 +426,7 @@ Result: ~45% more compact than a conventional 9-item menu.
 | 2 — دسترسی سریع | درباره ثاخت / پروژه‌ها / فروش / تماس با ما / internal systems (اتوماسیون اداری، درگاه هلدینگ) |
 | 3 — سرمایه‌گذاران | دیده‌بان ثاخت / کدال / اسناد و گزارش‌ها (شامل مناقصات و مزایدات) / تقویم مجامع |
 | 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** |
-| 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/projects/[slug]` (Option A) or `/companies/[slug]` (Option B) |
+| 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/companies/[slug]` |
 
 **Bottom row:** © copyright | قوانین و حریم خصوصی
 
@@ -338,7 +438,7 @@ Result: ~45% more compact than a conventional 9-item menu.
 
 | Wave | Scope | Rationale |
 |---|---|---|
-| **P0** | `/`, header, footer, `/projects` + all four status indexes + `/projects/[slug]`, `/companies` + `/companies/[slug]` (if Option B), `/sales/*`, `/contact`, `/ir` + `/ir/symbol`, 404 | Revenue + regulatory minimum viable site. Company routes are P0 under Option B because the footer and home block 8 link to them |
+| **P0** | `/`, header, footer, `/projects` + all four status indexes + `/projects/[slug]`, `/companies` + `/companies/[slug]`, `/sales/*`, `/contact`, `/ir` + `/ir/symbol`, 404 | Revenue + regulatory minimum viable site. Company routes are firmly P0 in v1.5: homepage block 2 and footer column 5 both link to them, and block 2 now sits above the fold's second screen |
 | **P1** | `/about` (one page), `/media` + `/media/[slug]`, `/ir/financials` + `/ir/financials/[slug]`, `/ir` remainder, `/search`, legal | Completes the public site |
 | **P2** | Account/auth cluster, `/complaints`, `/careers`, virtual tours | Requires backend and legal review |
 
@@ -348,18 +448,31 @@ Result: ~45% more compact than a conventional 9-item menu.
 
 ## 13. Open questions
 
-1. ⛔ **Option A or Option B** for subsidiary companies? (see §5.2) — blocks content modeling. `app/utils/routes.ts` currently assumes **Option B**
+1. ⛔ **Sort the 8 named entities into companies and projects.** Option B is decided (§5.2), so each of `رویای کیش`، `عفاف‌آباد شیراز`، `نارنجستان ایزدشهر`، `آ.اس.پ مشهد`، `آ.اس.پ تهران`، `مگاپارس تهران`، `برج بین‌المللی تهران`، `مجتمع ساحل نوشهر` must be identified as a company, a project, or both. This is the first content-modelling task and everything in the Projects and Companies clusters depends on it
 2. ⛔ Are `completed` and `operating` mutually exclusive statuses, or does a project need tags? (see §5.1)
-3. ⛔ **Does the photography exist?** The v1.2 direction is image-led (§14), which fails without images. Specifically: how many usable photographs per project across the eight; whether any archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; and whether brand-film footage exists or must be commissioned. **This is now the critical-path risk** — layout is not the bottleneck, assets are
-4. The word «کارنامه» now carries three distinct meanings (§8.1). Which label goes where in the final Persian copy?
-5. What happened to the CEO direct-message SLA? v1.1 had a dedicated page with a published 72-hour response commitment; v1.2 folds it into the `/about#contact` form, whose dropdown has only «ارسال رزومه» and «ارتباط با سهامداران». **The CEO channel has no entry point in v1.2** — was that intended, or does it need a third dropdown option?
-6. Is `EN` a full translation of all templates, or a reduced ~10-page English site? Cost difference is significant
-7. Is TSETMC data pulled via API, official widget, or a manually updated cache? Affects `/ir/symbol` and home block 4
-8. Which projects get a virtual tour at launch?
-9. Does `/account/documents` handle identity documents? If so, it triggers data-residency and retention requirements
-10. Do old `/about/*`, `/media/news/*`, `/media/stories/*` and `/media/reports/*` URLs need 301 redirects? They were deleted rather than redirected. If the current live site uses them, the redirect map in build-checklist Phase 1 must cover them
-11. Where did the tender PDFs live on the current site? v1.3 §9.2 notes they were previously hosted in that section — those URLs need redirects to `/ir/financials` and the files need migrating
-12. Is `اسناد و گزارش‌ها` the right label for `/ir/financials` now that it carries tenders and registration rules as well as financial statements? The route slug still says `financials`, which will read oddly to a developer — renaming it to `/ir/documents` is cheap now and expensive after launch
+3. **Photography — deferred, not resolved.** Placeholder images are accepted for the build (v1.4, ADR-010), so this no longer blocks design. It becomes a **pre-launch gate** instead: real assets must exist before the site ships. Still unanswered — how many usable photographs per project across the eight; whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; whether brand-film footage exists or must be commissioned. The risk did not go away, it moved later and got quieter
+4. Two «کارنامه» meanings remain (§8.1): `/projects/completed` and the committee reports on `/ir/financials`. Does the final Persian copy need distinct labels, or is context sufficient?
+5. Is `EN` a full translation of all templates, or a reduced ~10-page English site? Cost difference is significant
+6. Is TSETMC data pulled via API, official widget, or a manually updated cache? Affects `/ir/symbol` and home block 4
+7. Which projects get a virtual tour at launch?
+8. Does `/account/documents` handle identity documents? If so, it triggers data-residency and retention requirements
+9. Do old `/about/*`, `/media/news/*`, `/media/stories/*` and `/media/reports/*` URLs need 301 redirects? They were deleted rather than redirected. If the current live site uses them, the redirect map in build-checklist Phase 1 must cover them
+10. Where did the tender PDFs live on the current site? v1.3 §9.2 notes they were previously hosted in that section — those URLs need redirects to `/ir/financials` and the files need migrating
+11. Is `اسناد و گزارش‌ها` the right label for `/ir/financials` now that it carries tenders and registration rules as well as financial statements? The route slug still says `financials`, which will read oddly to a developer — renaming it to `/ir/documents` is cheap now and expensive after launch
+
+**Resolved in v1.4:** the CEO direct-message channel and its 72-hour SLA are removed outright, not relocated (ADR-010). Nothing in the site references a CEO channel.
+
+**Resolved in v1.5:** Option B is the company structure (ADR-011). Option A is withdrawn and no longer appears in this document.
+
+### 13.1 Open items from the financial workbook
+
+Resolved in v1.6: the tables are specified in §7.2 and placed on `/ir/financials`. What the workbook did **not** answer:
+
+1. ⛔ **Table F content is missing.** ترکیب سهامداران عمده و درصد سهام شناور آزاد is required by the directive (§7.1.1 item ۶) but is not in the workbook. Needed: major shareholders with percentages, and the free-float figure. Compliance-blocking
+2. ⛔ **Do the MD&A and sustainability reports exist?** §7.1.1 items ۲ and ۴ are required and had no home before v1.6. If the documents themselves have never been produced, that is a reporting gap, not a website gap — and worth raising with the client's shareholder-affairs unit before launch
+3. **Who owns the annual update?** The tables are republished once a year after the audited statements. The editor path must not require a developer, and someone in shareholder affairs must own the calendar entry
+4. **Is ۱۴۰۵ published or pre-created?** The workbook carries an empty ۱۴۰۵ column. Confirm whether the site should show it as a pending column or hide it until populated — showing an empty year on an IR page invites the wrong conclusion
+5. **How is the ۱۴۰۴ revaluation to be worded?** §7.2 requires a footnote on the affected rows. The wording is a disclosure matter and should come from shareholder affairs, not from the design team
 
 ---
 
@@ -373,6 +486,15 @@ Applies to every page unless §14.1 exempts it. This is the v1.2 house style and
 3. Flat. No cards-within-cards, no shadows, no gradients, no decorative icons
 4. One accent colour. White background, near-black text
 5. Editorial, not brochure — closer to a museum wall label than a corporate pamphlet
+
+### Placeholder images
+
+Placeholder imagery is accepted throughout the build (v1.4). Every image slot is designed and sized now; real photography drops in later. Two rules keep this from becoming a trap:
+
+1. **Placeholders carry the real aspect ratio and crop.** A 16:9 slot filled with a square placeholder will break when the real photo arrives. Size each placeholder to the specified ratio
+2. **Placeholders are visibly placeholders.** Neutral grey with the intended dimensions labelled — never stock photography, which reads as a design decision and quietly survives into launch
+
+The pre-۱۳۵۰ black-and-white treatment still needs deciding on real material (§13 q3): a greyscale filter over a placeholder proves nothing about whether archival photographs exist.
 
 **Text budget** (enforceable, so "concise" does not drift back to paragraphs by the third review)
 

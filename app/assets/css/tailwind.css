@@ -1,0 +1,93 @@
+/*
+ * Tailwind bridge — ADR-013.
+ *
+ * The approved designs in stitch_project_detail_page_template/ are authored in
+ * Tailwind utility classes. This file makes those classes resolve to THIS
+ * project's design tokens instead of the Material palette the Stitch
+ * DESIGN.md carried.
+ *
+ * `docs/design-system-icd3d.md` remains the single source of truth. The values
+ * below MUST match app/assets/css/tokens.css. If you change one, change both —
+ * tokens.css is consumed by the pre-Tailwind components (IndexCardGrid,
+ * BoardMemberProfile, OrgChartView), this file by everything ported from Stitch.
+ *
+ * Tailwind v4 emits every @theme entry as a real custom property on :root, so
+ * `var(--color-ink)` keeps working for the older components either way.
+ */
+@import "tailwindcss";
+
+@theme {
+  /* --- palette: the only ten colours (design-system §2) --- */
+  --color-ink: #041c2c;
+  --color-primary: #005eb8;
+  --color-primary-hover: #0056a7;
+  --color-tint: #cde2ff;
+  --color-surface: #f4f4f4;
+  --color-surface-alt: #e8e8e8;
+  --color-border: #d0d5d2;
+  --color-status-success: #1f8a4c;
+  --color-status-error: #c23b3b;
+
+  /* Aliases for class names the Stitch markup already uses, so ported
+     templates keep working without a find-and-replace. Each one maps a
+     Material token name onto its nearest legitimate project colour. */
+  --color-brand-tint: #cde2ff;
+  --color-brand-blue-deep: #0056a7;
+  --color-on-surface: #041c2c;
+  --color-on-surface-variant: #4a5a63;
+  --color-on-primary: #ffffff;
+  --color-outline: #d0d5d2;
+  --color-background: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+
+  /* --- typography (design-system §3) --- */
+  --font-sans: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
+  --font-latin: 'Work Sans', 'Segoe UI', Arial, sans-serif;
+
+  --text-h1: 92px;
+  --text-h1--line-height: 1.05;
+  --text-h2: 38px;
+  --text-h2--line-height: 1.26;
+  --text-h3: 19px;
+  --text-h3--line-height: 1.47;
+  --text-body: 18px;
+  --text-body--line-height: 1.78;
+  --text-meta: 14px;
+  --text-meta--line-height: 1.57;
+
+  /* --- corner geometry (design-system §4.1) ---
+     The "0px everywhere" decision was REVOKED after direct feedback that it
+     read as cold and unapproachable. Nothing visual gets a sharp corner;
+     --radius-none survives only for table rules. */
+  --radius-none: 0px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* --- spacing: 8px base (design-system §7) --- */
+  --spacing: 8px;
+
+  --container-site: 1280px;
+  --container-prose: 960px;
+}
+
+/*
+ * Deliberately NOT defined: tertiary (#793100 orange), secondary, and the ~40
+ * other Material surface/container tokens the Stitch DESIGN.md carried. A
+ * ported template still referencing them will render unstyled rather than
+ * quietly introducing a colour that is not in the brand. That is the point —
+ * it surfaces the drift instead of hiding it.
+ */
+
+@layer base {
+  /* The Stitch markup leans on Material Symbols, an icon FONT loaded from
+     Google. Icons are inline SVG in this project; this rule makes any
+     surviving <span class="material-symbols-outlined"> visibly wrong in dev
+     rather than silently rendering ligature text in the page. */
+  .material-symbols-outlined {
+    outline: 2px dashed var(--color-status-error);
+    font-size: 0;
+  }
+}

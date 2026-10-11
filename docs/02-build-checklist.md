@@ -1,5 +1,5 @@
 # ICD (ثاخت) — 3D Website Build Checklist
-**Version:** 1.3 · **Companion to:** `01-sitemap.md` v1.3
+**Version:** 1.6 · **Companion to:** `01-sitemap.md` v1.6
 **Starting point:** page inventory approved. Everything before that is out of scope for this document.
 
 > Working agreement: nothing moves to the next phase until every ⛔ blocker in the current phase is closed. Non-blockers can trail.
@@ -9,12 +9,25 @@
 ## Phase 0 — Decisions before any code
 
 - [x] ⛔ Lock the page inventory (`01-sitemap.md` §13 open questions answered) — v1.2 consolidation settled, ADR-004 through ADR-008
-- [ ] ⛔ **Asset availability audit before any more page design.** The v1.2 direction is image-led (sitemap §14) and fails without images. Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. **This is the critical path — assets, not layout**
-- [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the historical timeline before building `#history` (revisit ADR-008 rather than substituting stock imagery)
+- [x] ⛔ Asset availability audit before more page design — **waived.** Placeholder images accepted for the build (ADR-010). Re-opens as a pre-launch gate below
+- [ ] ⛔ **PRE-LAUNCH GATE: real photography replaces every placeholder.** Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. The site does not ship on placeholders
+- [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the `#history` timeline (revisit ADR-008 rather than substituting stock imagery). **A greyscale filter over a placeholder does not validate this**
+- [ ] Placeholders carry the **real aspect ratio and crop** for every slot — a square placeholder in a 16:9 slot breaks when the real photo arrives
+- [ ] Placeholders are **visibly placeholders** (neutral grey, dimensions labelled) — never stock photography, which reads as a design decision and survives quietly into launch
 - [ ] ⛔ Confirm whether the current live site serves `/about/*` or `/media/news|stories|reports/*` URLs. If it does, those 301 redirects are launch-blocking (sitemap §13 open question 10)
 - [ ] ⛔ **Locate the existing tender PDFs.** They were previously hosted in the tenders section; their current URLs need redirects to `/ir/financials` and the files need migrating (sitemap §13 question 11)
 - [ ] Decide whether to rename `/ir/financials` to `/ir/documents` now that it carries tenders and registration rules as well as statements. Cheap now, expensive after launch (sitemap §13 question 12)
-- [ ] ⛔ **Option A or Option B** on subsidiary companies (sitemap §5.2). Blocks the content model, the footer, and home block 8. Recommendation is Option B
+- [x] ⛔ Option A or Option B on subsidiary companies — **decided: Option B** (ADR-011)
+- [ ] ⛔ **Sort the 8 named entities into companies and projects** (sitemap §13 q1). Some are likely both a company name and its flagship project's name. First content-modelling task; the Projects and Companies clusters both depend on it
+- [x] ⛔ Obtain the stock-exchange source spreadsheet and specify its tabular sections — **done, sitemap §7.2** (ADR-012)
+- [ ] ⛔ **Regulatory compliance check against the directive's six required items** (sitemap §7.1.1). Three had no home before v1.6: MD&A, sustainability report, shareholder/free-float disclosure. A listed company's site omitting these is non-compliant
+- [ ] ⛔ **Obtain table F content** — major shareholders with percentages, and the free-float figure. Not in the workbook. Compliance-blocking (§13.1 q1)
+- [ ] ⛔ **Confirm the MD&A and sustainability reports exist as documents.** If they have never been produced, that is a reporting gap for shareholder affairs, not a website gap (§13.1 q2)
+- [ ] ⛔ **Footnote the ۱۴۰۴ revaluation on every affected row** — نسبت مالکانه, نسبت جاری, EPS, سرمایه, جمع دارایی‌ها. The capital increase from ۹٬۰۰۰٬۰۰۰ to ۸۲٬۳۰۸٬۵۱۲ million rials via revaluation surplus makes these incomparable to prior years. Uncaveated, the table misleads about solvency and earnings (sitemap §7.2)
+- [ ] ⛔ No five-year chart may cross ۱۴۰۴ on the affected metrics without the break annotated
+- [ ] Footnote wording comes from shareholder affairs, not the design team (§13.1 q5)
+- [ ] Assign an owner in shareholder affairs for the annual table refresh, with a calendar entry tied to the ۳۱ شهریور year-end (§13.1 q3)
+- [ ] Decide whether the empty ۱۴۰۵ column is shown as pending or hidden until populated (§13.1 q4)
 - [ ] ⛔ Confirm the four project statuses and whether `completed` / `operating` are mutually exclusive (sitemap §5.1)
 - [ ] ⛔ Confirm hosting: server location, CDN. **Verify the CDN is reachable from inside Iran** — this constrains the whole stack
 - [ ] ⛔ Framework decision: SSR-capable (Next.js / Nuxt) is required — an SPA will fail the SEO and IR-transparency goals
@@ -33,14 +46,16 @@
 - [x] ⛔ Route table implemented as a single source of truth file (`app/utils/routes.ts`) — every link in the codebase resolves through it
 - [ ] ⛔ **Anchor-id sync.** `/about` and `/careers` are single pages whose mega-menu and footer entries are in-page anchors. The anchor constants in `routes.ts` must match the section ids in `AboutOverview.vue` and the careers page component. **Nothing currently enforces this** — a renamed section id silently breaks navigation. Add a test or a build-time assertion
 - [ ] ⛔ Keep `PENDING_ROUTES` in `routes.ts` accurate: a route constant may exist before its page, but linking to one from navigation produces a 404. Remove each entry in the same commit that adds its page
-- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, FinancialDocument, DisclosureEvent, Honor, JobPosting — plus **Company** under Option B. **No `Tender` model** (ADR-009): a tender notice is an `Article` with `category: 'tenders'`, a tender document is a `FinancialDocument` record
+- [ ] ⛔ Content models defined: Project, Unit, BoardMember, Article, PodcastEpisode, FinancialDocument, DisclosureEvent, Honor, JobPosting, **Company** (ADR-011). **No `Tender` model** (ADR-009): a tender notice is an `Article` with `category: 'tenders'`, a tender document is a `FinancialDocument` record
 - [ ] ⛔ `Article.category` implemented as an enum (`news` / `stories` / `podcast` / `analysis` / `tenders`) filtered by query string, **not** as separate routes (ADR-005, ADR-009). Mirrors the `Project.status` pattern
-- [ ] ⛔ `FinancialDocument` needs a **document group** field (statements / board reports / committee reports / tenders / registration rules) so one page can filter by group and year (ADR-009)
+- [ ] ⛔ `FinancialDocument` needs a **document group** field — `statements` / `mda` / `board-reports` / `sustainability` / `committee-reports` / `tenders` / `registration` — so one page can filter by group and year (ADR-009, extended by ADR-012)
+- [ ] ⛔ A `FinancialPeriod` model (or equivalent) for the annual table rows: fiscal year, statement type, line item, value, and a footnote reference. Unit is **میلیون ریال** and must be stored explicitly, never implied
+- [ ] `/ir/governance` links to `/about#committees` so the committee disclosure is reachable from the IR cluster (ADR-012)
 - [ ] ⛔ `FinancialDocument` must support **both** a readable HTML body and a downloadable file for the same record — not a file-only record
 - [ ] Dated tender notices must display a publication date. This is the one risk the deleted deadline logic guarded against that still applies — an old notice read as current (ADR-009)
 - [ ] Resume submissions need a timestamp and a hash of the attached file: a name and phone number alone cannot be deduplicated (ADR-006)
 - [ ] ⛔ `Project.status` implemented as a single enum (`upcoming` / `under-construction` / `operating` / `completed`) driving four filtered index views, **not** four separate content types
-- [ ] Even under Option A, add a nullable `Project.ownerCompany` field now so the Option B migration stays cheap
+- [ ] ⛔ `Project.ownerCompany` is a **required** field (ADR-011), not the nullable migration hatch earlier versions suggested
 - [ ] Bidirectional link rules: `under-construction` project → its pre-sale listing; pre-sale unit → its parent project; project → owner company; company → its projects
 - [ ] URL slug policy: English slugs, Persian display titles, no Persian characters in URLs
 - [ ] Redirect map from the old site's URLs → new routes (protects existing SEO)
@@ -104,14 +119,27 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] Homepage: all 10 blocks, in the fixed order, each independently lazy-loaded
 - [ ] `/about` as one scroll page, sections in the fixed order of sitemap §4.1, including the new `#committees` section (committee data already exists in `OrgChartView.vue` and `BoardMemberProfile.vue` — reuse, do not re-model)
 - [ ] `/about#subsidiaries` built as the enlarged, full-width section: low-opacity blurred background photo, horizontally scrollable large logo tiles
+- [ ] `#history` built as **one section in four movements** (sitemap §4.2): brand-story video → ۱۳۳۰ timeline → delivered-work gallery → recognition strip. Its internal pacing matters more than any other section's
+- [ ] **Move** the existing `id="track-record"` section in `AboutOverview.vue` inside `#history` — do not delete it, it renders `aboutGallery` from `honorsData` and holds the achievements content (ADR-010)
+- [ ] Retire the `#track-record` anchor from `routes.ts`, the About mega-menu and the footer
+- [ ] **Remove every CEO reference** (ADR-010): homepage block, `aboutPageData.ts` header comments, any `/about#contact` dropdown option, CEO-message routing in `/account/tickets`
+- [ ] Homepage renumbered to nine blocks (0–8) with nothing in place of the former CEO block
 - [ ] `/about#board` as one flat card per member — **verify no individual profile route survives**
 - [ ] `/about#contact` form with exactly two «موضوع» options: «ارسال رزومه» and «ارتباط با سهامداران»
 - [ ] `/media` as one categorised feed; `/media/[slug]` as the single detail template with the podcast player; delete the three former index and detail templates
 - [ ] `/ir/financials` as **the** documents page: statements, board reports, committee reports, tender notices, registration rules, every PDF — filterable by group and year (ADR-009). Build early in P1; it is the most load-bearing route on the site
 - [ ] `/ir/financials/[slug]` with readable HTML body **and** download for every record
+- [ ] `/ir/financials` financial-performance tables A–F (sitemap §7.2), tabbed, above the document archive
+- [ ] Tables A–D render the three analytical views (مقادیر / تحلیل افقی / تحلیل عمودی) as **switchable views of one table**, defaulting to مقادیر — not three stacked tables
+- [ ] Every table header states the unit (میلیون ریال) and the fiscal-year-end (۳۱ شهریور) explicitly
+- [ ] Each table carries an "as of" year stamp, a prior-year archive, and a CSV/Excel download
+- [ ] Wide financial tables are usable at phone width — horizontal scroll with a pinned first column, never a squeezed unreadable grid
 - [ ] `/careers` as one page: intro, two-field resume form, benefits, learning, FAQ — and nothing else
 - [ ] Projects cluster: hub, 3D map, all four status indexes, and the `[slug]` template against real data
-- [ ] Companies cluster (`/companies`, `/companies/[slug]`) if Option B — footer column 5 and home block 8 depend on it
+- [ ] Companies cluster (`/companies`, `/companies/[slug]`) — **P0**. Homepage block 2 and footer column 5 both depend on it
+- [ ] `/companies/[slug]` lists that company's projects; `/projects/[slug]` names and links its owner company — both directions required (ADR-011)
+- [ ] A company with no live project still renders a valid page with an empty project list
+- [ ] Homepage block order: «خانواده ثاخت» at block 2, **before** «پروژه‌های شاخص» at block 3 (ADR-011)
 - [ ] Verify every project has exactly one status and appears in exactly one index (or, if tags were chosen, that duplicates are intentional)
 - [ ] Sales cluster with working filters and a unit detail template
 - [ ] IR cluster with the live widget

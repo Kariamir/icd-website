@@ -6,7 +6,7 @@
  * separate model, /companies/*) is assumed per sitemap §5.2 recommendation —
  * revisit in docs/decisions.md if the client confirms Option A instead.
  *
- * Tracks docs/01-sitemap.md v1.3: About is one page (ADR-004), Media is one
+ * Tracks docs/01-sitemap.md v1.4: About is one page (ADR-004), Media is one
  * categorised blog (ADR-005), /careers absorbs the HR topics (ADR-006), and
  * tenders are informational only — no /tenders route, no Tender model, with
  * notices in the blog's `tenders` category and the documents on /ir/financials
@@ -28,8 +28,13 @@ export const routes = {
    */
   about: '/about',
   aboutVision: '/about#vision',
+  /**
+   * #history carries the whole historical narrative in four movements:
+   * brand-story video, the ۱۳۳۰ timeline, the delivered-work gallery, and the
+   * recognition strip. The former #track-record anchor was retired in v1.4
+   * (ADR-010) — its gallery now lives inside this section.
+   */
   aboutHistory: '/about#history',
-  aboutTrackRecord: '/about#track-record',
   aboutSubsidiaries: '/about#subsidiaries',
   aboutBoard: '/about#board',
   aboutCommittees: '/about#committees',
@@ -73,6 +78,7 @@ export const routes = {
    */
   irDocument: (slug: string) => `/ir/financials/${slug}`,
   irDocumentGroup: (group: DocumentGroup) => `/ir/financials?group=${group}`,
+  irTable: (table: FinancialTable) => `/ir/financials?table=${table}`,
 
   /**
    * Media is ONE categorised blog (docs/decisions.md ADR-005). Categories are
@@ -128,15 +134,72 @@ export const mediaCategories: { value: MediaCategory, label: string }[] = [
  * Tender notices are a document group here and a blog category above — they
  * are informational in both places and have no model of their own.
  */
-export type DocumentGroup = 'statements' | 'board-reports' | 'committee-reports' | 'tenders' | 'registration'
+export type DocumentGroup =
+  | 'statements'
+  | 'mda'
+  | 'board-reports'
+  | 'sustainability'
+  | 'committee-reports'
+  | 'tenders'
+  | 'registration'
 
-export const documentGroups: { value: DocumentGroup, label: string }[] = [
-  { value: 'statements', label: 'صورت‌های مالی' },
-  { value: 'board-reports', label: 'گزارش فعالیت هیات‌مدیره' },
-  { value: 'committee-reports', label: 'گزارش‌های عملکرد کمیته‌ها' },
+/**
+ * Groups marked `required` are mandated by the corporate-governance and
+ * exchange directive — see docs/01-sitemap.md §7.1.1 and ADR-012. Removing one
+ * from the site makes a listed company non-compliant; they are not editorial
+ * choices. `mda` and `sustainability` were added in v1.6 after the directive
+ * checklist showed they had no home anywhere on the site.
+ */
+export const documentGroups: { value: DocumentGroup, label: string, required?: true }[] = [
+  { value: 'statements', label: 'صورت‌های مالی حسابرسی‌شده', required: true },
+  { value: 'mda', label: 'گزارش تفسیری مدیریت', required: true },
+  { value: 'board-reports', label: 'گزارش فعالیت هیات‌مدیره', required: true },
+  { value: 'sustainability', label: 'گزارش پایداری', required: true },
+  { value: 'committee-reports', label: 'گزارش‌های عملکرد کمیته‌ها', required: true },
   { value: 'tenders', label: 'مناقصات و مزایدات' },
   { value: 'registration', label: 'الزامات قانونی ثبت اسناد' },
 ]
+
+/**
+ * Annual financial tables on /ir/financials (ADR-012, sitemap §7.2).
+ * Republished once a year after the audited statements; fiscal year ends
+ * ۳۱ شهریور and all figures are in میلیون ریال.
+ *
+ * ۱۴۰۴ CAVEAT: a capital increase from a revaluation surplus (۹٬۰۰۰٬۰۰۰ →
+ * ۸۲٬۳۰۸٬۵۱۲ million rials) makes نسبت مالکانه, نسبت جاری and EPS
+ * incomparable to prior years. Affected rows need footnotes and no chart may
+ * cross ۱۴۰۴ unannotated.
+ */
+export type FinancialTable =
+  | 'income-consolidated'
+  | 'balance-consolidated'
+  | 'income-parent'
+  | 'balance-parent'
+  | 'ratios'
+  | 'shareholders'
+
+export const financialTables: { value: FinancialTable, label: string }[] = [
+  { value: 'income-consolidated', label: 'صورت سود و زیان تلفیقی' },
+  { value: 'balance-consolidated', label: 'صورت وضعیت مالی تلفیقی' },
+  { value: 'income-parent', label: 'صورت سود و زیان شرکت اصلی' },
+  { value: 'balance-parent', label: 'صورت وضعیت مالی شرکت اصلی' },
+  { value: 'ratios', label: 'نسبت‌های مالی' },
+  { value: 'shareholders', label: 'ترکیب سهامداران و سهام شناور آزاد' },
+]
+
+/** The three analytical views tables A–D carry. Default to `values`. */
+export type FinancialView = 'values' | 'horizontal' | 'vertical'
+
+export const financialViews: { value: FinancialView, label: string }[] = [
+  { value: 'values', label: 'مقادیر' },
+  { value: 'horizontal', label: 'تحلیل افقی' },
+  { value: 'vertical', label: 'تحلیل عمودی' },
+]
+
+/** Fiscal years the tables cover. ۱۴۰۵ exists but may be unpopulated. */
+export const fiscalYears = [1400, 1401, 1402, 1403, 1404, 1405] as const
+export const FISCAL_YEAR_END = '۳۱ شهریور'
+export const FINANCIAL_UNIT = 'میلیون ریال'
 
 export interface NavItem {
   label: string
@@ -162,8 +225,7 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     megaMenu: [{
       items: [
         { label: 'چشم‌انداز و حاکمیت شرکتی', href: routes.aboutVision },
-        { label: 'تاریخچه', href: routes.aboutHistory },
-        { label: 'کارنامه', href: routes.aboutTrackRecord },
+        { label: 'تاریخچه و کارنامه', href: routes.aboutHistory },
         { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
         { label: 'هیات‌مدیره', href: routes.aboutBoard },
         { label: 'کمیته‌ها', href: routes.aboutCommittees },
@@ -204,6 +266,7 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
         { label: 'اطلاعات نماد ثاخت در بورس', href: routes.irSymbol },
         { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
         { label: 'مناقصات و مزایدات', href: routes.irDocumentGroup('tenders') },
+        { label: 'نسبت‌های مالی و عملکرد', href: routes.irTable('ratios') },
         { label: 'تقویم اطلاع‌رسانی و مجامع', href: routes.irCalendar },
         { label: 'گزارش‌های شفافیت و حاکمیت شرکتی', href: routes.irGovernance },
         { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
@@ -244,7 +307,7 @@ export const footerColumns: MegaMenuColumn[] = [
     heading: 'هلدینگ ثاخت',
     items: [
       { label: 'درباره ثاخت', href: routes.about },
-      { label: 'تاریخچه', href: routes.aboutHistory },
+      { label: 'تاریخچه و کارنامه', href: routes.aboutHistory },
       { label: 'هیئت‌مدیره و ارکان راهبری', href: routes.aboutBoard },
       { label: 'کمیته‌ها', href: routes.aboutCommittees },
       { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
@@ -301,6 +364,7 @@ export const footerColumns: MegaMenuColumn[] = [
  *
  *   routes.irDocument      → /ir/financials/[slug]   (ADR-009)
  *   routes.irDocumentGroup → /ir/financials?group=…   (needs group filtering on the page)
+ *   routes.irTable         → /ir/financials?table=…   (needs the §7.2 tables built)
  *   routes.mediaPost       → /media/[slug]            (replaces the three former detail templates)
  *   routes.companies    → /companies          (sitemap §5.2 Option B)
  *   routes.company      → /companies/[slug]
@@ -312,6 +376,7 @@ export const footerColumns: MegaMenuColumn[] = [
 export const PENDING_ROUTES = [
   'irDocument',
   'irDocumentGroup',
+  'irTable',
   'mediaPost',
   'companies',
   'company',

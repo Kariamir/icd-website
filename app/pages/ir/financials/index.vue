@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { documentHubs } from '~/utils/documentsData'
-
-const hub = documentHubs.financials
+// Route /ir/financials — view ported from the approved design (ADR-013).
+//
+// layout: false because the ported view carries its own <header>
+// and <footer> from the approved design. Rendering it inside
+// layouts/default.vue would produce two of each. When the shared
+// SiteHeader/SiteFooter are reconciled with the approved chrome,
+// drop this and strip the inline chrome from the component.
+definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: 'صورت‌های مالی و گزارش فعالیت هیات‌مدیره — ثاخت',
-  description: 'آرشیو صورت‌های مالی حسابرسی‌شده، گزارش‌های میان‌دوره‌ای، گزارش تفسیری مدیریت و افشای اطلاعات بااهمیت هلدینگ ثاخت.',
+  title: 'گزارش‌ها و صورت‌های مالی رسمی — هلدینگ ساختمانی ثاخت',
+  description: 'اسناد و گزارش‌های رسمی: صورت‌های مالی، گزارش تفسیری مدیریت، فعالیت هیات‌مدیره، پایداری، کمیته‌ها و مناقصات.',
 })
 </script>
 
 <template>
-  <BaseContainer>
-    <DocumentIndexList :hub="hub" />
-  </BaseContainer>
+  <IrDocumentsView />
 </template>

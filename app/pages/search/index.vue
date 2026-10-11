@@ -1,13 +1,19 @@
 <script setup lang="ts">
-const route = useRoute()
-const initialQuery = computed(() => (typeof route.query.q === 'string' ? route.query.q : ''))
+// Route /search — view ported from the approved design (ADR-013).
+//
+// layout: false because the ported view carries its own <header>
+// and <footer> from the approved design. Rendering it inside
+// layouts/default.vue would produce two of each. When the shared
+// SiteHeader/SiteFooter are reconciled with the approved chrome,
+// drop this and strip the inline chrome from the component.
+definePageMeta({ layout: false })
 
 useSeoMeta({
-  title: () => initialQuery.value ? `نتایج جستجو برای «${initialQuery.value}» — ثاخت` : 'جستجوی سایت — ثاخت',
-  description: 'جستجو در پروژه‌ها، واحدها، اطلاعیه‌های کدال، اخبار، اسناد و فرصت‌های شغلی وب‌سایت هلدینگ ساختمانی ثاخت.',
+  title: 'جستجوی جامع پرتال — هلدینگ ساختمانی ثاخت (ICD)',
+  description: 'جستجو در آرشیو سایت هلدینگ ساختمانی ثاخت.',
 })
 </script>
 
 <template>
-  <SearchResultsView :initial-query="initialQuery" />
+  <SearchResultsStitchView />
 </template>

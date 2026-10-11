@@ -1,0 +1,587 @@
+<!DOCTYPE html><html class="scroll-smooth" dir="rtl" lang="fa"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>پروژه‌ها | هلدینگ ساختمانی ثاخت</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&amp;family=Work+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#ffdbcb",
+            "tertiary-container": "#9f4300",
+            "on-secondary-container": "#506578",
+            "on-secondary-fixed-variant": "#34495b",
+            "on-primary-fixed": "#001b3d",
+            "primary": "#00478d",
+            "brand-tint": "#CDE2FF",
+            "inverse-primary": "#a9c7ff",
+            "border": "#D0D5D2",
+            "on-tertiary-container": "#ffcfb9",
+            "secondary-fixed": "#cfe5fb",
+            "on-secondary": "#ffffff",
+            "secondary-fixed-dim": "#b3c9df",
+            "on-primary-container": "#c8daff",
+            "on-background": "#171d1b",
+            "surface-variant": "#dfe4e0",
+            "surface-tint": "#005db6",
+            "on-error": "#ffffff",
+            "surface-alt": "#E8E8E8",
+            "surface-container-lowest": "#ffffff",
+            "on-error-container": "#93000a",
+            "secondary": "#4b6173",
+            "brand-blue-deep": "#0056A7",
+            "surface-container-highest": "#dfe4e0",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#ffb691",
+            "surface-container": "#eaefec",
+            "error": "#ba1a1a",
+            "on-tertiary": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#d6e3ff",
+            "outline": "#727783",
+            "ink": "#041C2C",
+            "inverse-on-surface": "#edf2ef",
+            "primary-fixed-dim": "#a9c7ff",
+            "on-tertiary-fixed-variant": "#793100",
+            "surface-container-high": "#e4e9e6",
+            "surface-bright": "#f6faf7",
+            "on-primary-fixed-variant": "#00468c",
+            "on-secondary-fixed": "#051d2d",
+            "on-surface": "#171d1b",
+            "status-error": "#C23B3B",
+            "background": "#ffffff",
+            "surface": "#F4F4F4",
+            "inverse-surface": "#2c3230",
+            "on-tertiary-fixed": "#341100",
+            "tertiary": "#793100",
+            "surface-dim": "#d6dbd8",
+            "outline-variant": "#c2c6d4",
+            "on-surface-variant": "#424752",
+            "surface-container-low": "#f0f5f2",
+            "primary-container": "#005eb8",
+            "secondary-container": "#cce2f8",
+            "status-success": "#1F8A4C"
+          },
+          "borderRadius": {
+            "DEFAULT": "0px",
+            "lg": "0px",
+            "xl": "0px",
+            "full": "0px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Vazirmatn", "sans-serif"],
+            "headline-md": ["Vazirmatn", "sans-serif"],
+            "headline-sm": ["Vazirmatn", "sans-serif"],
+            "body-md": ["Vazirmatn", "sans-serif"],
+            "headline-xl-mobile": ["Vazirmatn", "sans-serif"],
+            "headline-lg": ["Vazirmatn", "sans-serif"],
+            "label-lg": ["Vazirmatn", "sans-serif"],
+            "body-sm": ["Vazirmatn", "sans-serif"],
+            "headline-xl": ["Vazirmatn", "sans-serif"],
+            "label-md": ["Vazirmatn", "sans-serif"],
+            "body-lg": ["Vazirmatn", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "headline-sm": ["19px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-xl-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-lg": ["38px", { "lineHeight": "48px", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "headline-xl": ["64px", { "lineHeight": "72px", "fontWeight": "800" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    * {
+      font-family: 'Vazirmatn', sans-serif !important;
+      border-radius: 0px !important;
+      box-shadow: none !important;
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    .technical-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(208, 213, 210, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(208, 213, 210, 0.25) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-ink selection:bg-brand-tint selection:text-ink antialiased">
+<!-- ================= TOP NAVIGATION BAR ================= -->
+<header class="bg-surface-container-lowest border-b border-border sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-lg md:px-margin max-w-[1440px] mx-auto h-20">
+<!-- Right: Logo & Primary Nav Links -->
+<div class="flex items-center gap-10">
+<a class="flex items-center gap-3" href="/">
+<div class="w-9 h-9 bg-ink flex items-center justify-center text-surface-container-lowest font-headline-md text-headline-md tracking-tighter">
+            ث
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-ink tracking-tight leading-tight">هلدینگ ساختمانی ثاخت</span>
+<span class="text-label-md font-label-md text-outline tracking-wider">ICD HOLDING</span>
+</div>
+</a>
+<!-- Desktop Navigation Items -->
+<nav class="hidden lg:flex items-center gap-7 pt-1">
+<a class="text-label-lg font-label-lg text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="/about">
+            درباره ثاخت
+          </a>
+<!-- Active Tab: پروژه‌ها -->
+<a class="text-label-lg font-label-lg border-b-2 border-primary-container text-primary-container font-bold pb-1 transition-colors duration-150" href="/projects">
+            پروژه‌ها
+          </a>
+<a class="text-label-lg font-label-lg text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="/sales">
+            فروش و پیش‌فروش
+          </a>
+<a class="text-label-lg font-label-lg text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="/dideban">
+            دیده‌بان ثاخت
+          </a>
+<a class="text-label-lg font-label-lg text-ink hover:text-primary-container pb-1 transition-colors duration-150" href="/media">
+            رسانه ثاخت
+          </a>
+</nav>
+</div>
+<!-- Left: Actions & Utility Controls -->
+<div class="flex items-center gap-3">
+<!-- Icons -->
+<div class="flex items-center gap-1 pl-3 border-l border-border">
+<button class="p-2 text-ink hover:bg-surface-container-high transition-colors" title="جستجو">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 text-ink hover:bg-surface-container-high transition-colors flex items-center gap-1 text-label-md font-label-md" title="Language">
+<span class="material-symbols-outlined">language</span>
+<span class="font-headline-sm text-[12px] uppercase tracking-wider">EN</span>
+</button>
+</div>
+<!-- Shareholders Portal (Secondary) -->
+<a class="hidden sm:inline-flex items-center px-4 py-2 text-label-lg font-label-lg text-primary-container border border-primary-container hover:bg-brand-tint transition-colors duration-150" href="/investors">
+          ورود سهامداران
+        </a>
+<!-- Fast Consultation CTA (Primary) -->
+<a class="inline-flex items-center px-5 py-2 text-label-lg font-label-lg text-on-primary bg-primary-container hover:bg-brand-blue-deep transition-colors duration-150" href="/contact">
+          مشاوره و تماس سریع
+        </a>
+</div>
+</div>
+</header>
+<!-- ================= SECTION 1: HERO ================= -->
+<section class="relative w-full aspect-[4/3] md:aspect-[16/9] max-h-[780px] bg-ink overflow-hidden border-b border-border">
+<!-- Architectural Hero Photograph -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="A grand monument of contemporary high-rise architecture showcasing monolithic fair-faced concrete frames, cantilevered glass curtain facades, and precision steel elements. Shot at dusk with crisp sharp shadows under an overcast corporate sky. Deep institutional slate blues and pale gray structural surfaces evoke monumental stability and national civil engineering prowess." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA33YfmDQYhrRVYLDRe52Qz6uMlytIN5fk5aiXn-bLyDwZn0r15N8tgeD3dyVMZrpFmYxCeJSWXr9JlWvYGWpo0DKq8WKFLBqSsCjh96KsbCMftGVqgGEyZGsL1NEAIoxlA1Rr_kpta6hNCoyUEzWpXBtUJYqwMK09psLHWQTtNTexNW63h5dL9HkAERvtzGoI5iK-5cnntUGhIPeCn419MsT_tcfLAg6jRWFq_MSBWo6TBftLUhUefDg')">
+</div>
+<!-- 35% Deep Dark Scrim Overlay -->
+<div class="absolute inset-0 bg-ink/35"></div>
+<!-- Content anchored Bottom-Right (Museum Wall Label Aesthetic) -->
+<div class="relative h-full max-w-[1440px] mx-auto px-space-lg md:px-margin flex flex-col justify-end pb-16 md:pb-20">
+<div class="border-r-4 border-primary-container pr-6 md:pr-8 max-w-3xl">
+<h1 class="text-headline-xl-mobile md:text-headline-xl font-headline-xl text-surface-container-lowest tracking-tight">
+          پروژه‌ها و کارنامه ساختمانی
+        </h1>
+<p class="mt-3 text-body-lg font-body-lg text-surface-alt tracking-wide font-normal">
+          نمادهای معماری پایدار و کلان‌سازه‌های مهندسی ایران
+        </p>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 2: MAP EXPLORER BLOCK ================= -->
+<section class="w-full bg-surface py-[120px] border-b border-border">
+<div class="max-w-[1440px] mx-auto px-space-lg md:px-margin">
+<!-- Section Label & Editorial Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-border">
+<div>
+<span class="text-label-md font-label-md text-primary-container uppercase tracking-widest block mb-1">
+            GIS INFRASTRUCTURE DIRECTORY
+          </span>
+<h2 class="text-headline-lg font-headline-lg text-ink">
+            کاوشگر جغرافیایی پروژه‌ها
+          </h2>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-2 md:mt-0 max-w-md">
+          پراکندگی متوازن کلان‌پروژه‌های عمرانی، اقامتی و برج‌های تجاری در قطب‌های راهبردی کشور
+        </p>
+</div>
+<!-- The Architectural Map Container (~560px Height) -->
+<div class="relative w-full h-[560px] bg-[#10222F] border border-border overflow-hidden technical-grid">
+<!-- Subtle Stylized Architectural Map Background Texture -->
+<div class="absolute inset-0 opacity-40">
+<svg class="w-full h-full object-cover" preserveAspectRatio="none" viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+<path d="M 0,180 Q 250,140 500,210 T 1000,160" fill="none" stroke="#264559" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<path d="M 0,380 Q 320,410 650,340 T 1000,420" fill="none" stroke="#264559" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<path d="M 280,0 L 340,560" fill="none" stroke="#1D384A" stroke-width="1"></path>
+<path d="M 720,0 L 680,560" fill="none" stroke="#1D384A" stroke-width="1"></path>
+<!-- Simplified Iran Outline Vectors -->
+<polygon fill="rgba(4, 28, 44, 0.45)" points="180,80 340,40 520,70 780,110 890,260 760,490 560,520 380,480 210,380 140,240" stroke="#264559" stroke-width="1.5"></polygon>
+</svg>
+</div>
+<!-- Coordinates HUD (Top-Right) -->
+<div class="absolute top-6 right-6 z-20 bg-ink/90 backdrop-blur-none border border-border text-surface-container-lowest p-4 max-w-xs">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block w-2 h-2 bg-primary-container"></span>
+<span class="text-label-md font-label-md tracking-widest uppercase">سامانه موقعیت‌سنجی عمران</span>
+</div>
+<div class="text-[11px] font-mono text-outline-variant space-y-0.5" dir="ltr">
+<div>IRN-GEO // 35.6892° N, 51.3890° E</div>
+<div>STATUS: ONLINE • 5 STRATEGIC HUBS</div>
+</div>
+</div>
+<!-- Stylized Location Pins with Radar Accents -->
+<!-- Pin: تهران (Tehran) -->
+<div class="absolute top-[32%] right-[44%] z-20 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-8 h-8 bg-primary-container/20 animate-ping"></span>
+<span class="w-3.5 h-3.5 bg-primary-container border-2 border-surface-container-lowest"></span>
+</div>
+<div class="absolute -top-9 right-1/2 translate-x-1/2 bg-ink text-surface-container-lowest px-2.5 py-1 text-label-md font-label-md whitespace-nowrap border border-border group-hover:bg-primary-container transition-colors">
+            تهران (۲۸ پروژه)
+          </div>
+</div>
+<!-- Pin: مشهد (Mashhad) -->
+<div class="absolute top-[28%] right-[22%] z-20 group cursor-pointer">
+<div class="w-3 h-3 bg-brand-tint border-2 border-ink"></div>
+<div class="absolute -top-9 right-1/2 translate-x-1/2 bg-ink text-surface-container-lowest px-2.5 py-1 text-label-md font-label-md whitespace-nowrap border border-border group-hover:bg-primary-container transition-colors">
+            مشهد (۹ پروژه)
+          </div>
+</div>
+<!-- Pin: نوشهر (Nowshahr) -->
+<div class="absolute top-[24%] right-[52%] z-20 group cursor-pointer">
+<div class="w-3 h-3 bg-brand-tint border-2 border-ink"></div>
+<div class="absolute -top-9 right-1/2 translate-x-1/2 bg-ink text-surface-container-lowest px-2.5 py-1 text-label-md font-label-md whitespace-nowrap border border-border group-hover:bg-primary-container transition-colors">
+            نوشهر و خطه شمال (۶ پروژه)
+          </div>
+</div>
+<!-- Pin: شیراز (Shiraz) -->
+<div class="absolute top-[62%] right-[48%] z-20 group cursor-pointer">
+<div class="w-3 h-3 bg-brand-tint border-2 border-ink"></div>
+<div class="absolute -top-9 right-1/2 translate-x-1/2 bg-ink text-surface-container-lowest px-2.5 py-1 text-label-md font-label-md whitespace-nowrap border border-border group-hover:bg-primary-container transition-colors">
+            شیراز (۵ پروژه)
+          </div>
+</div>
+<!-- Pin: کیش (Kish Island) -->
+<div class="absolute bottom-[16%] right-[55%] z-20 group cursor-pointer">
+<div class="relative flex items-center justify-center">
+<span class="w-3 h-3 bg-primary-container border-2 border-surface-container-lowest"></span>
+</div>
+<div class="absolute -top-9 right-1/2 translate-x-1/2 bg-ink text-surface-container-lowest px-2.5 py-1 text-label-md font-label-md whitespace-nowrap border border-border group-hover:bg-primary-container transition-colors">
+            جزیره کیش (۱۱ پروژه)
+          </div>
+</div>
+<!-- Minimalist Corner Zoom & Map View Controls (Bottom-Left) -->
+<div class="absolute bottom-6 left-6 z-20 flex items-center bg-ink border border-border">
+<button class="w-10 h-10 flex items-center justify-center text-surface-container-lowest hover:bg-primary-container transition-colors border-l border-border" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-surface-container-lowest hover:bg-primary-container transition-colors border-l border-border" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<button class="px-3 h-10 flex items-center gap-1.5 text-label-md font-label-md text-surface-container-lowest hover:bg-primary-container transition-colors" title="Full Map Screen">
+<span class="material-symbols-outlined text-[16px]">fullscreen</span>
+<span>نمایش کامل</span>
+</button>
+</div>
+<!-- Legend Label (Bottom-Right) -->
+<div class="absolute bottom-6 right-6 z-20 hidden sm:flex items-center gap-4 bg-ink/90 border border-border px-4 py-2.5 text-surface-container-lowest text-label-md font-label-md">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-primary-container inline-block"></span>
+<span>پروژه‌های کلان ملی</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-brand-tint inline-block"></span>
+<span>مجموعه‌های استانی و منطقه‌ای</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= SECTION 3: FOUR LARGE ENTRY TILES ================= -->
+<!-- Strict: Exactly 4 massive tiles by status, no filters, no sort bars -->
+<section class="w-full bg-surface-container-lowest py-[120px]">
+<div class="max-w-[1440px] mx-auto px-space-lg md:px-margin">
+<!-- Section Title Header -->
+<div class="mb-12 border-b border-border pb-6 flex flex-col md:flex-row md:items-end justify-between">
+<div>
+<span class="text-label-md font-label-md text-primary-container uppercase tracking-widest block mb-1">
+            PORTFOLIO CLASSIFICATION
+          </span>
+<h2 class="text-headline-lg font-headline-lg text-ink">
+            وضعیت پروژه‌ها
+          </h2>
+</div>
+<p class="text-body-md font-body-md text-outline mt-3 md:mt-0 max-w-lg">
+          طبقه‌بندی ساختاریافته طرح‌ها در زنجیره ارزش عمران؛ از طراحی مفهومی تا تحویل و مدیریت بهره‌برداری
+        </p>
+</div>
+<!-- 2x2 Architectural Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- 1. آتی (Upcoming) -->
+<a class="group relative block aspect-[16/10] bg-ink overflow-hidden border border-border" href="/projects/upcoming">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Photorealistic architectural visualization rendering of a visionary mega-complex planned with sustainable zero-emission materials, cantilevered sky gardens, and geometric lattice screens. Set against a serene overcast dawn sky with pure architectural clarity, sharp lines, and restrained institutional gray and blue tones." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDeCzbrpcqMC--h9HITn4k5lSCv6Riz8UyE55DaVTEX_pQUGyjItnznVMhJkQ0VfHXjyoBsUmzKexqHgu91L2-G0byjzuSdswaHaPU3Ek0TVOuY4scsS5bfeQEZB4qQd77oSxhTlBLPht6zKli0emqt0daJNqoAsC1F5KnMBxllu_Q4Aa1jjXk8NiXbSsQVjmcmbAKwqtHFpcUej2Kq6I7bP59UHqoUa1gq9SOMTGhJ2JSsUatNoRnqNQ')">
+</div>
+<div class="absolute inset-0 bg-ink/50 group-hover:bg-ink/40 transition-colors duration-300"></div>
+<!-- Top Badge: Upcoming (آتی) -->
+<div class="absolute top-6 left-6 z-10">
+<span class="inline-block px-3 py-1 bg-surface-alt text-ink border border-border text-label-md font-label-md tracking-wider">
+              آتی
+            </span>
+</div>
+<!-- Bottom Label Stack -->
+<div class="absolute inset-x-0 bottom-0 p-8 z-10 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent">
+<div class="border-r-2 border-surface-container-lowest pr-4 transition-all duration-300 group-hover:border-primary-container">
+<h3 class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight mb-2">
+                پروژه‌های آتی
+              </h3>
+<p class="text-body-md font-body-md text-surface-alt">
+                طرح‌های در دست مطالعه و آماده آغاز
+              </p>
+</div>
+<div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
+<span class="text-label-md font-label-md text-brand-tint group-hover:underline">ورود به مجموعه طرح‌های آتی</span>
+<span class="material-symbols-outlined transform group-hover:-translate-x-2 transition-transform duration-200">arrow_left_alt</span>
+</div>
+</div>
+</a>
+<!-- 2. در حال ساخت (Under Construction) -->
+<a class="group relative block aspect-[16/10] bg-ink overflow-hidden border border-border" href="/projects/under-construction">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Dynamic documentary photograph of a major real estate infrastructure site actively under development. Towering yellow cranes, precision post-tensioned concrete framework, steel rebar reinforcement grids, and civil engineers on site. High daylight contrast, authoritative industrial aesthetic, and precise engineering craftsmanship." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-KglGnG8Td6GVVWdkVhmbGIEvh07K59AfUjx3bGffVxqNUKHJykuwMhl6b1RtKibX4rKcUP5qa1bQj9C0UzlB-8STRKSXzrdXFunx7H5BqEV1ZkAA_n12xO3CnT9Cti89mVCHFBuDnjo5ufXiaf1O8vsMhubyKdTK4bVh6hnq2PVOlwMCKhUSaFDx-SAtSIv1OSuk-WM2hr7yNAHr1WpG4JnC9wRrk7AWpwV4JpHjnJaY5hqnCDjjBg')">
+</div>
+<div class="absolute inset-0 bg-ink/50 group-hover:bg-ink/40 transition-colors duration-300"></div>
+<!-- Top Badge: Under Construction (در حال ساخت) -->
+<div class="absolute top-6 left-6 z-10">
+<span class="inline-block px-3 py-1 bg-brand-tint text-primary-container border-0 text-label-md font-label-md tracking-wider">
+              در حال ساخت
+            </span>
+</div>
+<!-- Bottom Label Stack -->
+<div class="absolute inset-x-0 bottom-0 p-8 z-10 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent">
+<div class="border-r-2 border-surface-container-lowest pr-4 transition-all duration-300 group-hover:border-primary-container">
+<h3 class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight mb-2">
+                پروژه‌های در حال ساخت
+              </h3>
+<p class="text-body-md font-body-md text-surface-alt">
+                عملیات عمرانی جاری و توسعه فعال
+              </p>
+</div>
+<div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
+<span class="text-label-md font-label-md text-brand-tint group-hover:underline">ورود به فهرست کارگاه‌های عمرانی</span>
+<span class="material-symbols-outlined transform group-hover:-translate-x-2 transition-transform duration-200">arrow_left_alt</span>
+</div>
+</div>
+</a>
+<!-- 3. در حال بهره‌برداری (Operating) -->
+<a class="group relative block aspect-[16/10] bg-ink overflow-hidden border border-border" href="/projects/operating">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Editorial architectural photo of a delivered premier mixed-use commercial and residential tower complex in full active operation. Polished marble lobbies, manicured linear plaza with water features, occupants in professional attire, refined evening facade illumination under an authoritative navy blue sky." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsTFCAjb2yTjaXvvJP38AOiOgrUOhGH8ILjqValBL1WotFfrwb929FzCqsfSgpw_yOCy4EUTWyh6pFLVSjGtGJezCLIziUg7trRlzzs1ozo_DWQNunu4JULebOu8YhWU__lAsSGZnyDVZmyx9rjgLI9OL5XHf6YIWDfqzXF0Lxij2In3ZTalhZwoe-IQV4ENPOtHGzM-vhozpzrzyvMoVVWDDjOpkA2KirPwYnvv_KWaPwBr-1ylDSNA')">
+</div>
+<div class="absolute inset-0 bg-ink/50 group-hover:bg-ink/40 transition-colors duration-300"></div>
+<!-- Top Badge: In Operation (در حال بهره‌برداری) -->
+<div class="absolute top-6 left-6 z-10">
+<span class="inline-block px-3 py-1 bg-primary-container text-surface-container-lowest border-0 text-label-md font-label-md tracking-wider">
+              در حال بهره‌برداری
+            </span>
+</div>
+<!-- Bottom Label Stack -->
+<div class="absolute inset-x-0 bottom-0 p-8 z-10 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent">
+<div class="border-r-2 border-surface-container-lowest pr-4 transition-all duration-300 group-hover:border-primary-container">
+<h3 class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight mb-2">
+                پروژه‌های در حال بهره‌برداری
+              </h3>
+<p class="text-body-md font-body-md text-surface-alt">
+                مدیریت دارایی و بهره‌برداری پایدار
+              </p>
+</div>
+<div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
+<span class="text-label-md font-label-md text-brand-tint group-hover:underline">مشاهده دارایی‌های بهره‌برداری شده</span>
+<span class="material-symbols-outlined transform group-hover:-translate-x-2 transition-transform duration-200">arrow_left_alt</span>
+</div>
+</div>
+</a>
+<!-- 4. تکمیل‌شده (Completed) -->
+<a class="group relative block aspect-[16/10] bg-ink overflow-hidden border border-border" href="/projects/completed">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Striking wide-angle photograph of an iconic completed architectural landmark delivered by ICD Holding. Ultra-clean geometric facades, travertine stone cladding, monumental entrance portico, sharp symmetry, shot with midday directional architectural lighting highlighting structural integrity and permanent permanence." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVksCZRtIl4J98HxZv4Umu0KDJEMB8b_Z4VhW-DCYLF3NsqMhNwWGJ3kI1GEI_i0myNZ3Rr9SsHkTnRk84dtESaBN98SsRfwPqaaDFqQURcYa7EEExyGtV_Pkw38jo6HvUfnx6XUQu6fVqtyf4vsTu06Qfu_A1QieR6dh_LTLF_6aZKtmHHe5Qlyf8tZ4LVL0ecbBIAVHTMDeKON0zYON2uDq7sBvGw_t2T-o41cAOidLsk58wiE9R_g')">
+</div>
+<div class="absolute inset-0 bg-ink/50 group-hover:bg-ink/40 transition-colors duration-300"></div>
+<!-- Top Badge: Completed (تکمیل‌شده) -->
+<div class="absolute top-6 left-6 z-10">
+<span class="inline-block px-3 py-1 bg-ink text-surface-container-lowest border border-border text-label-md font-label-md tracking-wider">
+              تکمیل‌شده
+            </span>
+</div>
+<!-- Bottom Label Stack -->
+<div class="absolute inset-x-0 bottom-0 p-8 z-10 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent">
+<div class="border-r-2 border-surface-container-lowest pr-4 transition-all duration-300 group-hover:border-primary-container">
+<h3 class="text-headline-md font-headline-md text-surface-container-lowest tracking-tight mb-2">
+                پروژه‌های تکمیل‌شده
+              </h3>
+<p class="text-body-md font-body-md text-surface-alt">
+                کارنامه اجرایی و تحویل قطعی
+              </p>
+</div>
+<div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
+<span class="text-label-md font-label-md text-brand-tint group-hover:underline">بررسی کارنامه تاریخی و ابنیه تحویلی</span>
+<span class="material-symbols-outlined transform group-hover:-translate-x-2 transition-transform duration-200">arrow_left_alt</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- ================= UNIFIED INSTITUTIONAL FOOTER ================= -->
+<footer class="bg-ink text-surface-container-lowest border-t border-border">
+<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
+<!-- Top Grid: Brand Column + 4 Structural Nav Columns = 5 Columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-border/20">
+<!-- Col 1: Corporate Brand & Profile -->
+<div class="lg:col-span-1">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-8 h-8 bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-headline-sm">
+              ث
+            </div>
+<span class="text-headline-sm font-headline-sm text-surface-container-lowest">
+              هلدینگ ساختمانی ثاخت
+            </span>
+</div>
+<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed mb-6">
+            شرکت بین‌المللی توسعه ساختمان (ثاخت)، بزرگ‌ترین نهاد توسعه املاک و مستغلات بورسی کشور با بیش از سه دهه سابقه پیشتازی در ساخت ابنیه تمدنی.
+          </p>
+<div class="text-label-md font-label-md text-outline-variant space-y-1">
+<div>نماد معاملاتی بورس: <span class="text-brand-tint font-bold">ثاخت</span></div>
+<div>شناسه ملی: ۱۰۱۰۰۸۶۶۰۹۵</div>
+</div>
+</div>
+<!-- Col 2: هویت و پورتفو -->
+<div>
+<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
+            هویت و پورتفو
+          </h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/about">
+                معرفی هلدینگ و هیئت‌مدیره
+              </a>
+</li>
+<li>
+<a class="text-surface-container-lowest font-bold hover:text-brand-tint transition-colors" href="/projects">
+                پرتفوی پروژه‌های عمرانی
+              </a>
+</li>
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/sustainability">
+                پایداری و استانداردهای مهندسی
+              </a>
+</li>
+</ul>
+</div>
+<!-- Col 3: سهامداران و بازار سرمایه -->
+<div>
+<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
+            سهامداران و بورس
+          </h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/shareholders">
+                سامانه سهامداران و کدال
+              </a>
+</li>
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/tenders">
+                مناقصات و مزایده‌ها
+              </a>
+</li>
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/financial-reports">
+                حریم خصوصی و شفافیت مالی
+              </a>
+</li>
+</ul>
+</div>
+<!-- Col 4: پیش‌فروش و رسانه -->
+<div>
+<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
+            پیش‌فروش و تحلیل
+          </h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm">
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/sales">
+                فرصت‌های پیش‌فروش و سرمایه‌گذاری
+              </a>
+</li>
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/media">
+                اخبار و رسانه دیجیتال
+              </a>
+</li>
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/dideban">
+                گزارش‌های ماهانه دیده‌بان
+              </a>
+</li>
+</ul>
+</div>
+<!-- Col 5: تماس و امور مشتریان -->
+<div>
+<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
+            ارتباطات سازمانی
+          </h4>
+<ul class="space-y-2.5 text-body-sm font-body-sm mb-4">
+<li>
+<a class="text-surface-dim hover:text-brand-tint transition-colors" href="/contact">
+                تماس و امور مشتریان
+              </a>
+</li>
+</ul>
+<div class="bg-surface-container-low/10 border border-border/30 p-3 text-label-md font-label-md text-surface-dim">
+<div class="text-surface-container-lowest font-bold mb-1">مرکز پاسخگویی متمرکز:</div>
+<div class="text-left font-mono text-brand-tint" dir="ltr">۰۲۱ - ۸۸۶۶۴۴۰۰</div>
+<div class="mt-1 text-[11px] text-outline-variant">تهران، خیابان ولیعصر، برج ثاخت</div>
+</div>
+</div>
+</div>
+<!-- Bottom Bar: Copyright & Compliance -->
+<div class="pt-8 flex flex-col md:flex-row items-center justify-between text-body-sm font-body-sm text-surface-dim gap-4">
+<p class="text-center md:text-right">
+          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
+        </p>
+<div class="flex items-center gap-6 text-label-md font-label-md">
+<span class="text-outline-variant">سامانه ثبت و بازرسی پروژه‌ها</span>
+<span class="inline-block w-1.5 h-1.5 bg-primary-container"></span>
+<span class="text-outline-variant">طراحی صنعتی مهندسی شده</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

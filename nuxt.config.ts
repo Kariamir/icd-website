@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-01-01',
   devtools: { enabled: true },
@@ -31,8 +33,17 @@ export default defineNuxtConfig({
 
   css: [
     '~/assets/css/tokens.css',
+    '~/assets/css/tailwind.css',
     '~/assets/css/main.css',
   ],
+
+  // ADR-013: the approved designs are authored in Tailwind utilities. The
+  // bridge in app/assets/css/tailwind.css maps those class names onto this
+  // project's own tokens, so no Material colour or 0px corner survives the
+  // port. Tailwind is loaded as a Vite plugin (v4 needs no PostCSS config).
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   // Component subfolders (ui/sections/wordpress) are a required layer
   // boundary per docs/wpnuxt-ui-boilerplate-full project-structure.md, but
