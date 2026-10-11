@@ -29,7 +29,7 @@
 <!-- Hero Top Bar: Breadcrumb Link -->
 <div class="relative z-10 w-full max-w-[1440px] mx-auto px-space-lg md:px-margin pt-8">
 <NuxtLink class="inline-flex items-center gap-2 text-surface-container-lowest hover:text-brand-tint transition-colors text-label-lg font-label-lg" to="/projects">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 <span>بازگشت به پروژه‌ها</span>
 </NuxtLink>
 </div>

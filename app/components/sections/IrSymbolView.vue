@@ -533,9 +533,9 @@ function toggleWatchlist() {
 .ir-symbol__key-stats dd { margin: 0; font-size: 14px; font-weight: 800; color: var(--color-text); }
 
 /* two columns */
-.ir-symbol__two-col { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
-@media (min-width: 1024px) { .ir-symbol__two-col { grid-template-columns: 7fr 5fr; align-items: start; } }
-.ir-symbol__col { display: flex; flex-direction: column; gap: var(--space-3); }
+.ir-symbol__two-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+@media (min-width: 1024px) { .ir-symbol__two-col { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; } }
+.ir-symbol__col { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
 
 .ir-symbol__table-wrap { overflow-x: auto; }
 .ir-symbol__orderbook, .ir-symbol__dps-table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }

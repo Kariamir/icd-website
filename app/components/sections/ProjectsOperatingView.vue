@@ -35,7 +35,7 @@
 <!-- Back Link / Parent Category indicator -->
 <div class="mb-5">
 <a class="inline-flex items-center gap-2 text-brand-tint hover:text-surface-container-lowest text-label-lg font-label-lg transition-colors duration-150" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 <span>مشاهده تمامی پروژه‌ها</span>
 </a>
 </div>

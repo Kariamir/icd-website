@@ -46,7 +46,7 @@
               </NuxtLink>
 </li>
 <li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/sustainability">
+<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir/financials?group=sustainability">
                 پایداری و استانداردهای مهندسی
               </NuxtLink>
 </li>
@@ -69,7 +69,7 @@
               </NuxtLink>
 </li>
 <li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/financial-reports">
+<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir/financials">
                 حریم خصوصی و شفافیت مالی
               </NuxtLink>
 </li>

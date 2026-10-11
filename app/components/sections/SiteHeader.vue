@@ -57,10 +57,10 @@ v-for="item in primaryNav"
 <!-- Icons -->
 <div class="flex items-center gap-1 pl-3 border-l border-border">
 <button class="p-2 text-ink hover:bg-surface-container-high transition-colors" title="جستجو">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" /></svg>
+<AppIcon name="search" />
 </button>
 <button class="p-2 text-ink hover:bg-surface-container-high transition-colors flex items-center gap-1 text-label-md font-label-md" title="Language">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" /></svg>
+<AppIcon name="language" />
 <span class="font-headline-sm text-[12px] uppercase tracking-wider">EN</span>
 </button>
 </div>

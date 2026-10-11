@@ -121,13 +121,13 @@
 <!-- Minimalist Corner Zoom & Map View Controls (Bottom-Left) -->
 <div class="absolute bottom-6 left-6 z-20 flex items-center bg-ink border border-border">
 <button class="w-10 h-10 flex items-center justify-center text-surface-container-lowest hover:bg-primary-container transition-colors border-l border-border" title="Zoom In">
-<span data-icon-missing="add" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="add" />
 </button>
 <button class="w-10 h-10 flex items-center justify-center text-surface-container-lowest hover:bg-primary-container transition-colors border-l border-border" title="Zoom Out">
-<span data-icon-missing="remove" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="remove" />
 </button>
 <button class="px-3 h-10 flex items-center gap-1.5 text-label-md font-label-md text-surface-container-lowest hover:bg-primary-container transition-colors" title="Full Map Screen">
-<span data-icon-missing="fullscreen" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="fullscreen" />
 <span>نمایش کامل</span>
 </button>
 </div>
@@ -188,7 +188,7 @@
 </div>
 <div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
 <span class="text-label-md font-label-md text-brand-tint group-hover:underline">ورود به مجموعه طرح‌های آتی</span>
-<span data-icon-missing="arrow_left_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_left_alt" />
 </div>
 </div>
 </NuxtLink>
@@ -215,7 +215,7 @@
 </div>
 <div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
 <span class="text-label-md font-label-md text-brand-tint group-hover:underline">ورود به فهرست کارگاه‌های عمرانی</span>
-<span data-icon-missing="arrow_left_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_left_alt" />
 </div>
 </div>
 </NuxtLink>
@@ -242,7 +242,7 @@
 </div>
 <div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
 <span class="text-label-md font-label-md text-brand-tint group-hover:underline">مشاهده دارایی‌های بهره‌برداری شده</span>
-<span data-icon-missing="arrow_left_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_left_alt" />
 </div>
 </div>
 </NuxtLink>
@@ -269,7 +269,7 @@
 </div>
 <div class="mt-6 flex items-center justify-between text-surface-container-lowest pt-4 border-t border-surface-container-lowest/20">
 <span class="text-label-md font-label-md text-brand-tint group-hover:underline">بررسی کارنامه تاریخی و ابنیه تحویلی</span>
-<span data-icon-missing="arrow_left_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_left_alt" />
 </div>
 </div>
 </NuxtLink>

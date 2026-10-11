@@ -31,7 +31,7 @@
 <!-- Top Back Cue to /projects -->
 <div class="pt-2">
 <a class="inline-flex items-center gap-2 text-surface-container-lowest hover:text-brand-tint text-label-lg font-label-lg tracking-wide transition-colors duration-150 group" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 <span class="">بازگشت به آرشیو کل پروژه‌ها</span>
 </a>
 </div>
@@ -189,7 +189,7 @@
 </div>
 <a class="inline-flex items-center gap-2 h-11 px-6 bg-primary-container text-on-primary text-label-lg font-label-lg hover:bg-brand-blue-deep transition-colors" href="#">
 <span class="">دریافت دفترچه جامع مشخصات فنی</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 12l-4-4m4 4l4-4M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" /></svg>
+<AppIcon name="download" />
 </a>
 </div>
 </section>

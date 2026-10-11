@@ -26,35 +26,53 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* Form controls don't inherit the page font by default — make them. */
-button, input, select, textarea { font: inherit; color: inherit; }
-html, body { padding: 0; margin: 0; }
+/*
+ * Element defaults live in Tailwind's `base` cascade layer (ADR-013).
+ *
+ * Unlayered CSS beats ANY layered CSS regardless of specificity, and Tailwind
+ * emits its utilities into `@layer utilities`. Left unlayered, these resets
+ * silently overrode the approved designs everywhere: `a { color: inherit }`
+ * removed every link colour, `h1 { font }` forced every heading size, the
+ * margin reset removed every heading/paragraph margin, and the button rule
+ * blanked white-on-dark controls. Inside `base` they are defaults that
+ * utilities and scoped component styles can both override.
+ */
+@layer base {
+  /* Form controls don't inherit the page font by default — make them. */
+  button, input, select, textarea { font: inherit; color: inherit; }
+  html, body { padding: 0; margin: 0; }
 
-html {
-  background: var(--color-background);
-  color: var(--color-text);
-  font: var(--text-body);
-  -webkit-font-smoothing: antialiased;
+  html {
+    background: var(--color-background);
+    color: var(--color-text);
+    font: var(--text-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  /* RTL is the default document direction; the `en` locale flips it explicitly
+     via <html dir="ltr">, never with left/right utility overrides. */
+  html[dir='rtl'] { direction: rtl; }
+  html[dir='ltr'] { direction: ltr; }
+
+  img, picture, video { display: block; max-width: 100%; }
+
+  h1, h2, h3, h4, p, figure { margin: 0; }
+
+  h1 { font: var(--text-h1); }
+  h2 { font: var(--text-h2); }
+  h3 { font: var(--text-h3); }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
-
-body {
-  min-height: 100vh;
-}
-
-/* RTL is the default document direction; the `en` locale flips it explicitly
-   via <html dir="ltr">, never with left/right utility overrides. */
-html[dir='rtl'] { direction: rtl; }
-html[dir='ltr'] { direction: ltr; }
-
-img, picture, video { display: block; max-width: 100%; }
-
-h1, h2, h3, h4, p, figure { margin: 0; }
-
-h1 { font: var(--text-h1); }
-h2 { font: var(--text-h2); }
-h3 { font: var(--text-h3); }
-
-a { color: inherit; }
 
 /* Latin numerals/prices inside RTL text must not reflow — see
    docs/design-system-icd3d.md §3. */
@@ -74,11 +92,6 @@ a { color: inherit; }
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {

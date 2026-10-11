@@ -59,7 +59,7 @@ const governanceDocs = [
         <span aria-hidden="true">/</span>
         <NuxtLink to="/about">درباره ثاخت</NuxtLink>
         <span aria-hidden="true">/</span>
-        <NuxtLink to="/about/board" class="board-profile__crumb-hub">مدیران و اعضای هیات‌مدیره</NuxtLink>
+        <NuxtLink to="/about#board" class="board-profile__crumb-hub">مدیران و اعضای هیات‌مدیره</NuxtLink>
         <span aria-hidden="true">/</span>
         <span class="board-profile__breadcrumb-current">{{ member.name }}</span>
       </div>
@@ -156,7 +156,7 @@ const governanceDocs = [
         </div>
 
         <nav v-if="previousMember || nextMember" class="board-profile__pager" aria-label="اعضای قبلی و بعدی">
-          <NuxtLink v-if="previousMember" :to="`/about/board/${previousMember.slug}`" class="board-profile__pager-link">
+          <NuxtLink v-if="previousMember" :to="'/about#board'" class="board-profile__pager-link">
             <span class="board-profile__pager-icon" aria-hidden="true">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
             </span>
@@ -165,7 +165,7 @@ const governanceDocs = [
               <span class="board-profile__pager-title">{{ previousMember.name }}</span>
             </span>
           </NuxtLink>
-          <NuxtLink v-if="nextMember" :to="`/about/board/${nextMember.slug}`" class="board-profile__pager-link board-profile__pager-link--next">
+          <NuxtLink v-if="nextMember" :to="'/about#board'" class="board-profile__pager-link board-profile__pager-link--next">
             <span>
               <span class="board-profile__pager-label">عضو بعدی</span>
               <span class="board-profile__pager-title">{{ nextMember.name }}</span>
@@ -181,11 +181,11 @@ const governanceDocs = [
         <div class="board-profile__box">
           <h3 class="board-profile__box-head">
             <span>سایر اعضای هیات‌مدیره</span>
-            <NuxtLink to="/about/board" class="board-profile__see-all">مشاهده همه</NuxtLink>
+            <NuxtLink to="/about#board" class="board-profile__see-all">مشاهده همه</NuxtLink>
           </h3>
           <ul class="board-profile__members">
             <li v-for="m in otherMembers" :key="m.slug">
-              <NuxtLink :to="`/about/board/${m.slug}`">
+              <NuxtLink :to="'/about#board'">
                 <span class="board-profile__member-avatar">
                   <BaseImage v-if="m.image" :src="m.image.src" :alt="m.image.alt || m.name" />
                 </span>

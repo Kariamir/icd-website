@@ -38,18 +38,18 @@
 <form action="#" class="relative flex items-center" method="GET" onsubmit="event.preventDefault();">
 <input class="w-full h-12 pr-5 pl-14 bg-white rounded-full border border-border text-sm text-ink placeholder:text-slate-400 shadow-sm focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/15 transition-all" placeholder="جستجو در نام پروژه‌ها، اسناد یا محتوا..." type="text" />
 <button aria-label="جستجو" class="absolute left-1.5 w-9 h-9 bg-primary-container hover:bg-brand-blue-deep text-white rounded-full flex items-center justify-center transition-colors shadow-sm" type="submit">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" /></svg>
+<AppIcon name="search" />
 </button>
 </form>
 </div>
 <!-- Primary Action Buttons (Capsule Shaped) -->
 <div class="flex flex-wrap items-center justify-center gap-3.5 mb-12">
 <a class="inline-flex items-center gap-2 px-6 h-12 rounded-full bg-primary-container text-white text-sm font-semibold hover:bg-brand-blue-deep transition-all shadow-sm hover:shadow" href="#">
-<span data-icon-missing="home" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="home" />
 <span>بازگشت به صفحه اصلی</span>
 </a>
 <a class="inline-flex items-center gap-2 px-6 h-12 rounded-full bg-white border border-border text-ink text-sm font-semibold hover:border-primary-container hover:text-primary-container hover:bg-slate-50 transition-all shadow-sm" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2" /></svg>
+<AppIcon name="apartment" />
 <span>مشاهده پروژه‌ها</span>
 </a>
 </div>
@@ -58,19 +58,19 @@
 <p class="text-xs font-medium text-slate-400 mb-4">بخش‌های پرکاربرد برای راهنمایی شما:</p>
 <div class="flex flex-wrap justify-center gap-2.5">
 <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain" />
 <span>پروژه‌ها</span>
 </a>
 <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<span data-icon-missing="key" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="key" />
 <span>پیش‌فروش واحدها</span>
 </a>
 <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" /></svg>
+<AppIcon name="trending_up" />
 <span>سهام ثاخت</span>
 </a>
 <a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<span data-icon-missing="headset_mic" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="headset_mic" />
 <span>تماس با ما</span>
 </a>
 </div>

@@ -76,17 +76,17 @@
             </p>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-border">
 <div class="p-4 bg-surface border border-border">
-<span data-icon-missing="account_balance" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="account_balance" />
 <div class="text-ink font-label-lg text-label-lg">ثبات نهادی</div>
 <div class="text-secondary text-body-sm font-body-sm mt-1">بزرگ‌ترین هلدینگ ساختمانی بورسی</div>
 </div>
 <div class="p-4 bg-surface border border-border">
-<span data-icon-missing="engineering" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="engineering" />
 <div class="text-ink font-label-lg text-label-lg">مقیاس بی‌بدیل</div>
 <div class="text-secondary text-body-sm font-body-sm mt-1">مدیریت مگاپروژه‌های تراز اول</div>
 </div>
 <div class="p-4 bg-surface border border-border">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" /></svg>
+<AppIcon name="trending_up" />
 <div class="text-ink font-label-lg text-label-lg">مسیر ارتقا</div>
 <div class="text-secondary text-body-sm font-body-sm mt-1">سیستم ارزیابی شایسته‌محور</div>
 </div>
@@ -115,7 +115,7 @@
 <div class="max-w-3xl mx-auto">
 <div class="text-center mb-10">
 <div class="inline-flex items-center justify-center p-3 bg-brand-tint text-primary-container mb-4">
-<span data-icon-missing="upload_file" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="upload_file" />
 </div>
 <h2 class="text-ink text-headline-lg font-headline-lg mb-3">
               ثبت مستقیم رزومه کاری
@@ -134,7 +134,7 @@
 </label>
 <div class="relative">
 <input class="w-full bg-surface-container-lowest border border-border px-4 py-3 text-ink text-body-md font-body-md placeholder:text-secondary/50 focus:border-primary-container focus:outline-none transition-colors duration-150" id="fullName" name="fullName" placeholder="مثال: مهندس علی علوی" required="" type="text" />
-<span data-icon-missing="badge" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="badge" />
 </div>
 </div>
 <!-- Field 2: Contact Number -->
@@ -144,7 +144,7 @@
 </label>
 <div class="relative">
 <input class="w-full text-right bg-surface-container-lowest border border-border px-4 py-3 text-ink text-body-md font-body-md placeholder:text-secondary/50 focus:border-primary-container focus:outline-none transition-colors duration-150" dir="ltr" id="contactNumber" name="contactNumber" placeholder="۰۹۱۲XXXXXXX" required="" type="tel" />
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
+<AppIcon name="call" />
 </div>
 </div>
 <!-- Field 3: File Attachment (Drag & Drop / Browse) -->
@@ -155,7 +155,7 @@
 <div class="border-2 border-dashed border-border bg-surface hover:bg-surface-container-high transition-colors duration-150 p-8 text-center cursor-pointer relative" id="dropZone" onclick="document.getElementById('resumeFile').click()">
 <input accept=".pdf,.docx,.doc" class="hidden" id="resumeFile" name="resumeFile" onchange="handleFileSelect(event)" required="" type="file" />
 <div class="flex flex-col items-center" id="dropZonePrompt">
-<span data-icon-missing="cloud_upload" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="cloud_upload" />
 <span class="text-ink font-label-lg text-label-lg mb-1">
                       فایل رزومه خود را به اینجا بکشید یا برای انتخاب فایل کلیک کنید
                     </span>
@@ -165,14 +165,14 @@
 </div>
 <div class="hidden flex items-center justify-between bg-surface-container-lowest p-3 border border-border mt-2" id="fileSelectedDisplay">
 <div class="flex items-center gap-3 overflow-hidden text-right">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6" /></svg>
+<AppIcon name="picture_as_pdf" />
 <div>
 <div class="text-ink text-label-md font-label-md truncate max-w-xs md:max-w-md" id="selectedFileName">نام فایل</div>
 <div class="text-secondary text-body-sm font-body-sm" id="selectedFileSize">اندازه فایل</div>
 </div>
 </div>
 <button class="text-status-error hover:bg-surface-container p-1" onclick="clearFile(event)" title="حذف فایل" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+<AppIcon name="close" />
 </button>
 </div>
 </div>
@@ -181,19 +181,19 @@
 <div class="pt-2">
 <button class="w-full bg-primary-container hover:bg-brand-blue-deep active:bg-primary text-surface-container-lowest py-4 px-6 text-label-lg font-label-lg flex items-center justify-center gap-3 transition-colors duration-150 cursor-pointer" type="submit">
 <span>ارسال رزومه کاری</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </button>
 </div>
 <!-- Privacy & SLA Note -->
 <div class="p-4 bg-surface border-r-4 border-primary-container flex items-start gap-3 text-secondary text-body-sm font-body-sm">
-<span data-icon-missing="verified_user" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="verified_user" />
 <p>
                   اطلاعات شما محرمانه تلقی شده و حداکثر ظرف ۷۲ ساعت توسط واحد منابع انسانی بررسی خواهد شد.
                 </p>
 </div>
 <!-- Success Notification Alert (Hidden Initially) -->
 <div class="hidden p-4 bg-surface-container border border-status-success text-status-success flex items-center gap-3" id="formSuccessAlert">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>
+<AppIcon name="check_circle" />
 <span class="font-label-lg text-label-lg">رزومه شما با موفقیت ثبت شد. کد پیگیری ارسال پیامک گردید.</span>
 </div>
 </form>
@@ -220,7 +220,7 @@
 <div class="bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary-container transition-colors duration-150">
 <div>
 <div class="w-12 h-12 bg-surface-container-lowest border border-border flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="health_and_safety" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="health_and_safety" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-3">
                 بیمه درمان تکمیلی ممتاز
@@ -238,7 +238,7 @@
 <div class="bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary-container transition-colors duration-150">
 <div>
 <div class="w-12 h-12 bg-surface-container-lowest border border-border flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="real_estate_agent" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="real_estate_agent" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-3">
                 تسهیلات مسکن و وام رفاهی
@@ -256,7 +256,7 @@
 <div class="bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary-container transition-colors duration-150">
 <div>
 <div class="w-12 h-12 bg-surface-container-lowest border border-border flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="card_giftcard" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="card_giftcard" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-3">
                 بسته‌ها و هدایای مناسبتی
@@ -274,7 +274,7 @@
 <div class="bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary-container transition-colors duration-150">
 <div>
 <div class="w-12 h-12 bg-surface-container-lowest border border-border flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="insights" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="insights" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-3">
                 پاداش مبتنی بر عملکرد
@@ -317,7 +317,7 @@
 <div class="bg-surface-container-lowest border border-border p-6 flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-4">
-<span data-icon-missing="school" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="school" />
 <span class="text-label-md font-label-md px-2 py-0.5 bg-surface text-ink border border-border">سطح سازمانی</span>
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">
@@ -335,7 +335,7 @@
 <div class="bg-surface-container-lowest border border-border p-6 flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-4">
-<span data-icon-missing="architecture" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="architecture" />
 <span class="text-label-md font-label-md px-2 py-0.5 bg-surface text-ink border border-border">استانداردهای جهانی</span>
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">
@@ -353,7 +353,7 @@
 <div class="bg-surface-container-lowest border border-border p-6 flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-4">
-<span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain" />
 <span class="text-label-md font-label-md px-2 py-0.5 bg-surface text-ink border border-border">فناوری روز</span>
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">
@@ -371,7 +371,7 @@
 <div class="bg-surface-container-lowest border border-border p-6 flex flex-col justify-between">
 <div>
 <div class="flex items-center justify-between mb-4">
-<span data-icon-missing="workspace_premium" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="workspace_premium" />
 <span class="text-label-md font-label-md px-2 py-0.5 bg-surface text-ink border border-border">حمایت تحصیلی</span>
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">
@@ -407,7 +407,7 @@
                 تیم منابع انسانی ستاد مرکزی پاسخگوی مکاتبات متقاضیان محترم می‌باشد.
               </p>
 <div class="text-ink text-label-md font-label-md flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" /></svg>
+<AppIcon name="mail" />
 <span>hr@icd.ir</span>
 </div>
 </div>

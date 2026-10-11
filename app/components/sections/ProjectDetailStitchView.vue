@@ -58,19 +58,19 @@
   <!-- Interactive Tab Headers -->
   <div class="flex flex-wrap border-b border-border gap-0 bg-surface/40" role="tablist">
     <button onclick="switchTab('arch')" id="tab-btn-arch" class="tab-btn active px-6 py-4 text-label-lg font-bold border-b-2 border-primary-container transition-all text-center flex items-center gap-2">
-      <svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2" /></svg>
+      <AppIcon name="apartment" />
       <span class="">مشخصات معماری و کاربری</span>
     </button>
     <button onclick="switchTab('structure')" id="tab-btn-structure" class="tab-btn px-6 py-4 text-label-lg font-bold text-secondary hover:text-ink hover:bg-surface border-b-2 border-transparent transition-all text-center flex items-center gap-2">
-      <span data-icon-missing="engineering" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+      <AppIcon name="engineering" />
       <span class="">سازه و تکنولوژی ساخت</span>
     </button>
     <button onclick="switchTab('geo')" id="tab-btn-geo" class="tab-btn px-6 py-4 text-label-lg font-bold text-secondary hover:text-ink hover:bg-surface border-b-2 border-transparent transition-all text-center flex items-center gap-2">
-      <span data-icon-missing="straighten" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+      <AppIcon name="straighten" />
       <span class="">موقعیت و ابعاد</span>
     </button>
     <button onclick="switchTab('units')" id="tab-btn-units" class="tab-btn px-6 py-4 text-label-lg font-bold text-secondary hover:text-ink hover:bg-surface border-b-2 border-transparent transition-all text-center flex items-center gap-2">
-      <span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+      <AppIcon name="domain" />
       <span class="">ظرفیت و جزئیات واحدها</span>
     </button>
   </div>

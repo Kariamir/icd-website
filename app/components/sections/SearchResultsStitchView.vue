@@ -92,7 +92,7 @@
             </p>
 </div>
 <!-- Sort and Additional Filter Dropdowns -->
-<div class="flex items-center gap-3">
+<div class="flex flex-wrap items-center gap-3 min-w-0">
 <div class="flex items-center gap-2">
 <label class="text-xs font-semibold text-slate-500 shrink-0" for="sortSelect">مرتب‌سازی:</label>
 <select class="text-xs font-semibold bg-white border border-slate-200 rounded-xl px-3 py-2 pr-8 text-brand-dark focus:ring-brand-blue focus:border-brand-blue" id="sortSelect">
@@ -113,7 +113,7 @@
 </div>
 </div>
 <!-- Filter Category Tabs (Horizontal Segmented Pills) -->
-<div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+<div class="flex items-center gap-2 overflow-x-auto pb-2 min-w-0 max-w-full [scrollbar-width:none]">
 <button class="px-4 py-2 rounded-full text-xs font-bold bg-brand-blue text-white shadow-sm shrink-0 whitespace-nowrap">
             همه نتایج (۴۸)
           </button>

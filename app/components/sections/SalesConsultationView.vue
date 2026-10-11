@@ -75,12 +75,12 @@
 <div class="pt-2">
 <button class="w-full py-3.5 px-6 bg-primary-container text-on-primary text-headline-sm font-headline-sm hover:bg-brand-blue-deep active:opacity-95 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer" type="submit">
 <span>ثبت درخواست مشاوره</span>
-<span data-icon-missing="arrow_right_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_right_alt" />
 </button>
 </div>
 <!-- Privacy & SLA Note -->
 <div class="flex items-center gap-2 pt-2 text-outline text-body-sm font-body-sm justify-center">
-<span data-icon-missing="verified_user" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="verified_user" />
 <span>اطلاعات شما نزد هلدینگ ثاخت به صورت محرمانه محفوظ خواهد بود.</span>
 </div>
 </form>

@@ -224,7 +224,7 @@ const minutes = (sec: number) => toFaDigits(Math.round(sec / 60))
           <div class="media-index__hero-author">
             <span class="media-index__avatar" aria-hidden="true">{{ featured.author.initials }}</span>
             <div>
-              <NuxtLink v-if="featured.author.boardSlug" :to="`/about/board/${featured.author.boardSlug}`" class="media-index__hero-author-name">{{ featured.author.name }}</NuxtLink>
+              <NuxtLink v-if="featured.author.boardSlug" :to="'/about#board'" class="media-index__hero-author-name">{{ featured.author.name }}</NuxtLink>
               <span v-else class="media-index__hero-author-name">{{ featured.author.name }}</span>
               <span class="media-index__hero-author-role">{{ featured.author.role }}</span>
             </div>

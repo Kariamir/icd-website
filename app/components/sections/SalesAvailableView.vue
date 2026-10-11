@@ -78,7 +78,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۵۳,۶۵۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -118,7 +118,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۴۱,۱۸۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -158,7 +158,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۷۲,۵۰۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -198,7 +198,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۱۴۶,۲۰۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -238,7 +238,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۸۸,۹۰۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -278,7 +278,7 @@
 <span class="text-ink text-headline-md font-headline-md tabular-nums font-bold">۴۸,۳۰۰,۰۰۰,۰۰۰ <span class="text-xs font-normal text-secondary">ریال</span></span>
 </div>
 <a aria-label="مشاهده کلاسه واحد" class="p-2.5 bg-surface text-ink hover:bg-primary-container hover:text-on-primary transition-colors flex items-center justify-center border border-border" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+<AppIcon name="arrow_back" />
 </a>
 </div>
 </div>
@@ -291,7 +291,7 @@
 </div>
 <div class="flex items-center gap-1">
 <button class="w-10 h-10 border border-border text-ink bg-surface-container-lowest font-bold text-body-sm flex items-center justify-center hover:bg-surface-container-high transition-colors" disabled="">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+<AppIcon name="chevron_right" />
 </button>
 <button class="w-10 h-10 border border-primary-container bg-primary-container text-on-primary font-bold text-body-sm flex items-center justify-center">
           ۱
@@ -307,12 +307,12 @@
           ۱۴
         </button>
 <button class="w-10 h-10 border border-border text-ink bg-surface-container-lowest font-bold text-body-sm flex items-center justify-center hover:bg-surface-container-high transition-colors">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7" /></svg>
+<AppIcon name="chevron_backward" />
 </button>
 </div>
 <a class="inline-flex items-center gap-2 text-primary font-bold text-body-sm hover:underline" href="#">
 <span class="">دانلود کاتالوگ جامع واگذاری‌ها (PDF)</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 12l-4-4m4 4l4-4M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" /></svg>
+<AppIcon name="download" />
 </a>
 </div>
 </main>

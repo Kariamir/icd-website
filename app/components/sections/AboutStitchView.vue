@@ -88,7 +88,7 @@
 <img class="w-full h-full object-cover opacity-75 group-hover:scale-102 transition-transform duration-700" data-alt="Dramatic widescreen cinematic aerial shot of modern Tehran skyline at dusk, highlighting the iconic Tehran International Tower illuminated against the Alborz mountain silhouettes. Clean industrial lighting, moody architectural atmosphere, cold blue and warm amber contrasts." src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-ink/30 flex items-center justify-center">
 <button aria-label="Play brand film" class="w-20 h-20 bg-primary-container hover:bg-brand-blue-deep text-surface-container-lowest flex items-center justify-center transition-all" type="button">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+<AppIcon name="play_arrow" />
 </button>
 </div>
 <div class="absolute bottom-6 right-6 left-6 flex justify-between items-end text-surface-container-lowest pointer-events-none">
@@ -305,7 +305,7 @@
 </div>
 <a class="inline-flex items-center gap-2 text-primary-container hover:text-brand-blue-deep text-label-lg font-label-lg group" href="#">
           مشاهده کلیه پروژه‌های ثاخت
-          <span data-icon-missing="cloud_upload" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+          <AppIcon name="cloud_upload" />
 </a>
 </div>
 <!-- Bento Project Grid -->
@@ -416,7 +416,7 @@
 <div class="p-8 bg-surface-container-lowest border border-border flex flex-col justify-between hover:border-primary-container transition-colors">
 <div>
 <div class="w-12 h-12 bg-surface flex items-center justify-center text-primary-container mb-6">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2" /></svg>
+<AppIcon name="apartment" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">شرکت آ.اس.پ (سهامی عام)</h3>
 <span class="text-outline text-label-md font-label-md block mb-4">نماد بورس: آ س پ</span>
@@ -426,14 +426,14 @@
 </div>
 <div class="pt-6 mt-6 border-t border-border flex items-center justify-between">
 <span class="text-label-md font-label-md text-ink">سهم هلدینگ: ۵۶٪</span>
-<span data-icon-missing="north_west" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="north_west" />
 </div>
 </div>
 <!-- Company 2 -->
 <div class="p-8 bg-surface-container-lowest border border-border flex flex-col justify-between hover:border-primary-container transition-colors">
 <div>
 <div class="w-12 h-12 bg-surface flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="location_city" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="location_city" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">شهرسازی و خانه‌سازی باغمیشه</h3>
 <span class="text-outline text-label-md font-label-md block mb-4">نماد بورس: ثباغ</span>
@@ -443,14 +443,14 @@
 </div>
 <div class="pt-6 mt-6 border-t border-border flex items-center justify-between">
 <span class="text-label-md font-label-md text-ink">سهم هلدینگ: ۶۲٪</span>
-<span data-icon-missing="north_west" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="north_west" />
 </div>
 </div>
 <!-- Company 3 -->
 <div class="p-8 bg-surface-container-lowest border border-border flex flex-col justify-between hover:border-primary-container transition-colors">
 <div>
 <div class="w-12 h-12 bg-surface flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">توسعه ساختمان خاورمیانه</h3>
 <span class="text-outline text-label-md font-label-md block mb-4">سرمایه‌گذاری تخصصی</span>
@@ -460,14 +460,14 @@
 </div>
 <div class="pt-6 mt-6 border-t border-border flex items-center justify-between">
 <span class="text-label-md font-label-md text-ink">سهم هلدینگ: ۱۰۰٪</span>
-<span data-icon-missing="north_west" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="north_west" />
 </div>
 </div>
 <!-- Company 4 -->
 <div class="p-8 bg-surface-container-lowest border border-border flex flex-col justify-between hover:border-primary-container transition-colors">
 <div>
 <div class="w-12 h-12 bg-surface flex items-center justify-center text-primary-container mb-6">
-<span data-icon-missing="construction" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="construction" />
 </div>
 <h3 class="text-ink text-headline-sm font-headline-sm mb-2">مهندسی پارس سازه</h3>
 <span class="text-outline text-label-md font-label-md block mb-4">پیمانکاری عمومی رتبه یک</span>
@@ -477,7 +477,7 @@
 </div>
 <div class="pt-6 mt-6 border-t border-border flex items-center justify-between">
 <span class="text-label-md font-label-md text-ink">سهم هلدینگ: ۹۸٪</span>
-<span data-icon-missing="north_west" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="north_west" />
 </div>
 </div>
 </div>
@@ -556,21 +556,21 @@
 </div>
 <div class="space-y-4 pt-4 border-t border-border">
 <div class="flex items-start gap-4">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /></svg>
+<AppIcon name="location_on" />
 <div>
 <span class="text-ink font-bold block text-body-md font-body-md">نشانی ستاد مرکزی:</span>
 <span class="text-on-surface-variant text-body-sm font-body-sm">تهران، خیابان ولیعصر، بالاتر از میدان ونک، برج ثاخت، طبقات ۱۰ الی ۱۴</span>
 </div>
 </div>
 <div class="flex items-start gap-4">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" /></svg>
+<AppIcon name="call" />
 <div>
 <span class="text-ink font-bold block text-body-md font-body-md">مرکز تماس سهامداران:</span>
 <span class="text-on-surface-variant text-body-sm font-body-sm dir-ltr">۰۲۱ - ۸۸۷۸ ۰۲۰۰ (داخلی ۳۰۵)</span>
 </div>
 </div>
 <div class="flex items-start gap-4">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" /></svg>
+<AppIcon name="mail" />
 <div>
 <span class="text-ink font-bold block text-body-md font-body-md">پست الکترونیک رسمی:</span>
 <span class="text-on-surface-variant text-body-sm font-body-sm">info@sakht-holding.com</span>

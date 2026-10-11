@@ -236,7 +236,7 @@ export const documentHubs: Record<'financials' | 'governance', DocumentHubConten
       image: IMG('icd-ir-board-meeting'),
       rows: [
         { title: 'صورت‌جلسه و خلاصه تصمیمات مجمع عمومی عادی سالیانه', meta: 'فرمت PDF • حجم ۹۲۰ کیلوبایت • بهمن ۱۴۰۳', href: '#', icon: 'pdf' },
-        { title: 'معرفی اعضای هیات‌مدیره و وضعیت استقلال اعضا', meta: 'پیوند به صفحه هیات‌مدیره', href: '/about/board', icon: 'doc' },
+        { title: 'معرفی اعضای هیات‌مدیره و وضعیت استقلال اعضا', meta: 'پیوند به صفحه هیات‌مدیره', href: '/about#board', icon: 'doc' },
         { title: 'پخش ضبط‌شده جلسه مجمع و پرسش و پاسخ سهامداران', meta: 'پخش آنلاین • پیوند به پرتال کدال', href: '#', icon: 'video' },
       ],
     },

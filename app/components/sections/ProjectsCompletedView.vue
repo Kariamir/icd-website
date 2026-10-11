@@ -33,7 +33,7 @@
 <!-- Back Navigation Cue to /projects -->
 <div class="mb-6">
 <NuxtLink class="inline-flex items-center gap-2 text-surface-container-lowest/80 hover:text-surface-container-lowest text-label-lg font-label-lg transition-colors group" to="/projects">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 <span>بازگشت به تمام پروژه‌ها</span>
 </NuxtLink>
 </div>

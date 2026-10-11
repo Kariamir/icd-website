@@ -244,7 +244,7 @@
 <!-- Context Bar / View Explanation -->
 <div class="flex items-center justify-between mb-6">
 <div class="flex items-center gap-2 text-label-md font-label-md text-secondary">
-<span data-icon-missing="domain_disabled" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain_disabled" />
 <span>حالت نمایشی سیستم: نمونه وضعیت شرکت‌های فاقد پروژه جاری</span>
 </div>
 <span class="text-label-md font-label-md px-2 py-0.5 bg-surface border border-border text-outline">
@@ -255,7 +255,7 @@
 <div class="w-full bg-surface border border-border p-12 md:p-16 flex flex-col items-center justify-center text-center">
 <!-- Distinct Minimal Emblem Badge -->
 <div class="w-16 h-16 bg-surface-container-lowest border border-border flex items-center justify-center text-secondary mb-6">
-<span data-icon-missing="architecture" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="architecture" />
 </div>
 <!-- Polite Formal Notice Headline -->
 <h3 class="text-headline-sm font-headline-sm font-bold text-ink mb-3 tracking-tight">

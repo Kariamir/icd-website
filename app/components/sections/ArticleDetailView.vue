@@ -69,7 +69,7 @@ const articleHref = (t: ArticleType, slug: string) => `${mediaHubHref[t]}/${slug
 const projectTiles = ['megapars-tehran', 'tehran-international-tower']
   .map(slug => projects.find(p => p.slug === slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p))
-  .map(p => ({ slug: p.slug, name: p.name, image: `/img/placeholder.svg }))
+  .map(p => ({ slug: p.slug, name: p.name, image: `/img/placeholder.svg` }))
 
 // --- comment form ---
 const comment = reactive({ name: '', email: '', message: '', notify: false })
@@ -147,7 +147,7 @@ const audioHeading = computed(() => {
           <div class="article-detail__author">
             <span class="article-detail__author-avatar" aria-hidden="true">{{ article.author.initials }}</span>
             <div>
-              <NuxtLink v-if="article.author.boardSlug" :to="`/about/board/${article.author.boardSlug}`" class="article-detail__author-name">{{ article.author.name }}</NuxtLink>
+              <NuxtLink v-if="article.author.boardSlug" :to="'/about#board'" class="article-detail__author-name">{{ article.author.name }}</NuxtLink>
               <strong v-else class="article-detail__author-name">{{ article.author.name }}</strong>
               <span class="article-detail__author-role">{{ article.author.role }}</span>
             </div>

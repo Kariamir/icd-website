@@ -22,7 +22,7 @@
 <!-- 1. BACK LINK & BREADCRUMB -->
 <div class="mb-8">
 <a class="inline-flex items-center gap-2 text-body-md font-body-md text-primary-container hover:text-brand-blue-deep group font-semibold transition-all" href="#">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 <span class="">بازگشت به صفحه پروژه برج بین‌المللی تهران</span>
 </a>
 </div>
@@ -56,7 +56,7 @@
           ۱۸۵ <span class="text-headline-sm font-headline-sm text-secondary font-medium">مترمربع</span>
 </span>
 <span class="text-body-sm font-body-sm text-status-success mt-1.5 flex items-center gap-1 font-semibold">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>
+<AppIcon name="check_circle" />
           دارای سند تک‌برگ رسمی عرصه و اعیان
         </span>
 </div>
@@ -69,7 +69,7 @@
 <img alt="سالن نشیمن لوکس واحد ۱۴۰۴ با دید پانوراما پایتخت و غروب آفتاب" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-5 right-5 text-surface-container-lowest z-10 flex items-center gap-2 bg-ink/85 px-4 py-2 backdrop-blur-sm border border-white/20">
-<span data-icon-missing="camera" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="camera" />
 <span class="font-label-md text-label-md font-semibold">سالن نشیمن اصلی و دید وسیع افق پایتخت</span>
 </div>
 </div>
@@ -79,7 +79,7 @@
 <img alt="اتاق خواب مستر رویال با پنجره‌های قدی و دید شبانه" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-3 right-3 text-surface-container-lowest z-10 flex items-center gap-1.5 bg-ink/85 px-3 py-1.5 text-label-md backdrop-blur-sm border border-white/20">
-<span data-icon-missing="bed" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="bed" />
 <span class="">سوئیت مستر رویال با کلوزت مستقل</span>
 </div>
 </div>
@@ -87,12 +87,12 @@
 <img alt="آشپزخانه جزیره مدرن با متریال سنگ اسلب و تجهیزات توکار" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/img/placeholder.svg" />
 <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent pointer-events-none"></div>
 <div class="absolute bottom-3 right-3 text-surface-container-lowest z-10 flex items-center gap-1.5 bg-ink/85 px-3 py-1.5 text-label-md backdrop-blur-sm border border-white/20">
-<span data-icon-missing="countertops" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="countertops" />
 <span class="">آشپزخانه جزیره و فضای ناهارخوری</span>
 </div>
 <!-- Overlay badge for full gallery -->
 <button class="absolute top-3 left-3 bg-surface-container-lowest/95 hover:bg-surface-container-lowest text-ink font-label-md text-label-md px-3.5 py-1.5 flex items-center gap-1.5 transition-colors duration-150 border border-border">
-<span data-icon-missing="photo_library" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="photo_library" />
 <span class="">مشاهده همه (۱۲ تصویر)</span>
 </button>
 </div>
@@ -132,11 +132,11 @@
 </div>
 <div class="flex items-center gap-3 shrink-0">
 <button class="px-5 py-2.5 text-label-lg font-label-lg text-primary-container border border-primary-container hover:bg-brand-tint/30 transition-colors flex items-center gap-2">
-<span data-icon-missing="file_download" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="file_download" />
 <span class="">دانلود PDF مقیاس‌دار</span>
 </button>
 <button class="px-5 py-2.5 text-label-lg font-label-lg text-ink bg-surface border border-border hover:bg-surface-alt transition-colors flex items-center gap-2">
-<span data-icon-missing="zoom_in" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="zoom_in" />
 <span class="">بزرگ‌نمایی جزئیات</span>
 </button>
 </div>
@@ -186,7 +186,7 @@
 <p class="text-body-md font-body-md text-on-surface-variant mt-1.5">اطلاعات تفکیکی و تاییدشده نظام مهندسی و دفتر فنی هلدینگ ثاخت به تفکیک حوزه‌ها</p>
 </div>
 <div class="inline-flex items-center gap-2 text-label-md font-label-md text-secondary bg-surface px-4 py-2 border border-border shrink-0">
-<span data-icon-missing="verified_user" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="verified_user" />
 <span class="font-semibold text-ink">دارای گواهی استاندارد کیفی ثاخت</span>
 </div>
 </div>
@@ -194,19 +194,19 @@
 <div class="border-b border-border mb-8">
 <div class="flex flex-wrap gap-2 -mb-px text-label-lg font-label-lg" role="tablist">
 <button class="spec-tab-btn active px-5 py-3.5 border-b-2 border-primary-container text-primary-container font-bold flex items-center gap-2 hover:text-brand-blue-deep transition-colors bg-brand-tint/20" id="btn-tab-arch" onclick="switchTab('tab-arch')">
-<span data-icon-missing="architecture" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="architecture" />
 <span class="">مشخصات معماری و فضایی</span>
 </button>
 <button class="spec-tab-btn px-5 py-3.5 border-b-2 border-transparent text-secondary flex items-center gap-2 hover:text-primary-container transition-colors" id="btn-tab-mep" onclick="switchTab('tab-mep')">
-<span data-icon-missing="precision_manufacturing" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="precision_manufacturing" />
 <span class="">سازه و تأسیسات مهندسی</span>
 </button>
 <button class="spec-tab-btn px-5 py-3.5 border-b-2 border-transparent text-secondary flex items-center gap-2 hover:text-primary-container transition-colors" id="btn-tab-amenities" onclick="switchTab('tab-amenities')">
-<span data-icon-missing="local_parking" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="local_parking" />
 <span class="">مشاعات و پارکینگ</span>
 </button>
 <button class="spec-tab-btn px-5 py-3.5 border-b-2 border-transparent text-secondary flex items-center gap-2 hover:text-primary-container transition-colors" id="btn-tab-legal" onclick="switchTab('tab-legal')">
-<span data-icon-missing="gavel" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="gavel" />
 <span class="">وضعیت اسناد و شرایط پرداخت</span>
 </button>
 </div>
@@ -217,7 +217,7 @@
 <div class="spec-tab-pane grid grid-cols-1 md:grid-cols-2 gap-5" id="tab-arch">
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="square_foot" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="square_foot" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">متراژ مفید داخلی</span>
@@ -227,7 +227,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="king_bed" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="king_bed" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">اتاق‌ها و سوئیت مستر</span>
@@ -237,7 +237,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="weekend" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="weekend" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">سالن پذیرایی و نشیمن عمومی</span>
@@ -247,7 +247,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="deck" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="deck" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">آشپزخانه جزیره و تراس اختصاصی</span>
@@ -260,7 +260,7 @@
 <div class="spec-tab-pane hidden grid grid-cols-1 md:grid-cols-2 gap-5" id="tab-mep">
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">اسکلت و استاندارد زلزله</span>
@@ -270,7 +270,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="thermostat" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="thermostat" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">سرمایش، گرمایش و تهویه</span>
@@ -280,7 +280,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" /></svg>
+<AppIcon name="grid_view" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">جدارنما و پنجره‌ها</span>
@@ -290,7 +290,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="security" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="security" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">ایمنی حریق و سیستم هوشمند (BMS)</span>
@@ -303,7 +303,7 @@
 <div class="spec-tab-pane hidden grid grid-cols-1 md:grid-cols-2 gap-5" id="tab-amenities">
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="directions_car" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="directions_car" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">پارکینگ سندی</span>
@@ -313,7 +313,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="inventory_2" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="inventory_2" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">انباری اختصاصی</span>
@@ -323,7 +323,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="elevator" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="elevator" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">آسانسور و دسترسی‌ها</span>
@@ -333,7 +333,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="meeting_room" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="meeting_room" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">لابی و مشاعات خدماتی</span>
@@ -346,7 +346,7 @@
 <div class="spec-tab-pane hidden grid grid-cols-1 md:grid-cols-2 gap-5" id="tab-legal">
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6" /></svg>
+<AppIcon name="picture_as_pdf" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">نوع سند و وضعیت ثبتی</span>
@@ -356,7 +356,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="event_available" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="event_available" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">وضعیت تحویل و گارانتی</span>
@@ -366,7 +366,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="payments" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="payments" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">شرایط پرداخت و تسویه‌حساب</span>
@@ -376,7 +376,7 @@
 </div>
 <div class="p-6 bg-surface-container-low border border-border flex items-start gap-4">
 <div class="w-12 h-12 bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">
-<span data-icon-missing="policy" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="policy" />
 </div>
 <div class="flex-grow">
 <span class="text-label-md font-label-md text-secondary block font-semibold">دفترچه فنی و نقشه‌های اجرایی</span>
@@ -405,7 +405,7 @@
 <div class="shrink-0 w-full md:w-auto">
 <a class="inline-flex justify-center items-center w-full md:w-auto px-8 py-4 bg-surface-container-lowest text-primary text-headline-sm font-label-lg font-bold hover:bg-brand-tint transition-colors duration-150 gap-3 border border-transparent shadow-none" href="#consultation-form">
 <span class="">درخواست استعلام قیمت و بازدید</span>
-<span data-icon-missing="arrow_right_alt" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="arrow_right_alt" />
 </a>
 </div>
 </section>

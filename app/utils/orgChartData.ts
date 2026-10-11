@@ -217,7 +217,7 @@ export function getOrgNodeDetail(id: string): OrgNodeDetail | null {
         { label: 'دوره تصدی', value: '۱۴۰۳ تا ۱۴۰۵' },
       ],
       list: chaired.length ? { title: 'ریاست کمیته‌ها', items: chaired } : undefined,
-      links: member.boardSlug ? [{ label: 'مشاهده صفحه پروفایل و سوابق کامل', href: `/about/board/${member.boardSlug}` }] : [],
+      links: member.boardSlug ? [{ label: 'مشاهده صفحه پروفایل و سوابق کامل', href: '/about#board' }] : [],
     }
   }
   const committee = orgCommittees.find(c => c.id === id)
@@ -250,7 +250,7 @@ export function getOrgNodeDetail(id: string): OrgNodeDetail | null {
         { label: 'شرکت‌های عملیاتی', value: `${orgSubsidiaries.length} شرکت` },
       ],
       list: { title: 'معاونت‌های زیرمجموعه', items: orgVicePresidencies.map(v => v.title) },
-      links: [{ label: 'پیام مدیرعامل', href: '/about/ceo' }],
+      links: [{ label: 'پیام مدیرعامل', href: '/about#contact' }],
     }
   }
   const vp = orgVicePresidencies.find(v => v.id === id)
@@ -267,7 +267,7 @@ export function getOrgNodeDetail(id: string): OrgNodeDetail | null {
         { label: 'شاخص کلیدی', value: vp.metric },
       ],
       list: { title: 'واحدهای تابعه', items: vp.units },
-      links: vp.boardSlug ? [{ label: 'مشاهده پروفایل معاون', href: `/about/board/${vp.boardSlug}` }] : [],
+      links: vp.boardSlug ? [{ label: 'مشاهده پروفایل معاون', href: '/about#board' }] : [],
     }
   }
   const sub = orgSubsidiaries.find(s => s.id === id)

@@ -83,7 +83,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">پیمانکاری عمومی و بلندمرتبه‌سازی</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -107,7 +107,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">سرمایه‌گذاری و ساخت مجتمع‌های فاخر</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -131,7 +131,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">شهرسازی و انبوه‌سازی مسکونی</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -155,7 +155,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">پارس‌سازان مهندسی و ابنیه سنگین</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -179,7 +179,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">طراحی جامع معماری و ژئوتکنیک</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -203,7 +203,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">توسعه بافت‌های شهری و چندمنظوره</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -227,7 +227,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">خدمات آزمایشگاهی و پایش کنترل کیفیت</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -251,7 +251,7 @@
               </h3>
 <div class="flex items-center justify-between mt-2">
 <span class="text-secondary text-label-md font-label-md">تجهیز و ساخت نما و دکوراسیون داخلی صنعتی</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+<AppIcon name="arrow_forward" />
 </div>
 </div>
 </article>
@@ -260,7 +260,7 @@
 <div class="mt-20 p-8 border border-border bg-surface flex flex-col md:flex-row items-center justify-between gap-6">
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 bg-primary-container text-surface-container-lowest flex items-center justify-center">
-<span data-icon-missing="domain" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain" />
 </div>
 <div>
 <div class="text-ink font-headline-sm text-body-lg font-bold">هم‌افزایی فنی و زنجیره ارزش کامل ساختمانی</div>
@@ -269,7 +269,7 @@
 </div>
 <a class="inline-flex items-center gap-2 border border-primary-container text-primary-container hover:bg-brand-tint px-6 py-3 font-label-lg text-label-lg transition-colors whitespace-nowrap" href="#">
 <span>دریافت کتابچه معرفی شرکت‌ها</span>
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 12l-4-4m4 4l4-4M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" /></svg>
+<AppIcon name="download" />
 </a>
 </div>
 </div>

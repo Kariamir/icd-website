@@ -2,22 +2,23 @@
  * Tailwind bridge — ADR-013.
  *
  * The approved designs in stitch_project_detail_page_template/ are authored in
- * Tailwind utility classes. This file makes those classes resolve to THIS
- * project's design tokens instead of the Material palette the Stitch
- * DESIGN.md carried.
+ * Tailwind utilities against a Material token set. This file re-points every
+ * one of those class names at THIS project's design tokens, so the layouts
+ * port intact while the palette and corner geometry come from the brand.
  *
- * `docs/design-system-icd3d.md` remains the single source of truth. The values
- * below MUST match app/assets/css/tokens.css. If you change one, change both —
- * tokens.css is consumed by the pre-Tailwind components (IndexCardGrid,
- * BoardMemberProfile, OrgChartView), this file by everything ported from Stitch.
+ * `docs/design-system-icd3d.md` is the single source of truth. The ten palette
+ * values below MUST match app/assets/css/tokens.css — change one, change both.
+ * Tailwind v4 emits each @theme entry as a real custom property on :root, so
+ * `var(--color-*)` keeps working for the pre-Tailwind components
+ * (IndexCardGrid, BoardMemberProfile, OrgChartView).
  *
- * Tailwind v4 emits every @theme entry as a real custom property on :root, so
- * `var(--color-ink)` keeps working for the older components either way.
+ * Type scale is kept at the sizes the approved designs were drawn at. Only the
+ * palette and radii were corrected — that was the explicit decision.
  */
 @import "tailwindcss";
 
 @theme {
-  /* --- palette: the only ten colours (design-system §2) --- */
+  /* ========== THE TEN COLOURS (design-system §2) ========== */
   --color-ink: #041c2c;
   --color-primary: #005eb8;
   --color-primary-hover: #0056a7;
@@ -27,38 +28,106 @@
   --color-border: #d0d5d2;
   --color-status-success: #1f8a4c;
   --color-status-error: #c23b3b;
+  --color-text-muted: #4a5a63;
 
-  /* Aliases for class names the Stitch markup already uses, so ported
-     templates keep working without a find-and-replace. Each one maps a
-     Material token name onto its nearest legitimate project colour. */
+  /* ========== ALIASES ==========
+     Material token names used by the approved markup, each mapped onto its
+     nearest legitimate project colour. No new hues are introduced here. */
+
+  /* brand blue — `primary-container` is the design's main accent */
+  --color-primary-container: #005eb8;
+  --color-on-primary-container: #cde2ff;
   --color-brand-tint: #cde2ff;
   --color-brand-blue-deep: #0056a7;
-  --color-on-surface: #041c2c;
-  --color-on-surface-variant: #4a5a63;
-  --color-on-primary: #ffffff;
-  --color-outline: #d0d5d2;
-  --color-background: #ffffff;
-  --color-surface-container-lowest: #ffffff;
+  --color-surface-tint: #005eb8;
+  --color-inverse-primary: #cde2ff;
 
-  /* --- typography (design-system §3) --- */
+  /* neutrals */
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f4f4;
+  --color-surface-container: #f4f4f4;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e8e8e8;
+  --color-background: #ffffff;
+  --color-on-primary: #ffffff;
+  --color-on-surface: #041c2c;
+  --color-on-background: #041c2c;
+  --color-inverse-surface: #041c2c;
+  --color-inverse-on-surface: #ffffff;
+
+  /* muted text + rules. `surface-dim` is used as a light text colour on dark
+     grounds in the designs, so it maps to the border grey, not a surface. */
+  --color-surface-dim: #d0d5d2;
+  --color-surface-variant: #4a5a63;
+  --color-on-surface-variant: #4a5a63;
+  --color-secondary: #4a5a63;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #cde2ff;
+  --color-on-secondary-container: #4a5a63;
+  --color-secondary-fixed: #cde2ff;
+  --color-secondary-fixed-dim: #d0d5d2;
+  --color-outline: #d0d5d2;
+  --color-outline-variant: #d0d5d2;
+
+  /* Names from a second Stitch config, used by the search and article
+     designs. Same ten colours, different labels. */
+  --color-brand-blue: #005eb8;
+  --color-brand-hover: #0056a7;
+  --color-brand-dark: #041c2c;
+  --color-brand-border: #d0d5d2;
+  --color-subtle: #d0d5d2;
+  --color-primary-fixed: #cde2ff;
+
+  /* status */
+  --color-error: #c23b3b;
+  --color-on-error: #ffffff;
+  --color-error-container: #f7e4e4;
+  --color-on-error-container: #c23b3b;
+
+  /* ========== TYPOGRAPHY (sizes as drawn; family per design-system §3) ========== */
   --font-sans: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
   --font-latin: 'Work Sans', 'Segoe UI', Arial, sans-serif;
 
-  --text-h1: 92px;
-  --text-h1--line-height: 1.05;
-  --text-h2: 38px;
-  --text-h2--line-height: 1.26;
-  --text-h3: 19px;
-  --text-h3--line-height: 1.47;
-  --text-body: 18px;
-  --text-body--line-height: 1.78;
-  --text-meta: 14px;
-  --text-meta--line-height: 1.57;
+  --font-headline-xl: 'Vazirmatn', Tahoma, sans-serif;
+  --font-headline-lg: 'Vazirmatn', Tahoma, sans-serif;
+  --font-headline-md: 'Vazirmatn', Tahoma, sans-serif;
+  --font-headline-sm: 'Vazirmatn', Tahoma, sans-serif;
+  --font-body-lg: 'Vazirmatn', Tahoma, sans-serif;
+  --font-body-md: 'Vazirmatn', Tahoma, sans-serif;
+  --font-body-sm: 'Vazirmatn', Tahoma, sans-serif;
+  --font-label-lg: 'Vazirmatn', Tahoma, sans-serif;
+  --font-label-md: 'Vazirmatn', Tahoma, sans-serif;
+  --font-label-sm: 'Vazirmatn', Tahoma, sans-serif;
 
-  /* --- corner geometry (design-system §4.1) ---
+  --text-headline-xl: 64px;
+  --text-headline-xl--line-height: 72px;
+  --text-headline-xl-mobile: 36px;
+  --text-headline-xl-mobile--line-height: 44px;
+  --text-headline-lg: 38px;
+  --text-headline-lg--line-height: 48px;
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-sm: 19px;
+  --text-headline-sm--line-height: 28px;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 32px;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 26px;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 22px;
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 20px;
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+
+  /* ========== CORNER GEOMETRY (design-system §4.1) ==========
      The "0px everywhere" decision was REVOKED after direct feedback that it
-     read as cold and unapproachable. Nothing visual gets a sharp corner;
-     --radius-none survives only for table rules. */
+     read as cold and unapproachable. --radius-none survives for table rules
+     only; nothing visual gets a sharp corner. */
   --radius-none: 0px;
   --radius-xs: 6px;
   --radius-sm: 10px;
@@ -66,26 +135,58 @@
   --radius-lg: 22px;
   --radius-pill: 999px;
 
-  /* --- spacing: 8px base (design-system §7) --- */
-  --spacing: 8px;
+  /* ========== SPACING ==========
+     Tailwind's default 4px step is kept deliberately: the approved markup was
+     authored against it (`h-20` = 80px, `px-4` = 16px). Overriding --spacing
+     with the design system's 8px base doubles every margin, padding, gap and
+     height on the ported pages. The 8px rhythm lives in the named steps. */
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-margin: 2rem;
 
   --container-site: 1280px;
   --container-prose: 960px;
 }
 
 /*
- * Deliberately NOT defined: tertiary (#793100 orange), secondary, and the ~40
- * other Material surface/container tokens the Stitch DESIGN.md carried. A
- * ported template still referencing them will render unstyled rather than
- * quietly introducing a colour that is not in the brand. That is the point —
- * it surfaces the drift instead of hiding it.
+ * Deliberately NOT defined: `tertiary` (#793100 orange) and its family. A
+ * template still referencing it renders unstyled rather than quietly adding a
+ * colour that is not in the brand — the drift surfaces instead of hiding.
  */
 
+@layer utilities {
+  /* Tailwind's `font-*` sets family only. The approved markup uses
+     `font-headline-md` and friends to mean WEIGHT, so the weights are
+     declared here to match the design's intent. */
+  .font-headline-xl { font-weight: 800; }
+  .font-headline-lg { font-weight: 700; }
+  .font-headline-md { font-weight: 700; }
+  .font-headline-sm { font-weight: 600; }
+  .font-body-lg,
+  .font-body-md,
+  .font-body-sm { font-weight: 400; }
+  .font-label-lg { font-weight: 700; }
+  .font-label-md,
+  .font-label-sm { font-weight: 600; }
+
+  /* Latin numerals inside Persian text must be isolated or they reorder in an
+     RTL line. Critical in the financial tables and on the symbol page
+     (design-system §3). */
+  .num {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
 @layer base {
-  /* The Stitch markup leans on Material Symbols, an icon FONT loaded from
-     Google. Icons are inline SVG in this project; this rule makes any
-     surviving <span class="material-symbols-outlined"> visibly wrong in dev
-     rather than silently rendering ligature text in the page. */
+  /* The approved markup leans on Material Symbols, an icon FONT fetched from
+     Google — unreachable from Iran, and the project uses inline SVG instead.
+     This makes any surviving icon-font span visibly wrong in dev rather than
+     silently rendering its ligature text as words in the page. */
   .material-symbols-outlined {
     outline: 2px dashed var(--color-status-error);
     font-size: 0;

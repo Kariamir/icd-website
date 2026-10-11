@@ -290,7 +290,7 @@ function buildIndex(): SearchResultExtended[] {
     results.push({
       id: `board-${member.slug}`,
       title: member.name,
-      href: `/about/board/${member.slug}`,
+      href: '/about#board',
       excerpt: `${member.role} هلدینگ ساختمانی ثاخت — سوابق، مسئولیت‌ها و حوزه‌های راهبری.`,
       contentType: 'company',
       category: 'governance',
@@ -298,7 +298,7 @@ function buildIndex(): SearchResultExtended[] {
       badgeTone: 'neutral',
       refLabel: member.role,
       meta: ['ترکیب هیات‌مدیره', 'حاکمیت شرکتی'],
-      cta: { label: 'مشاهده پروفایل', href: `/about/board/${member.slug}` },
+      cta: { label: 'مشاهده پروفایل', href: '/about#board' },
       image: member.image ? { src: member.image.src, alt: member.image.alt || member.name, caption: 'پروفایل مدیر' } : undefined,
       dateKey: 0,
       views: mockViews(member.slug),

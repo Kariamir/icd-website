@@ -112,7 +112,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 مطالعه متن کامل
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-secondary font-mono">CODE: PR-940</span>
 </div>
@@ -129,7 +129,7 @@
 <!-- MANDATORY PLAY MARKER OVERLAY BADGE FOR PODCAST -->
 <div class="absolute inset-0 flex items-center justify-center bg-ink/20 group-hover:bg-ink/30 transition-colors">
 <div class="bg-ink/90 border border-border text-surface-container-lowest px-4 py-2 flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+<AppIcon name="play_arrow" />
 <span class="text-label-md font-label-md font-bold font-mono">۲۸:۴۰ دقیقه</span>
 </div>
 </div>
@@ -152,7 +152,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 شنیدن پادکست
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-secondary font-mono">EP-12</span>
 </div>
@@ -181,7 +181,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 مشاهده روایت تصویری
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-secondary font-mono">ENG-410</span>
 </div>
@@ -210,7 +210,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 دریافت گزارش تحلیلی
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-secondary font-mono">FIN-88</span>
 </div>
@@ -239,7 +239,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 دانلود اسناد مناقصه
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-status-error font-bold">مهلت محدود</span>
 </div>
@@ -255,7 +255,7 @@
 <!-- MANDATORY PLAY MARKER OVERLAY BADGE FOR PODCAST -->
 <div class="absolute inset-0 flex items-center justify-center bg-ink/20 group-hover:bg-ink/30 transition-colors">
 <div class="bg-ink/90 border border-border text-surface-container-lowest px-4 py-2 flex items-center gap-2">
-<svg class="inline-block size-[1.25em] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+<AppIcon name="play_arrow" />
 <span class="text-label-md font-label-md font-bold font-mono">۳۴:۱۵ دقیقه</span>
 </div>
 </div>
@@ -275,7 +275,7 @@
 <div class="mt-auto pt-4 border-t border-border flex items-center justify-between">
 <span class="text-label-lg font-label-lg text-primary-container font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                 شنیدن پادکست
-                <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+                <AppIcon name="arrow_left" />
 </span>
 <span class="text-label-md font-label-md text-secondary font-mono">EP-11</span>
 </div>
@@ -299,7 +299,7 @@
         </button>
 <button class="px-4 h-10 border border-border bg-surface-container-lowest text-ink hover:border-primary-container font-bold text-label-lg inline-flex items-center gap-1 transition-colors">
           صفحه بعد
-          <span data-icon-missing="arrow_left" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+          <AppIcon name="arrow_left" />
 </button>
 </div>
 </div>
@@ -311,7 +311,7 @@
 <div class="text-center max-w-xl mx-auto p-12 border border-border bg-surface">
 <!-- Subtle Minimal Architectural Icon Mark -->
 <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-border bg-surface-container-lowest text-secondary">
-<span data-icon-missing="domain_disabled" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="domain_disabled" />
 </div>
 <!-- Title -->
 <h3 class="text-headline-md font-headline-md text-ink font-bold mb-3">
@@ -324,7 +324,7 @@
 <!-- Secondary Text Link / Action -->
 <div>
 <a class="inline-flex items-center gap-2 px-6 py-3 border border-primary-container text-primary-container text-label-lg font-label-lg hover:bg-brand-tint transition-colors font-bold" href="#feed">
-<span data-icon-missing="refresh" class="inline-block size-[1.25em] rounded-xs border border-dashed border-status-error" aria-hidden="true"></span>
+<AppIcon name="refresh" />
             مشاهده همه مطالب
           </a>
 </div>
