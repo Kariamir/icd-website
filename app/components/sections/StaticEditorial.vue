@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EditorialBlock, EditorialIcon, EditorialPageViewModel } from '~/utils/editorialData'
-import { projects } from '~/utils/projectsData'
+import { projectSummaries as projects } from '~/utils/projectsData'
 
 // Template `05-static-editorial` rebuilt to follow
 // `project_detail_page_template/05_static_editorial_plain/code.html`:

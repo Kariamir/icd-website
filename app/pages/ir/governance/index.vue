@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { irNav } from '~/utils/routes'
 import { documentHubs } from '~/utils/documentsData'
 
 const hub = documentHubs.governance
@@ -10,7 +11,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <BaseContainer>
-    <DocumentIndexList :hub="hub" />
-  </BaseContainer>
+  <div>
+    <SubNav :items="irNav" label="بخش‌های دیده‌بان ثاخت" />
+    <BaseContainer>
+      <DocumentIndexList :hub="hub" />
+    </BaseContainer>
+  </div>
 </template>

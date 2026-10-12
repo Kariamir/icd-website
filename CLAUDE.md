@@ -15,7 +15,8 @@
 - ترتیب و مراحل ساخت طبق 02-build-checklist.md.
 - معماری: Nuxt 4 + Vue 3 + TypeScript + WPNuxt (WPGraphQL) طبق wpnuxt-ui-boilerplate-full؛ لایه‌بندی اجباری `pages -> sections -> ui -> composables -> WPNuxt -> WordPress`. بدون تایید صریح من از آن منحرف نشو.
 - سایت فارسی و راست‌چین است — همیشه از خواص منطقی CSS استفاده کن، نه left/right ثابت.
-- هیچ داده واقعی WordPress هنوز متصل نیست (ADR-002) — صفحات فعلاً از app/utils/*Data.ts (محتوای واقعی بازیابی‌شده از پیاده‌سازی قبلی React، نه placeholder) می‌خوانند.
+- هیچ داده واقعی WordPress هنوز متصل نیست (ADR-002) — همه صفحات از کاتالوگ واحد `app/utils/catalog.ts` (+ `posts.ts`، `irDocuments.ts`، `financialTables.ts`) می‌خوانند (ADR-015). رکوردهای `origin: 'design'` نمونه‌اند و باید با محتوای واقعی جایگزین شوند.
+- تصاویر: placeholderهای تصویری در `public/img/ph/` از طریق `ph()`/`phFor()` در `app/utils/media.ts`؛ آیکون‌ها فقط از `<AppIcon>`؛ CSS سراسری فقط داخل `@layer`.
 
 ## Project Progress Checklist
 
@@ -40,14 +41,14 @@
 - [ ] جایگزینی app/utils/*Data.ts با کوئری‌های واقعی WPNuxt
 
 ### 3. UI and pages — پیشرفت به‌ازای هرکدام از ۱۸ تمپلیت (docs/page-templates-icd3d.md)
-- [ ] `00-home` هوم‌پیج — ۱۰ بلاک ساخته شد با داده mock؛ ویجت دیده‌بان ثاخت زنده نیست؛ هیرو سه‌بعدی جایگزین fallback نشده (ADR-003)
-- [x] `01a-cluster-hub-simple` — /about, /sales, /ir, /media — بازسازی ساختاری مطابق mockup مرجع (هیرو، کارت زیرصفحه‌ها، لینک‌های سریع) + هدر/فوتر مشترک سایت مطابق mockupها (منوی موبایل، خبرنامه با اعتبارسنجی سمت کلاینت)
+- [x] `00-home` هوم‌پیج — ۹ بلاک به ترتیب sitemap §3.1 در زبان بصری Stitch، داده از catalog (ADR-015)؛ ویجت نماد با داده نمایشی (اتصال TSETMC در فاز بک‌اند)؛ هیرو سه‌بعدی هنوز fallback (ADR-003)
+- [x] `01a-cluster-hub-simple` — بازنشسته در v1.7 (ADR-015): منوی فروش و دیده‌بان به صفحات طراحی‌شده /sales و /ir/financials می‌رود؛ /ir و /sales/available و /sales/pre-sale ریدایرکت می‌شوند. هدر با زیرمنوی کشویی و منوی موبایل، فوتر طبق §11
 - [x] `01b-cluster-hub-visual` — /projects, /projects/map (بازسازی ساختاری کامل مطابق mockup مرجع: نوار فیلتر ۵ فیلده واقعی (جستجو/کاربری/استان/شرکت/متراژ)، ردیف نتیجه+مرتب‌سازی+تغییر نما، کارت پروژه با accent bar/کد/آیکون نشان/مینی‌استت مهندسی مطابق کد مرجع، نوار خلاصه پرتفوی؛ زاویه گوشه‌ها به مقیاس متعادل §4.1 تغییر کرد (نه تیز مطلق، نه گرد کامل)؛ نقشه سه‌بعدی واقعی هنوز جایگزین پنل placeholder نشده)
-- [x] `02a-index-card-grid` — بازسازی مطابق mockup: اسکلت مشترک (IndexCardGrid + IndexGrid*) با فیلتر واقعی در URL، مرتب‌سازی، صفحه‌بندی + «بیشتر»، حالت خالی — برای ۴ ایندکس وضعیت پروژه، هیات‌مدیره، افتخارات، واحدهای فروش، استخدام
+- [x] `02a-index-card-grid` — جای خود را به نماهای Stitch داد: ۴ صفحه وضعیت پروژه با یک کامپوننت مشترک `ProjectsStatusView` و کارت `ProjectTile`؛ فیلترها طبق درخواست مالک از صفحات کلاستر حذف شد (ADR-015)
 - [x] `02b-index-simple-list` — /ir/financials, /ir/governance — بازسازی مطابق mockup (فیلتر سال/نوع سند، ردیف سند، دانلود، ارجاع به کدال)
 - [x] `02c-calendar-module` — /ir/calendar — بازسازی مطابق mockup (تب پیش‌رو/گذشته، تاریخ شمسی، افزودن به تقویم)
 - [x] `03-project-detail` — /projects/[slug] (بازسازی وفادار)؛ /projects/[slug]/tour نساخته
-- [x] `04-article-detail` / `04-article-main` — /media/news, /media/stories, /media/reports (ایندکس + [slug]) و /about/board/[slug] — بازسازی مطابق mockup (خبر شاخص، فیلتر دسته، کارت‌ها؛ بدنه با نقل‌قول، پلیر صوتی روایت‌ها، اشتراک، مطالب مرتبط)
+- [x] `04-article-detail` / `04-article-main` — /media (یک فید، تب دسته‌ها با ?category=، صفحه‌بندی) و /media/[slug] (طرح _1، بدنه ساخت‌یافته، نسخه صوتی، مطالب مرتبط)؛ مسیرهای قدیمی /media/news|stories|reports ریدایرکت می‌شوند (ADR-015)
 - [x] `05-static-editorial-plain` — /about/vision, /about/csr, /legal/terms, /legal/privacy — بازسازی مطابق mockup
 - [x] `05b-timeline-component` — /about/history — بازسازی مطابق mockup (نسخه HTML/CSS، بدون WebGL طبق ADR-003)
 - [x] `05c-orgchart-3d-component` — /about/org-chart — ساخته شد مطابق ساختار mockup (سطوح سلسله‌مراتب، کارت گره، پنل جزئیات) با HTML/CSS/SVG؛ سه‌بعدی واقعی WebGL طبق ADR-003 نیست
@@ -68,7 +69,7 @@
 
 ### 5. Verification and handoff
 - [x] `nuxt typecheck` سبز
-- [x] `pnpm lint` (۰ خطا؛ ۱۳ هشدار vue/require-default-prop)
+- [x] `pnpm lint` (۰ خطا؛ ۱۲ هشدار)
 - [ ] `pnpm test` (تستی وجود ندارد)
-- [ ] `nuxt build` — نیازمند WPNUXT_WORDPRESS_URL واقعی (ADR-002)؛ `nuxt dev` و `nuxt typecheck` بدون بک‌اند سبزند
+- [x] `nuxt build` بدون بک‌اند سبز است (ماژول‌های WPNuxt شرطی‌اند، ADR-002)؛ crawl کامل ۲۱۴ صفحه بدون خطا و ۳۳ تست تعاملی سبز (ADR-015)
 - [ ] تطبیق نهایی این چک‌لیست با مخزن قبل از تحویل

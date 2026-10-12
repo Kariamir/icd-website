@@ -10,10 +10,11 @@
  * repository rows need, so existing `DocumentViewModel[]` consumers keep
  * working unchanged.
  */
+import { phFor } from '~/utils/media'
 import type { DocumentViewModel } from '~/types/content'
 import type { JalaliDate } from '~/utils/irDateUtils'
 
-const IMG = (seed: string) => `/img/placeholder.svg`
+const IMG = (seed: string) => phFor(seed)
 
 /** Official CODAL listing for the ثاخت symbol (mock deep link). */
 export const codalSymbolUrl = 'https://codal.ir/ReportList.aspx?search&Symbol=%D8%AB%D8%A7%D8%AE%D8%AA'
@@ -132,7 +133,7 @@ const doc = (
   published,
   fileType: 'PDF',
   fileSizeLabel,
-  href: '#',
+  href: '/docs/sample-document.pdf',
   codalTrackingNo,
   codalUrl: codalTrackingNo ? codalSymbolUrl : undefined,
   tagLabel,
@@ -181,8 +182,8 @@ const irQuickLinks = [
 ]
 
 export const irContacts: DocumentContact[] = [
-  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵', image: '/img/placeholder.svg' },
-  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی', image: '/img/placeholder.svg' },
+  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵', image: phFor('مهندس علیرضا سلیمانی') },
+  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی', image: phFor('دکتر فاطمه محمدی') },
 ]
 
 export const documentHubs: Record<'financials' | 'governance', DocumentHubContent> = {
@@ -203,9 +204,9 @@ export const documentHubs: Record<'financials' | 'governance', DocumentHubConten
       description: 'ارائه دستاوردهای عملیاتی، تحلیل پرتفوی پروژه‌های تجاری و مسکونی در دست اجرا، بررسی صورت‌های مالی مصوب و استراتژی نوسازی سرمایه‌گذاری‌ها برای سال مالی پیش رو.',
       image: IMG('icd-ir-agm-hall'),
       rows: [
-        { title: 'وب‌کست و پخش ضبط‌شده مجمع عمومی فوق‌العاده و سالانه', meta: 'پخش آنلاین با کیفیت بالا • پیوند به پرتال کدال', href: '#', icon: 'video' },
-        { title: 'اسلایدهای جامع ارائه هیات‌مدیره به مجمع عمومی صاحبان سهام', meta: 'فرمت PDF • حجم ۱۸.۴ مگابایت • آذر ۱۴۰۳', href: '#', icon: 'pdf' },
-        { title: 'خلاصه تصمیمات و صورت‌جلسه رسمی مجمع عمومی عادی', meta: 'فرمت PDF • حجم ۶۸۵ کیلوبایت • انتشار رسمی در کدال', href: '#', icon: 'doc' },
+        { title: 'وب‌کست و پخش ضبط‌شده مجمع عمومی فوق‌العاده و سالانه', meta: 'پخش آنلاین با کیفیت بالا • پیوند به پرتال کدال', href: 'https://codal.ir', icon: 'video' },
+        { title: 'اسلایدهای جامع ارائه هیات‌مدیره به مجمع عمومی صاحبان سهام', meta: 'فرمت PDF • حجم ۱۸.۴ مگابایت • آذر ۱۴۰۳', href: '/docs/sample-document.pdf', icon: 'pdf' },
+        { title: 'خلاصه تصمیمات و صورت‌جلسه رسمی مجمع عمومی عادی', meta: 'فرمت PDF • حجم ۶۸۵ کیلوبایت • انتشار رسمی در کدال', href: '/docs/sample-document.pdf', icon: 'doc' },
       ],
     },
     quickLinks: irQuickLinks,
@@ -235,9 +236,9 @@ export const documentHubs: Record<'financials' | 'governance', DocumentHubConten
       description: 'مروری بر تصمیمات آخرین مجمع عمومی، اعضای منتخب هیات‌مدیره، کمیته‌های تخصصی و گزارش بازرس قانونی درباره معاملات مشمول ماده ۱۲۹.',
       image: IMG('icd-ir-board-meeting'),
       rows: [
-        { title: 'صورت‌جلسه و خلاصه تصمیمات مجمع عمومی عادی سالیانه', meta: 'فرمت PDF • حجم ۹۲۰ کیلوبایت • بهمن ۱۴۰۳', href: '#', icon: 'pdf' },
+        { title: 'صورت‌جلسه و خلاصه تصمیمات مجمع عمومی عادی سالیانه', meta: 'فرمت PDF • حجم ۹۲۰ کیلوبایت • بهمن ۱۴۰۳', href: '/docs/sample-document.pdf', icon: 'pdf' },
         { title: 'معرفی اعضای هیات‌مدیره و وضعیت استقلال اعضا', meta: 'پیوند به صفحه هیات‌مدیره', href: '/about#board', icon: 'doc' },
-        { title: 'پخش ضبط‌شده جلسه مجمع و پرسش و پاسخ سهامداران', meta: 'پخش آنلاین • پیوند به پرتال کدال', href: '#', icon: 'video' },
+        { title: 'پخش ضبط‌شده جلسه مجمع و پرسش و پاسخ سهامداران', meta: 'پخش آنلاین • پیوند به پرتال کدال', href: 'https://codal.ir', icon: 'video' },
       ],
     },
     quickLinks: irQuickLinks,

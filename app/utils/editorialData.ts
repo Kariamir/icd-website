@@ -10,7 +10,8 @@
  * related news). Every page composes the same block kinds so the four
  * routes share one template (`StaticEditorial.vue`).
  */
-import type { ProjectStatusKey } from '~/utils/projectsData'
+import { phFor } from '~/utils/media'
+import type { ProjectStatusKey } from '~/utils/catalog'
 import { getProjectDetail } from '~/utils/projectsData'
 import { articles } from '~/utils/articlesData'
 
@@ -95,8 +96,8 @@ export interface EditorialPageViewModel {
   blocks: EditorialBlock[]
 }
 
-const IMG = (seed: string) => `/img/placeholder.svg`
-const HERO = (seed: string) => `/img/placeholder.svg`
+const IMG = (seed: string) => phFor(seed)
+const HERO = (seed: string) => phFor(seed)
 
 function projectCard(slug: string, description: string, image: string): EditorialProjectCard {
   const d = getProjectDetail(slug)

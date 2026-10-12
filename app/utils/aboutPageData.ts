@@ -14,6 +14,7 @@
  * Content still comes from local data (ADR-002); board, subsidiary and honor
  * records are re-read from their existing files rather than duplicated.
  */
+import { ph, phFor } from '~/utils/media'
 import { boardMembers } from '~/utils/boardData'
 import { honors } from '~/utils/honorsData'
 import { orgSubsidiaries } from '~/utils/orgChartData'
@@ -26,7 +27,7 @@ export const aboutHero = {
   title: 'چهار دهه ساختن',
   lead: 'هلدینگ بین‌المللی توسعه ساختمان — پذیرفته‌شده در بورس تهران.',
   image: {
-    src: '/img/placeholder.svg',
+    src: ph('tower', 2),
     alt: 'نمایی از پروژه‌های شاخص هلدینگ ثاخت',
   },
 }
@@ -48,19 +49,19 @@ export const aboutPillars: AboutPillar[] = [
     id: 'vision',
     title: 'چشم‌انداز',
     text: 'توسعه‌دهنده نخست مگاپروژه‌های چندمنظوره ایران، با بازدهی متوازن برای سهامدار و شهر.',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: phFor('توسعه‌دهنده نخست مگاپروژه‌های چندمنظوره ایران، با بازدهی متوازن برای سهامدار و شهر.'), alt: '' },
   },
   {
     id: 'governance',
     title: 'حاکمیت شرکتی',
     text: 'گزارش‌گری شفاف در کدال، کمیته‌های مستقل حسابرسی و ریسک، و پاسخ‌گویی به مجمع.',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: phFor('گزارش‌گری شفاف در کدال، کمیته‌های مستقل حسابرسی و ریسک، و پاسخ‌گویی به مجمع.'), alt: '' },
   },
   {
     id: 'standards',
     title: 'استانداردهای مهندسی',
     text: 'ISO 9001 و 45001، پایش ژئوتکنیک بلادرنگ، و آزمایشگاه مرکزی بتن در زنجیره ساخت.',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: phFor('ISO 9001 و 45001، پایش ژئوتکنیک بلادرنگ، و آزمایشگاه مرکزی بتن در زنجیره ساخت.'), alt: '' },
   },
 ]
 
@@ -95,7 +96,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۳۰',
     title: 'پارس سازه',
     caption: 'در انتظار متن آرشیوی',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('archive', 1), alt: '' },
     archival: true,
     placeholder: true,
   },
@@ -104,7 +105,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۴۰',
     title: 'نخستین کارگاه‌ها',
     caption: 'در انتظار متن آرشیوی',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('archive', 1), alt: '' },
     archival: true,
     placeholder: true,
   },
@@ -113,7 +114,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۶۴',
     title: 'تأسیس ثاخت',
     caption: 'بنیان‌گذاری هلدینگ',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('archive', 1), alt: '' },
     archival: false,
   },
   {
@@ -121,7 +122,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۷۶',
     title: 'برج بین‌المللی تهران',
     caption: 'بتن‌ریزی پی عمیق',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('construction', 1), alt: '' },
     archival: false,
   },
   {
@@ -129,7 +130,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۸۳',
     title: 'ورود به بورس تهران',
     caption: 'گشایش نماد ثاخت',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('office', 1), alt: '' },
     archival: false,
   },
   {
@@ -137,7 +138,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۳۹۶',
     title: 'مگاپارس تهران',
     caption: 'نخستین مگاپروژه چندمنظوره',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('commercial', 1), alt: '' },
     archival: false,
   },
   {
@@ -145,7 +146,7 @@ export const aboutMilestones: AboutMilestone[] = [
     year: '۱۴۰۲',
     title: 'ساخت پایدار',
     caption: 'استانداردهای سبز و پایش بلادرنگ',
-    image: { src: '/img/placeholder.svg', alt: '' },
+    image: { src: ph('campus', 1), alt: '' },
     archival: false,
   },
 ]
@@ -154,7 +155,7 @@ export const aboutMilestones: AboutMilestone[] = [
 export const aboutFilm = {
   title: 'روایت ثاخت',
   caption: 'فیلم کوتاه برند',
-  poster: '/img/placeholder.svg',
+  poster: ph('skyline', 2),
   src: null as string | null,
 }
 
@@ -166,12 +167,12 @@ export interface AboutChainStep {
 }
 
 export const aboutChain: AboutChainStep[] = [
-  { id: 'c-1', label: 'طراحی', image: { src: '/img/placeholder.svg', alt: '' } },
-  { id: 'c-2', label: 'تأمین', image: { src: '/img/placeholder.svg', alt: '' } },
-  { id: 'c-3', label: 'بتن', image: { src: '/img/placeholder.svg', alt: '' } },
-  { id: 'c-4', label: 'اجرا', image: { src: '/img/placeholder.svg', alt: '' } },
-  { id: 'c-5', label: 'تحویل', image: { src: '/img/placeholder.svg', alt: '' } },
-  { id: 'c-6', label: 'بهره‌برداری', image: { src: '/img/placeholder.svg', alt: '' } },
+  { id: 'c-1', label: 'طراحی', image: { src: ph('blueprint', 1), alt: '' } },
+  { id: 'c-2', label: 'تأمین', image: { src: ph('industrial', 1), alt: '' } },
+  { id: 'c-3', label: 'بتن', image: { src: ph('construction', 1), alt: '' } },
+  { id: 'c-4', label: 'اجرا', image: { src: ph('construction', 2), alt: '' } },
+  { id: 'c-5', label: 'تحویل', image: { src: ph('residential', 1), alt: '' } },
+  { id: 'c-6', label: 'بهره‌برداری', image: { src: ph('commercial', 1), alt: '' } },
 ]
 
 // ---------------------------------------------------------------------------
@@ -190,7 +191,7 @@ export const aboutGallery: AboutGalleryItem[] = honors.map((honor, index) => ({
   title: honor.title,
   year: honor.year,
   image: {
-    src: honor.image?.src ?? `/img/placeholder.svg`,
+    src: honor.image?.src ?? phFor('certificate award'),
     alt: honor.image?.alt ?? '',
   },
 }))
@@ -213,7 +214,7 @@ export const aboutSubsidiaries: AboutSubsidiary[] = orgSubsidiaries.map(company 
   badge: company.badge,
   stake: company.stake,
   logo: {
-    src: `/img/placeholder.svg`,
+    src: phFor('aerial masterplan'),
     alt: company.name,
   },
 }))
@@ -222,7 +223,7 @@ export const aboutSubsidiariesSection = {
   title: 'خانواده ثاخت',
   text: 'هشت شرکت تخصصی، یک زنجیره کامل ساخت.',
   /** Low-opacity blurred backdrop behind the whole section. */
-  backdrop: '/img/placeholder.svg',
+  backdrop: phFor('هشت شرکت تخصصی، یک زنجیره کامل ساخت.'),
 }
 
 // ---------------------------------------------------------------------------
@@ -253,7 +254,7 @@ export const aboutBoard: AboutBoardCard[] = boardMembers.map(member => ({
   representing: member.representing ?? '—',
   bio: plainBio(member),
   image: {
-    src: member.image?.src ?? `/img/placeholder.svg`,
+    src: member.image?.src ?? phFor(`portrait-${member.slug}`),
     alt: member.image?.alt ?? member.name,
   },
 }))

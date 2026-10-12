@@ -1,133 +1,67 @@
 <script setup lang="ts">
 /*
- * Chrome lifted out of the approved design at
- * stitch_project_detail_page_template/projects/ (ADR-013). Shared by every
- * route through layouts/default.vue.
+ * Site footer — sitemap §11: brand column, three link columns from
+ * routes.ts, and «خانواده ثاخت» listing the eight subsidiaries from the
+ * company catalog (each linked to its page). Styled after the approved
+ * Stitch footer. Shared by every route via layouts/default.vue.
  */
+import { footerColumns, legalNav, companyContact } from '~/utils/routes'
+import { companies } from '~/utils/catalog'
 </script>
 
 <template>
-<footer class="bg-ink text-surface-container-lowest border-t border-border">
-<div class="w-full py-space-xl px-space-lg md:px-margin max-w-[1440px] mx-auto">
-<!-- Top Grid: Brand Column + 4 Structural Nav Columns = 5 Columns -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-border/20">
-<!-- Col 1: Corporate Brand & Profile -->
-<div class="lg:col-span-1">
-<div class="flex items-center gap-3 mb-4">
-<div class="w-8 h-8 bg-primary-container text-surface-container-lowest flex items-center justify-center font-bold text-headline-sm">
-              ث
-            </div>
-<span class="text-headline-sm font-headline-sm text-surface-container-lowest">
-              هلدینگ ساختمانی ثاخت
-            </span>
-</div>
-<p class="text-body-sm font-body-sm text-surface-dim leading-relaxed mb-6">
-            شرکت بین‌المللی توسعه ساختمان (ثاخت)، بزرگ‌ترین نهاد توسعه املاک و مستغلات بورسی کشور با بیش از سه دهه سابقه پیشتازی در ساخت ابنیه تمدنی.
+  <footer class="bg-ink text-surface-container-lowest">
+    <div class="mx-auto w-full max-w-[1440px] px-space-lg py-16 md:px-margin md:py-20">
+      <div class="grid grid-cols-1 gap-10 border-b border-surface-container-lowest/10 pb-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.3fr]">
+        <!-- 1 — brand -->
+        <div>
+          <NuxtLink to="/" class="mb-5 flex items-center gap-3">
+            <span class="flex size-10 items-center justify-center rounded-sm bg-primary-container text-headline-sm font-headline-sm">ث</span>
+            <span class="text-headline-sm font-headline-sm">هلدینگ ساختمانی ثاخت</span>
+          </NuxtLink>
+          <p class="mb-6 max-w-xs text-body-sm leading-relaxed text-surface-dim">
+            شرکت بین‌المللی توسعه ساختمان؛ توسعه پروژه‌های نهادی از ۱۳۶۴.
           </p>
-<div class="text-label-md font-label-md text-outline-variant space-y-1">
-<div>نماد معاملاتی بورس: <span class="text-brand-tint font-bold">ثاخت</span></div>
-<div>شناسه ملی: ۱۰۱۰۰۸۶۶۰۹۵</div>
-</div>
-</div>
-<!-- Col 2: هویت و پورتفو -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
-            هویت و پورتفو
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/about">
-                معرفی هلدینگ و هیئت‌مدیره
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-container-lowest font-bold hover:text-brand-tint transition-colors" to="/projects">
-                پرتفوی پروژه‌های عمرانی
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir/financials?group=sustainability">
-                پایداری و استانداردهای مهندسی
-              </NuxtLink>
-</li>
-</ul>
-</div>
-<!-- Col 3: سهامداران و بازار سرمایه -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
-            سهامداران و بورس
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir">
-                سامانه سهامداران و کدال
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/media?category=tenders">
-                مناقصات و مزایده‌ها
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir/financials">
-                حریم خصوصی و شفافیت مالی
-              </NuxtLink>
-</li>
-</ul>
-</div>
-<!-- Col 4: پیش‌فروش و رسانه -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
-            پیش‌فروش و تحلیل
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm">
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/sales">
-                فرصت‌های پیش‌فروش و سرمایه‌گذاری
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/media">
-                اخبار و رسانه دیجیتال
-              </NuxtLink>
-</li>
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/ir">
-                گزارش‌های ماهانه دیده‌بان
-              </NuxtLink>
-</li>
-</ul>
-</div>
-<!-- Col 5: تماس و امور مشتریان -->
-<div>
-<h4 class="text-label-lg font-label-lg text-surface-container-lowest mb-4 border-r-2 border-primary-container pr-2">
-            ارتباطات سازمانی
-          </h4>
-<ul class="space-y-2.5 text-body-sm font-body-sm mb-4">
-<li>
-<NuxtLink class="text-surface-dim hover:text-brand-tint transition-colors" to="/contact">
-                تماس و امور مشتریان
-              </NuxtLink>
-</li>
-</ul>
-<div class="bg-surface-container-low/10 border border-border/30 p-3 text-label-md font-label-md text-surface-dim">
-<div class="text-surface-container-lowest font-bold mb-1">مرکز پاسخگویی متمرکز:</div>
-<div class="text-left font-mono text-brand-tint" dir="ltr">۰۲۱ - ۸۸۶۶۴۴۰۰</div>
-<div class="mt-1 text-[11px] text-outline-variant">تهران، خیابان ولیعصر، برج ثاخت</div>
-</div>
-</div>
-</div>
-<!-- Bottom Bar: Copyright & Compliance -->
-<div class="pt-8 flex flex-col md:flex-row items-center justify-between text-body-sm font-body-sm text-surface-dim gap-4">
-<p class="text-center md:text-right">
-          © ۱۴۰۳ تمامی حقوق مادی و معنوی این وب‌سایت متعلق به شرکت بین‌المللی توسعه ساختمان (ثاخت) می‌باشد.
-        </p>
-<div class="flex items-center gap-6 text-label-md font-label-md">
-<span class="text-outline-variant">سامانه ثبت و بازرسی پروژه‌ها</span>
-<span class="inline-block w-1.5 h-1.5 bg-primary-container"></span>
-<span class="text-outline-variant">طراحی صنعتی مهندسی شده</span>
-</div>
-</div>
-</div>
-</footer>
+          <ul class="space-y-2 text-body-sm text-surface-dim">
+            <li class="flex items-start gap-2"><AppIcon name="location_on" class="mt-0.5 text-brand-tint" />{{ companyContact.address }}</li>
+            <li class="flex items-center gap-2"><AppIcon name="call" class="text-brand-tint" /><a :href="companyContact.phoneHref" class="hover:text-brand-tint">{{ companyContact.phone }}</a></li>
+            <li class="flex items-center gap-2"><AppIcon name="mail" class="text-brand-tint" /><a :href="`mailto:${companyContact.email}`" class="hover:text-brand-tint" dir="ltr">{{ companyContact.email }}</a></li>
+          </ul>
+        </div>
+
+        <!-- 2–4 — link columns -->
+        <div v-for="col in footerColumns" :key="col.heading">
+          <h2 class="mb-5 text-label-lg font-label-lg text-surface-container-lowest">{{ col.heading }}</h2>
+          <ul class="space-y-3 text-body-sm">
+            <li v-for="item in col.items" :key="item.href">
+              <NuxtLink :to="item.href" class="text-surface-dim transition-colors hover:text-brand-tint">{{ item.label }}</NuxtLink>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 5 — the eight subsidiaries -->
+        <div>
+          <h2 class="mb-5 text-label-lg font-label-lg text-surface-container-lowest">خانواده ثاخت</h2>
+          <ul class="grid grid-cols-2 gap-2">
+            <li v-for="c in companies" :key="c.slug">
+              <NuxtLink
+                :to="`/companies/${c.slug}`"
+                :title="c.name"
+                class="flex h-12 items-center justify-center rounded-sm border border-surface-container-lowest/15 px-2 text-center text-label-md font-bold text-surface-dim transition-colors hover:border-brand-tint hover:text-surface-container-lowest"
+              >{{ c.mark }}</NuxtLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center justify-between gap-4 pt-8 text-body-sm text-surface-dim md:flex-row">
+        <p>© ۱۴۰۵ — تمامی حقوق برای شرکت بین‌المللی توسعه ساختمان (ثاخت) محفوظ است.</p>
+        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-label-md">
+          <li v-for="item in legalNav" :key="item.href">
+            <NuxtLink :to="item.href" class="hover:text-brand-tint">{{ item.label }}</NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 </template>

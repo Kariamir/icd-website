@@ -1,90 +1,101 @@
 <!--
-  Ported from the approved design at
-  stitch_project_detail_page_template/sales_consultation/ (ADR-013).
-
-  Changed on the way in, deliberately:
-   - Google Fonts + Material Symbols removed; icons are inline SVG
-   - Tailwind classes resolve via app/assets/css/tailwind.css to the
-     ten project colours, not the Material palette
-   - sharp corners replaced by the radius scale (design-system 4.1)
-   - hrefs remapped onto the real route table
-   - the page <header> and <footer> were lifted out into
-     layouts/default.vue, so every route shares one menu
-
-  Still static markup: copy and data are inline. Wire to WPNuxt once
-  the content models exist (docs/decisions.md ADR-002).
+  /sales/consultation — «درخواست مشاوره». Ported from
+  stitch_project_detail_page_template/sales_consultation/ (ADR-013): one
+  centred short form. The header CTA «مشاوره و تماس سریع» lands here
+  (sitemap §10, ADR-015). The design posted to "#"; it now validates in the
+  browser and confirms with a reference number (backend pending, ADR-002).
 -->
-<template>
-<!-- TopNavBar (Web Header Anchor) -->
+<script setup lang="ts">
+import { salesNav, companyContact } from '~/utils/routes'
+import { projects, getProject } from '~/utils/catalog'
+import { faDigits } from '~/utils/format'
 
-<!-- Main Content: Single Centred Minimal Form on Pure White -->
-<main class="flex-grow flex items-center justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-surface-container-lowest">
-<div class="w-full max-w-xl mx-auto">
-<!-- Section Header: Centred, Authoritative, Clear -->
-<div class="text-center mb-10">
-<div class="inline-flex items-center gap-2 mb-3 text-secondary text-label-md font-label-md tracking-wider">
-<span class="w-2 h-2 bg-primary-container inline-block"></span>
-          سامانه یکپارچه واگذاری و پیش‌فروش
+const route = useRoute()
+const name = ref('')
+const phone = ref('')
+const interest = ref(getProject(String(route.query.project ?? '')) ? `project:${route.query.project}` : '')
+const notes = ref('')
+const errors = reactive<Record<string, string | undefined>>({})
+const sending = ref(false)
+const done = ref<string | null>(null)
+
+const selling = projects.filter(p => p.status === 'under-construction' || p.status === 'upcoming' || p.units)
+
+async function submit() {
+  errors.name = name.value.trim().length < 3 ? 'نام و نام خانوادگی را وارد کنید.' : undefined
+  errors.phone = /^09\d{9}$/.test(phone.value.replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d))).replace(/\D/g, '')) ? undefined : 'شماره همراه ۱۱ رقمی با ۰۹ شروع می‌شود.'
+  errors.interest = interest.value ? undefined : 'یک گزینه انتخاب کنید.'
+  if (errors.name || errors.phone || errors.interest) return
+  sending.value = true
+  // TODO(backend): POST to the CRM (sitemap §6 #24 — primary conversion endpoint).
+  await new Promise(r => setTimeout(r, 700))
+  sending.value = false
+  done.value = faDigits(String(Date.now()).slice(-6))
+}
+</script>
+
+<template>
+  <div>
+    <SubNav :items="salesNav" label="بخش‌های فروش" />
+    <section class="flex justify-center bg-surface px-4 py-16 md:py-24">
+      <div class="mx-auto w-full max-w-xl">
+        <div class="mb-10 text-center">
+          <p class="mb-3 inline-flex items-center gap-2 text-label-md text-secondary"><span class="size-2 rounded-pill bg-primary-container" />فروش و پیش‌فروش</p>
+          <h1 class="mb-3 text-headline-lg font-headline-lg text-ink">درخواست مشاوره خرید و سرمایه‌گذاری</h1>
+          <p class="mx-auto max-w-lg text-body-md text-on-surface-variant">کارشناسان فروش حداکثر ظرف ۲۴ ساعت کاری با شما تماس می‌گیرند.</p>
         </div>
-<h1 class="text-headline-lg font-headline-lg text-ink mb-3 tracking-tight">
-          درخواست مشاوره تخصصی خرید و سرمایه‌گذاری
-        </h1>
-<p class="text-body-md font-body-md text-on-surface-variant max-w-lg mx-auto">
-          کارشناسان فروش هلدینگ ثاخت حداکثر ظرف ۲۴ ساعت کاری با شما تماس خواهند گرفت.
+
+        <div v-if="done" class="rounded-lg border border-border bg-surface-container-lowest p-8 text-center md:p-10" role="status">
+          <span class="mx-auto mb-5 flex size-14 items-center justify-center rounded-pill bg-status-success/10 text-2xl text-status-success"><AppIcon name="check_circle" /></span>
+          <h2 class="mb-2 text-headline-sm font-headline-sm text-ink">درخواست شما ثبت شد</h2>
+          <p class="mb-6 text-body-md text-secondary">کد پیگیری: <strong class="text-ink">{{ done }}</strong></p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <NuxtLink to="/sales" class="inline-flex h-11 items-center rounded-pill border border-primary-container px-6 text-label-lg text-primary-container hover:bg-brand-tint">مشاهده واحدها</NuxtLink>
+            <button type="button" class="inline-flex h-11 items-center rounded-pill bg-primary-container px-6 text-label-lg text-on-primary" @click="done = null">درخواست جدید</button>
+          </div>
+        </div>
+
+        <form v-else id="consultation-form" class="space-y-6 rounded-lg border border-border bg-surface-container-lowest p-8 md:p-10" novalidate @submit.prevent="submit">
+          <div>
+            <label for="full-name" class="mb-2 block text-label-lg text-ink">نام و نام خانوادگی <span class="text-status-error">*</span></label>
+            <input id="full-name" v-model="name" type="text" autocomplete="name" placeholder="مثال: علیرضا محمدی" class="h-12 w-full rounded-xs border border-border px-4 text-body-md focus:border-primary-container focus:outline-none" :aria-invalid="!!errors.name">
+            <p v-if="errors.name" class="mt-1.5 text-label-md text-status-error">{{ errors.name }}</p>
+          </div>
+          <div>
+            <label for="phone-number" class="mb-2 block text-label-lg text-ink">شماره تماس <span class="text-status-error">*</span></label>
+            <input id="phone-number" v-model="phone" type="tel" dir="ltr" autocomplete="tel" placeholder="0912 000 0000" class="h-12 w-full rounded-xs border border-border px-4 text-right text-body-md focus:border-primary-container focus:outline-none" :aria-invalid="!!errors.phone">
+            <p v-if="errors.phone" class="mt-1.5 text-label-md text-status-error">{{ errors.phone }}</p>
+          </div>
+          <div>
+            <label for="project-preference" class="mb-2 block text-label-lg text-ink">پروژه یا بودجه مدنظر <span class="text-status-error">*</span></label>
+            <select id="project-preference" v-model="interest" class="h-12 w-full rounded-xs border border-border px-3 text-body-md focus:border-primary-container focus:outline-none" :aria-invalid="!!errors.interest">
+              <option disabled value="">انتخاب کنید</option>
+              <optgroup label="پروژه‌ها">
+                <option v-for="p in selling" :key="p.slug" :value="`project:${p.slug}`">{{ p.name }} — {{ p.city }}</option>
+              </optgroup>
+              <optgroup label="بودجه">
+                <option value="budget:under-20">تا ۲۰ میلیارد تومان</option>
+                <option value="budget:20-60">۲۰ تا ۶۰ میلیارد تومان</option>
+                <option value="budget:above-60">بیش از ۶۰ میلیارد تومان</option>
+              </optgroup>
+            </select>
+            <p v-if="errors.interest" class="mt-1.5 text-label-md text-status-error">{{ errors.interest }}</p>
+          </div>
+          <div>
+            <label for="notes" class="mb-2 flex items-center justify-between text-label-lg text-ink"><span>توضیحات</span><span class="text-body-sm text-outline">اختیاری</span></label>
+            <textarea id="notes" v-model="notes" rows="3" class="w-full resize-none rounded-xs border border-border p-4 text-body-md focus:border-primary-container focus:outline-none" />
+          </div>
+          <button type="submit" :disabled="sending" class="flex h-14 w-full items-center justify-center gap-2 rounded-pill bg-primary-container text-headline-sm font-headline-sm text-on-primary hover:bg-brand-hover disabled:opacity-60">
+            {{ sending ? 'در حال ارسال…' : 'ثبت درخواست مشاوره' }}
+          </button>
+          <p class="flex items-center justify-center gap-2 text-body-sm text-outline"><AppIcon name="verified_user" />اطلاعات شما محرمانه می‌ماند.</p>
+        </form>
+
+        <p class="mt-8 text-center text-body-sm text-secondary">
+          تماس مستقیم: <a :href="companyContact.phoneHref" class="font-bold text-ink hover:text-primary-container">{{ companyContact.phone }}</a>
+          · <NuxtLink to="/contact" class="text-primary-container hover:underline">سایر راه‌های ارتباطی</NuxtLink>
         </p>
-</div>
-<!-- Centred Short Form -->
-<form action="#" class="border border-border p-8 md:p-10 bg-surface-container-lowest space-y-6" id="consultation-form" method="POST">
-<!-- Field 1: Full Name -->
-<div>
-<label class="block text-label-lg font-label-lg text-ink mb-2" for="full-name">
-            نام و نام خانوادگی <span class="text-status-error">*</span>
-</label>
-<input class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" id="full-name" name="full_name" placeholder="مثال: علیرضا محمدی" required="" type="text" />
-</div>
-<!-- Field 2: Direct Contact Phone -->
-<div>
-<label class="block text-label-lg font-label-lg text-ink mb-2" for="phone-number">
-            شماره تماس مستقیم <span class="text-status-error">*</span>
-</label>
-<input class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline text-right focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" dir="ltr" id="phone-number" name="phone_number" placeholder="۰۹۱۲XXXXXXX" required="" type="tel" />
-</div>
-<!-- Field 3: Preferred Project or Budget Range -->
-<div>
-<label class="block text-label-lg font-label-lg text-ink mb-2" for="project-preference">
-            پروژه یا بودجه مدنظر <span class="text-status-error">*</span>
-</label>
-<select class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150" id="project-preference" name="project_preference" required="">
-<option disabled="" selected="" value="">انتخاب پروژه یا رده سرمایه‌گذاری</option>
-<option value="residential-tower">واحدهای مسکونی لوکس و برج‌ها</option>
-<option value="commercial-office">مجتمع‌های تجاری، اداری و خدماتی</option>
-<option value="presale-portfolio">فرصت‌های پیش‌فروش با بازدهی بالا</option>
-<option value="budget-under-20b">سرمایه‌گذاری تا ۲۰ میلیارد تومان</option>
-<option value="budget-above-20b">سرمایه‌گذاری کلان (بیش از ۲۰ میلیارد تومان)</option>
-</select>
-</div>
-<!-- Field 4: Optional Notes -->
-<div>
-<label class="block text-label-lg font-label-lg text-ink mb-2 flex items-center justify-between" for="notes">
-<span>توضیحات اختیاری</span>
-<span class="text-body-sm font-body-sm text-outline">اختیاری</span>
-</label>
-<textarea class="w-full px-4 py-3 bg-surface-container-lowest border border-border text-body-md font-body-md text-ink placeholder:text-outline focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors duration-150 resize-none" id="notes" name="notes" placeholder="در صورت وجود شرایط یا پرسش خاص، در اینجا درج فرمایید..." rows="3"></textarea>
-</div>
-<!-- Form Submission Button -->
-<div class="pt-2">
-<button class="w-full py-3.5 px-6 bg-primary-container text-on-primary text-headline-sm font-headline-sm hover:bg-brand-blue-deep active:opacity-95 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer" type="submit">
-<span>ثبت درخواست مشاوره</span>
-<AppIcon name="arrow_right_alt" />
-</button>
-</div>
-<!-- Privacy & SLA Note -->
-<div class="flex items-center gap-2 pt-2 text-outline text-body-sm font-body-sm justify-center">
-<AppIcon name="verified_user" />
-<span>اطلاعات شما نزد هلدینگ ثاخت به صورت محرمانه محفوظ خواهد بود.</span>
-</div>
-</form>
-</div>
-</main>
-<!-- Official 5-Column Holding Footer -->
+      </div>
+    </section>
+  </div>
 </template>

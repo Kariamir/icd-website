@@ -8,9 +8,10 @@
  * `04_article_detail` editorial language) needs more, so the extra fields
  * live on BoardMemberExtended below — additive only, nothing renamed.
  */
+import { phFor } from '~/utils/media'
 import type { BoardMemberViewModel } from '~/types/content'
 
-const IMG = (seed: string) => ({ src: `/img/placeholder.svg`, alt: '' })
+const IMG = (seed: string) => ({ src: phFor(seed), alt: '' })
 
 export interface BoardCareerItem {
   period: string

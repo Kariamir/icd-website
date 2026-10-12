@@ -1,81 +1,52 @@
 <!--
-  Ported from the approved design at
-  stitch_project_detail_page_template/11_error_404/ (ADR-013).
-
-  Changed on the way in, deliberately:
-   - Google Fonts + Material Symbols removed; icons are inline SVG
-   - Tailwind classes resolve via app/assets/css/tailwind.css to the
-     ten project colours, not the Material palette
-   - sharp corners replaced by the radius scale (design-system 4.1)
-   - hrefs remapped onto the real route table
-   - the page <header> and <footer> were lifted out into
-     layouts/default.vue, so every route shares one menu
-
-  Still static markup: copy and data are inline. Wire to WPNuxt once
-  the content models exist (docs/decisions.md ADR-002).
+  404 / error page — ported from stitch_project_detail_page_template/
+  11_error_404/ (ADR-013). Works without WebGL (technical-requirements §9).
+  The design's search posted nowhere; it now goes to /search, and every
+  quick link resolves to a real route.
 -->
-<template>
-<!-- ================= TOP NAVIGATION HEADER ================= -->
+<script setup lang="ts">
+import { ph } from '~/utils/media'
+import type { IconName } from '~/utils/icons'
 
-<!-- ================= MAIN CONTENT: MINIMAL & ELEGANT 404 ================= -->
-<main class="flex-grow flex items-center justify-center py-16 md:py-24 px-6 hero-glow relative">
-<div class="max-w-3xl w-full mx-auto text-center relative z-10">
-<!-- Big Soft 404 Numeral -->
-<div class="mb-4 inline-block select-none">
-<span class="text-8xl md:text-[140px] font-black text-primary-container tracking-tight leading-none drop-shadow-sm font-sans">
-        404
-      </span>
-</div>
-<!-- Title & Description -->
-<h1 class="text-2xl md:text-3xl font-extrabold text-ink mb-3 tracking-tight">
-      صفحه مورد نظر یافت نشد
-    </h1>
-<p class="text-secondary text-sm md:text-base max-w-lg mx-auto leading-relaxed mb-9">
-      متاسفانه صفحه‌ای که به دنبال آن هستید حذف شده یا آدرس آن تغییر کرده است.
-    </p>
-<!-- Capsule Search Bar -->
-<div class="max-w-md mx-auto mb-8">
-<form action="#" class="relative flex items-center" method="GET" onsubmit="event.preventDefault();">
-<input class="w-full h-12 pr-5 pl-14 bg-white rounded-full border border-border text-sm text-ink placeholder:text-slate-400 shadow-sm focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/15 transition-all" placeholder="جستجو در نام پروژه‌ها، اسناد یا محتوا..." type="text" />
-<button aria-label="جستجو" class="absolute left-1.5 w-9 h-9 bg-primary-container hover:bg-brand-blue-deep text-white rounded-full flex items-center justify-center transition-colors shadow-sm" type="submit">
-<AppIcon name="search" />
-</button>
-</form>
-</div>
-<!-- Primary Action Buttons (Capsule Shaped) -->
-<div class="flex flex-wrap items-center justify-center gap-3.5 mb-12">
-<a class="inline-flex items-center gap-2 px-6 h-12 rounded-full bg-primary-container text-white text-sm font-semibold hover:bg-brand-blue-deep transition-all shadow-sm hover:shadow" href="#">
-<AppIcon name="home" />
-<span>بازگشت به صفحه اصلی</span>
-</a>
-<a class="inline-flex items-center gap-2 px-6 h-12 rounded-full bg-white border border-border text-ink text-sm font-semibold hover:border-primary-container hover:text-primary-container hover:bg-slate-50 transition-all shadow-sm" href="#">
-<AppIcon name="apartment" />
-<span>مشاهده پروژه‌ها</span>
-</a>
-</div>
-<!-- Quick Access Links (Minimal & Soft Capsule Pills) -->
-<div class="pt-8 border-t border-border/80">
-<p class="text-xs font-medium text-slate-400 mb-4">بخش‌های پرکاربرد برای راهنمایی شما:</p>
-<div class="flex flex-wrap justify-center gap-2.5">
-<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<AppIcon name="domain" />
-<span>پروژه‌ها</span>
-</a>
-<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<AppIcon name="key" />
-<span>پیش‌فروش واحدها</span>
-</a>
-<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<AppIcon name="trending_up" />
-<span>سهام ثاخت</span>
-</a>
-<a class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border text-xs font-medium text-ink hover:text-primary-container hover:border-primary-container/50 hover:bg-brand-tint/40 transition-all shadow-xs" href="#">
-<AppIcon name="headset_mic" />
-<span>تماس با ما</span>
-</a>
-</div>
-</div>
-</div>
-</main>
-<!-- ================= FOOTER (SHARED 5-COLUMN COMPONENT) ================= -->
+withDefaults(defineProps<{ code?: number }>(), { code: 404 })
+
+const q = ref('')
+function go() {
+  navigateTo({ path: '/search', query: q.value.trim() ? { q: q.value.trim() } : {} })
+}
+
+const quick: { icon: IconName, label: string, to: string }[] = [
+  { icon: 'domain', label: 'پروژه‌ها', to: '/projects' },
+  { icon: 'key', label: 'پیش‌فروش واحدها', to: '/sales?status=pre-sale' },
+  { icon: 'trending_up', label: 'دیده‌بان ثاخت', to: '/ir/financials' },
+  { icon: 'headset_mic', label: 'تماس با ما', to: '/contact' },
+]
+</script>
+
+<template>
+  <section class="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6 py-16 md:py-24">
+    <img :src="ph('skyline', 1)" alt="" class="absolute inset-x-0 bottom-0 h-1/2 w-full object-cover opacity-20 [mask-image:linear-gradient(to_top,black,transparent)]">
+    <div class="relative z-10 mx-auto w-full max-w-3xl text-center">
+      <span class="mb-4 inline-block select-none text-8xl font-black leading-none text-primary-container md:text-[140px]">{{ code === 404 ? '۴۰۴' : '۵۰۰' }}</span>
+      <h1 class="mb-3 text-2xl font-extrabold text-ink md:text-3xl">{{ code === 404 ? 'صفحه مورد نظر یافت نشد' : 'خطایی رخ داد' }}</h1>
+      <p class="mx-auto mb-9 max-w-lg text-body-md leading-relaxed text-secondary">
+        {{ code === 404 ? 'صفحه‌ای که به دنبال آن هستید حذف شده یا نشانی آن تغییر کرده است.' : 'لطفاً چند لحظه بعد دوباره تلاش کنید.' }}
+      </p>
+      <form class="relative mx-auto mb-8 flex max-w-md items-center" role="search" @submit.prevent="go">
+        <label for="nf-q" class="sr-only">جستجو</label>
+        <input id="nf-q" v-model="q" type="search" placeholder="جستجو در پروژه‌ها، اخبار و اسناد…" class="h-12 w-full rounded-pill border border-border bg-surface-container-lowest pl-14 pr-5 text-body-sm text-ink focus:border-primary-container focus:outline-none">
+        <button type="submit" class="absolute left-1.5 flex size-9 items-center justify-center rounded-pill bg-primary-container text-on-primary hover:bg-brand-hover"><AppIcon name="search" label="جستجو" /></button>
+      </form>
+      <div class="mb-12 flex flex-wrap items-center justify-center gap-3.5">
+        <NuxtLink to="/" class="inline-flex h-12 items-center gap-2 rounded-pill bg-primary-container px-6 text-label-lg font-semibold text-on-primary hover:bg-brand-hover"><AppIcon name="home" />بازگشت به صفحه اصلی</NuxtLink>
+        <NuxtLink to="/projects" class="inline-flex h-12 items-center gap-2 rounded-pill border border-border bg-surface-container-lowest px-6 text-label-lg font-semibold text-ink hover:border-primary-container hover:text-primary-container"><AppIcon name="apartment" />مشاهده پروژه‌ها</NuxtLink>
+      </div>
+      <div class="border-t border-border pt-8">
+        <p class="mb-4 text-label-md text-outline">بخش‌های پرکاربرد:</p>
+        <div class="flex flex-wrap justify-center gap-2.5">
+          <NuxtLink v-for="l in quick" :key="l.to" :to="l.to" class="inline-flex items-center gap-2 rounded-pill border border-border bg-surface-container-lowest px-4 py-2 text-label-md text-ink hover:border-primary-container/50 hover:bg-brand-tint/40 hover:text-primary-container"><AppIcon :name="l.icon" />{{ l.label }}</NuxtLink>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>

@@ -41,6 +41,8 @@ const props = withDefaults(defineProps<{
   showSecurityCheck?: boolean
   submitLabel?: string
   helpDesk?: LeadFormHelpDesk | null
+  /** Hide the built-in hero when the page supplies its own PageHero. */
+  bare?: boolean
 }>(), {
   fields: () => defaultLeadFields,
   headingLevel: 'h1',
@@ -50,6 +52,7 @@ const props = withDefaults(defineProps<{
   showSecurityCheck: true,
   submitLabel: 'ثبت درخواست و صدور کد رهگیری آنی',
   helpDesk: null,
+  bare: false,
 })
 
 const uid = useId()
@@ -264,7 +267,7 @@ export type {
 <template>
   <div class="lead-form">
     <!-- Breadcrumb + hero -->
-    <section class="lead-form__hero">
+    <section v-if="!bare" class="lead-form__hero">
       <div class="lead-form__inner">
         <nav v-if="breadcrumb?.length" class="lead-form__breadcrumb" aria-label="مسیریاب">
           <template v-for="(crumb, i) in breadcrumb" :key="crumb.label">

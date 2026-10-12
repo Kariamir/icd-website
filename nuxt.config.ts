@@ -70,6 +70,20 @@ export default defineNuxtConfig({
     },
   } : {}),
 
+  // Retired and merged routes (ADR-005, ADR-009, ADR-015). Permanent
+  // redirects so old links and bookmarks land on the page that replaced them.
+  routeRules: {
+    '/sales/available': { redirect: { to: '/sales', statusCode: 301 } },
+    '/sales/pre-sale': { redirect: { to: '/sales?status=pre-sale', statusCode: 301 } },
+    '/ir': { redirect: { to: '/ir/financials', statusCode: 301 } },
+    '/media/news': { redirect: { to: '/media?category=news', statusCode: 301 } },
+    '/media/news/**': { redirect: { to: '/media?category=news', statusCode: 301 } },
+    '/media/stories': { redirect: { to: '/media?category=stories', statusCode: 301 } },
+    '/media/stories/**': { redirect: { to: '/media?category=stories', statusCode: 301 } },
+    '/media/reports': { redirect: { to: '/ir/financials?group=committee-reports', statusCode: 301 } },
+    '/media/reports/**': { redirect: { to: '/ir/financials?group=committee-reports', statusCode: 301 } },
+  },
+
   typescript: {
     strict: true,
   },

@@ -10,6 +10,7 @@
  * with `boardData.ts`; members that have a profile page carry `boardSlug`.
  * Per ADR-003 there is no WebGL scene — the chart is HTML/CSS/SVG.
  */
+import { phFor } from '~/utils/media'
 import { getProjectDetail } from '~/utils/projectsData'
 
 export type OrgLevelKey = 'board' | 'committees' | 'executive' | 'subsidiaries'
@@ -64,7 +65,7 @@ export interface OrgSubsidiary {
   projectSlugs: string[]
 }
 
-const PORTRAIT = (seed: string) => `/img/placeholder.svg`
+const PORTRAIT = (seed: string) => phFor(`portrait ${seed}`)
 
 export const orgChartHero = {
   badge: 'شفافیت اطلاعاتی و اصول حاکمیت شرکتی بورس اوراق بهادار (نماد ثاخت - ICD1)',

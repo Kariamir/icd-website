@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { irNav } from '~/utils/routes'
 // /ir/symbol — share price & stock information for the ثاخت ticker
 // (template 08-ir-symbol). Renders MOCK data from app/utils/irSymbolData.ts;
 // the live TSETMC/CODAL feed is pending the backend phase.
@@ -9,7 +10,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <BaseContainer>
-    <IrSymbolView />
-  </BaseContainer>
+  <div>
+    <SubNav :items="irNav" label="بخش‌های دیده‌بان ثاخت" />
+    <BaseContainer>
+      <IrSymbolView />
+    </BaseContainer>
+  </div>
 </template>

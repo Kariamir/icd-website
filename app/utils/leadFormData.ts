@@ -2,8 +2,8 @@
  * Mock configuration for the lead / consultation form family
  * (`LeadForm.vue`, template `06-form-lead` —
  * project_detail_page_template/06_form_lead). Used by /contact,
- * /complaints, /sales/consultation and /about/ceo (and, with only the
- * base props, /careers). Placeholder copy pending the real WordPress data
+ * /complaints. The CEO direct-message channel was removed with the CEO
+ * page (ADR-010). Placeholder copy pending the real WordPress data
  * layer and a real submission endpoint (docs/decisions.md ADR-002).
  */
 
@@ -103,20 +103,6 @@ export const leadInquiryTypes: LeadFormInquiryType[] = [
     ],
   },
   {
-    key: 'ceo',
-    label: 'پیام مستقیم به مدیرعامل (محرمانه)',
-    routingNote: 'ارسال مستقیم به دفتر مدیرعامل — تعهد پاسخگویی حداکثر ۷۲ ساعت کاری',
-    fields: [
-      nameField,
-      nationalIdField,
-      mobileField,
-      { key: 'email', label: 'آدرس پست الکترونیکی', type: 'email', required: true, placeholder: 'name@example.com', ltr: true },
-      { key: 'subject', label: 'موضوع پیام', type: 'select', required: true, placeholder: 'انتخاب موضوع...', options: ['پیشنهاد راهبردی', 'گزارش ویژه', 'انتقاد از روند خدمات', 'سایر موارد'] },
-      { key: 'confidentiality', label: 'سطح محرمانگی', type: 'select', options: ['عادی', 'محرمانه — فقط دفتر مدیرعامل'], defaultValue: 'محرمانه — فقط دفتر مدیرعامل' },
-      { key: 'message', label: 'متن پیام', type: 'textarea', required: true, placeholder: 'پیام خود را برای مدیرعامل بنویسید...' },
-    ],
-  },
-  {
     key: 'contractor',
     label: 'همکاری و مناقصات پیمانکاری',
     routingNote: 'ارجاع به سامانه ارزیابی کیفی پیمانکاران و تامین‌کنندگان',
@@ -164,16 +150,6 @@ export const leadInquiryTypes: LeadFormInquiryType[] = [
 
 export const leadDepartments: LeadFormDepartment[] = [
   {
-    key: 'ceo',
-    title: 'ارتباط مستقیم با مدیرعامل',
-    badge: 'تعهد پاسخگویی حداکثر ۷۲ ساعت',
-    badgeTone: 'success',
-    description: 'ارسال پیشنهادات، گزارش‌های ویژه سوت‌زنی و ارتباط بی‌واسطه با دفتر مهندس سید علیرضا حسینی (مدیرعامل هلدینگ توسعه ساختمان).',
-    ctaLabel: 'تکمیل فرم ارتباط با مدیریت',
-    icon: 'leadership',
-    inquiryKey: 'ceo',
-  },
-  {
     key: 'contractor',
     title: 'جذب پیمانکاران، تامین‌کنندگان و مناقصات',
     badge: 'سامانه ارزیابی کیفی',
@@ -212,7 +188,7 @@ export const leadHelpDesk: LeadFormHelpDesk = {
   title: 'نیاز به گفتگوی فوری با مشاوران ارشد فروش دارید؟',
   description: 'کارشناسان دپارتمان سرمایه‌گذاری و امور سهامداری هلدینگ بین‌المللی توسعه ساختمان در ساعات اداری پاسخگوی سوالات شما هستند. همچنین امکان تعیین وقت مشاوره حضوری در دفتر مرکزی فراهم است.',
   hours: 'ساعات کاری: شنبه تا چهارشنبه ۸:۰۰ الی ۱۶:۳۰',
-  address: 'دفتر مرکزی: تهران، آرژانتین، خیابان وزرا',
+  address: 'دفتر مرکزی: تهران، خیابان ولیعصر، برج اداری مرکزی ثاخت',
   phones: [
     { label: 'مرکز تماس فروش و پیش‌فروش', number: '۰۲۱-۸۸۵۵۴۲۲۱', tel: '02188554221', extension: 'داخلی ۱۰۴' },
     { label: 'پاسخگویی امور سهامداری و کدال', number: '۰۲۱-۸۸۲۰۰۰۲۱', tel: '02188200021', extension: 'داخلی ۱۰۸' },

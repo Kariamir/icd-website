@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { irNav } from '~/utils/routes'
 import { calendarEventRecords } from '~/utils/calendarData'
 
 useSeoMeta({
@@ -8,7 +9,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <BaseContainer>
-    <CalendarIndexList :events="calendarEventRecords" />
-  </BaseContainer>
+  <div>
+    <SubNav :items="irNav" label="بخش‌های دیده‌بان ثاخت" />
+    <BaseContainer>
+      <CalendarIndexList :events="calendarEventRecords" />
+    </BaseContainer>
+  </div>
 </template>

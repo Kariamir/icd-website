@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.6 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.7 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.7 — navigation follows the approved designs (ADR-015).** The menu now opens the pages that were designed for it. **(1)** «فروش و پیش‌فروش» lands on the designed sales page, now at **`/sales`**; it lists every unit and filters by `?status=pre-sale|ready` and `?project=`. The former `/sales/available` and `/sales/pre-sale` routes **redirect** there (301) and the old sales hub is retired. **(2)** «دیده‌بان ثاخت» lands on the designed documents page **`/ir/financials`**; `/ir` redirects there and the old IR hub is retired. The IR sub-pages stay and are linked from a tab strip on every IR page. **(3)** The header CTA «مشاوره و تماس سریع» opens **`/sales/consultation`**; `/contact` is rebuilt as a plain «تماس با ما» page (channels, desks, offices, callback form) without the former "contact the managers" framing. **(4)** `/ir/financials/[slug]` — the readable view of one document (§7.3) — is now built, and the §7.2 tables A–E render from the client's workbook. **(5)** Placeholders are **illustrated**, not grey (§14). Template count: **40** (two hub templates retired).
 
 **Changes in 1.6 — the financial disclosure specification (ADR-012).** The client's financial workbook is now specified as tabular sections on `/ir/financials` (§7.2): four statement tables and one ratio table, each covering fiscal years ۱۴۰۰–۱۴۰۴ with a pre-created ۱۴۰۵ column, in million rials, for a fiscal year ending **۳۱ شهریور**. The workbook's `توضیحات` sheet turned out to be a **regulatory minimum-disclosure checklist** under the corporate-governance and exchange directive, and checking the site against it exposed three gaps: the management interpretive report (MD&A), the sustainability report, and the major-shareholder and free-float disclosure, none of which existed anywhere in v1.5. Document groups on `/ir/financials` go from five to seven, and a new shareholder-composition table is added. Template count unchanged at **42** — all of this lands on existing routes.
 
@@ -21,7 +23,7 @@
 
 | Metric | Count |
 |---|---|
-| Unique routes / templates to build | **42** |
+| Unique routes / templates to build | **40** |
 | Of which are dynamic templates (`[slug]`) | 6 |
 | Estimated rendered URLs at launch | ~79 |
 | Content models | 11 |
@@ -91,7 +93,7 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 
 ### 4.1 Section order on `/about`
 
-Section ids must stay in sync with `app/components/sections/AboutOverview.vue` and the anchor entries in `app/utils/routes.ts`.
+Section ids must stay in sync with `app/components/sections/AboutStitchView.vue` and the anchor entries in `app/utils/routes.ts`. All seven are built as of v1.7.
 
 | Order | Anchor | Label | Content | Notes |
 |---|---|---|---|---|
@@ -99,7 +101,7 @@ Section ids must stay in sync with `app/components/sections/AboutOverview.vue` a
 | 2 | `#history` | تاریخچه | **The whole historical narrative, in one section.** See §4.2 | Merges former `/about/history` + «کارنامه» + «افتخارات» (v1.4) |
 | 3 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
 | 4 | `#board` | هیات‌مدیره | One flat card per member: portrait, name, position, education, company represented, 2-line bio | **No individual profile pages.** Replaces `/about/board/[slug]` |
-| 5 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue`. **Not yet built** — no `#committees` id in `AboutOverview.vue` |
+| 5 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue`. Built in v1.7 from the committee data in `orgChartData.ts` |
 | 6 | `#vision` | چشم‌انداز، حاکمیت شرکتی و استانداردهای مهندسی | Three short columns, one image and one sentence each | Merges former `/about/vision` + governance + engineering standards |
 | 7 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
 
@@ -196,12 +198,12 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 19 | `/sales` | فروش و پیش‌فروش | `HUB` | Cluster overview | |
-| 20 | `/sales/available` | واحدهای آماده فروش | `INDEX` | Filterable unit list with photos | Filters: project, area, floor, price |
-| 21 | `/sales/pre-sale` | پیش‌فروش پروژه‌های در حال ساخت | `INDEX` | Pre-sale inventory | |
+| 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** Every unit for sale; `?status=pre-sale` / `?status=ready` and `?project=` filter it | Replaces the former hub |
+| 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
+| 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
 | 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |
 | 23 | `/sales/guide` | راهنمای گام‌به‌گام خرید و قرارداد | `STATIC` | Buyer FAQ + contract walkthrough | **New** |
-| 24 | `/sales/consultation` | درخواست مشاوره رایگان | `FORM` | Lead form → CRM | Primary conversion endpoint |
+| 24 | `/sales/consultation` | درخواست مشاوره رایگان | `FORM` | Lead form → CRM | Primary conversion endpoint. **Target of the header CTA** (v1.7) |
 
 ---
 
@@ -211,13 +213,13 @@ Rebrand of the existing «امور سهامداری». Regulatory-sensitive: acc
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 25 | `/ir` | دیده‌بان ثاخت | `HUB` | IR entry, live widget above the fold | |
+| 25 | ~~`/ir`~~ | — | redirect | 301 → `/ir/financials` | The designed documents page is the IR landing (v1.7) |
 | 26 | `/ir/symbol` | اطلاعات نماد ثاخت در بورس | `STATIC` (live) | Live price/volume widget | **TSETMC integration.** Client-requested |
-| 27 | `/ir/financials` | اسناد و گزارش‌ها | `INDEX` | **The documents page.** See §7.1 | Merges former `/ir/reports` (ADR-009) |
+| 27 | `/ir/financials` | اسناد و گزارش‌ها | `INDEX` | **The documents page and IR landing** (v1.7). See §7.1 | Merges former `/ir/reports` (ADR-009). Menu target of «دیده‌بان ثاخت» |
 | 28 | `/ir/calendar` | تقویم اطلاع‌رسانی و مجامع عمومی | `INDEX` | Jalali calendar of disclosures & general assemblies | **New** — TSE transparency requirement |
 | 29 | `/ir/governance` | گزارش‌های شفافیت و حاکمیت شرکتی | `INDEX` | Governance reports | |
 | 30 | `/ir/faq` | پرسش‌های متداول سهامداران | `STATIC` | Shareholder FAQ | **New** |
-| 31 | `/ir/financials/[slug]` | سند / گزارش | `DETAIL` | One document rendered as readable text, with its PDF download beside it | Readable view is required, not optional |
+| 31 | `/ir/financials/[slug]` | سند / گزارش | `DETAIL` | One document rendered as readable text, with its PDF download beside it | Readable view is required, not optional. **Built in v1.7** |
 
 ### 7.1 `/ir/financials` — the documents page
 
@@ -359,7 +361,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 42 | `/account/orders` | پیگیری وضعیت خرید | `APP` | Purchase status tracking | |
 | 43 | `/account/documents` | مدارک | `APP` | Document upload/download | Sensitive — see security checklist |
 | 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets | CEO-message threads removed in v1.4 |
-| 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Full contact page, offices, map | CTA button links here as secondary |
+| 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Contact channels, the desk for each topic, offices, short callback form | Rebuilt in v1.7; the header CTA goes to `/sales/consultation`, this page is its secondary link |
 | 43 | `/careers` | فرصت‌های همکاری و استخدام | `STATIC` + `FORM` | Short intro, two-field resume form, and the HR topics as sections | **Restructured in v1.2** — see §9.1 |
 | 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
 | 46 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | Header icon |
@@ -412,7 +414,9 @@ They therefore appear in exactly two places:
 **Left/logo:** لوگو ثاخت
 **Menu (5 items):** درباره ثاخت · پروژه‌ها · فروش و پیش‌فروش · دیده‌بان ثاخت · رسانه ثاخت
 **Functional icons (not counted in menu):** 🔍 site search · 🌐 EN/FA · 👤 login/profile
-**CTA button:** «مشاوره و تماس سریع» → short form or WhatsApp/live chat, with secondary link to `/contact`
+**CTA button:** «مشاوره و تماس سریع» → `/sales/consultation` (the designed short form), with secondary link to `/contact`
+
+**Menu targets (v1.7):** درباره ثاخت → `/about` · پروژه‌ها → `/projects` · فروش و پیش‌فروش → `/sales` · دیده‌بان ثاخت → `/ir/financials` · رسانه ثاخت → `/media`. Each item opens a dropdown of its sub-pages on desktop; on mobile the same tree is a drawer. The sales and IR clusters also carry a tab strip under the hero linking their sub-pages.
 
 Result: ~45% more compact than a conventional 9-item menu.
 
@@ -492,7 +496,7 @@ Applies to every page unless §14.1 exempts it. This is the v1.2 house style and
 Placeholder imagery is accepted throughout the build (v1.4). Every image slot is designed and sized now; real photography drops in later. Two rules keep this from becoming a trap:
 
 1. **Placeholders carry the real aspect ratio and crop.** A 16:9 slot filled with a square placeholder will break when the real photo arrives. Size each placeholder to the specified ratio
-2. **Placeholders are visibly placeholders.** Neutral grey with the intended dimensions labelled — never stock photography, which reads as a design decision and quietly survives into launch
+2. **Placeholders are visibly placeholders.** Since v1.7 (owner's request, ADR-015) they are **flat illustrations in the brand palette** — skyline, tower, residential, coastal, construction, interior, portrait, plan and so on, in `public/img/ph/` — chosen to match each slot's subject so a page can be judged as a design. They are drawings, never photographs, so nothing ships on them by accident; **never stock photography**
 
 The pre-۱۳۵۰ black-and-white treatment still needs deciding on real material (§13 q3): a greyscale filter over a placeholder proves nothing about whether archival photographs exist.
 

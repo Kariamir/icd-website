@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { salesNav } from '~/utils/routes'
 import { salesFaqCenter } from '~/utils/faqData'
 
 useSeoMeta({
@@ -8,5 +9,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <FaqCenter :config="salesFaqCenter" />
+  <div>
+    <SubNav :items="salesNav" label="بخش‌های فروش" />
+    <FaqCenter :config="salesFaqCenter" />
+  </div>
 </template>

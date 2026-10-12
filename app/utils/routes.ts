@@ -6,7 +6,9 @@
  * separate model, /companies/*) is assumed per sitemap §5.2 recommendation —
  * revisit in docs/decisions.md if the client confirms Option A instead.
  *
- * Tracks docs/01-sitemap.md v1.4: About is one page (ADR-004), Media is one
+ * Tracks docs/01-sitemap.md v1.7: the menu opens the designed pages —
+ * /sales and /ir/financials are the cluster landings, /ir, /sales/available and
+ * /sales/pre-sale redirect (nuxt.config.ts routeRules, ADR-015). About is one page (ADR-004), Media is one
  * categorised blog (ADR-005), /careers absorbs the HR topics (ADR-006), and
  * tenders are informational only — no /tenders route, no Tender model, with
  * notices in the blog's `tenders` category and the documents on /ir/financials
@@ -24,7 +26,7 @@ export const routes = {
    * The About cluster is ONE page (docs/decisions.md ADR-004). The eight
    * former sub-routes were deleted, not redirected — the entries below are
    * in-page anchors on /about, not routes, and must stay in sync with the
-   * section ids in components/sections/AboutOverview.vue.
+   * section ids in components/sections/AboutStitchView.vue.
    */
   about: '/about',
   aboutVision: '/about#vision',
@@ -52,14 +54,19 @@ export const routes = {
   companies: '/companies',
   company: (slug: string) => `/companies/${slug}`,
 
+  /**
+   * /sales is the designed sales page (sales_available): every unit for
+   * sale, filtered by `?status=`. The former /sales/available and
+   * /sales/pre-sale routes redirect here (ADR-015).
+   */
   sales: '/sales',
-  salesAvailable: '/sales/available',
-  salesPreSale: '/sales/pre-sale',
+  salesPreSale: '/sales?status=pre-sale',
+  salesReady: '/sales?status=ready',
   salesUnit: (id: string) => `/sales/units/${id}`,
   salesGuide: '/sales/guide',
   salesConsultation: '/sales/consultation',
 
-  ir: '/ir',
+  /** /ir redirects to /ir/financials, the designed IR landing (ADR-015). */
   irSymbol: '/ir/symbol',
   irFinancials: '/ir/financials',
   irCalendar: '/ir/calendar',
@@ -104,7 +111,7 @@ export const routes = {
   /**
    * /careers is ONE page: brief intro, a two-field resume form, then the three
    * HR topics as sections (ADR-006). The anchors below are in-page, not routes,
-   * and must stay in sync with the section ids in the careers page component.
+   * and must stay in sync with the section ids in components/sections/CareersView.vue.
    */
   careers: '/careers',
   careersResume: '/careers#resume',
@@ -204,6 +211,8 @@ export const FINANCIAL_UNIT = 'میلیون ریال'
 export interface NavItem {
   label: string
   href: string
+  /** One-line hint shown under the label in the header dropdown. */
+  hint?: string
 }
 
 export interface MegaMenuColumn {
@@ -212,11 +221,14 @@ export interface MegaMenuColumn {
 }
 
 /**
- * Header nav — exactly 5 items + 1 CTA (docs/01-sitemap.md §10), in the order
- * the project_detail_page_template mockups use (07_unit_detail, 04_article_main).
- * Every link here must resolve to a page under app/pages — mockup-only
- * destinations with no page yet (press kit, subsidiaries, account area) are
- * intentionally left out until those routes exist.
+ * Header nav — exactly 5 items + 1 CTA (docs/01-sitemap.md §10).
+ *
+ * Each top-level item opens the page that was designed for it (ADR-015):
+ * «فروش و پیش‌فروش» is the designed sales page at /sales, and «دیده‌بان ثاخت»
+ * is the designed documents page at /ir/financials — the same targets the
+ * approved Stitch header used. The sub-items render as the desktop dropdown
+ * and as the mobile drawer's second level. Every href must resolve to a real
+ * page (or an in-page anchor on one).
  */
 export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
   {
@@ -224,11 +236,9 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.about,
     megaMenu: [{
       items: [
-        { label: 'چشم‌انداز و حاکمیت شرکتی', href: routes.aboutVision },
         { label: 'تاریخچه و کارنامه', href: routes.aboutHistory },
-        { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
+        { label: 'خانواده ثاخت', href: routes.companies },
         { label: 'هیات‌مدیره', href: routes.aboutBoard },
-        { label: 'کمیته‌ها', href: routes.aboutCommittees },
         { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
       ],
     }],
@@ -238,11 +248,11 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.projects,
     megaMenu: [{
       items: [
-        { label: 'اطلس و نقشه پروژه‌ها', href: routes.projectsMap },
-        { label: 'پروژه‌های آتی', href: routes.projectsUpcoming },
         { label: 'پروژه‌های در حال ساخت', href: routes.projectsUnderConstruction },
+        { label: 'پروژه‌های آتی', href: routes.projectsUpcoming },
         { label: 'پروژه‌های در حال بهره‌برداری', href: routes.projectsOperating },
         { label: 'پروژه‌های تکمیل‌شده', href: routes.projectsCompleted },
+        { label: 'نقشه پروژه‌ها', href: routes.projectsMap },
       ],
     }],
   },
@@ -251,24 +261,23 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
     href: routes.sales,
     megaMenu: [{
       items: [
-        { label: 'واحدهای آماده فروش', href: routes.salesAvailable },
+        { label: 'همه واحدهای قابل واگذاری', href: routes.sales },
         { label: 'پیش‌فروش پروژه‌های در حال ساخت', href: routes.salesPreSale },
-        { label: 'راهنمای گام‌به‌گام خرید', href: routes.salesGuide },
+        { label: 'واحدهای آماده تحویل', href: routes.salesReady },
+        { label: 'راهنمای خرید و قرارداد', href: routes.salesGuide },
         { label: 'درخواست مشاوره رایگان', href: routes.salesConsultation },
       ],
     }],
   },
   {
     label: 'دیده‌بان ثاخت',
-    href: routes.ir,
+    href: routes.irFinancials,
     megaMenu: [{
       items: [
-        { label: 'اطلاعات نماد ثاخت در بورس', href: routes.irSymbol },
         { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
-        { label: 'مناقصات و مزایدات', href: routes.irDocumentGroup('tenders') },
-        { label: 'نسبت‌های مالی و عملکرد', href: routes.irTable('ratios') },
-        { label: 'تقویم اطلاع‌رسانی و مجامع', href: routes.irCalendar },
-        { label: 'گزارش‌های شفافیت و حاکمیت شرکتی', href: routes.irGovernance },
+        { label: 'اطلاعات نماد در بورس', href: routes.irSymbol },
+        { label: 'تقویم مجامع و اطلاع‌رسانی', href: routes.irCalendar },
+        { label: 'حاکمیت شرکتی و شفافیت', href: routes.irGovernance },
         { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
       ],
     }],
@@ -280,106 +289,90 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
       items: [
         { label: 'همه مطالب', href: routes.media },
         { label: 'نبض ثاخت — اخبار', href: routes.mediaCategory('news') },
-        { label: 'روایت ثاخت — گفتگو', href: routes.mediaCategory('stories') },
+        { label: 'روایت ثاخت', href: routes.mediaCategory('stories') },
         { label: 'پادکست', href: routes.mediaCategory('podcast') },
+        { label: 'تحلیل بازار', href: routes.mediaCategory('analysis') },
+        { label: 'مناقصات و مزایدات', href: routes.mediaCategory('tenders') },
       ],
     }],
   },
 ]
 
+/** «مشاوره و تماس سریع» — the designed consultation page (sitemap §6 #24). */
 export const headerCta: NavItem = { label: 'مشاوره و تماس سریع', href: routes.salesConsultation }
 
 /**
- * «ورود سهامداران» — the mockups link this to a shareholder portal. The
- * authenticated area (routes.authLogin / routes.account) is not built yet, so
- * it points at the IR hub for now. Swap to routes.authLogin once that page exists.
+ * «ورود سهامداران». The authenticated shareholder area (routes.authLogin) is
+ * build wave P2 and does not exist yet, so the button opens the IR documents
+ * page — the designed landing of the IR cluster. Swap to routes.authLogin once
+ * that page exists.
  */
-export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.ir }
+export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.irFinancials }
 
 /**
- * Footer link grid — the 5 columns shared by the mockups' footers
- * (01a/01b/02a: هلدینگ ثاخت · پروژه‌های عمرانی · سهامداران و کدال ·
- * رسانه و اخبار · امور مشتریان), mapped onto real routes. The brand block,
- * newsletter, contact lines and legal bar are rendered by SiteFooter.
+ * Cluster sub-navigation shown as a tab strip under the hero on every page of
+ * the cluster, so the sub-pages stay one click apart.
+ */
+export const salesNav: NavItem[] = [
+  { label: 'همه واحدها', href: routes.sales },
+  { label: 'پیش‌فروش', href: routes.salesPreSale },
+  { label: 'آماده تحویل', href: routes.salesReady },
+  { label: 'راهنمای خرید', href: routes.salesGuide },
+  { label: 'درخواست مشاوره', href: routes.salesConsultation },
+]
+
+export const irNav: NavItem[] = [
+  { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
+  { label: 'اطلاعات نماد', href: routes.irSymbol },
+  { label: 'تقویم مجامع', href: routes.irCalendar },
+  { label: 'حاکمیت شرکتی', href: routes.irGovernance },
+  { label: 'پرسش‌های متداول', href: routes.irFaq },
+]
+
+/**
+ * Footer — sitemap §11: brand column plus four link columns, and the
+ * «خانواده ثاخت» column of the eight subsidiaries, which SiteFooter renders
+ * from the company catalog so it can never drift from /companies.
  */
 export const footerColumns: MegaMenuColumn[] = [
   {
-    heading: 'هلدینگ ثاخت',
+    heading: 'دسترسی سریع',
     items: [
       { label: 'درباره ثاخت', href: routes.about },
-      { label: 'تاریخچه و کارنامه', href: routes.aboutHistory },
-      { label: 'هیئت‌مدیره و ارکان راهبری', href: routes.aboutBoard },
-      { label: 'کمیته‌ها', href: routes.aboutCommittees },
-      { label: 'خانواده ثاخت', href: routes.aboutSubsidiaries },
+      { label: 'پروژه‌ها', href: routes.projects },
+      { label: 'فروش و پیش‌فروش', href: routes.sales },
+      { label: 'رسانه ثاخت', href: routes.media },
+      { label: 'تماس با ما', href: routes.contact },
+    ],
+  },
+  {
+    heading: 'سرمایه‌گذاران',
+    items: [
+      { label: 'دیده‌بان ثاخت', href: routes.irFinancials },
+      { label: 'اطلاعات نماد در بورس', href: routes.irSymbol },
+      { label: 'مناقصات و مزایدات', href: routes.irDocumentGroup('tenders') },
+      { label: 'تقویم مجامع', href: routes.irCalendar },
+    ],
+  },
+  {
+    heading: 'خدمات و همکاری',
+    items: [
+      { label: 'درخواست مشاوره', href: routes.salesConsultation },
+      { label: 'پرسش‌های متداول', href: routes.irFaq },
+      { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
       { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
-    ],
-  },
-  {
-    heading: 'پروژه‌های عمرانی',
-    items: [
-      { label: 'اطلس و نقشه پروژه‌ها', href: routes.projectsMap },
-      { label: 'پروژه‌های در دست احداث', href: routes.projectsUnderConstruction },
-      { label: 'پروژه‌های در حال بهره‌برداری', href: routes.projectsOperating },
-      { label: 'پروژه‌های تحویل‌شده', href: routes.projectsCompleted },
-      { label: 'طرح‌های آتی و توسعه‌ای', href: routes.projectsUpcoming },
-    ],
-  },
-  {
-    heading: 'سهامداران و کدال',
-    items: [
-      { label: 'تابلوی نماد ثاخت', href: routes.irSymbol },
-      { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
-      { label: 'تقویم مجامع عمومی و سود سهام', href: routes.irCalendar },
-      { label: 'حاکمیت شرکتی و شفافیت', href: routes.irGovernance },
-      { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
-    ],
-  },
-  {
-    heading: 'رسانه و اخبار',
-    items: [
-      { label: 'نبض ثاخت — اتاق خبر', href: routes.mediaCategory('news') },
-      { label: 'روایت ثاخت — گفتگو', href: routes.mediaCategory('stories') },
-      { label: 'پادکست', href: routes.mediaCategory('podcast') },
-      { label: 'جستجو در آرشیو سایت', href: routes.search },
-    ],
-  },
-  {
-    heading: 'امور مشتریان',
-    items: [
-      { label: 'واحدهای آماده فروش', href: routes.salesAvailable },
-      { label: 'شرایط فروش و پیش‌فروش', href: routes.salesPreSale },
-      { label: 'راهنمای خرید و قرارداد', href: routes.salesGuide },
-      { label: 'ثبت پیشنهادات و شکایات', href: routes.complaints },
-      { label: 'تماس و امور مشتریان', href: routes.contact },
-      { label: 'ارسال رزومه', href: routes.careersResume },
     ],
   },
 ]
 
 /**
  * Routes whose constant exists above but which have NO page under app/pages
- * yet, and are therefore deliberately absent from primaryNav / footerColumns.
+ * yet, and are therefore deliberately absent from every navigation list.
  * Linking to one of these produces a 404 — add the nav entry in the same
  * commit that adds the page, and delete it from this list.
- *
- *   routes.irDocument      → /ir/financials/[slug]   (ADR-009)
- *   routes.irDocumentGroup → /ir/financials?group=…   (needs group filtering on the page)
- *   routes.irTable         → /ir/financials?table=…   (needs the §7.2 tables built)
- *   routes.mediaPost       → /media/[slug]            (replaces the three former detail templates)
- *   routes.companies    → /companies          (sitemap §5.2 Option B)
- *   routes.company      → /companies/[slug]
- *   routes.mediaPressKit, routes.authLogin, routes.account* → not built yet
- *
- * The /media?category= links ARE live: the /media page exists, though its
- * category filtering still needs implementing.
  */
 export const PENDING_ROUTES = [
-  'irDocument',
-  'irDocumentGroup',
-  'irTable',
-  'mediaPost',
-  'companies',
-  'company',
+  'projectTour',
   'mediaPressKit',
   'authLogin',
   'account',
@@ -393,13 +386,14 @@ export const PENDING_ROUTES = [
 export const legalNav: NavItem[] = [
   { label: 'حریم خصوصی', href: routes.legalPrivacy },
   { label: 'قوانین و مقررات', href: routes.legalTerms },
-  { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
+  { label: 'جستجو', href: routes.search },
 ]
 
-/** Company contact lines shown in the footer (placeholder values from the mockups). */
+/** Company contact lines (placeholder values from the designs). */
 export const companyContact = {
-  phone: '۰۲۱-۸۸۸۸۳۳۲۲',
-  phoneHref: 'tel:+982188883322',
-  email: 'info@icd3d.ir',
-  address: 'تهران، میدان ونک، خیابان ملاصدرا',
+  phone: '۰۲۱-۸۸۶۶۴۴۰۰',
+  phoneHref: 'tel:+982188664400',
+  email: 'info@icd.ir',
+  address: 'تهران، خیابان ولیعصر، برج اداری مرکزی ثاخت',
+  hours: 'شنبه تا چهارشنبه، ۸ تا ۱۷',
 } as const

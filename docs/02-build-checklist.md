@@ -1,5 +1,5 @@
 # ICD (ثاخت) — 3D Website Build Checklist
-**Version:** 1.6 · **Companion to:** `01-sitemap.md` v1.6
+**Version:** 1.7 · **Companion to:** `01-sitemap.md` v1.7
 **Starting point:** page inventory approved. Everything before that is out of scope for this document.
 
 > Working agreement: nothing moves to the next phase until every ⛔ blocker in the current phase is closed. Non-blockers can trail.
@@ -13,7 +13,7 @@
 - [ ] ⛔ **PRE-LAUNCH GATE: real photography replaces every placeholder.** Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. The site does not ship on placeholders
 - [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the `#history` timeline (revisit ADR-008 rather than substituting stock imagery). **A greyscale filter over a placeholder does not validate this**
 - [ ] Placeholders carry the **real aspect ratio and crop** for every slot — a square placeholder in a 16:9 slot breaks when the real photo arrives
-- [ ] Placeholders are **visibly placeholders** (neutral grey, dimensions labelled) — never stock photography, which reads as a design decision and survives quietly into launch
+- [x] Placeholders are **visibly placeholders** — illustrated drawings in the brand palette since v1.7 (ADR-015), never photographs; never stock photography, which reads as a design decision and survives quietly into launch
 - [ ] ⛔ Confirm whether the current live site serves `/about/*` or `/media/news|stories|reports/*` URLs. If it does, those 301 redirects are launch-blocking (sitemap §13 open question 10)
 - [ ] ⛔ **Locate the existing tender PDFs.** They were previously hosted in the tenders section; their current URLs need redirects to `/ir/financials` and the files need migrating (sitemap §13 question 11)
 - [ ] Decide whether to rename `/ir/financials` to `/ir/documents` now that it carries tenders and registration rules as well as statements. Cheap now, expensive after launch (sitemap §13 question 12)
@@ -104,11 +104,11 @@
 - [ ] ⛔ i18n routing (`/fa`, `/en`) with locale switch preserving the current page
 - [ ] Jalali (Shamsi) date handling across the app — required for `/ir/calendar` and all article dates
 - [ ] Persian numeral formatting utility (and where NOT to use it: prices in forms, phone inputs)
-- [ ] Header: 5-item menu, mega-menu, search icon, EN/FA, profile icon, CTA button
+- [x] Header: 5-item menu, mega-menu, search icon, EN/FA, profile icon, CTA button
 - [ ] Sticky/scroll behavior of the header over a 3D hero
-- [ ] Footer: 5 columns + bottom row
+- [x] Footer: 5 columns + bottom row
 - [ ] Global error boundary that never leaves a blank 3D canvas
-- [ ] Mobile navigation pattern (mega-menus do not translate directly to mobile — design separately)
+- [x] Mobile navigation pattern (mega-menus do not translate directly to mobile — design separately)
 
 ---
 
@@ -116,37 +116,37 @@
 
 Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 
-- [ ] Homepage: all 10 blocks, in the fixed order, each independently lazy-loaded
-- [ ] `/about` as one scroll page, sections in the fixed order of sitemap §4.1, including the new `#committees` section (committee data already exists in `OrgChartView.vue` and `BoardMemberProfile.vue` — reuse, do not re-model)
-- [ ] `/about#subsidiaries` built as the enlarged, full-width section: low-opacity blurred background photo, horizontally scrollable large logo tiles
-- [ ] `#history` built as **one section in four movements** (sitemap §4.2): brand-story video → ۱۳۳۰ timeline → delivered-work gallery → recognition strip. Its internal pacing matters more than any other section's
-- [ ] **Move** the existing `id="track-record"` section in `AboutOverview.vue` inside `#history` — do not delete it, it renders `aboutGallery` from `honorsData` and holds the achievements content (ADR-010)
-- [ ] Retire the `#track-record` anchor from `routes.ts`, the About mega-menu and the footer
-- [ ] **Remove every CEO reference** (ADR-010): homepage block, `aboutPageData.ts` header comments, any `/about#contact` dropdown option, CEO-message routing in `/account/tickets`
-- [ ] Homepage renumbered to nine blocks (0–8) with nothing in place of the former CEO block
-- [ ] `/about#board` as one flat card per member — **verify no individual profile route survives**
-- [ ] `/about#contact` form with exactly two «موضوع» options: «ارسال رزومه» and «ارتباط با سهامداران»
-- [ ] `/media` as one categorised feed; `/media/[slug]` as the single detail template with the podcast player; delete the three former index and detail templates
-- [ ] `/ir/financials` as **the** documents page: statements, board reports, committee reports, tender notices, registration rules, every PDF — filterable by group and year (ADR-009). Build early in P1; it is the most load-bearing route on the site
-- [ ] `/ir/financials/[slug]` with readable HTML body **and** download for every record
-- [ ] `/ir/financials` financial-performance tables A–F (sitemap §7.2), tabbed, above the document archive
-- [ ] Tables A–D render the three analytical views (مقادیر / تحلیل افقی / تحلیل عمودی) as **switchable views of one table**, defaulting to مقادیر — not three stacked tables
-- [ ] Every table header states the unit (میلیون ریال) and the fiscal-year-end (۳۱ شهریور) explicitly
-- [ ] Each table carries an "as of" year stamp, a prior-year archive, and a CSV/Excel download
-- [ ] Wide financial tables are usable at phone width — horizontal scroll with a pinned first column, never a squeezed unreadable grid
-- [ ] `/careers` as one page: intro, two-field resume form, benefits, learning, FAQ — and nothing else
+- [ ] Homepage: all 9 blocks, in the fixed order (done), each independently lazy-loaded (pending)
+- [x] `/about` as one scroll page, sections in the fixed order of sitemap §4.1, including the new `#committees` section (committee data already exists in `OrgChartView.vue` and `BoardMemberProfile.vue` — reuse, do not re-model)
+- [x] `/about#subsidiaries` built as the enlarged, full-width section: low-opacity blurred background photo, horizontally scrollable large logo tiles
+- [x] `#history` built as **one section in four movements** (sitemap §4.2): brand-story video → ۱۳۳۰ timeline → delivered-work gallery → recognition strip. Its internal pacing matters more than any other section's
+- [x] Track-record gallery and achievements live inside `#history` (movements 3 and 4) in `AboutStitchView.vue` (ADR-010, ADR-015)
+- [x] Retire the `#track-record` anchor from `routes.ts`, the About mega-menu and the footer
+- [x] **Remove every CEO reference** (ADR-010): homepage block, `aboutPageData.ts` header comments, any `/about#contact` dropdown option, CEO-message routing in `/account/tickets`
+- [x] Homepage renumbered to nine blocks (0–8) with nothing in place of the former CEO block
+- [x] `/about#board` as one flat card per member — **verify no individual profile route survives**
+- [x] `/about#contact` form with exactly two «موضوع» options: «ارسال رزومه» and «ارتباط با سهامداران»
+- [x] `/media` as one categorised feed; `/media/[slug]` as the single detail template with the podcast player; delete the three former index and detail templates
+- [x] `/ir/financials` as **the** documents page: statements, board reports, committee reports, tender notices, registration rules, every PDF — filterable by group and year (ADR-009). Build early in P1; it is the most load-bearing route on the site
+- [x] `/ir/financials/[slug]` with readable HTML body **and** download for every record
+- [x] `/ir/financials` financial-performance tables A–F (sitemap §7.2), tabbed, above the document archive — A–E from the workbook; F waits for the shareholder list
+- [x] Tables A–D render the three analytical views (مقادیر / تحلیل افقی / تحلیل عمودی) as **switchable views of one table**, defaulting to مقادیر — not three stacked tables
+- [x] Every table header states the unit (میلیون ریال) and the fiscal-year-end (۳۱ شهریور) explicitly
+- [ ] Each table carries an "as of" year stamp, a prior-year archive, and a CSV/Excel download — stamp and CSV done; prior-year archive pending
+- [x] Wide financial tables are usable at phone width — horizontal scroll with a pinned first column, never a squeezed unreadable grid
+- [x] `/careers` as one page: intro, two-field resume form, benefits, learning, FAQ — and nothing else
 - [ ] Projects cluster: hub, 3D map, all four status indexes, and the `[slug]` template against real data
-- [ ] Companies cluster (`/companies`, `/companies/[slug]`) — **P0**. Homepage block 2 and footer column 5 both depend on it
-- [ ] `/companies/[slug]` lists that company's projects; `/projects/[slug]` names and links its owner company — both directions required (ADR-011)
-- [ ] A company with no live project still renders a valid page with an empty project list
-- [ ] Homepage block order: «خانواده ثاخت» at block 2, **before** «پروژه‌های شاخص» at block 3 (ADR-011)
-- [ ] Verify every project has exactly one status and appears in exactly one index (or, if tags were chosen, that duplicates are intentional)
-- [ ] Sales cluster with working filters and a unit detail template
+- [x] Companies cluster (`/companies`, `/companies/[slug]`) — **P0**. Homepage block 2 and footer column 5 both depend on it
+- [x] `/companies/[slug]` lists that company's projects; `/projects/[slug]` names and links its owner company — both directions required (ADR-011)
+- [x] A company with no live project still renders a valid page with an empty project list
+- [x] Homepage block order: «خانواده ثاخت» at block 2, **before** «پروژه‌های شاخص» at block 3 (ADR-011)
+- [x] Verify every project has exactly one status and appears in exactly one index (or, if tags were chosen, that duplicates are intentional)
+- [x] Sales cluster with working filters and a unit detail template
 - [ ] IR cluster with the live widget
-- [ ] About cluster incl. CEO message form
-- [ ] Media cluster incl. audio player for podcasts
+- [x] ~~About cluster incl. CEO message form~~ — CEO channel removed (ADR-010); About cluster done
+- [ ] Media cluster incl. audio player for podcasts — built; the player activates once audio files are uploaded
 - [ ] Account cluster (P2)
-- [ ] Utility, legal, 404, 500
+- [x] Utility, legal, 404, 500
 - [ ] Every page reviewed against its row in the sitemap — function delivered, not just layout built
 
 ---
@@ -240,8 +240,8 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] ⛔ WebGL-disabled and WebGL-failure paths tested on every 3D page
 - [ ] Slow-3G and offline behavior
 - [ ] All forms submitted end-to-end and confirmed received
-- [ ] Every link in header, footer, and mega-menus clicked — **including every `#anchor` entry**, which is where the About and Careers merges will break first
-- [ ] No navigation entry points at a `PENDING_ROUTES` constant
+- [x] Every link in header, footer, and mega-menus clicked — **including every `#anchor` entry**, which is where the About and Careers merges will break first
+- [x] No navigation entry points at a `PENDING_ROUTES` constant
 - [ ] Persian text QA: no broken ZWNJ, no Latin-digit leakage, no LTR bleed
 - [ ] Content proofread by a Persian editor
 - [ ] Memory-leak test: navigate 20+ pages with 3D scenes, watch heap

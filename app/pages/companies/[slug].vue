@@ -1,11 +1,20 @@
 <script setup lang="ts">
-// Route /companies/[slug] — view ported from the approved design (ADR-013).
+// Route /companies/[slug] — design companies_slug (ADR-013), data from the catalog (ADR-015).
+import { getCompany } from '~/utils/catalog'
+
+const route = useRoute()
+const company = computed(() => getCompany(String(route.params.slug)))
+
+if (!company.value) {
+  throw createError({ statusCode: 404, message: 'شرکت یافت نشد' })
+}
+
 useSeoMeta({
-  title: 'شرکت ساختمانی آ.اس.پ — هلدینگ ساختمانی ثاخت',
-  description: 'معرفی شرکت تابعه، ترکیب مالکیت و پروژه‌های تحت مدیریت آن.',
+  title: () => `${company.value?.name} — هلدینگ ساختمانی ثاخت`,
+  description: () => company.value?.summary ?? '',
 })
 </script>
 
 <template>
-  <CompanyDetailView />
+  <CompanyDetailView v-if="company" :company="company" />
 </template>

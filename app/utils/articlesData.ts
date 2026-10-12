@@ -8,12 +8,13 @@
  * pull quotes and figures, podcast audio) lives on the local *Extended
  * interfaces below so app/types/content.ts stays untouched.
  */
+import { phFor } from '~/utils/media'
 import type { ArticleCardViewModel, ArticleDetailViewModel, ImageViewModel } from '~/types/content'
 
 export type ArticleType = ArticleCardViewModel['contentType']
 
 const IMG = (seed: string): ImageViewModel => ({
-  src: `/img/placeholder.svg`,
+  src: phFor(seed),
   alt: '',
 })
 

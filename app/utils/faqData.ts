@@ -9,6 +9,7 @@
  * → dark "didn't find your answer?" CTA. Both routes share the layout via
  * `FaqCenter.vue`; only the config objects below differ.
  */
+import { phFor } from '~/utils/media'
 import type { FaqItemViewModel } from '~/types/content'
 
 export interface FaqEntryViewModel extends FaqItemViewModel {
@@ -163,7 +164,7 @@ export const irFaqCenter: FaqCenterConfig = {
   popularSearches: ['سود', 'پیش‌فروش', 'تضامین', 'NAV', 'سجام'],
   groups: irFaqGroups,
   advisor: {
-    image: '/img/placeholder.svg',
+    image: phFor('مرکز پرسش‌های متداول سهامداران، خریداران و شرکای تجاری ثاخت'),
     imageAlt: 'کارشناس امور ذی‌نفعان و مشاوره هلدینگ ثاخت',
     badge: 'پشتیبانی برخط سهام و املاک',
     caption: 'میز خدمت مستقیم ذی‌نفعان هلدینگ',
@@ -195,7 +196,7 @@ export const salesFaqCenter: FaqCenterConfig = {
   popularSearches: ['اقساط', 'تسهیلات', 'تحویل', 'سند', 'فسخ'],
   groups: salesGuideGroups,
   advisor: {
-    image: '/img/placeholder.svg',
+    image: phFor('راهنمای گام‌به‌گام خرید، قرارداد و تحویل واحدهای ثاخت'),
     imageAlt: 'مشاور فروش هلدینگ ثاخت در دفتر فروش',
     badge: 'مشاوره فروش و پیش‌فروش',
     caption: 'دفتر فروش مرکزی هلدینگ — تهران',

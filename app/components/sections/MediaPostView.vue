@@ -1,43 +1,182 @@
 <!--
-  Ported from the approved design at
-  stitch_project_detail_page_template/_1/ (ADR-013).
-
-  Changed on the way in, deliberately:
-   - Google Fonts + Material Symbols removed; icons are inline SVG
-   - Tailwind classes resolve via app/assets/css/tailwind.css to the
-     ten project colours, not the Material palette
-   - sharp corners replaced by the radius scale (design-system 4.1)
-   - hrefs remapped onto the real route table
-   - the page <header> and <footer> were lifted out into
-     layouts/default.vue, so every route shares one menu
-
-  Still static markup: copy and data are inline. Wire to WPNuxt once
-  the content models exist (docs/decisions.md ADR-002).
+  /media/[slug] — ported from stitch_project_detail_page_template/_1/
+  (ADR-013). One detail template for every post type (ADR-005); podcast and
+  narrated posts show the audio panel. The design's Font Awesome icons never
+  loaded in the app — they are AppIcon now — and the body renders from the
+  post's structured blocks (app/utils/posts.ts).
 -->
-<template>
-<!-- ==================== HEADER (یکپارچه و هماهنگ با تمپلیت‌های 02a, 02b, 02c) ==================== -->
+<script setup lang="ts">
+import { mediaCategories } from '~/utils/routes'
+import { relatedPosts, posts, type Post } from '~/utils/posts'
+import { faDigits, faNumber } from '~/utils/format'
+import { formatDuration } from '~/utils/articlesData'
 
-<!-- ==================== MAIN CONTENT ==================== -->
-<main class="flex-grow">
-<!-- نوار مسیر راهنما (Breadcrumb) -->
-<div class="bg-surface border-b border-border-subtle/60 py-3">
-<div class="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between text-xs text-gray-500 font-medium">
-<div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap">
-<a class="hover:text-brand-blue transition-colors" href="#">صفحه اصلی</a>
-<i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
-<a class="hover:text-brand-blue transition-colors" href="#">رسانه و دانش ثاخت</a>
-<i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
-<a class="hover:text-brand-blue transition-colors text-brand-blue font-semibold" href="#">روایت مهندسی و توسعه</a>
-<i class="fa-solid fa-chevron-left text-[9px] text-gray-400"></i>
-<span class="text-gray-700 font-semibold truncate max-w-[280px] sm:max-w-md">رویکرد نوین مهندسی ژئوتکنیک در ابرپروژه‌های چندمنظوره</span>
-</div>
-<div class="hidden md:flex items-center gap-3 text-gray-400">
-<span class="flex items-center gap-1.5"><i class="fa-regular fa-clock"></i> زمان مطالعه: ۸ دقیقه</span>
-</div>
-</div>
-</div>
-<!-- بدنه مقاله و گرید محتوایی دو ستونه -->
-<div class="max-w-[1360px] mx-auto px-4 md:px-8 py-12 md:py-20"><div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start"><article class="lg:col-span-8 bg-white rounded-3xl p-8 sm:p-12 md:p-14 border border-border-subtle shadow-soft"><div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-6 border-b border-border-subtle/40"><div class="flex items-center gap-3"><span class="px-4 py-1.5 rounded-full text-xs font-bold bg-brand-tint text-brand-blue">گزارش تخصصی و مهندسی</span><span class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface text-gray-600 flex items-center gap-1.5"><i class="fa-solid fa-podcast text-brand-blue"></i> همراه با پادکست اختصاصی</span></div><div class="flex items-center gap-4 text-xs text-gray-500 font-medium"><span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-gray-400"></i> ۲۴ اردیبهشت ۱۴۰۳</span><span class="text-gray-300">•</span><span class="flex items-center gap-1.5"><i class="fa-regular fa-eye text-gray-400"></i> ۲,۴۸۰ بازدید</span></div></div><h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink leading-snug mb-8 tracking-tight">رویکرد نوین مهندسی ژئوتکنیک و پایداری سازه‌ای در مگاپروژه‌های هلدینگ ساختمانی ثاخت</h1><p class="text-lg text-gray-600 font-normal leading-relaxed mb-10 pb-8 border-b border-border-subtle/60">بررسی جامع تمهیدات مهندسی گودبرداری‌های عمیق، اجرای دیوارهای آب‌بند و تکنولوژی‌های روز تحکیم بستر در پروژه‌های مقیاس‌بزرگ تجاری و مسکونی هلدینگ بین‌المللی توسعه ساختمان، با تمرکز بر مدیریت ریسک‌های ژئوتکنیکی و استانداردهای پایداری زیست‌محیطی.</p><div class="flex flex-wrap items-center justify-between gap-4 mb-10 p-5 rounded-2xl bg-surface/80 border border-border-subtle/50"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-lg border border-brand-blue/20"><i class="fa-solid fa-user-tie"></i></div><div><h4 class="text-sm font-bold text-ink">دکتر کاوه رضوانی</h4><p class="text-xs text-gray-500 mt-0.5">معاونت فنی و مهندسی گروه توسعه ساختمان (ثاخت)</p></div></div><div class="flex items-center gap-2"><span class="text-xs text-gray-500 font-medium ml-2">اشتراک‌گذاری:</span><button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="لینکدین"><i class="fa-brands fa-linkedin-in text-xs"></i></button><button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="تلگرام"><i class="fa-brands fa-telegram text-xs"></i></button><button class="w-9 h-9 rounded-full bg-white hover:bg-brand-blue hover:text-white text-gray-600 flex items-center justify-center transition-all border border-border-subtle shadow-sm" title="کپی لینک"><i class="fa-solid fa-link text-xs"></i></button></div></div><div class="mb-12 rounded-3xl overflow-hidden border border-border-subtle shadow-soft group"><div class="relative aspect-[16/9] w-full bg-gray-100"><img alt="نمای بیرونی مجتمع مگاپارس و معماری مدرن هلدینگ ثاخت در هنگام غروب" class="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-500" src="/img/placeholder.svg" /><div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-ink/80 via-ink/40 to-transparent p-5 text-white flex justify-between items-end"><span class="text-xs sm:text-sm font-medium">نمای چشم‌نواز برج مسکونی و اداری شاخص هلدینگ ثاخت در شامگاه تهران</span><span class="text-xs opacity-75 font-normal">عکاسی اختصاصی معماری</span></div></div></div><div class="mb-12 bg-surface rounded-2xl p-6 border border-brand-blue/20"><div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2.5 text-brand-blue font-bold text-sm"><i class="fa-solid fa-podcast text-base animate-pulse"></i><span>روایت صوتی مقاله • قسمت ۱۸ رادیو ثاخت</span></div><span class="text-xs text-gray-500">۱۲ دقیقه تحلیل فنی</span></div><div class="flex flex-col sm:flex-row items-center gap-4"><button class="w-11 h-11 rounded-full bg-brand-blue text-white flex items-center justify-center hover:bg-brand-blue-deep transition-colors shadow-soft flex-shrink-0"><i class="fa-solid fa-play text-sm mr-0.5"></i></button><div class="w-full flex-grow flex flex-col gap-1.5"><div class="w-full bg-white h-2 rounded-full overflow-hidden border border-border-subtle cursor-pointer"><div class="bg-brand-blue h-full w-[38%] rounded-full"></div></div><div class="flex justify-between items-center text-[11px] text-gray-500"><span>۰۴:۳۵</span><span class="text-gray-400">گوینده: رادیو ثاخت</span><span>۱۲:۱۰</span></div></div><div class="flex items-center gap-2 flex-shrink-0"><button class="w-8 h-8 rounded-full bg-white border border-border-subtle text-gray-600 hover:text-brand-blue flex items-center justify-center text-xs" title="سرعت پخش"><span class="font-bold">1.2x</span></button><a class="w-8 h-8 rounded-full bg-white border border-border-subtle text-gray-600 hover:text-brand-blue flex items-center justify-center text-xs" href="#" title="دانلود فایل صوتی"><i class="fa-solid fa-download"></i></a></div></div></div><div class="prose max-w-none text-gray-700 leading-8 text-[16px] space-y-8"><p class="text-base leading-relaxed">در دهه‌های اخیر، توسعه زیرساخت‌های کلان‌شهری و احداث مجتمع‌های چندمنظوره با حجم سرمایه‌گذاری سنگین، چالش‌های ژئوتکنیکی پیچیده‌ای را پیش روی طراحان و مجریان پروژه‌های عمرانی قرار داده است. هلدینگ بین‌المللی توسعه ساختمان با در اختیار داشتن سبدی بالغ بر ده‌ها پروژه شاخص در پهنه‌های مختلف جغرافیایی کشور، همواره رویکردی متکی بر مهندسی دقیق ارزش و سیستم‌های تاب‌آور سازه‌ای را اتخاذ کرده است.</p><h2 class="text-xl sm:text-2xl font-bold text-ink pt-6 pb-2 border-r-4 border-brand-blue pr-4">۱. مدیریت ریسک در گودبرداری‌های فوق‌عمیق شهری</h2><p class="text-base leading-relaxed">احداث سازه‌هایی با بیش از ۲۰ طبقه زیرسطحی در بافت‌های متراکم شهری، مستلزم ارزیابی لایه‌نگاری دقیق خاک، سنجش جریان‌های هیدرودینامیکی آب‌های زیرزمینی و به‌کارگیری مدل‌سازی سه‌بعدی اندرکنش خاک و سازه است. در این راستا، بهره‌گیری از ترکیب روش‌های نیلینگ پیش‌تنیده و دیوارهای دیافراگمی بتنی پیوسته، ریسک تغییرشکل‌های مجاورتی را به حداقل رسانده است.</p><div class="my-10 rounded-3xl overflow-hidden border border-border-subtle shadow-soft bg-white"><div class="aspect-[16/9] w-full bg-gray-100"><img alt="عملیات اجرایی گودبرداری و سازه نگهبان در شب" class="w-full h-full object-cover" src="/img/placeholder.svg" /></div><div class="p-4 bg-surface text-center"><p class="text-xs text-gray-500 font-medium">عملیات اجرایی پایدارسازی دیواره‌های گودبرداری عمیق و آرماتوربندی فونداسیون در پروژه مگاپارس</p></div></div><figure class="my-10 p-8 sm:p-10 bg-brand-tint/25 rounded-3xl border-r-4 border-brand-blue"><blockquote class="text-lg sm:text-xl font-bold text-ink leading-relaxed">«استانداردهای مهندسی امروز دیگر صرفاً ساخت یک بنای پایدار نیست؛ بلکه کنترل رفتار پویای ساختگاه در چرخه عمر ۵۰ ساله و جلوگیری از هرگونه تنش به محیط پیرامونی شهری است.»</blockquote><figcaption class="mt-4 text-xs text-brand-blue font-bold flex items-center gap-2"><span>— مهندس حسینی</span><span class="text-gray-400">•</span><span class="text-gray-600 font-normal">مدیر پروژه‌های زیربنایی هلدینگ ثاخت</span></figcaption></figure><h3 class="text-lg sm:text-xl font-bold text-ink pt-4">۲. به‌کارگیری سنسورهای پایش بلادرنگ (Real-Time Structural Health Monitoring)</h3><p class="text-base leading-relaxed">یکی از دستاوردهای مهندسی نوین در پروژه‌های اخیر ثاخت، نصب حسگرهای پیزوالکتریک و ژئوفون‌های دقیق جهت مانیتورینگ آنلاین نشست‌ها و ارتعاشات ناشی از ساخت بوده است. اطلاعات به دست آمده به‌صورت لحظه‌ای در اتاق فرمان ژئوتکنیک پروژه تحلیل شده و حاشیه ایمنی سازه‌های هم‌جوار در تمامی مراحل حفاری و بتن‌ریزی تضمین می‌گردد.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10"><div class="rounded-2xl overflow-hidden border border-border-subtle shadow-sm"><div class="aspect-[4/3] w-full bg-gray-100"><img alt="برج‌های مسکونی مدرن" class="w-full h-full object-cover" src="/img/placeholder.svg" /></div><div class="p-3.5 bg-surface"><p class="text-xs text-gray-600 font-semibold">برج‌های هوشمند مسکونی با استانداردهای لرزه‌ای کلاس A</p></div></div><div class="rounded-2xl overflow-hidden border border-border-subtle shadow-sm"><div class="aspect-[4/3] w-full bg-gray-100"><img alt="فضای داخلی پنت‌هاوس لوکس" class="w-full h-full object-cover" src="/img/placeholder.svg" /></div><div class="p-3.5 bg-surface"><p class="text-xs text-gray-600 font-semibold">طراحی معماری پایدار داخلی با بهره‌گیری از نور طبیعی و عایق‌های صوتی</p></div></div></div><ul class="list-none space-y-3.5 my-6 pr-1"><li class="flex items-start gap-2.5 text-sm"><i class="fa-solid fa-circle-check text-brand-blue mt-1"></i><span>کاهش ۲۵ درصدی مصرف فولاد در دیوارهای نگهبان با بهره‌گیری از مدل‌سازی عددی پیشرفته.</span></li><li class="flex items-start gap-2.5 text-sm"><i class="fa-solid fa-circle-check text-brand-blue mt-1"></i><span>عایق‌کاری چندلایه ژئوممبران ضد نفوذ آب با استاندارد بین‌المللی ASTM.</span></li><li class="flex items-start gap-2.5 text-sm"><i class="fa-solid fa-circle-check text-brand-blue mt-1"></i><span>پایداری در برابر زلزله‌های حوزه نزدیک با طراحی میراگرهای نوین ویسکوز.</span></li></ul><p class="text-base leading-relaxed">هلدینگ ثاخت با تلفیق این دانش مهندسی با نظام شفافیت و گزارش‌گری کدال، بستر مطمئنی برای سرمایه‌گذاران و خریداران نهایی فراهم آورده است که کیفیت نهایی سازه‌ها را در بالاترین تراز مهندسی کشور تثبیت می‌کند.</p></div><div class="mt-12 pt-8 border-t border-border-subtle flex flex-wrap items-center justify-between gap-4"><div class="flex flex-wrap items-center gap-2"><span class="text-xs text-gray-500 font-bold ml-1">برچسب‌ها:</span><a class="px-3.5 py-1.5 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors" href="#">#مهندسی_ژئوتکنیک</a><a class="px-3.5 py-1.5 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors" href="#">#مگاپروژه</a><a class="px-3.5 py-1.5 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors" href="#">#ایمنی_سازه</a><a class="px-3.5 py-1.5 bg-surface hover:bg-brand-tint hover:text-brand-blue rounded-full text-xs text-gray-600 transition-colors" href="#">#تکنولوژی_ساخت</a></div><button class="text-xs font-bold text-gray-500 hover:text-brand-blue flex items-center gap-2 transition-colors"><i class="fa-regular fa-file-pdf text-sm text-red-500"></i> دریافت نسخه PDF مقاله</button></div><div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 border-t border-border-subtle"><a class="p-5 rounded-2xl bg-surface hover:bg-surface-alt/70 transition-colors flex items-center justify-between group border border-border-subtle/50" href="#"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-gray-500 group-hover:text-brand-blue shadow-sm"><i class="fa-solid fa-arrow-right text-xs"></i></div><div><span class="text-[11px] text-gray-400 block font-medium">مطلب قبلی</span><span class="text-xs font-bold text-ink group-hover:text-brand-blue line-clamp-1">تحلیل روند بازار مسکن و افق پیش‌فروش در سال ۱۴۰۳</span></div></div></a><a class="p-5 rounded-2xl bg-surface hover:bg-surface-alt/70 transition-colors flex items-center justify-between group border border-border-subtle/50 text-left" href="#"><div class="flex items-center gap-3 justify-end w-full"><div><span class="text-[11px] text-gray-400 block font-medium">مطلب بعدی</span><span class="text-xs font-bold text-ink group-hover:text-brand-blue line-clamp-1">گزارش پیشرفت فیزیکی مگاپروژه تجاری اداری مگاپارس</span></div><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-gray-500 group-hover:text-brand-blue shadow-sm flex-shrink-0"><i class="fa-solid fa-arrow-left text-xs"></i></div></div></a></div><div class="mt-14 pt-10 border-t border-border-subtle"><h3 class="text-lg font-bold text-ink mb-2">دیدگاه و پرسش‌های تخصصی شما</h3><p class="text-xs text-gray-500 mb-6">نظرات و سوالات شما پس از تایید مدیر سامانه، در این بخش نمایش داده خواهد شد.</p><form class="space-y-4"><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label class="block text-xs font-bold text-gray-700 mb-1.5">نام و نام خانوادگی <span class="text-red-500">*</span></label><input class="w-full h-11 px-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface" placeholder="مثلاً: علی محمدی" type="text" /></div><div><label class="block text-xs font-bold text-gray-700 mb-1.5">پست الکترونیکی <span class="text-red-500">*</span></label><input class="w-full h-11 px-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface" placeholder="example@domain.com" type="email" /></div></div><div><label class="block text-xs font-bold text-gray-700 mb-1.5">متن دیدگاه یا پرسش <span class="text-red-500">*</span></label><textarea class="w-full p-4 rounded-xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface" placeholder="دیدگاه تخصصی خود را بنویسید..." rows="4"></textarea></div><div class="flex items-center justify-between pt-2"><label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer"><input class="rounded border-gray-300 text-brand-blue focus:ring-brand-blue" type="checkbox" /><span>اطلاع‌رسانی از پاسخ به دیدگاه از طریق ایمیل</span></label><button class="px-6 h-11 rounded-full bg-brand-blue hover:bg-brand-blue-deep text-white text-xs font-bold transition-colors shadow-sm" type="button">ثبت و ارسال دیدگاه</button></div></form></div></article><aside class="lg:col-span-4 space-y-8 sticky top-28"><div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft"><div class="relative"><input class="w-full h-12 pr-4 pl-10 rounded-2xl border border-border-subtle focus:border-brand-blue focus:ring-1 focus:ring-brand-blue outline-none text-xs text-gray-700 bg-surface" placeholder="جستجو در مقالات و تحلیل‌ها..." type="text" /><button class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-blue"><i class="fa-solid fa-magnifying-glass text-sm"></i></button></div></div><div class="bg-white rounded-3xl p-6 border border-border-subtle shadow-soft"><h3 class="text-sm font-bold text-ink mb-4 pb-3 border-b border-border-subtle flex items-center justify-between"><span>سرفصل‌های این مقاله</span><i class="fa-regular fa-clock text-gray-400 text-xs"></i></h3><div class="space-y-2.5 text-xs text-gray-600"><a class="block p-2.5 rounded-xl bg-surface hover:text-brand-blue font-semibold text-brand-blue transition-colors" href="#">۱. مدیریت ریسک در گودبرداری‌ها</a><a class="block p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue font-medium transition-colors" href="#">۲. سنسورهای پایش بلادرنگ سازه</a><a class="block p-2.5 rounded-xl hover:bg-surface hover:text-brand-blue font-medium transition-colors" href="#">۳. استانداردهای تاب‌آوری و مصالح</a></div></div><div class="bg-white rounded-3xl overflow-hidden border border-border-subtle shadow-soft group"><div class="relative aspect-[16/10] bg-gray-100"><img alt="مگاپروژه‌های تجاری و مسکونی ثاخت" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/img/placeholder.svg" /><div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent flex flex-col justify-end p-5 text-white"><span class="text-[11px] text-brand-tint font-bold mb-1">فرصت‌های پیش‌فروش</span><h4 class="text-sm font-bold leading-snug">مجموعه لوکس مسکونی و اداری ثاخت</h4></div></div><div class="p-5 bg-white"><p class="text-xs text-gray-500 leading-relaxed mb-4">مشاوره اختصاصی خرید و سرمایه‌گذاری در برترین پروژه‌های در حال توسعه هلدینگ.</p><a class="w-full h-10 rounded-full bg-brand-blue hover:bg-brand-blue-deep text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 shadow-sm" href="#"><span>درخواست مشاوره</span><i class="fa-solid fa-arrow-left text-xs"></i></a></div></div></aside></div></div>
-</main>
-<!-- ==================== FOOTER (یکپارچه و هماهنگ با تمپلیت‌های 02a, 02b, 02c) ==================== -->
+const props = defineProps<{ post: Post }>()
+
+const catLabel = computed(() => mediaCategories.find(m => m.value === props.post.category)?.label ?? '')
+const related = computed(() => relatedPosts(props.post.slug, 3))
+const toc = computed(() => props.post.body.filter(b => b.type === 'h2' || b.type === 'h3').map((b, i) => ({ id: `s${i + 1}`, text: (b as { text: string }).text })))
+const headingIds = computed(() => {
+  const map = new Map<number, string>()
+  let n = 0
+  props.post.body.forEach((b, i) => { if (b.type === 'h2' || b.type === 'h3') map.set(i, `s${++n}`) })
+  return map
+})
+const idx = computed(() => posts.findIndex(p => p.slug === props.post.slug))
+const prev = computed(() => posts[idx.value + 1])
+const next = computed(() => posts[idx.value - 1])
+
+const copied = ref(false)
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(window.location.href)
+    copied.value = true
+    setTimeout(() => (copied.value = false), 2000)
+  }
+  catch { /* clipboard blocked — nothing to do */ }
+}
+</script>
+
+<template>
+  <div>
+    <!-- Breadcrumb bar -->
+    <div class="border-b border-border bg-surface">
+      <div class="mx-auto flex max-w-[1360px] items-center justify-between gap-4 px-space-lg py-3 text-label-md text-secondary md:px-8">
+        <nav aria-label="مسیر صفحه" class="flex min-w-0 items-center gap-2 overflow-x-auto whitespace-nowrap">
+          <NuxtLink to="/" class="hover:text-primary-container">صفحه اصلی</NuxtLink>
+          <AppIcon name="chevron_left" class="text-outline" />
+          <NuxtLink to="/media" class="hover:text-primary-container">رسانه ثاخت</NuxtLink>
+          <AppIcon name="chevron_left" class="text-outline" />
+          <NuxtLink :to="`/media?category=${post.category}`" class="font-semibold text-primary-container">{{ catLabel }}</NuxtLink>
+        </nav>
+        <span class="hidden shrink-0 items-center gap-1.5 md:flex"><AppIcon name="schedule" />{{ faDigits(post.readingMinutes) }} دقیقه مطالعه</span>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-[1360px] px-space-lg py-12 md:px-8 md:py-20">
+      <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 xl:gap-16">
+        <article class="rounded-lg border border-border bg-surface-container-lowest p-6 sm:p-10 md:p-14 lg:col-span-8">
+          <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-6">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-pill bg-brand-tint px-4 py-1.5 text-label-md font-bold text-primary-container">{{ catLabel }}</span>
+              <span v-if="post.audio" class="flex items-center gap-1.5 rounded-pill bg-surface px-3.5 py-1.5 text-label-md text-secondary"><AppIcon name="headset_mic" class="text-primary-container" />همراه با نسخه صوتی</span>
+              <span v-if="post.deadline" class="rounded-pill bg-status-error/10 px-3.5 py-1.5 text-label-md font-bold text-status-error">مهلت دریافت اسناد: {{ post.deadline }}</span>
+            </div>
+            <div class="flex items-center gap-4 text-label-md text-secondary">
+              <span class="flex items-center gap-1.5"><AppIcon name="calendar_month" class="text-outline" />{{ post.date }}</span>
+              <span class="flex items-center gap-1.5"><AppIcon name="visibility" class="text-outline" />{{ faNumber(post.views) }}</span>
+            </div>
+          </div>
+
+          <h1 class="mb-6 text-2xl font-extrabold leading-snug text-ink sm:text-3xl md:text-4xl">{{ post.title }}</h1>
+          <p class="mb-8 border-b border-border/60 pb-8 text-body-lg leading-relaxed text-secondary">{{ post.excerpt }}</p>
+
+          <div class="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-md border border-border/60 bg-surface p-5">
+            <div class="flex items-center gap-4">
+              <span class="flex size-12 items-center justify-center rounded-pill border border-primary-container/20 bg-primary-container/10 font-bold text-primary-container">{{ post.author.initials }}</span>
+              <div>
+                <p class="text-body-sm font-bold text-ink">{{ post.author.name }}</p>
+                <p class="mt-0.5 text-label-md text-secondary">{{ post.author.role }}</p>
+              </div>
+            </div>
+            <button type="button" class="inline-flex h-9 items-center gap-2 rounded-pill border border-border bg-surface-container-lowest px-4 text-label-md text-secondary transition-colors hover:border-primary-container hover:text-primary-container" @click="copyLink">
+              <AppIcon :name="copied ? 'check' : 'share'" />{{ copied ? 'پیوند کپی شد' : 'کپی پیوند' }}
+            </button>
+          </div>
+
+          <figure class="mb-12 overflow-hidden rounded-lg">
+            <img :src="post.image" :alt="post.title" class="aspect-[16/9] w-full object-cover">
+          </figure>
+
+          <div v-if="post.audio" class="mb-12 rounded-md border border-primary-container/20 bg-surface p-6">
+            <div class="mb-4 flex items-center justify-between">
+              <span class="flex items-center gap-2.5 text-body-sm font-bold text-primary-container"><AppIcon name="headset_mic" />
+                {{ post.audio.episode ? `قسمت ${faDigits(post.audio.episode)} پادکست روایت ثاخت` : 'روایت صوتی مقاله' }}
+              </span>
+              <span class="text-label-md text-secondary">{{ formatDuration(post.audio.durationSec) }}</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="flex size-11 shrink-0 items-center justify-center rounded-pill bg-primary-container/40 text-on-primary" aria-hidden="true"><AppIcon name="play_arrow" /></span>
+              <div class="h-2 flex-1 rounded-pill bg-surface-container-lowest ring-1 ring-border" />
+            </div>
+            <p class="mt-3 text-label-md text-outline">فایل صوتی پس از بارگذاری در سامانه پخش می‌شود. گوینده: {{ post.audio.narrator }}</p>
+          </div>
+
+          <div class="space-y-6 text-[16px] leading-8 text-on-surface">
+            <template v-for="(b, i) in post.body" :key="i">
+              <p v-if="b.type === 'p'">{{ b.text }}</p>
+              <h2 v-else-if="b.type === 'h2'" :id="headingIds.get(i)" class="scroll-mt-28 border-r-4 border-primary-container pr-4 pt-4 text-xl font-bold text-ink sm:text-2xl">{{ b.text }}</h2>
+              <h3 v-else-if="b.type === 'h3'" :id="headingIds.get(i)" class="scroll-mt-28 pt-2 text-lg font-bold text-ink sm:text-xl">{{ b.text }}</h3>
+              <figure v-else-if="b.type === 'quote'" class="my-8 rounded-lg border-r-4 border-primary-container bg-brand-tint/30 p-8">
+                <blockquote class="text-lg font-bold leading-relaxed text-ink sm:text-xl">{{ b.text }}</blockquote>
+                <figcaption class="mt-4 text-label-md font-bold text-primary-container">— {{ b.author }}<span v-if="b.role" class="font-normal text-secondary"> · {{ b.role }}</span></figcaption>
+              </figure>
+              <figure v-else-if="b.type === 'figure'" class="my-8 overflow-hidden rounded-lg border border-border">
+                <img :src="b.image.src" :alt="b.caption" loading="lazy" class="aspect-[16/9] w-full object-cover">
+                <figcaption class="bg-surface p-4 text-center text-label-md text-secondary">{{ b.caption }}</figcaption>
+              </figure>
+              <ul v-else-if="b.type === 'checklist'" class="space-y-3">
+                <li v-for="it in b.items" :key="it" class="flex items-start gap-2.5 text-body-sm"><AppIcon name="check_circle" class="mt-1 text-primary-container" /><span>{{ it }}</span></li>
+              </ul>
+            </template>
+          </div>
+
+          <div v-if="post.category === 'tenders'" class="mt-10 flex flex-col items-start justify-between gap-4 rounded-md border border-border bg-surface p-6 sm:flex-row sm:items-center">
+            <p class="text-body-sm text-secondary">اسناد این آگهی و الزامات ثبت مدارک در صفحه اسناد و گزارش‌ها منتشر شده است.</p>
+            <NuxtLink to="/ir/financials?group=tenders" class="inline-flex h-11 shrink-0 items-center gap-2 rounded-pill bg-primary-container px-5 text-label-lg text-on-primary hover:bg-brand-hover"><AppIcon name="download" />دریافت اسناد</NuxtLink>
+          </div>
+
+          <div class="mt-12 flex flex-wrap items-center gap-2 border-t border-border pt-8">
+            <span class="ml-1 text-label-md font-bold text-secondary">برچسب‌ها:</span>
+            <NuxtLink v-for="t in post.tags" :key="t" :to="{ path: '/search', query: { q: t.replace(/_/g, ' ') } }" class="rounded-pill bg-surface px-3.5 py-1.5 text-label-md text-secondary transition-colors hover:bg-brand-tint hover:text-primary-container">#{{ t }}</NuxtLink>
+          </div>
+
+          <div class="mt-10 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2">
+            <NuxtLink v-if="prev" :to="`/media/${prev.slug}`" class="group flex items-center gap-3 rounded-md border border-border/60 bg-surface p-5 hover:border-primary-container">
+              <AppIcon name="arrow_forward" class="text-outline group-hover:text-primary-container" />
+              <div class="min-w-0"><span class="block text-label-sm text-outline">مطلب قبلی</span><span class="line-clamp-1 text-label-lg font-bold text-ink group-hover:text-primary-container">{{ prev.title }}</span></div>
+            </NuxtLink>
+            <NuxtLink v-if="next" :to="`/media/${next.slug}`" class="group flex items-center justify-end gap-3 rounded-md border border-border/60 bg-surface p-5 text-left hover:border-primary-container sm:col-start-2">
+              <div class="min-w-0"><span class="block text-label-sm text-outline">مطلب بعدی</span><span class="line-clamp-1 text-label-lg font-bold text-ink group-hover:text-primary-container">{{ next.title }}</span></div>
+              <AppIcon name="arrow_back" class="text-outline group-hover:text-primary-container" />
+            </NuxtLink>
+          </div>
+        </article>
+
+        <aside class="space-y-8 lg:sticky lg:top-28 lg:col-span-4">
+          <form action="/search" method="get" class="rounded-lg border border-border bg-surface-container-lowest p-6" role="search">
+            <label for="post-search" class="sr-only">جستجو در مطالب</label>
+            <div class="relative">
+              <input id="post-search" name="q" type="search" placeholder="جستجو در مقالات و تحلیل‌ها…" class="h-12 w-full rounded-md border border-border bg-surface pl-11 pr-4 text-body-sm text-ink focus:border-primary-container focus:outline-none">
+              <button type="submit" class="absolute left-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary-container"><AppIcon name="search" label="جستجو" /></button>
+            </div>
+          </form>
+
+          <nav v-if="toc.length" class="rounded-lg border border-border bg-surface-container-lowest p-6" aria-label="سرفصل‌ها">
+            <h2 class="mb-4 border-b border-border pb-3 text-body-sm font-bold text-ink">سرفصل‌های این مطلب</h2>
+            <a v-for="t in toc" :key="t.id" :href="`#${t.id}`" class="block rounded-sm p-2.5 text-label-lg text-secondary transition-colors hover:bg-surface hover:text-primary-container">{{ t.text }}</a>
+          </nav>
+
+          <div v-if="related.length" class="rounded-lg border border-border bg-surface-container-lowest p-6">
+            <h2 class="mb-4 border-b border-border pb-3 text-body-sm font-bold text-ink">مطالب مرتبط</h2>
+            <NuxtLink v-for="r in related" :key="r.slug" :to="`/media/${r.slug}`" class="group mb-4 flex gap-3 last:mb-0">
+              <img :src="r.image" alt="" class="size-16 shrink-0 rounded-sm object-cover">
+              <span class="line-clamp-2 text-label-lg font-bold text-ink group-hover:text-primary-container">{{ r.title }}</span>
+            </NuxtLink>
+          </div>
+
+          <NuxtLink to="/sales/consultation" class="group block overflow-hidden rounded-lg border border-border bg-surface-container-lowest">
+            <div class="relative aspect-[16/10]">
+              <img src="/img/ph/tower-2.svg" alt="" class="size-full object-cover transition-transform duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink/85 to-transparent p-5 text-surface-container-lowest">
+                <span class="mb-1 text-label-md font-bold text-brand-tint">فرصت‌های پیش‌فروش</span>
+                <span class="text-body-sm font-bold">مشاوره خرید و سرمایه‌گذاری</span>
+              </div>
+            </div>
+            <span class="flex items-center justify-center gap-2 bg-primary-container py-3 text-label-lg font-bold text-on-primary">درخواست مشاوره <AppIcon name="arrow_back" /></span>
+          </NuxtLink>
+        </aside>
+      </div>
+    </div>
+  </div>
 </template>

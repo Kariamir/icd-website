@@ -1,28 +1,35 @@
 <script setup lang="ts">
-import { leadDepartments, leadHelpDesk, leadInquiryTypes } from '~/utils/leadFormData'
+// Route /complaints — سامانه رسیدگی به شکایات (sitemap §9), lead-form
+// template 06 under a PageHero so it matches the rest of the site.
+import { leadHelpDesk, leadInquiryTypes } from '~/utils/leadFormData'
+import { ph } from '~/utils/media'
+
+const complaintOnly = leadInquiryTypes.filter(t => t.key === 'complaint')
 
 useSeoMeta({
-  title: 'شکایات و پیشنهادات — ثاخت',
-  description: 'ثبت شکایت، پیشنهاد یا گزارش تخلف (سوت‌زنی) برای هلدینگ ساختمانی ثاخت.',
+  title: 'شکایات و پیشنهادات — هلدینگ ساختمانی ثاخت',
+  description: 'ثبت شکایت، پیشنهاد یا گزارش تخلف (سوت‌زنی) برای هلدینگ ساختمانی ثاخت با کد رهگیری.',
 })
 </script>
 
 <template>
-  <LeadForm
-    :breadcrumb="[
-      { label: 'صفحه اصلی', href: '/' },
-      { label: 'امور مشتریان و دفاتر', href: '/contact' },
-      { label: 'سامانه شکایات و پیشنهادات' },
-    ]"
-    eyebrow="سامانه شکایات، پیشنهادات و سوت‌زنی"
-    title="ثبت شکایت، پیشنهاد یا گزارش تخلف"
-    description="گزارش شما به‌صورت محرمانه توسط واحد بازرسی بررسی می‌شود. در صورت تمایل می‌توانید بدون ذکر نام و مشخصات هویتی گزارش خود را ثبت کنید."
-    sla-badge="بررسی محرمانه و اعلام نتیجه با کد رهگیری"
-    :departments="leadDepartments"
-    :inquiry-types="leadInquiryTypes"
-    initial-inquiry="complaint"
-    form-title="ثبت گزارش در سامانه شکایات و پیشنهادات"
-    submit-label="ثبت گزارش و دریافت کد رهگیری"
-    :help-desk="leadHelpDesk"
-  />
+  <div>
+    <PageHero
+      :image="ph('office', 1)"
+      size="sm"
+      eyebrow="بررسی محرمانه و اعلام نتیجه با کد رهگیری"
+      title="شکایات و پیشنهادات"
+      subtitle="ثبت بدون نام نیز امکان‌پذیر است؛ گزارش شما مستقیم به واحد بازرسی می‌رسد."
+      :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'تماس با ما', href: '/contact' }, { label: 'شکایات و پیشنهادات' }]"
+    />
+    <LeadForm
+      bare
+      title="ثبت شکایت، پیشنهاد یا گزارش تخلف"
+      :inquiry-types="complaintOnly"
+      initial-inquiry="complaint"
+      form-title="ثبت گزارش در سامانه شکایات و پیشنهادات"
+      submit-label="ثبت گزارش و دریافت کد رهگیری"
+      :help-desk="leadHelpDesk"
+    />
+  </div>
 </template>

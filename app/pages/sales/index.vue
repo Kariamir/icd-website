@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { clusterHubs } from '~/utils/clusterHubData'
-
-const hub = clusterHubs.sales
-
+// Route /sales — designed page sales_available (ADR-013), the sales landing (ADR-015).
 useSeoMeta({
-  title: `${hub.title} — ثاخت`,
-  description: hub.intro,
+  title: 'فروش و پیش‌فروش — هلدینگ ساختمانی ثاخت',
+  description: 'واحدهای آماده تحویل و پیش‌فروش پروژه‌های هلدینگ ساختمانی ثاخت.',
 })
 </script>
 
 <template>
-  <ClusterHub :hub="hub" />
+  <SalesAvailableView />
 </template>

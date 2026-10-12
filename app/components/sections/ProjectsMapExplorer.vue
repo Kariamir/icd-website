@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { STATUS, projects, getProjectDetail, type ProjectStatusKey } from '~/utils/projectsData'
+import { STATUS, projectSummaries as projects, getProjectDetail } from '~/utils/projectsData'
+import type { ProjectStatusKey } from '~/utils/catalog'
 
 // Template `01b-cluster-hub-visual` (docs/page-templates-icd3d.md §3), rebuilt
 // to match `project_detail_page_template/01b_cluster_hub_visual/code.html`
@@ -190,7 +191,7 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
             <div class="map-explorer__card-accent" />
             <div class="map-explorer__card-row">
               <div class="map-explorer__card-thumb" :class="`status-${card.status}`">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.55"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="1.8"/><path d="M21 15l-5-5-9 9"/></svg>
+                <img :src="card.detail.image" :alt="card.name" loading="lazy" class="map-explorer__card-img">
                 <span class="map-explorer__card-status-badge" :class="`status-${card.status}`">
                   {{ STATUS[card.status].label }}<template v-if="card.detail.progressPercent"> ({{ card.detail.progressPercent }}٪)</template>
                 </span>
@@ -248,7 +249,7 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
             type="button"
             class="map-explorer__pin"
             :class="[`status-${p.status}`, { 'is-active': p.slug === activeSlug }]"
-            :style="{ insetInlineStart: `${p.x}%`, top: `${p.y}%` }"
+            :style="{ left: `${p.x}%`, top: `${p.y}%` }"
             :aria-label="`${p.name} — ${STATUS[p.status].label}`"
             @mouseenter="activeSlug = p.slug"
             @focus="activeSlug = p.slug"
@@ -362,7 +363,7 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
 
 .map-explorer__search-bar {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
   padding: var(--space-2);
   background: var(--color-surface);
@@ -372,7 +373,8 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
 }
 @media (min-width: 1024px) { .map-explorer__search-bar { grid-template-columns: 2fr repeat(4, 1fr); } }
 
-.map-explorer__field { display: flex; flex-direction: column; gap: 6px; }
+.map-explorer__field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.map-explorer__field select, .map-explorer__field input { min-width: 0; width: 100%; }
 .map-explorer__field-label { font: var(--text-label); font-size: 12px; color: var(--color-text-muted); }
 .map-explorer__field select {
   border: 1px solid var(--color-border);
@@ -428,7 +430,8 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
   border-radius: var(--radius-md);
 }
 .map-explorer__body.is-map .map-explorer__list { flex: 0 0 420px; max-height: 780px; overflow-y: auto; }
-.map-explorer__body.is-grid .map-explorer__list { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
+.map-explorer__body.is-grid .map-explorer__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+@media (min-width: 640px) { .map-explorer__body.is-grid .map-explorer__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1200px) { .map-explorer__body.is-grid .map-explorer__list { grid-template-columns: repeat(3, 1fr); } }
 .map-explorer__empty { grid-column: 1 / -1; padding: var(--space-4); text-align: center; color: var(--color-text-muted); font: var(--text-body-sm); }
 
@@ -458,6 +461,7 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
   justify-content: center;
   color: var(--color-brand-blue-deep);
 }
+.map-explorer__card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .map-explorer__card-status-badge {
   position: absolute;
   top: 8px;

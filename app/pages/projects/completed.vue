@@ -7,5 +7,5 @@ useSeoMeta({
 </script>
 
 <template>
-  <ProjectsCompletedView />
+  <ProjectsStatusView status="completed" />
 </template>
