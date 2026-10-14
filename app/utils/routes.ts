@@ -67,11 +67,11 @@ export const routes = {
   salesConsultation: '/sales/consultation',
 
   /** /ir redirects to /ir/financials, the designed IR landing (ADR-015). */
-  irSymbol: '/ir/symbol',
+  irSymbol: '/ir/financials#symbol',
   irFinancials: '/ir/financials',
-  irCalendar: '/ir/calendar',
-  irGovernance: '/ir/governance',
-  irFaq: '/ir/faq',
+  irCalendar: '/ir/financials#calendar',
+  irGovernance: '/ir/financials#governance',
+  irFaq: '/ir/financials#faq',
   /**
    * THE documents page (ADR-009). One destination for every official document:
    * financial statements, board activity reports, committee performance
@@ -231,18 +231,10 @@ export interface MegaMenuColumn {
  * page (or an in-page anchor on one).
  */
 export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
-  {
-    label: 'درباره ثاخت',
-    href: routes.about,
-    megaMenu: [{
-      items: [
-        { label: 'تاریخچه و کارنامه', href: routes.aboutHistory },
-        { label: 'خانواده ثاخت', href: routes.companies },
-        { label: 'هیات‌مدیره', href: routes.aboutBoard },
-        { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
-      ],
-    }],
-  },
+  // No dropdown (ADR-016). /about already IS its sub-pages: history, the
+  // subsidiaries showcase and the board are sections on it, so a menu listing
+  // them offered the same page four times.
+  { label: 'درباره ثاخت', href: routes.about },
   {
     label: 'پروژه‌ها',
     href: routes.projects,
@@ -269,33 +261,12 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
       ],
     }],
   },
-  {
-    label: 'دیده‌بان ثاخت',
-    href: routes.irFinancials,
-    megaMenu: [{
-      items: [
-        { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
-        { label: 'اطلاعات نماد در بورس', href: routes.irSymbol },
-        { label: 'تقویم مجامع و اطلاع‌رسانی', href: routes.irCalendar },
-        { label: 'حاکمیت شرکتی و شفافیت', href: routes.irGovernance },
-        { label: 'پرسش‌های متداول سهامداران', href: routes.irFaq },
-      ],
-    }],
-  },
-  {
-    label: 'رسانه ثاخت',
-    href: routes.media,
-    megaMenu: [{
-      items: [
-        { label: 'همه مطالب', href: routes.media },
-        { label: 'نبض ثاخت — اخبار', href: routes.mediaCategory('news') },
-        { label: 'روایت ثاخت', href: routes.mediaCategory('stories') },
-        { label: 'پادکست', href: routes.mediaCategory('podcast') },
-        { label: 'تحلیل بازار', href: routes.mediaCategory('analysis') },
-        { label: 'مناقصات و مزایدات', href: routes.mediaCategory('tenders') },
-      ],
-    }],
-  },
+  // No dropdown (ADR-016). The four former IR sub-pages are now sections on
+  // /ir/financials and their routes redirect to the matching anchor.
+  { label: 'دیده‌بان ثاخت', href: routes.irFinancials },
+  // No dropdown (ADR-016). The categories are filters on /media, not pages;
+  // the tab strip on the page itself is where they belong.
+  { label: 'رسانه ثاخت', href: routes.media },
 ]
 
 /** «مشاوره و تماس سریع» — the designed consultation page (sitemap §6 #24). */
@@ -307,7 +278,7 @@ export const headerCta: NavItem = { label: 'مشاوره و تماس سریع', 
  * page — the designed landing of the IR cluster. Swap to routes.authLogin once
  * that page exists.
  */
-export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.irFinancials }
+export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.authLogin }
 
 /**
  * Cluster sub-navigation shown as a tab strip under the hero on every page of
@@ -374,12 +345,6 @@ export const footerColumns: MegaMenuColumn[] = [
 export const PENDING_ROUTES = [
   'projectTour',
   'mediaPressKit',
-  'authLogin',
-  'account',
-  'accountFavorites',
-  'accountOrders',
-  'accountDocuments',
-  'accountTickets',
 ] as const
 
 /** Legal / utility links in the footer's bottom bar. */

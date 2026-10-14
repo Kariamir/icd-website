@@ -73,38 +73,45 @@ export interface AboutMilestone {
   id: string
   year: string
   title: string
-  caption: string
+  /** The paragraph under the heading in the approved design's content card. */
+  body: string
+  /** The small chip under the paragraph. `tone` colours its leading square. */
+  tag: string
+  tagTone?: 'ink' | 'primary' | 'deep' | 'success' | 'filled'
   image: { src: string, alt: string }
   /** Rendered desaturated — everything before ۱۳۵۰ reads as archival. */
   archival: boolean
+  /** Slightly lifted contrast, as the design does for the ۱۳۶۴ photograph. */
+  contrast?: boolean
   /** Real content not yet supplied by the project owner — see ADR-004. */
   placeholder?: boolean
 }
 
 /**
- * ⚠️ The ۱۳۳۰–۱۳۵۰ entries below are STRUCTURAL PLACEHOLDERS.
+ * The five movements, their copy and their order come from the approved
+ * design (stitch_project_detail_page_template/about/, ADR-016). Do not
+ * reorder or re-word them without the owner.
  *
- * The project owner is supplying the real Pars Saze founding text and the
- * archival photographs separately. Until then these carry `placeholder: true`,
- * which the template renders with a visible "در انتظار سند آرشیوی" marker so
- * nobody mistakes them for finished content. Replace the title/caption/image
- * and drop the flag — no template change needed.
+ * ⚠️ TWO CONTENT FLAGS, both for the content team, neither a code issue:
+ *
+ * 1. The ۱۳۳۰ entry carries `placeholder: true`. The Pars Saze founding text
+ *    reads as finished prose but no archival source has been supplied for it,
+ *    and no archival photograph exists either. The template marks it visibly
+ *    so it is not mistaken for verified content.
+ * 2. **The TSE listing year is unconfirmed.** This file previously said ۱۳۸۳;
+ *    the approved design says ۱۳۸۹. The design wins here because the owner
+ *    chose it as the source, but a listed company publishing the wrong IPO
+ *    year on its own About page is a disclosure error. Shareholder affairs
+ *    must confirm before launch.
  */
 export const aboutMilestones: AboutMilestone[] = [
   {
     id: 'm-1330',
     year: '۱۳۳۰',
-    title: 'پارس سازه',
-    caption: 'در انتظار متن آرشیوی',
-    image: { src: ph('archive', 1), alt: '' },
-    archival: true,
-    placeholder: true,
-  },
-  {
-    id: 'm-1340',
-    year: '۱۳۴۰',
-    title: 'نخستین کارگاه‌ها',
-    caption: 'در انتظار متن آرشیوی',
+    title: 'پایه‌گذاری پارس سازه؛ نخستین گام‌های صنعتی‌سازی',
+    body: 'آغاز فعالیت‌های شرکت مهندسی پارس سازه با تمرکز بر احداث ابنیه سنگین صنعتی و سازه‌های بتنی پیش‌ساخته در سطح کشور.',
+    tag: 'آغاز جریان مکانیزاسیون ساخت‌وساز',
+    tagTone: 'ink',
     image: { src: ph('archive', 1), alt: '' },
     archival: true,
     placeholder: true,
@@ -112,40 +119,41 @@ export const aboutMilestones: AboutMilestone[] = [
   {
     id: 'm-1364',
     year: '۱۳۶۴',
-    title: 'تأسیس ثاخت',
-    caption: 'بنیان‌گذاری هلدینگ',
-    image: { src: ph('archive', 1), alt: '' },
+    title: 'تاسیس رسمی شرکت بین‌المللی توسعه ساختمان',
+    body: 'تثبیت ساختار شرکت به عنوان یک بازوی تخصصی توسعه عمرانی و آغاز پروژه‌های کلان زیربنایی، مسکونی و گردشگری در پایتخت.',
+    tag: 'ثبت حقوقی و تجمیع توانمندی‌های عمرانی',
+    tagTone: 'primary',
+    image: { src: ph('blueprint', 1), alt: '' },
     archival: false,
+    contrast: true,
   },
   {
-    id: 'm-1376',
-    year: '۱۳۷۶',
-    title: 'برج بین‌المللی تهران',
-    caption: 'بتن‌ریزی پی عمیق',
+    id: 'm-1377',
+    year: '۱۳۷۷',
+    title: 'عصر بلندمرتبه‌سازی؛ آغاز ابرپروژه برج بین‌المللی تهران',
+    body: 'آغاز احداث مرتفع‌ترین سازه مسکونی ایران به ارتفاع ۱۶۲ متر با بهره‌گیری از مهندسی زلزله پیشرفته و فناوری‌های روز دنیا.',
+    tag: 'رکوردشکنی ارتفاع و سازه‌های بتن مسلح',
+    tagTone: 'deep',
     image: { src: ph('construction', 1), alt: '' },
     archival: false,
   },
   {
-    id: 'm-1383',
-    year: '۱۳۸۳',
-    title: 'ورود به بورس تهران',
-    caption: 'گشایش نماد ثاخت',
+    id: 'm-1389',
+    year: '۱۳۸۹',
+    title: 'ورود به بازار بورس اوراق بهادار تهران (نماد ثاخت)',
+    body: 'عرضه عمومی سهام شرکت، تحقق شفافیت مالی پایدار و شکل‌گیری شبکه هلدینگ با شرکت‌های تخصصی تابعه نظیر آ.اس.پ و باغمیشه.',
+    tag: 'پذیرش در تابلوی اصلی بازار سرمایه',
+    tagTone: 'success',
     image: { src: ph('office', 1), alt: '' },
     archival: false,
   },
   {
-    id: 'm-1396',
-    year: '۱۳۹۶',
-    title: 'مگاپارس تهران',
-    caption: 'نخستین مگاپروژه چندمنظوره',
-    image: { src: ph('commercial', 1), alt: '' },
-    archival: false,
-  },
-  {
-    id: 'm-1402',
-    year: '۱۴۰۲',
-    title: 'ساخت پایدار',
-    caption: 'استانداردهای سبز و پایش بلادرنگ',
+    id: 'm-1403',
+    year: '۱۴۰۳',
+    title: 'عصر هوشمندسازی، مدیریت انرژی و پایداری',
+    body: 'پیاده‌سازی استانداردهای ساختمان سبز (BIM)، سیستم‌های مدیریت هوشمند انرژی (BMS) و توسعه مگاپروژه‌های تجاری و تفریحی نسل آینده.',
+    tag: 'امروز: بزرگ‌ترین هلدینگ ساختمانی تراز اول کشور',
+    tagTone: 'filled',
     image: { src: ph('campus', 1), alt: '' },
     archival: false,
   },

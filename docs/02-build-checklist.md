@@ -1,5 +1,5 @@
 # ICD (ثاخت) — 3D Website Build Checklist
-**Version:** 1.7 · **Companion to:** `01-sitemap.md` v1.7
+**Version:** 1.8 · **Companion to:** `01-sitemap.md` v1.8
 **Starting point:** page inventory approved. Everything before that is out of scope for this document.
 
 > Working agreement: nothing moves to the next phase until every ⛔ blocker in the current phase is closed. Non-blockers can trail.
@@ -11,10 +11,11 @@
 - [x] ⛔ Lock the page inventory (`01-sitemap.md` §13 open questions answered) — v1.2 consolidation settled, ADR-004 through ADR-008
 - [x] ⛔ Asset availability audit before more page design — **waived.** Placeholder images accepted for the build (ADR-010). Re-opens as a pre-launch gate below
 - [ ] ⛔ **PRE-LAUNCH GATE: real photography replaces every placeholder.** Count usable photographs per project across the eight; confirm whether archival material exists for «پارس سازه» and the pre-۱۳۵۰ years the `#history` timeline opens with; confirm whether brand-film footage exists or must be commissioned. The site does not ship on placeholders
+- [ ] ⛔ **Confirm the TSE listing year.** The repo said ۱۳۸۳, the approved design says ۱۳۸۹, and the design was followed (ADR-016). A listed company publishing the wrong IPO year on its own About page is a disclosure error
 - [ ] ⛔ If the pre-۱۳۵۰ archival photography does not exist, choose the replacement visual device for the `#history` timeline (revisit ADR-008 rather than substituting stock imagery). **A greyscale filter over a placeholder does not validate this**
 - [ ] Placeholders carry the **real aspect ratio and crop** for every slot — a square placeholder in a 16:9 slot breaks when the real photo arrives
 - [x] Placeholders are **visibly placeholders** — illustrated drawings in the brand palette since v1.7 (ADR-015), never photographs; never stock photography, which reads as a design decision and survives quietly into launch
-- [ ] ⛔ Confirm whether the current live site serves `/about/*` or `/media/news|stories|reports/*` URLs. If it does, those 301 redirects are launch-blocking (sitemap §13 open question 10)
+- [x] `/about/*` and `/media/news|stories|reports/*` 301 redirects are implemented in `routeRules` (ADR-015, ADR-016). ⛔ Still to confirm with the client whether the **current live site** serves any other legacy URL that needs adding
 - [ ] ⛔ **Locate the existing tender PDFs.** They were previously hosted in the tenders section; their current URLs need redirects to `/ir/financials` and the files need migrating (sitemap §13 question 11)
 - [ ] Decide whether to rename `/ir/financials` to `/ir/documents` now that it carries tenders and registration rules as well as statements. Cheap now, expensive after launch (sitemap §13 question 12)
 - [x] ⛔ Option A or Option B on subsidiary companies — **decided: Option B** (ADR-011)
@@ -145,7 +146,7 @@ Work in the P0 → P1 → P2 waves from `01-sitemap.md` §12.
 - [ ] IR cluster with the live widget
 - [x] ~~About cluster incl. CEO message form~~ — CEO channel removed (ADR-010); About cluster done
 - [ ] Media cluster incl. audio player for podcasts — built; the player activates once audio files are uploaded
-- [ ] Account cluster (P2)
+- [x] Account cluster — `/auth/login` (phone → one-time code) and `/account`, `/favorites`, `/orders`, `/documents`, `/tickets`, on their own `auth` and `account` layouts (ADR-016). ⛔ **No authentication: every `/account/*` route is reachable without signing in.** A route middleware guarding the cluster is the first thing to add when sessions exist
 - [x] Utility, legal, 404, 500
 - [ ] Every page reviewed against its row in the sitemap — function delivered, not just layout built
 

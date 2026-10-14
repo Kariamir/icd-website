@@ -10,6 +10,9 @@
 <script setup lang="ts">
 import { documentGroups, irNav, type DocumentGroup } from '~/utils/routes'
 import { irDocuments, PLACEHOLDER_FILE } from '~/utils/irDocuments'
+import { calendarEventRecords } from '~/utils/calendarData'
+import { documentHubs } from '~/utils/documentsData'
+import { irFaqCenter } from '~/utils/faqData'
 import { faDigits } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
 
@@ -43,6 +46,8 @@ const pillars: { group: DocumentGroup | 'shareholders', icon: IconName, title: s
   { group: 'shareholders', icon: 'groups', title: 'ترکیب سهامداران و سهام شناور', text: 'سهامداران بالای یک درصد و ضریب شناوری آزاد.' },
 ]
 
+const governanceHub = documentHubs.governance
+
 function latest(g: DocumentGroup | 'shareholders') {
   return g === 'shareholders' ? undefined : irDocuments.filter(d => d.group === g).sort((a, b) => b.sortKey - a.sortKey)[0]
 }
@@ -67,6 +72,15 @@ function latest(g: DocumentGroup | 'shareholders') {
     <SubNav :items="irNav" label="بخش‌های دیده‌بان ثاخت" />
 
     <div class="mx-auto max-w-[1440px] px-space-lg py-12 md:px-margin md:py-16">
+      <!--
+        0. The ticker. Formerly /ir/symbol; folded in here with the other three
+        IR sub-pages (ADR-016) so «دیده‌بان ثاخت» is one destination rather than
+        five. Their routes 301 to these anchors.
+      -->
+      <section id="symbol" class="mb-20 scroll-mt-40">
+        <IrSymbolView />
+      </section>
+
       <!-- 1. Required disclosures (sitemap §7.1.1) -->
       <section class="mb-20">
         <SectionHead eyebrow="الزامات دستورالعمل حاکمیت شرکتی" title="اسناد کلیدی" aside="شش سرفصل الزامی بورس و مجمع" />
@@ -149,6 +163,26 @@ function latest(g: DocumentGroup | 'shareholders') {
           <span>نسخه رسمی همه اسناد در سامانه کدال ثبت شده است.</span>
           <a href="https://codal.ir" target="_blank" rel="noopener" class="inline-flex items-center gap-1 font-medium text-primary-container hover:underline">سوابق کامل در کدال <AppIcon name="open_in_new" /></a>
         </div>
+      </section>
+
+      <!-- 4. Disclosure calendar — formerly /ir/calendar -->
+      <section id="calendar" class="mt-20 scroll-mt-40">
+        <CalendarIndexList :events="calendarEventRecords" />
+      </section>
+
+      <!-- 5. Governance archive — formerly /ir/governance -->
+      <section id="governance" class="mt-20 scroll-mt-40">
+        <DocumentIndexList :hub="governanceHub" />
+        <p class="mt-4 text-body-sm text-secondary">
+          طبقه‌بندی کمیته‌های تخصصی و شرح وظایف آن‌ها در
+          <NuxtLink to="/about#committees" class="font-bold text-primary-container hover:underline">بخش کمیته‌ها</NuxtLink>
+          منتشر شده است.
+        </p>
+      </section>
+
+      <!-- 6. Shareholder FAQ — formerly /ir/faq -->
+      <section id="faq" class="mt-20 scroll-mt-40">
+        <FaqCenter :config="irFaqCenter" />
       </section>
     </div>
   </div>

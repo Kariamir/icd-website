@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.7 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.8 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.8 — fidelity to the approved designs, and a flatter menu (ADR-016).** **(1)** `#history` is a **vertical spine timeline** — a centre line, a node pin per milestone, content card and photograph alternating down the page — as the approved design draws it. §4.2's "horizontal scrolling timeline" wording is superseded, and the five movements' copy now comes from the design. **(2)** «درباره ثاخت», «رسانه ثاخت» and «دیده‌بان ثاخت» are **standalone menu items with no dropdown**; «پروژه‌ها» and «فروش و پیش‌فروش» keep theirs. **(3)** `/ir/symbol`, `/ir/calendar`, `/ir/governance` and `/ir/faq` are **retired as routes** and become `#symbol`, `#calendar`, `#governance` and `#faq` on `/ir/financials`, which they 301 to. **(4)** The eight `/about/*` URLs ADR-004 deleted now 301 to their anchors — half of §13 q9 is closed. **(5)** The **account cluster is built**: `/auth/login` and the five `/account/*` screens, with «ورود سهامداران» pointing at the login. Template count: **36**.
 
 **Changes in 1.7 — navigation follows the approved designs (ADR-015).** The menu now opens the pages that were designed for it. **(1)** «فروش و پیش‌فروش» lands on the designed sales page, now at **`/sales`**; it lists every unit and filters by `?status=pre-sale|ready` and `?project=`. The former `/sales/available` and `/sales/pre-sale` routes **redirect** there (301) and the old sales hub is retired. **(2)** «دیده‌بان ثاخت» lands on the designed documents page **`/ir/financials`**; `/ir` redirects there and the old IR hub is retired. The IR sub-pages stay and are linked from a tab strip on every IR page. **(3)** The header CTA «مشاوره و تماس سریع» opens **`/sales/consultation`**; `/contact` is rebuilt as a plain «تماس با ما» page (channels, desks, offices, callback form) without the former "contact the managers" framing. **(4)** `/ir/financials/[slug]` — the readable view of one document (§7.3) — is now built, and the §7.2 tables A–E render from the client's workbook. **(5)** Placeholders are **illustrated**, not grey (§14). Template count: **40** (two hub templates retired).
 
@@ -23,7 +25,7 @@
 
 | Metric | Count |
 |---|---|
-| Unique routes / templates to build | **40** |
+| Unique routes / templates to build | **36** |
 | Of which are dynamic templates (`[slug]`) | 6 |
 | Estimated rendered URLs at launch | ~79 |
 | Content models | 11 |
@@ -112,7 +114,7 @@ v1.2 split the company's past across `#history` (timeline) and `#track-record` (
 | Movement | Content |
 |---|---|
 | 1 — Opening | Brand-story video block. Dark poster frame, centred play control |
-| 2 — Timeline | Horizontal scrolling timeline from «پارس سازه، ۱۳۳۰». One photo + year + 4–6 words per card. **Black-and-white for everything before ۱۳۵۰** |
+| 2 — Timeline | **Vertical spine timeline** from «پارس سازه، ۱۳۳۰» (ADR-016): a centre line with a node pin per milestone, the content card and the photograph alternating sides, collapsing to one stacked column on a phone. Five movements — ۱۳۳۰ · ۱۳۶۴ · ۱۳۷۷ · ۱۳۸۹ · ۱۴۰۳ — each with a year, a heading, one paragraph and a tag chip. **Black-and-white for everything before ۱۳۵۰.** ⛔ The ۱۳۳۰ entry has no archival source or photograph, and the TSE listing year (۱۳۸۹ here, ۱۳۸۳ previously) is unconfirmed — shareholder affairs must settle both |
 | 3 — Delivered work | Masonry image grid of completed projects. Names on hover only. No descriptions — this is the former `#track-record` gallery, now the timeline's payoff rather than a separate claim |
 | 4 — Recognition | Certificate, award and membership strip. The former «افتخارات». Feeds homepage block 6 |
 
@@ -416,7 +418,7 @@ They therefore appear in exactly two places:
 **Functional icons (not counted in menu):** 🔍 site search · 🌐 EN/FA · 👤 login/profile
 **CTA button:** «مشاوره و تماس سریع» → `/sales/consultation` (the designed short form), with secondary link to `/contact`
 
-**Menu targets (v1.7):** درباره ثاخت → `/about` · پروژه‌ها → `/projects` · فروش و پیش‌فروش → `/sales` · دیده‌بان ثاخت → `/ir/financials` · رسانه ثاخت → `/media`. Each item opens a dropdown of its sub-pages on desktop; on mobile the same tree is a drawer. The sales and IR clusters also carry a tab strip under the hero linking their sub-pages.
+**Menu targets (v1.8):** درباره ثاخت → `/about` · پروژه‌ها → `/projects` · فروش و پیش‌فروش → `/sales` · دیده‌بان ثاخت → `/ir/financials` · رسانه ثاخت → `/media`. **Only «پروژه‌ها» and «فروش و پیش‌فروش» open a dropdown** — their sub-pages are real routes. The other three are standalone pages that already contain what a dropdown would have listed, so listing it offered the same page several times (ADR-016). The sales cluster keeps its tab strip; the IR tab strip now scrolls to sections on the one page.
 
 Result: ~45% more compact than a conventional 9-item menu.
 

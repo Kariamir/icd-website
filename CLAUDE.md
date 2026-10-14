@@ -12,6 +12,7 @@
 ## قوانین ثابت
 - رنگ، فونت، دکمه‌ها و کامپوننت‌ها دقیقاً طبق design-system-icd3d.md — رنگ یا فونت جدید اضافه نکن.
 - مسیرها و ساختار صفحات طبق 01-sitemap.md؛ جدول مسیرها در app/utils/routes.ts.
+- **چیدمان صفحات از طرح‌های تاییدشده در `stitch_project_detail_page_template/` می‌آید، نه از متن مستندات.** اگر طرح و یک جمله در sitemap درباره «شکل» چیزی اختلاف داشتند، طرح مبناست و جمله اصلاح می‌شود (ADR-016). اختلاف درباره «ساختار اطلاعات» (اینکه چه صفحاتی وجود دارند و چه چیزی رویشان است) همچنان با sitemap است.
 - ترتیب و مراحل ساخت طبق 02-build-checklist.md.
 - معماری: Nuxt 4 + Vue 3 + TypeScript + WPNuxt (WPGraphQL) طبق wpnuxt-ui-boilerplate-full؛ لایه‌بندی اجباری `pages -> sections -> ui -> composables -> WPNuxt -> WordPress`. بدون تایید صریح من از آن منحرف نشو.
 - سایت فارسی و راست‌چین است — همیشه از خواص منطقی CSS استفاده کن، نه left/right ثابت.
@@ -45,18 +46,18 @@
 - [x] `01a-cluster-hub-simple` — بازنشسته در v1.7 (ADR-015): منوی فروش و دیده‌بان به صفحات طراحی‌شده /sales و /ir/financials می‌رود؛ /ir و /sales/available و /sales/pre-sale ریدایرکت می‌شوند. هدر با زیرمنوی کشویی و منوی موبایل، فوتر طبق §11
 - [x] `01b-cluster-hub-visual` — /projects, /projects/map (بازسازی ساختاری کامل مطابق mockup مرجع: نوار فیلتر ۵ فیلده واقعی (جستجو/کاربری/استان/شرکت/متراژ)، ردیف نتیجه+مرتب‌سازی+تغییر نما، کارت پروژه با accent bar/کد/آیکون نشان/مینی‌استت مهندسی مطابق کد مرجع، نوار خلاصه پرتفوی؛ زاویه گوشه‌ها به مقیاس متعادل §4.1 تغییر کرد (نه تیز مطلق، نه گرد کامل)؛ نقشه سه‌بعدی واقعی هنوز جایگزین پنل placeholder نشده)
 - [x] `02a-index-card-grid` — جای خود را به نماهای Stitch داد: ۴ صفحه وضعیت پروژه با یک کامپوننت مشترک `ProjectsStatusView` و کارت `ProjectTile`؛ فیلترها طبق درخواست مالک از صفحات کلاستر حذف شد (ADR-015)
-- [x] `02b-index-simple-list` — /ir/financials, /ir/governance — بازسازی مطابق mockup (فیلتر سال/نوع سند، ردیف سند، دانلود، ارجاع به کدال)
-- [x] `02c-calendar-module` — /ir/calendar — بازسازی مطابق mockup (تب پیش‌رو/گذشته، تاریخ شمسی، افزودن به تقویم)
+- [x] `02b-index-simple-list` — /ir/financials (حاکمیت شرکتی اکنون بخش #governance روی همین صفحه است، ADR-016) — بازسازی مطابق mockup (فیلتر سال/نوع سند، ردیف سند، دانلود، ارجاع به کدال)
+- [x] `02c-calendar-module` — بخش #calendar روی /ir/financials (ADR-016) — بازسازی مطابق mockup (تب پیش‌رو/گذشته، تاریخ شمسی، افزودن به تقویم)
 - [x] `03-project-detail` — /projects/[slug] (بازسازی وفادار)؛ /projects/[slug]/tour نساخته
 - [x] `04-article-detail` / `04-article-main` — /media (یک فید، تب دسته‌ها با ?category=، صفحه‌بندی) و /media/[slug] (طرح _1، بدنه ساخت‌یافته، نسخه صوتی، مطالب مرتبط)؛ مسیرهای قدیمی /media/news|stories|reports ریدایرکت می‌شوند (ADR-015)
 - [x] `05-static-editorial-plain` — /about/vision, /about/csr, /legal/terms, /legal/privacy — بازسازی مطابق mockup
 - [x] `05b-timeline-component` — /about/history — بازسازی مطابق mockup (نسخه HTML/CSS، بدون WebGL طبق ADR-003)
 - [x] `05c-orgchart-3d-component` — /about/org-chart — ساخته شد مطابق ساختار mockup (سطوح سلسله‌مراتب، کارت گره، پنل جزئیات) با HTML/CSS/SVG؛ سه‌بعدی واقعی WebGL طبق ADR-003 نیست
-- [x] `05d-faq-accordion` — /ir/faq, /sales/guide — بازسازی مطابق mockup (دسته‌بندی، جستجو، CTA تماس)
+- [x] `05d-faq-accordion` — بخش #faq روی /ir/financials و /sales/guide (ADR-016) — بازسازی مطابق mockup (دسته‌بندی، جستجو، CTA تماس)
 - [x] `06-form-lead` — /about/ceo, /sales/consultation, /contact, /complaints (+ فرم /careers) — بازسازی مطابق mockup با اعتبارسنجی کامل سمت کلاینت؛ ارسال واقعی در فاز بک‌اند
 - [x] `07-unit-detail` — /sales/units/[id] (کامپوننت UnitDetailView) + /sales/available, /sales/pre-sale (UnitIndexList) با داده mock؛ بازسازی ساختاری کامل مطابق mockup مرجع: breadcrumb + دکمه‌های نشان/دانلود/اشتراک، گالری bento با ۳۶۰/BIM، پنل مشخصات چندبخشی، بخش پلان معماری با تب و SVG بلوپرینت، گرید امکانات و تاسیسات، سایدبار قیمت/تسهیلات/رزرو بازدید/مشاور فروش؛ زاویه گوشه‌ها به مقیاس متعادل §4.1 تغییر کرد
-- [x] `08-ir-symbol` — /ir/symbol — ساخته شد مطابق mockup با داده نمایشی برچسب‌دار و نمودار SVG؛ اتصال به داده لحظه‌ای TSETMC در فاز بک‌اند
-- [ ] `09-account-app` — /auth/login, /account/* — نساخته (طبق build-checklist در فاز P2، نیازمند بک‌اند احراز هویت)
+- [x] `08-ir-symbol` — بخش #symbol روی /ir/financials (ADR-016) — ساخته شد مطابق mockup با داده نمایشی برچسب‌دار و نمودار SVG؛ اتصال به داده لحظه‌ای TSETMC در فاز بک‌اند
+- [x] `09-account-app` — /auth/login و /account/* ساخته شد از طرح کانواس تاییدشده (ADR-016): ورود دومرحله‌ای موبایل→کد، داشبورد با نوار اقدام لازم، پیگیری خرید، مدارک، علاقه‌مندی‌ها و تیکت. ⛔ احراز هویت واقعی ندارد — همه مسیرهای /account/* بدون ورود باز می‌شوند؛ میدل‌ویر محافظ اولین کار فاز بک‌اند است
 - [x] `10-search-results` — /search — بازسازی مطابق mockup (تب دسته با شمارش، مرتب‌سازی، فیلتر سال، هایلایت، صفحه‌بندی، حالت خالی)
 - [x] `11-error-system` — 404/500 (app/error.vue) — بازسازی مطابق mockup
 

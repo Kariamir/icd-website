@@ -90,21 +90,85 @@ function submit() {
           </div>
         </div>
 
-        <!-- 2 — timeline (B&W before ۱۳۵۰) -->
+        <!--
+          2 — the vertical timeline, as drawn in the approved design: a central
+          spine with a node pin on it, and the content card and the photograph
+          alternating sides down the page (ADR-016).
+
+          The spine, the pins and the alternation are `md:` and up. On a phone
+          the design's own markup collapses to a single stacked column — the
+          card above its photograph — which is what `flex-col` gives here; the
+          spine would have nothing to run between.
+        -->
         <div class="mt-20">
           <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">از پارس سازه ۱۳۳۰ تا امروز</h3>
-          <ol class="-mx-space-lg flex snap-x gap-5 overflow-x-auto px-space-lg pb-4 md:-mx-margin md:px-margin [scrollbar-width:thin]">
-            <li v-for="m in aboutMilestones" :key="m.id" class="w-64 shrink-0 snap-start md:w-72">
-              <div class="mb-4 aspect-[4/3] overflow-hidden rounded-md bg-surface-alt">
-                <img :src="m.image.src" alt="" loading="lazy" class="size-full object-cover" :class="m.archival && 'grayscale contrast-125'">
-              </div>
-              <div class="border-r-2 border-primary-container pr-3">
-                <p class="text-headline-md font-headline-md text-primary-container">{{ m.year }}</p>
-                <p class="text-body-lg font-bold text-ink">{{ m.title }}</p>
-                <p class="text-body-sm text-secondary">{{ m.caption }}</p>
-              </div>
-            </li>
-          </ol>
+
+          <div class="relative">
+            <!-- central spine -->
+            <div class="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-border md:block" aria-hidden="true" />
+
+            <ol class="space-y-24 md:space-y-32">
+              <li
+                v-for="(m, i) in aboutMilestones"
+                :key="m.id"
+                class="relative flex flex-col items-center justify-between gap-12"
+                :class="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'"
+              >
+                <!-- node pin on the spine; the last one is filled -->
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 hidden size-6 -translate-x-1/2 items-center justify-center border-2 md:flex"
+                  :class="i === aboutMilestones.length - 1
+                    ? 'z-10 border-surface-container-lowest bg-primary-container'
+                    : 'z-10 border-primary-container bg-surface-container-lowest'"
+                >
+                  <span
+                    class="size-2"
+                    :class="i === aboutMilestones.length - 1 ? 'bg-surface-container-lowest' : 'bg-primary-container'"
+                  />
+                </span>
+
+                <!-- content card -->
+                <div class="w-full text-right md:w-[45%]" :class="i % 2 === 0 && 'order-2 md:order-1'">
+                  <span class="mb-2 block text-headline-md font-headline-md tracking-tight text-primary-container">{{ m.year }}</span>
+                  <h4 class="mb-3 text-headline-sm font-headline-sm text-ink">{{ m.title }}</h4>
+                  <p class="text-body-md leading-relaxed text-on-surface-variant">{{ m.body }}</p>
+
+                  <p
+                    class="mt-4 inline-flex items-center gap-2 px-3 py-1 text-label-md font-label-md"
+                    :class="m.tagTone === 'filled'
+                      ? 'bg-primary-container text-surface-container-lowest'
+                      : 'border border-border bg-surface text-ink'"
+                  >
+                    <span
+                      class="size-2"
+                      :class="{
+                        'bg-ink': m.tagTone === 'ink',
+                        'bg-primary-container': m.tagTone === 'primary',
+                        'bg-brand-blue-deep': m.tagTone === 'deep',
+                        'bg-status-success': m.tagTone === 'success',
+                        'bg-surface-container-lowest': m.tagTone === 'filled',
+                      }"
+                    />
+                    {{ m.tag }}
+                  </p>
+
+                  <p v-if="m.placeholder" class="mt-3 text-label-md text-status-error">در انتظار سند آرشیوی</p>
+                </div>
+
+                <!-- photograph -->
+                <div class="w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]" :class="i % 2 === 0 && 'order-1 md:order-2'">
+                  <img
+                    :src="m.image.src"
+                    alt=""
+                    loading="lazy"
+                    class="h-80 w-full object-cover"
+                    :class="m.archival ? 'grayscale contrast-125' : m.contrast && 'contrast-110'"
+                  >
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
 
         <!-- value chain -->
