@@ -13,6 +13,9 @@
 import { phFor } from '~/utils/media'
 import { getProjectDetail } from '~/utils/projectsData'
 
+import { companies, projectsByCompany } from '~/utils/catalog'
+import { faDigits, faNumber } from '~/utils/format'
+
 export type OrgLevelKey = 'board' | 'committees' | 'executive' | 'subsidiaries'
 export type OrgIcon = 'engineering' | 'finance' | 'companies' | 'sales' | 'policy' | 'risk' | 'people'
 
@@ -148,16 +151,24 @@ export const orgSubsidiariesIntro = {
   note: 'دارای ۴ شرکت بورسی و فرابورسی تابعه',
 }
 
-export const orgSubsidiaries: OrgSubsidiary[] = [
-  { id: 's-asp', badge: 'نماد فرابورس: آسپ', badgeTone: 'ink', stake: '۷۸.۲٪', name: 'شرکت ساختمانی آ.اس.پ', text: 'پیشگام بلندمرتبه‌سازی مدرن، مجتمع‌های تجاری اداری مگاپارس و مجتمع‌های مسکونی پایتخت و مشهد.', ceo: 'مهندس بهروز باقری', capital: '۱,۰۰۰ میلیارد ریال', projectSlugs: ['asp-tehran', 'asp-mashhad', 'megapars-tehran'] },
-  { id: 's-khuzestan', badge: 'منطقه جنوب غرب', badgeTone: 'neutral', stake: '۹۹.۹٪', name: 'توسعه ساختمان غدیر خوزستان', text: 'اجرای پروژه‌های انبوه‌سازی مسکونی و تجاری، توسعه زیرساخت‌های عمرانی در استان خوزستان و حاشیه خلیج‌فارس.', ceo: 'دکتر رامین سعیدی', capital: '۴۰۰ میلیارد ریال', projectSlugs: [] },
-  { id: 's-engineering', badge: 'مهندسی مشاوره و نظارت', badgeTone: 'blue', stake: '۱۰۰٪', name: 'مهندسی و مدیریت ساخت ثاخت', text: 'ارائه خدمات مدیریت طرح (MC)، بازرسی فنی مصالح، ژئوتکنیک و بهینه‌سازی سیستم‌های تاسیساتی هلدینگ.', ceo: 'مهندس کوروش افشار', capital: '۲۵۰ میلیارد ریال', projectSlugs: ['tehran-international-tower'] },
-  { id: 's-kish', badge: 'گردشگری و اقامتی کیش', badgeTone: 'neutral', stake: '۸۵.۵٪', name: 'توسعه ساختمانی باگستر کیش', text: 'توسعه برج‌های مسکونی ساحلی، هتل‌های بین‌المللی و مراکز تجاری در جزیره کیش.', ceo: 'مهندس فرزاد مرادی', capital: '۶۰۰ میلیارد ریال', projectSlugs: ['royaye-kish'] },
-  { id: 's-aria', badge: 'بازرگانی و تامین', badgeTone: 'neutral', stake: '۶۰٪', name: 'بازرگانی مصالح ساختمانی آریا', text: 'تامین متمرکز فولاد، سیمان و مصالح نوین برای کارگاه‌های هلدینگ با قراردادهای بلندمدت تولیدکنندگان.', ceo: 'مهندس سعید کرمانی', capital: '۲۰۰ میلیارد ریال', projectSlugs: [] },
-  { id: 's-pars', badge: 'بهره‌برداری', badgeTone: 'neutral', stake: '۱۰۰٪', name: 'نگهداری و بهره‌برداری پارس', text: 'مدیریت تاسیسات، نگهداری پیشگیرانه و خدمات ساکنین در مجتمع‌های تحویل‌شده هلدینگ.', ceo: 'مهندس علی نوروزی', capital: '۱۵۰ میلیارد ریال', projectSlugs: ['megapars-tehran', 'sahel-noshahr'] },
-  { id: 's-narenjestan', badge: 'نماد فرابورس: نارنج', badgeTone: 'ink', stake: '۵۱٪', name: 'شرکت ساختمانی نارنجستان', text: 'توسعه شهرک‌های مسکونی و تجاری ساحلی در استان مازندران.', ceo: 'مهندس پیمان رحیمی', capital: '۳۵۰ میلیارد ریال', projectSlugs: ['narenjestan-izadshahr'] },
-  { id: 's-falat', badge: 'فناوری بتن', badgeTone: 'blue', stake: '۷۰٪', name: 'مهندسی بتن فلات', text: 'طرح اختلاط، آزمایشگاه مرکزی و تولید بتن‌های ویژه فوق‌مقاوم و خودتراکم برای پروژه‌های بلندمرتبه.', ceo: 'دکتر لیلا صدری', capital: '۱۲۰ میلیارد ریال', projectSlugs: ['afafabad-shiraz'] },
-]
+/*
+ * Derived from the client's own subsidiary list (app/utils/catalog.ts), not
+ * from the design. The eight companies that used to sit here — «باگستر کیش»,
+ * «بتن فلات», «نگهداری و بهره‌برداری پارس» and the rest — were invented to
+ * populate the org chart before the real list existed. Inventing subsidiaries
+ * for a listed holding is a disclosure problem, so they are gone (ADR-017).
+ */
+export const orgSubsidiaries: OrgSubsidiary[] = companies.map(c => ({
+  id: `s-${c.slug}`,
+  badge: c.isListed ? c.tag : (c.specialty || c.tag),
+  badgeTone: c.isListed ? 'ink' : 'neutral',
+  stake: `${faDigits(c.holdingShare)}٪`,
+  name: c.name,
+  text: c.summary,
+  ceo: c.ceo,
+  capital: c.capitalBnRial ? `${faNumber(c.capitalBnRial)} میلیارد ریال` : '—',
+  projectSlugs: projectsByCompany(c.slug).map(p => p.slug),
+}))
 
 /** Number of subsidiary cards shown before "show the full list" is expanded. */
 export const ORG_SUBSIDIARIES_PREVIEW = 4

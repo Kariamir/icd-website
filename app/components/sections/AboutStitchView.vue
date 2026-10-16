@@ -226,8 +226,7 @@ function submit() {
             <NuxtLink :to="`/companies/${c.slug}`" class="group flex h-72 flex-col justify-between rounded-lg border border-surface-container-lowest/15 bg-surface-container-lowest/95 p-6 transition-colors hover:bg-surface-container-lowest">
               <span class="text-label-md text-secondary">{{ c.tag }}</span>
               <span class="text-center">
-                <span class="block text-3xl font-extrabold text-ink group-hover:text-primary-container">{{ c.mark }}</span>
-                <span class="mt-1 block text-[10px] font-bold uppercase tracking-widest text-secondary">{{ c.markSub }}</span>
+                <CompanyMark :company="c" :size="80" />
               </span>
               <span class="flex items-center justify-between border-t border-border pt-3 text-body-sm font-bold text-ink">{{ c.name }}<AppIcon name="arrow_back" class="text-primary-container" /></span>
             </NuxtLink>

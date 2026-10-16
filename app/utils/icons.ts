@@ -16,6 +16,7 @@ export const icons = {
   apartment: 'M3 21h18M5 21V3h9v18M14 9h5v12M8 7h2M8 11h2M8 15h2',
   architecture: 'M12 3L4 21M12 3l8 18M7 15h10M12 3v4',
   arrow_back: 'M19 12H5M12 19l-7-7 7-7',
+  arrow_downward: 'M12 5v14M19 12l-7 7-7-7',
   arrow_back_ios: 'M15 19l-7-7 7-7',
   arrow_forward: 'M5 12h14M12 5l7 7-7 7',
   arrow_forward_ios: 'M9 5l7 7-7 7',

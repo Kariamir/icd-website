@@ -125,10 +125,10 @@ const relatedNews: EditorialNewsItem[] = articles.slice(0, 3).map(a => ({
 
 const featuredProjects: EditorialProjectCard[] = [
   projectCard('tehran-international-tower', 'بلندترین تک‌برج چندمنظوره هلدینگ با ۵۶ طبقه، مجهز به جداگرهای پیشرفته لرزه‌ای و نمای هوشمند دوپوسته.', IMG('icd-ed-tower')),
-  projectCard('megapars-tehran', 'بزرگ‌ترین مجموعه تجاری، اداری و تفریحی هلدینگ با سازه مختلط فولادی-بتنی و پارکینگ هوشمند طبقاتی.', IMG('icd-ed-megapars')),
-  projectCard('asp-mashhad', 'هتل‌آپارتمان و پهنه‌های تجاری متراکم با سازه پیش‌تنیده ضدزلزله و دسترسی‌های مستقل شهری.', IMG('icd-ed-asp')),
-  projectCard('afafabad-shiraz', 'مجتمع مسکونی شهری با معماری اقلیمی، حیاط‌های مرکزی و سامانه مدیریت انرژی ساختمان.', IMG('icd-ed-shiraz')),
-  projectCard('royaye-kish', 'مجتمع اقامتی-گردشگری ساحلی با بتن ضدسولفات و سقف‌های دال مجوف در اقلیم مرطوب.', IMG('icd-ed-kish')),
+  projectCard('mega-pars-tehran', 'بزرگ‌ترین مجموعه تجاری، اداری و تفریحی هلدینگ با سازه مختلط فولادی-بتنی و پارکینگ هوشمند طبقاتی.', IMG('icd-ed-megapars')),
+  projectCard('ofogh-sina-mashhad', 'هتل‌آپارتمان و پهنه‌های تجاری متراکم با سازه پیش‌تنیده ضدزلزله و دسترسی‌های مستقل شهری.', IMG('icd-ed-asp')),
+  projectCard('narenjestan-izadshahr', 'مجتمع مسکونی شهری با معماری اقلیمی، حیاط‌های مرکزی و سامانه مدیریت انرژی ساختمان.', IMG('icd-ed-shiraz')),
+  projectCard('roya-elite', 'مجتمع اقامتی-گردشگری ساحلی با بتن ضدسولفات و سقف‌های دال مجوف در اقلیم مرطوب.', IMG('icd-ed-kish')),
   projectCard('narenjestan-izadshahr', 'شهرک مسکونی و تجاری ساحلی با زیرساخت مستقل آب و فاضلاب و فضای سبز پیوسته.', IMG('icd-ed-narenjestan')),
 ]
 

@@ -222,10 +222,10 @@ export const dividendHighlight = {
 export interface AssetBacking { title: string; location: string; description: string; metricLabel: string; metricValue: string; href: string }
 
 export const assetBacking: AssetBacking[] = [
-  { title: 'پروژه تجاری اداری مگاپارس', location: 'تهران — خیابان شریعتی', description: 'بزرگ‌ترین مجموعه تجاری سبز خاورمیانه با بیش از ۲۰۰ هزار مترمربع زیربنا؛ ارزش‌افزوده کلیدی بر NAV ثاخت.', metricLabel: 'سهم مالکیت ثاخت:', metricValue: '۱۰۰٪ سهام پروژه', href: '/projects/megapars-tehran' },
+  { title: 'پروژه تجاری اداری مگاپارس', location: 'تهران — خیابان شریعتی', description: 'بزرگ‌ترین مجموعه تجاری سبز خاورمیانه با بیش از ۲۰۰ هزار مترمربع زیربنا؛ ارزش‌افزوده کلیدی بر NAV ثاخت.', metricLabel: 'سهم مالکیت ثاخت:', metricValue: '۱۰۰٪ سهام پروژه', href: '/projects/mega-pars-tehran' },
   { title: 'برج بین‌المللی تهران', location: 'تهران — تقاطع بزرگراه‌های حکیم و کردستان', description: 'بلندترین برج مسکونی پایتخت؛ واحدهای تجاری و پنت‌هاوس‌های آماده واگذاری با جریان نقدی بالا.', metricLabel: 'وضعیت بهره‌برداری:', metricValue: 'بهره‌برداری و فروش فعال', href: '/projects/tehran-international-tower' },
-  { title: 'مجتمع‌های آ.اس.پ مشهد و تهران', location: 'مشهد مقدس و پایتخت', description: 'پروژه‌های برند مسکونی و اقامتی متصل به بازوی اجرایی شرکت آ.اس.پ از شرکت‌های تابعه کلیدی ثاخت.', metricLabel: 'سهم کنترلی هلدینگ:', metricValue: '۷۳٪ سهام شرکتی', href: '/projects/asp-mashhad' },
-  { title: 'پهنه‌های ساحلی کیش و نوشهر', location: 'جزیره کیش و نوار ساحلی شمال', description: 'زمین‌ها و طرح‌های گردشگری ساحلی با کاربری‌های چندمنظوره مسکونی-تفریحی و ارزش ذخیره ملکی ممتاز.', metricLabel: 'پتانسیل تجدید ارزیابی:', metricValue: 'بسیار بالا', href: '/projects/royaye-kish' },
+  { title: 'مجتمع‌های آ.اس.پ مشهد و تهران', location: 'مشهد مقدس و پایتخت', description: 'پروژه‌های برند مسکونی و اقامتی متصل به بازوی اجرایی شرکت آ.اس.پ از شرکت‌های تابعه کلیدی ثاخت.', metricLabel: 'سهم کنترلی هلدینگ:', metricValue: '۷۳٪ سهام شرکتی', href: '/projects/ofogh-sina-mashhad' },
+  { title: 'پهنه‌های ساحلی کیش و نوشهر', location: 'جزیره کیش و نوار ساحلی شمال', description: 'زمین‌ها و طرح‌های گردشگری ساحلی با کاربری‌های چندمنظوره مسکونی-تفریحی و ارزش ذخیره ملکی ممتاز.', metricLabel: 'پتانسیل تجدید ارزیابی:', metricValue: 'بسیار بالا', href: '/projects/roya-elite' },
 ]
 
 export interface DpsRow { fiscalYear: string; eps: number; dps: number; meetingDate: string; method: string }

@@ -54,7 +54,9 @@ const years = computed(() => 1405 - props.company.founded)
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">مدیرعامل</dt><dd class="text-body-md font-bold text-ink">{{ company.ceo }}</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">سال تاسیس</dt><dd class="text-body-md font-bold text-ink">{{ faDigits(company.founded) }}</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">تخصص</dt><dd class="text-body-md font-bold text-ink">{{ company.specialty }}</dd></div>
-            <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">کارکنان</dt><dd class="text-body-md font-bold text-ink">{{ faDigits(company.employees) }} نفر</dd></div>
+            <!-- Staff numbers are not in the client's workbook; the row is
+                 omitted rather than filled with a guess. -->
+            <div v-if="company.employees" class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">کارکنان</dt><dd class="text-body-md font-bold text-ink">{{ faDigits(company.employees) }} نفر</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">دفتر مرکزی</dt><dd class="text-body-md font-bold text-ink">{{ company.city }}</dd></div>
           </dl>
           <NuxtLink to="/ir/financials" class="mt-4 flex items-center justify-between border-t border-border pt-4 text-label-md text-outline hover:text-primary-container">

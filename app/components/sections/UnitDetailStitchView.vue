@@ -102,7 +102,7 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
         <div class="px-2"><div class="text-label-md text-secondary">{{ unit.bedrooms ? 'اتاق خواب' : 'کاربری' }}</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.bedrooms ? `${faDigits(unit.bedrooms)} خواب` : unit.usage }}</div></div>
         <div class="px-2"><div class="text-label-md text-secondary">طبقه</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.floor === 0 ? 'همکف' : faDigits(unit.floor) }}</div></div>
         <div class="px-2"><div class="text-label-md text-secondary">جهت</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.facing }}</div></div>
-        <div class="col-span-2 px-2 md:col-span-1"><div class="text-label-md text-secondary">قیمت هر متر</div><div class="mt-1 text-headline-sm font-headline-sm text-primary-container">{{ faNumber(Math.round(unit.price / 10 / unit.areaSqm / 1_000_000)) }} میلیون تومان</div></div>
+        <div v-if="unit.price && unit.areaSqm" class="col-span-2 px-2 md:col-span-1"><div class="text-label-md text-secondary">قیمت هر متر</div><div class="mt-1 text-headline-sm font-headline-sm text-primary-container">{{ faNumber(Math.round(unit.price / 10 / unit.areaSqm / 1_000_000)) }} میلیون تومان</div></div>
       </div>
     </section>
 

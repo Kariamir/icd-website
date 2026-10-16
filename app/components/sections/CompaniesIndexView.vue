@@ -34,8 +34,7 @@ import { faDigits, faIndex } from '~/utils/format'
               <span class="rounded-pill border border-border bg-surface-container-lowest px-3 py-0.5 text-label-md font-bold" :class="c.isListed ? 'text-primary-container' : 'text-secondary'">{{ c.tag }}</span>
             </div>
             <div class="mx-auto my-auto flex size-28 flex-col items-center justify-center rounded-md border border-border bg-surface-container-lowest px-2 text-center transition-colors group-hover:border-primary-container">
-              <span class="text-2xl font-extrabold leading-tight text-ink group-hover:text-primary-container">{{ c.mark }}</span>
-              <span class="mt-0.5 text-[10px] font-bold uppercase tracking-widest text-secondary">{{ c.markSub }}</span>
+              <CompanyMark :company="c" :size="76" />
             </div>
             <div class="mt-auto border-t border-border pt-4">
               <h3 class="text-body-lg font-bold text-ink transition-colors group-hover:text-primary-container">{{ c.name }}</h3>

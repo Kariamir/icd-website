@@ -36,20 +36,10 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
 
 <template>
   <div>
-    <!-- 0 — Hero (3D scene pending, ADR-003; this is the designed fallback) -->
-    <section class="relative flex min-h-[640px] items-end overflow-hidden bg-ink md:min-h-[calc(100vh-5rem)]">
-      <img :src="ph('skyline', 2)" alt="" class="absolute inset-0 size-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/0" />
-      <div class="relative z-10 mx-auto w-full max-w-[1440px] px-space-lg pb-20 md:px-margin md:pb-28">
-        <p class="mb-4 inline-flex items-center gap-2 rounded-pill border border-surface-container-lowest/20 bg-surface-container-lowest/10 px-4 py-1.5 text-label-md text-brand-tint"><span class="size-1.5 rounded-pill bg-brand-tint" />شرکت بین‌المللی توسعه ساختمان · نماد ثاخت</p>
-        <h1 class="max-w-4xl text-headline-xl-mobile font-headline-xl leading-tight text-surface-container-lowest md:text-[88px] md:leading-[1.05]">ساختن، با انضباط مهندسی</h1>
-        <p class="mt-5 max-w-xl text-body-lg text-surface-dim">هلدینگ ساخت‌وساز و املاک؛ توسعه پروژه‌های نهادی از ۱۳۶۴.</p>
-        <div class="mt-9 flex flex-wrap gap-4">
-          <NuxtLink to="/projects" class="inline-flex h-14 items-center gap-2 rounded-pill bg-surface-container-lowest px-8 text-label-lg font-label-lg text-ink hover:bg-surface-alt">کشف پروژه‌ها <AppIcon name="arrow_back" /></NuxtLink>
-          <NuxtLink to="/sales/consultation" class="inline-flex h-14 items-center rounded-pill border border-surface-container-lowest/60 px-8 text-label-lg font-label-lg text-surface-container-lowest hover:bg-surface-container-lowest/10">مشاوره خرید</NuxtLink>
-        </div>
-      </div>
-    </section>
+    <!-- 0 — Hero: the client's film, scrubbed by pointer travel (ADR-017).
+         Replaces the static fallback; the 3D scene of ADR-003 is retired,
+         because this is the real footage the fallback stood in for. -->
+    <HeroFilm />
 
     <!-- 1 — ثاخت در یک نگاه -->
     <section class="border-b border-border bg-surface-container-lowest">
@@ -67,14 +57,13 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
     <!-- 2 — خانواده ثاخت (before projects, ADR-011) -->
     <section class="bg-surface py-20 md:py-[120px]">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="خانواده ثاخت" title="هشت شرکت، یک زنجیره">
+        <SectionHead eyebrow="خانواده ثاخت" title="ده شرکت، یک زنجیره">
           <NuxtLink to="/companies" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint">همه شرکت‌ها <AppIcon name="arrow_back" /></NuxtLink>
         </SectionHead>
         <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
           <li v-for="c in companies" :key="c.slug">
             <NuxtLink :to="`/companies/${c.slug}`" class="group flex h-40 flex-col items-center justify-center rounded-lg border border-border bg-surface-container-lowest p-4 text-center transition-colors hover:border-primary-container md:h-48">
-              <span class="text-2xl font-extrabold text-ink group-hover:text-primary-container md:text-3xl">{{ c.mark }}</span>
-              <span class="mt-1 text-[10px] font-bold uppercase tracking-widest text-secondary">{{ c.markSub }}</span>
+              <CompanyMark :company="c" :size="84" />
               <span class="mt-3 text-label-md text-secondary">{{ c.name }}</span>
             </NuxtLink>
           </li>
