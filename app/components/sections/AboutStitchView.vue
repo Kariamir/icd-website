@@ -10,15 +10,23 @@
   The ids here must match the anchors in app/utils/routes.ts.
 -->
 <script setup lang="ts">
-import { aboutMilestones, aboutChain, aboutPillars, aboutBoard, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
+import { aboutHero, aboutMilestones, aboutChain, aboutPillars, aboutBoard, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
 import { orgCommittees } from '~/utils/orgChartData'
-import { honors } from '~/utils/honorsData'
 import { companies, projects } from '~/utils/catalog'
 import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
-const delivered = computed(() => projects.filter(p => p.status === 'completed' || p.status === 'operating').slice(0, 7))
-const recognition = honors.slice(0, 6)
+/*
+ * The mosaic that closes the timeline. The client's workbook marks all ten
+ * projects `under-construction` and none `completed` or `operating`, so the
+ * delivered-work gallery would be empty — it shows the group's portfolio
+ * instead, under a heading that says so, rather than an empty grid under a
+ * heading claiming delivered work. ⛔ If projects have in fact been handed
+ * over, their status in the workbook needs correcting.
+ */
+const deliveredOnly = computed(() => projects.filter(p => p.status === 'completed' || p.status === 'operating'))
+const delivered = computed(() => (deliveredOnly.value.length ? deliveredOnly.value : projects).slice(0, 7))
+const deliveredTitle = computed(() => (deliveredOnly.value.length ? 'کارنامه تحویل‌شده' : 'پروژه‌های گروه'))
 const totalArea = projects.reduce((s, p) => s + p.areaSqm, 0)
 
 const stats = [
@@ -27,6 +35,34 @@ const stats = [
   { value: faDigits(companies.length), label: 'شرکت تخصصی تابعه', note: 'از طراحی تا بهره‌برداری' },
   { value: faDigits(projects.length), label: 'پروژه', note: 'در چهار وضعیت اجرایی' },
 ]
+
+/*
+ * The timeline photographs settle into place as they come into view — a short
+ * fade and a 3% scale, once per image, and nothing after that. Deliberately
+ * small: the client asked for motion that is felt rather than noticed, and the
+ * archival frames do not survive being thrown around. `prefers-reduced-motion`
+ * drops it entirely (the CSS below), and with no IntersectionObserver the
+ * images simply start visible.
+ */
+const reveals = ref<HTMLElement[]>([])
+function captureReveal(el: Element | ComponentPublicInstance | null) {
+  if (el instanceof HTMLElement) reveals.value.push(el)
+}
+onMounted(() => {
+  if (typeof IntersectionObserver === 'undefined') {
+    reveals.value.forEach(el => el.classList.add('is-in'))
+    return
+  }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue
+      e.target.classList.add('is-in')
+      io.unobserve(e.target)
+    }
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 })
+  reveals.value.forEach(el => io.observe(el))
+  onBeforeUnmount(() => io.disconnect())
+})
 
 // #contact — exactly two subjects (sitemap §4.1)
 const form = reactive({ name: '', phone: '', subject: ABOUT_FORM_SUBJECTS[0].value as string, message: '' })
@@ -45,7 +81,7 @@ function submit() {
   <div>
     <!-- Hero -->
     <section class="relative flex min-h-[620px] w-full items-end overflow-hidden bg-ink md:min-h-[88vh]">
-      <img :src="ph('tower', 2)" alt="" class="absolute inset-0 size-full object-cover opacity-80">
+      <img :src="aboutHero.image.src" alt="" class="absolute inset-0 size-full object-cover opacity-80">
       <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
       <div class="relative z-10 mx-auto w-full max-w-[1440px] px-space-lg pb-20 md:px-margin md:pb-28">
         <div class="max-w-4xl space-y-6">
@@ -157,12 +193,16 @@ function submit() {
                 </div>
 
                 <!-- photograph -->
-                <div class="w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]" :class="i % 2 === 0 && 'order-1 md:order-2'">
+                <div
+                  :ref="captureReveal"
+                  class="reveal w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]"
+                  :class="i % 2 === 0 && 'order-1 md:order-2'"
+                >
                   <img
                     :src="m.image.src"
                     alt=""
                     loading="lazy"
-                    class="h-80 w-full object-cover"
+                    class="reveal-img h-80 w-full object-cover"
                     :class="m.archival ? 'grayscale contrast-125' : m.contrast && 'contrast-110'"
                   >
                 </div>
@@ -171,23 +211,37 @@ function submit() {
           </div>
         </div>
 
-        <!-- value chain -->
+        <!--
+          Value chain. The client's assets for this section are line icons,
+          not photographs, so it is an icon strip — a photo frame cropped
+          around a 480px line drawing would be a worse version of both.
+        -->
         <div class="mt-20">
           <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">زنجیره کامل ارزش</h3>
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            <figure v-for="(c, i) in aboutChain" :key="c.id" class="group relative m-0 aspect-[3/4] overflow-hidden rounded-md bg-ink">
-              <img :src="c.image.src" alt="" loading="lazy" class="size-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105">
-              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-4 text-surface-container-lowest">
-                <span class="block text-label-md text-brand-tint">{{ faDigits(i + 1) }}</span>
-                <span class="text-body-lg font-bold">{{ c.label }}</span>
-              </figcaption>
-            </figure>
-          </div>
+          <ol class="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
+            <li
+              v-for="(c, i) in aboutChain"
+              :key="c.id"
+              class="group flex flex-col items-center bg-surface-container-lowest p-6 text-center transition-colors hover:bg-brand-tint/40"
+            >
+              <span class="mb-4 flex size-16 items-center justify-center">
+                <img
+                  :src="c.icon"
+                  alt=""
+                  loading="lazy"
+                  class="max-h-16 w-auto max-w-full object-contain"
+                >
+              </span>
+              <span class="text-label-md text-primary-container">{{ faDigits(i + 1) }}</span>
+              <span class="mt-1 text-body-lg font-bold text-ink">{{ c.label }}</span>
+              <span class="mt-2 text-label-md leading-relaxed text-secondary">{{ c.text }}</span>
+            </li>
+          </ol>
         </div>
 
         <!-- 3 — delivered work -->
         <div class="mt-20">
-          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">کارنامه تحویل‌شده</h3>
+          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">{{ deliveredTitle }}</h3>
           <div class="grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-4">
             <NuxtLink
               v-for="(p, i) in delivered" :key="p.slug" :to="`/projects/${p.slug}`"
@@ -200,14 +254,22 @@ function submit() {
           </div>
         </div>
 
-        <!-- 4 — recognition -->
+        <!--
+          4 — افتخارات. The three objects the client supplied, shown as objects.
+          No titles: `honorsData.ts` holds invented ones, and captioning a real
+          award with a made-up name is worse than leaving it uncaptioned
+          (see aboutHonors in app/utils/aboutPageData.ts).
+        -->
         <div class="mt-20">
-          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">افتخارات و عضویت‌ها</h3>
-          <ul class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            <li v-for="h in recognition" :key="h.title" class="flex flex-col items-center rounded-md border border-border bg-surface-container-lowest p-5 text-center">
-              <span class="mb-3 flex size-12 items-center justify-center rounded-pill bg-brand-tint text-primary-container"><AppIcon name="workspace_premium" /></span>
-              <span class="text-label-lg font-bold leading-snug text-ink">{{ h.title }}</span>
-              <span class="mt-1 text-label-md text-secondary">{{ h.year }}</span>
+          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">افتخارات</h3>
+          <ul class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <li
+              v-for="h in aboutHonors"
+              :key="h.id"
+              :ref="captureReveal"
+              class="reveal flex items-center justify-center rounded-md border border-border bg-surface-container-lowest p-8"
+            >
+              <img :src="h.image.src" :alt="h.image.alt" loading="lazy" class="reveal-img h-56 w-auto max-w-full object-contain">
             </li>
           </ul>
         </div>
@@ -235,19 +297,38 @@ function submit() {
       </div>
     </section>
 
-    <!-- #board -->
-    <section id="board" class="scroll-mt-20 bg-surface-container-lowest py-24 md:py-32">
+    <!--
+      #board. Three people rather than ten, so the five-up grid of small
+      portrait cards is gone: each one gets a wide card with the photograph
+      beside the name. The portraits are 235×200 landscape frames, which is
+      why the frame is 4:3 and anchored to the top — a 4:5 portrait crop cut
+      the tops off the heads.
+    -->
+    <section id="board" class="scroll-mt-20 bg-ink py-24 md:py-32">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="راهبری" title="هیات‌مدیره" />
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          <article v-for="m in aboutBoard" :key="m.slug" class="overflow-hidden rounded-md border border-border bg-surface-container-lowest">
-            <div class="aspect-[4/5] overflow-hidden bg-surface-alt"><img :src="m.image.src" :alt="m.name" loading="lazy" class="size-full object-cover grayscale"></div>
-            <div class="p-5">
-              <h3 class="text-body-lg font-bold text-ink">{{ m.name }}</h3>
-              <p class="mt-1 text-label-md text-primary-container">{{ m.role }}</p>
-              <p class="mt-3 text-label-md text-secondary">{{ m.education }}</p>
-              <p class="text-label-md text-secondary">{{ m.representing }}</p>
-              <p class="mt-3 line-clamp-2 text-body-sm text-on-surface-variant">{{ m.bio }}</p>
+        <SectionHead tone="dark" eyebrow="راهبری" title="هیات‌مدیره و مدیران ارشد" aside="تیم اجرایی هلدینگ." />
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <article
+            v-for="m in aboutBoard"
+            :key="m.slug"
+            :ref="captureReveal"
+            class="reveal group overflow-hidden rounded-lg bg-surface-container-lowest"
+          >
+            <div class="aspect-[4/3] overflow-hidden bg-surface-alt">
+              <img
+                :src="m.image.src"
+                :alt="m.image.alt"
+                loading="lazy"
+                class="reveal-img size-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+              >
+            </div>
+            <div class="border-t-4 border-primary-container p-6">
+              <h3 class="text-headline-sm font-headline-sm text-ink">{{ m.name }}</h3>
+              <p class="mt-2 text-label-lg font-bold text-primary-container">{{ m.role }}</p>
+              <p class="mt-4 flex items-start gap-2 text-body-sm leading-relaxed text-secondary">
+                <AppIcon name="school" class="mt-0.5 shrink-0 text-outline" />
+                <span>{{ m.education }}</span>
+              </p>
             </div>
           </article>
         </div>
@@ -274,10 +355,21 @@ function submit() {
     <!-- #vision -->
     <section id="vision" class="scroll-mt-20 bg-surface-container-lowest py-24 md:py-32">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="چشم‌انداز" title="چشم‌انداز، حاکمیت و استانداردها" />
+        <SectionHead eyebrow="چشم‌انداز" title="چشم‌انداز و حاکمیت شرکتی" />
         <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <article v-for="(p, i) in aboutPillars" :key="p.id">
-            <div class="mb-5 aspect-[4/3] overflow-hidden rounded-md bg-surface-alt"><img :src="[ph('skyline', 1), ph('office', 1), ph('blueprint', 1)][i]" alt="" loading="lazy" class="size-full object-cover"></div>
+          <article v-for="p in aboutPillars" :key="p.id" :ref="captureReveal" class="reveal">
+            <div
+              class="mb-5 aspect-[4/3] overflow-hidden rounded-md"
+              :class="p.mark ? 'flex items-center justify-center border border-border bg-surface p-10' : 'bg-surface-alt'"
+            >
+              <img
+                :src="p.image.src"
+                :alt="p.image.alt"
+                loading="lazy"
+                class="reveal-img"
+                :class="p.mark ? 'max-h-full w-auto max-w-full object-contain' : 'size-full object-cover'"
+              >
+            </div>
             <h3 class="mb-2 text-headline-sm font-headline-sm text-ink">{{ p.title }}</h3>
             <p class="text-body-md leading-relaxed text-secondary">{{ p.text }}</p>
           </article>
@@ -328,3 +420,39 @@ function submit() {
     </section>
   </div>
 </template>
+
+<style scoped>
+/*
+  The only motion on this page. A 12px lift, a fade and a 3% settle, once per
+  element. `prefers-reduced-motion` removes it rather than shortening it, and
+  nothing moves on scroll after the element has arrived.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms ease-out, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal .reveal-img {
+  transform: scale(1.03);
+  transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal.is-in .reveal-img {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal .reveal-img {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+</style>

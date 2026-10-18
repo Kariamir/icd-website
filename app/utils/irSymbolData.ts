@@ -59,6 +59,13 @@ export const timeframeOptions: { key: Timeframe; label: string }[] = [
   { key: 'max', label: 'حداکثر' },
 ]
 
+/**
+ * The three ranges the page offers: امروز / ۱ ماهه / ۱ ساله (owner's request,
+ * 2026-10-18). `timeframeOptions` keeps the full set — `getPriceSeries` still
+ * serves every key, and widening the strip again is a one-line change.
+ */
+export const timeframeOptionsShown = timeframeOptions.filter(t => ['1d', '1m', '1y'].includes(t.key))
+
 export type ChartMode = 'line' | 'candle' | 'depth'
 
 export interface ChartRefLine { value: number; label: string; note?: string; tone?: 'ceiling' | 'floor' | 'neutral' | 'current' }

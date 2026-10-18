@@ -54,11 +54,9 @@ function toggleGroup(label: string) {
       <!-- Logo + desktop nav -->
       <div class="flex min-w-0 items-center gap-8">
         <NuxtLink to="/" class="flex shrink-0 items-center gap-3" aria-label="هلدینگ ساختمانی ثاخت — صفحه اصلی">
-          <span class="flex size-10 items-center justify-center rounded-sm bg-ink text-headline-md font-headline-md text-surface-container-lowest">ث</span>
-          <span class="flex flex-col">
-            <span class="whitespace-nowrap text-headline-sm font-headline-sm leading-tight text-ink">هلدینگ ساختمانی ثاخت</span>
-            <span class="text-label-sm font-label-md tracking-wider text-outline">ICD HOLDING</span>
-          </span>
+          <!-- The company's own mark (Asset Icd / logo_land.png). It carries both
+               the Persian and the English name, so no wordmark sits beside it. -->
+          <img src="/img/brand/icd-logo.png" alt="هلدینگ ساختمانی ثاخت" class="h-11 w-auto md:h-12">
         </NuxtLink>
 
         <nav class="hidden items-center gap-1 xl:flex" aria-label="منوی اصلی">
@@ -84,10 +82,9 @@ function toggleGroup(label: string) {
                 <li v-for="sub in item.megaMenu[0]!.items" :key="sub.href">
                   <NuxtLink
                     :to="sub.href"
-                    class="flex items-center justify-between rounded-sm px-3 py-2.5 text-body-sm text-ink transition-colors hover:bg-surface hover:text-primary-container"
+                    class="block rounded-sm px-3 py-2.5 text-body-sm text-ink transition-colors hover:bg-surface hover:text-primary-container"
                   >
                     <span>{{ sub.label }}</span>
-                    <AppIcon name="chevron_left" class="text-outline" />
                   </NuxtLink>
                 </li>
               </ul>

@@ -10,7 +10,18 @@ import type { FaqCenterConfig } from '~/utils/faqData'
 // search and chips really filter the mock data; an empty state appears
 // when nothing matches. Shared header/footer come from the layout.
 
-const props = defineProps<{ config: FaqCenterConfig }>()
+/*
+ * `searchable` and `filterable` are both on by default — /sales/guide keeps
+ * the full centre. /ir/financials turns both off (owner's request,
+ * 2026-10-18): on that page the FAQ is a short reference list under a long
+ * document archive, and a second search box and a second row of pills right
+ * below the archive's own read as a duplicate of them.
+ */
+const props = withDefaults(defineProps<{
+  config: FaqCenterConfig
+  searchable?: boolean
+  filterable?: boolean
+}>(), { searchable: true, filterable: true })
 
 const query = ref('')
 const activeKey = ref<'all' | string>('all')
@@ -57,14 +68,14 @@ function resetAll() {
         <span class="faq-center__badge">{{ config.badge }}</span>
         <h1>{{ config.title }}</h1>
         <p>{{ config.intro }}</p>
-        <form class="faq-center__search" role="search" @submit.prevent="applySearch()">
+        <form v-if="searchable" class="faq-center__search" role="search" @submit.prevent="applySearch()">
           <label class="visually-hidden" for="faq-center-search">جستجو در پرسش‌ها</label>
           <svg class="faq-center__search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" /></svg>
           <input id="faq-center-search" v-model="query" type="search" :placeholder="config.searchPlaceholder" autocomplete="off">
           <button v-if="query" type="button" class="faq-center__search-clear" aria-label="پاک کردن جستجو" @click="query = ''">×</button>
           <button type="submit" class="faq-center__search-btn">جستجو</button>
         </form>
-        <div class="faq-center__chips">
+        <div v-if="searchable" class="faq-center__chips">
           <span>جستجوهای پرتکرار:</span>
           <button
             v-for="term in config.popularSearches"
@@ -78,7 +89,7 @@ function resetAll() {
         </div>
       </section>
 
-      <div ref="resultsEl" class="faq-center__tabs" role="tablist" aria-label="دسته‌بندی پرسش‌ها">
+      <div v-if="filterable" ref="resultsEl" class="faq-center__tabs" role="tablist" aria-label="دسته‌بندی پرسش‌ها">
         <button type="button" role="tab" :aria-selected="activeKey === 'all'" :class="{ 'is-active': activeKey === 'all' }" @click="activeKey = 'all'">
           همه پرسش‌ها ({{ totalCount }})
         </button>

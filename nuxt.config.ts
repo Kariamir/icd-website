@@ -79,7 +79,9 @@ export default defineNuxtConfig({
     // The four IR sub-pages are now sections on the consolidated page (ADR-016).
     '/ir/symbol': { redirect: { to: '/ir/financials#symbol', statusCode: 301 } },
     '/ir/calendar': { redirect: { to: '/ir/financials#calendar', statusCode: 301 } },
-    '/ir/governance': { redirect: { to: '/ir/financials#governance', statusCode: 301 } },
+    // The #governance section was removed on 2026-10-18; its documents are in
+    // the archive on the same page, which is where this now lands.
+    '/ir/governance': { redirect: { to: '/ir/financials#documents-archive', statusCode: 301 } },
     '/ir/faq': { redirect: { to: '/ir/financials#faq', statusCode: 301 } },
     // About was merged in ADR-004 but its old URLs were never redirected.
     '/about/history': { redirect: { to: '/about#history', statusCode: 301 } },

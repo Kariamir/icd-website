@@ -156,9 +156,9 @@ export const salesGuideGroups: FaqGroupViewModel[] = [
 ]
 
 export const irFaqCenter: FaqCenterConfig = {
-  breadcrumb: { parentLabel: 'سرمایه‌گذاران', parentHref: '/ir', current: 'مرکز پرسش‌های متداول و راهنمای ذی‌نفعان' },
+  breadcrumb: { parentLabel: 'سرمایه‌گذاران', parentHref: '/ir', current: 'پرسش‌های متداول سهامداران' },
   badge: 'پاسخ به سوالات کلیدی و راهنمای جامع',
-  title: 'مرکز پرسش‌های متداول سهامداران، خریداران و شرکای تجاری ثاخت',
+  title: 'پرسش‌های متداول سهامداران',
   intro: 'پاسخ شفاف و دسته‌بندی‌شده به پرسش‌های حقوقی، مجمع عمومی، نحوه پیش‌خرید واحدهای ملکی، استانداردهای ساخت و سامانه سهامداری کدال.',
   searchPlaceholder: 'جستجو در میان پرسش‌ها و پاسخ‌های تخصصی...',
   popularSearches: ['سود', 'پیش‌فروش', 'تضامین', 'NAV', 'سجام'],
@@ -176,7 +176,9 @@ export const irFaqCenter: FaqCenterConfig = {
     ticketLabel: 'ارسال تیکت و ثبت پرسش جدید',
     ticketHref: '/contact',
   },
-  documents: { title: 'راهنماها و اسناد رسمی', text: 'شیوه‌نامه اجرایی واگذاری واحدها و مستندات آخرین مجمع عمومی را دریافت کنید.', linkLabel: 'اسناد حاکمیت شرکتی و مجامع', href: '/ir/governance' },
+  // The governance archive was removed on 2026-10-18; this now points at the
+  // document archive on the same page, which is where those files live.
+  documents: { title: 'راهنماها و اسناد رسمی', text: 'شیوه‌نامه اجرایی واگذاری واحدها و مستندات آخرین مجمع عمومی را دریافت کنید.', linkLabel: 'گزارش‌ها و اطلاعیه‌های رسمی', href: '/ir/financials#documents-archive' },
   sla: { title: 'تعهد پاسخگویی هلدینگ (SLA)', lines: ['ساعات کاری میز خدمت: شنبه تا چهارشنبه ۸:۰۰ الی ۱۶:۳۰', 'پاسخ به تیکت‌های مکتوب حداکثر ظرف مدت ۲۴ ساعت کاری ارسال می‌گردد.'] },
   cta: {
     eyebrow: 'میز خدمت مستقیم ذی‌نفعان',

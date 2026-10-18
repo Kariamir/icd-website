@@ -295,8 +295,7 @@ export const salesNav: NavItem[] = [
 export const irNav: NavItem[] = [
   { label: 'اسناد و گزارش‌ها', href: routes.irFinancials },
   { label: 'اطلاعات نماد', href: routes.irSymbol },
-  { label: 'تقویم مجامع', href: routes.irCalendar },
-  { label: 'حاکمیت شرکتی', href: routes.irGovernance },
+  { label: 'مجامع عمومی', href: routes.irCalendar },
   { label: 'پرسش‌های متداول', href: routes.irFaq },
 ]
 

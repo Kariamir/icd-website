@@ -10,8 +10,6 @@
 <script setup lang="ts">
 import { documentGroups, irNav, type DocumentGroup } from '~/utils/routes'
 import { irDocuments, PLACEHOLDER_FILE } from '~/utils/irDocuments'
-import { calendarEventRecords } from '~/utils/calendarData'
-import { documentHubs } from '~/utils/documentsData'
 import { irFaqCenter } from '~/utils/faqData'
 import { faDigits } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
@@ -24,7 +22,9 @@ const group = computed(() => {
   return (documentGroups.some(d => d.value === g) ? g : '') as DocumentGroup | ''
 })
 const year = computed(() => Number(route.query.year) || 0)
-const q = ref(String(route.query.q ?? ''))
+// No search box any more (owner's request, 2026-10-18) — but a `?q=` on the
+// URL still narrows the list, so links already shared keep working.
+const q = computed(() => String(route.query.q ?? ''))
 const years = [...new Set(irDocuments.map(d => d.year))].sort((a, b) => b - a)
 
 const list = computed(() => irDocuments
@@ -45,8 +45,6 @@ const pillars: { group: DocumentGroup | 'shareholders', icon: IconName, title: s
   { group: 'committee-reports', icon: 'verified_user', title: 'گزارش کمیته‌های تخصصی', text: 'کمیته‌های حسابرسی، ریسک و انتصابات.' },
   { group: 'shareholders', icon: 'groups', title: 'ترکیب سهامداران و سهام شناور', text: 'سهامداران بالای یک درصد و ضریب شناوری آزاد.' },
 ]
-
-const governanceHub = documentHubs.governance
 
 function latest(g: DocumentGroup | 'shareholders') {
   return g === 'shareholders' ? undefined : irDocuments.filter(d => d.group === g).sort((a, b) => b.sortKey - a.sortKey)[0]
@@ -113,7 +111,7 @@ function latest(g: DocumentGroup | 'shareholders') {
 
       <!-- 3. Archive -->
       <section id="documents-archive" class="scroll-mt-40">
-        <SectionHead eyebrow="آرشیو" title="مخزن اسناد و اطلاعیه‌های رسمی" :aside="`${faDigits(list.length)} سند`" />
+        <SectionHead eyebrow="آرشیو" title="گزارش‌ها و اطلاعیه‌های رسمی" :aside="`${faDigits(list.length)} سند`" />
 
         <div class="mb-4 flex flex-wrap gap-2">
           <button type="button" class="rounded-pill border px-4 py-1.5 text-label-md font-bold transition-colors" :class="!group ? 'border-ink bg-ink text-on-primary' : 'border-border text-secondary hover:text-ink'" @click="setFilter('group', '')">همه گروه‌ها</button>
@@ -124,16 +122,11 @@ function latest(g: DocumentGroup | 'shareholders') {
             @click="setFilter('group', g.value)"
           >{{ g.label }}</button>
         </div>
-        <div class="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-center">
-          <div class="inline-flex w-fit rounded-pill border border-border p-1">
+        <div class="mb-6">
+          <div class="inline-flex w-fit flex-wrap rounded-pill border border-border p-1">
             <button type="button" class="rounded-pill px-4 py-1 text-label-md" :class="!year ? 'bg-primary-container text-on-primary' : 'text-secondary'" @click="setFilter('year', '')">همه سال‌ها</button>
             <button v-for="y in years" :key="y" type="button" class="rounded-pill px-4 py-1 text-label-md" :class="year === y ? 'bg-primary-container text-on-primary' : 'text-secondary'" @click="setFilter('year', y)">{{ faDigits(y) }}</button>
           </div>
-          <label class="relative w-full md:w-72">
-            <span class="sr-only">جستجو در عنوان اسناد</span>
-            <input v-model="q" type="search" placeholder="جستجو در عنوان اسناد…" class="h-10 w-full rounded-pill border border-border bg-surface-container-lowest pl-4 pr-10 text-body-sm focus:border-primary-container focus:outline-none">
-            <AppIcon name="search" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-outline" />
-          </label>
         </div>
 
         <ul v-if="list.length" class="divide-y divide-border overflow-hidden rounded-md border border-border bg-surface-container-lowest">
@@ -165,24 +158,17 @@ function latest(g: DocumentGroup | 'shareholders') {
         </div>
       </section>
 
-      <!-- 4. Disclosure calendar — formerly /ir/calendar -->
-      <section id="calendar" class="mt-20 scroll-mt-40">
-        <CalendarIndexList :events="calendarEventRecords" />
-      </section>
+      <!--
+        4. Assemblies and the shareholder desks. Replaces the former calendar
+        and corporate-governance archive sections (owner's request).
+      -->
+      <div class="mt-20">
+        <IrAssemblies />
+      </div>
 
-      <!-- 5. Governance archive — formerly /ir/governance -->
-      <section id="governance" class="mt-20 scroll-mt-40">
-        <DocumentIndexList :hub="governanceHub" />
-        <p class="mt-4 text-body-sm text-secondary">
-          طبقه‌بندی کمیته‌های تخصصی و شرح وظایف آن‌ها در
-          <NuxtLink to="/about#committees" class="font-bold text-primary-container hover:underline">بخش کمیته‌ها</NuxtLink>
-          منتشر شده است.
-        </p>
-      </section>
-
-      <!-- 6. Shareholder FAQ — formerly /ir/faq -->
+      <!-- 5. Shareholder FAQ — formerly /ir/faq -->
       <section id="faq" class="mt-20 scroll-mt-40">
-        <FaqCenter :config="irFaqCenter" />
+        <FaqCenter :config="irFaqCenter" :searchable="false" :filterable="false" />
       </section>
     </div>
   </div>

@@ -9,12 +9,15 @@ import { irFormatNumber } from '~/utils/irDateUtils'
 // in percentages so they never distort. Green/red are used only here, per
 // the design-system exception for the stock widget.
 
-const props = defineProps<{
+// `orderBook` is only read by the depth mode, which /ir/financials no longer
+// offers — so it is optional and defaults to empty rather than forcing every
+// caller to pass data it does not draw.
+const props = withDefaults(defineProps<{
   points: PricePoint[]
   mode: ChartMode
   refLines?: ChartRefLine[]
-  orderBook: OrderBookRow[]
-}>()
+  orderBook?: OrderBookRow[]
+}>(), { refLines: () => [], orderBook: () => [] })
 
 const W = 1000
 const H = 320

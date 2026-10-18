@@ -6,41 +6,39 @@ import {
   dividendHighlight,
   dpsHistory,
   getPriceSeries,
-  investorFlow,
-  orderBook,
   quote,
-  shareholders,
   snapshotDateLabel,
   symbolMeta,
   timeframeOptions,
-  type ChartMode,
+  timeframeOptionsShown,
   type ChartRefLine,
   type Timeframe,
 } from '~/utils/irSymbolData'
 import { irFormatNumber, irFaDigits } from '~/utils/irDateUtils'
 
-// Template `08-ir-symbol`, rebuilt to follow
+// Template `08-ir-symbol`, from
 // `project_detail_page_template/08_ir_symbol/code.html`: breadcrumb, symbol
-// hero banner (status badges, name/ticker/code, update line + ISIN, quick
-// actions incl. TSETMC/CODAL), four metric cards, the price & volume chart
-// with timeframe pills + line/candlestick/depth modes and a key-stats strip,
-// order book + buyer/seller power, retail vs institutional flow, major
-// shareholders + DPS highlight, asset-backing cards + DPS history table and
-// the latest CODAL announcements. Header/footer/newsletter are the shared
-// layout.
+// banner (name/ticker/code, update line + ISIN, TSETMC and CODAL links), the
+// market-cap and NAV cards, the price & volume chart with its range pills and
+// key-stats strip, the DPS highlight, asset-backing cards + DPS history, and
+// the latest CODAL announcements.
+//
+// STRIPPED 2026-10-18 at the owner's request: the status and sector badges,
+// the watchlist and analysis-report buttons, the last-price and closing-price
+// cards, the candlestick and market-depth chart modes, the order book, the
+// retail-vs-institutional panel and the shareholder-composition panel. The
+// data behind them is untouched in irSymbolData.ts — it is simply not drawn.
 //
 // MOCK DATA: real TSETMC / CODAL feeds are pending the backend phase — see
 // app/utils/irSymbolData.ts. A visible «داده‌های نمایشی» note is rendered.
 
 const timeframe = ref<Timeframe>('1d')
-const chartMode = ref<ChartMode>('line')
 const series = computed(() => getPriceSeries(timeframe.value))
 
 const intraday = getPriceSeries('1d')
 const monthSeries = getPriceSeries('1m')
 const yearSeries = getPriceSeries('1y')
 
-const todayVolume = intraday.reduce((sum, p) => sum + p.volume, 0)
 const dayLow = Math.min(...intraday.map(p => p.low))
 const dayHigh = Math.max(...intraday.map(p => p.high))
 const ceiling = Math.round(quote.prevClose * (1 + quote.bandPercent / 100))
@@ -49,9 +47,6 @@ const ma20 = Math.round(monthSeries.slice(-20).reduce((s, p) => s + p.close, 0) 
 const yearLow = Math.min(...yearSeries.map(p => p.low))
 const yearHigh = Math.max(...yearSeries.map(p => p.high))
 
-const change = quote.last - quote.prevClose
-const changePct = (change / quote.prevClose) * 100
-const closeChangePct = ((quote.close - quote.prevClose) / quote.prevClose) * 100
 const marketCapBn = Math.round((quote.last * quote.totalShares) / 1e9)
 const pNav = (quote.last / quote.navPerShare) * 100
 const pe = quote.last / quote.eps
@@ -98,31 +93,6 @@ const keyStats = [
   { label: 'ضریب نقدشوندگی', value: `${irFormatNumber(quote.liquidityPercent, 1)}٪ (عالی)` },
 ]
 
-// order book power
-const bidTotal = orderBook.reduce((s, r) => s + r.bidVolume, 0)
-const askTotal = orderBook.reduce((s, r) => s + r.askVolume, 0)
-const buyerPower = (bidTotal / (bidTotal + askTotal)) * 100
-const buySellRatio = bidTotal / askTotal
-
-const flowSides = [
-  { key: 'buyers', title: 'سمت خرید (Buyers)', tone: 'buy', ...investorFlow.buyers },
-  { key: 'sellers', title: 'سمت فروش (Sellers)', tone: 'sell', ...investorFlow.sellers },
-] as const
-
-const floatHolder = shareholders.find(s => s.isFloat)
-
-// watchlist toggle — per-viewer convenience, persisted in localStorage when available
-const WATCH_KEY = 'icd3d:ir-watchlist'
-const inWatchlist = ref(false)
-onMounted(() => {
-  try { inWatchlist.value = localStorage.getItem(WATCH_KEY) === '1' }
-  catch { /* storage unavailable */ }
-})
-function toggleWatchlist() {
-  inWatchlist.value = !inWatchlist.value
-  try { localStorage.setItem(WATCH_KEY, inWatchlist.value ? '1' : '0') }
-  catch { /* storage unavailable */ }
-}
 </script>
 
 <template>
@@ -139,10 +109,6 @@ function toggleWatchlist() {
     <section class="ir-symbol__hero">
       <div class="ir-symbol__hero-ornament" aria-hidden="true" />
       <div class="ir-symbol__hero-main">
-        <div class="ir-symbol__badges">
-          <span class="ir-symbol__badge ir-symbol__badge--status"><span aria-hidden="true" />وضعیت نماد: {{ symbolMeta.status }}</span>
-          <span v-for="b in symbolMeta.badges" :key="b" class="ir-symbol__badge">{{ b }}</span>
-        </div>
         <div class="ir-symbol__title-row">
           <h1>{{ symbolMeta.companyName }}</h1>
           <span class="ir-symbol__ticker">« {{ symbolMeta.ticker }} »</span>
@@ -159,14 +125,6 @@ function toggleWatchlist() {
         </p>
       </div>
       <div class="ir-symbol__hero-actions">
-        <button type="button" class="ir-symbol__btn ir-symbol__btn--primary" :aria-pressed="inWatchlist" @click="toggleWatchlist">
-          <svg width="15" height="15" viewBox="0 0 24 24" :fill="inWatchlist ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z" /></svg>
-          {{ inWatchlist ? 'در سبد دیده‌بان شما' : 'افزودن به سبد دیده‌بان' }}
-        </button>
-        <NuxtLink to="/ir/financials" class="ir-symbol__btn ir-symbol__btn--outline">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14" /></svg>
-          دریافت گزارش وضعیت تحلیلی (PDF)
-        </NuxtLink>
         <div class="ir-symbol__ext-links">
           <a :href="symbolMeta.tsetmcUrl" target="_blank" rel="noopener noreferrer" class="ir-symbol__btn ir-symbol__btn--ghost">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>
@@ -182,28 +140,6 @@ function toggleWatchlist() {
 
     <!-- metric cards -->
     <section class="ir-symbol__metrics" aria-label="شاخص‌های کلیدی نماد">
-      <div class="ir-symbol__metric">
-        <div class="ir-symbol__metric-head">
-          <span>آخرین معامله (Last Price)</span>
-          <span class="ir-symbol__live" title="در حال معامله" aria-hidden="true" />
-        </div>
-        <div class="ir-symbol__metric-value">
-          <strong>{{ irFormatNumber(quote.last) }} <small>ریال</small></strong>
-          <span class="ir-symbol__change" :class="change >= 0 ? 'is-up' : 'is-down'" dir="ltr">{{ signed(changePct, 2, '٪') }}</span>
-        </div>
-        <div class="ir-symbol__metric-foot"><span>میزان تغییر قیمت:</span><strong :class="change >= 0 ? 'is-up' : 'is-down'" dir="ltr">{{ signed(change) }} ریال</strong></div>
-      </div>
-      <div class="ir-symbol__metric">
-        <div class="ir-symbol__metric-head">
-          <span>قیمت پایانی (Closing)</span>
-          <span class="ir-symbol__chip">میانگین وزنی</span>
-        </div>
-        <div class="ir-symbol__metric-value">
-          <strong>{{ irFormatNumber(quote.close) }} <small>ریال</small></strong>
-          <span class="ir-symbol__change" :class="closeChangePct >= 0 ? 'is-up' : 'is-down'" dir="ltr">{{ signed(closeChangePct, 2, '٪') }}</span>
-        </div>
-        <div class="ir-symbol__metric-foot"><span>حجم کل معاملات امروز:</span><strong>{{ millions(todayVolume) }}</strong></div>
-      </div>
       <div class="ir-symbol__metric">
         <div class="ir-symbol__metric-head">
           <span>ارزش کل بازار ثاخت (Market Cap)</span>
@@ -236,17 +172,12 @@ function toggleWatchlist() {
         </div>
         <div class="ir-symbol__chart-controls">
           <div class="ir-symbol__segmented" role="group" aria-label="بازه زمانی">
-            <button v-for="tf in timeframeOptions" :key="tf.key" type="button" :class="{ 'is-active': timeframe === tf.key }" :aria-pressed="timeframe === tf.key" @click="timeframe = tf.key">{{ tf.label }}</button>
-          </div>
-          <div class="ir-symbol__segmented ir-symbol__segmented--dark" role="group" aria-label="نوع نمودار">
-            <button type="button" :class="{ 'is-active': chartMode === 'line' }" :aria-pressed="chartMode === 'line'" @click="chartMode = 'line'">خطی</button>
-            <button type="button" :class="{ 'is-active': chartMode === 'candle' }" :aria-pressed="chartMode === 'candle'" @click="chartMode = 'candle'">کندل استیک</button>
-            <button type="button" :class="{ 'is-active': chartMode === 'depth' }" :aria-pressed="chartMode === 'depth'" @click="chartMode = 'depth'">عمق بازار</button>
+            <button v-for="tf in timeframeOptionsShown" :key="tf.key" type="button" :class="{ 'is-active': timeframe === tf.key }" :aria-pressed="timeframe === tf.key" @click="timeframe = tf.key">{{ tf.label }}</button>
           </div>
         </div>
       </div>
       <div class="ir-symbol__chart-box">
-        <IrSymbolPriceChart :points="series" :mode="chartMode" :ref-lines="refLines" :order-book="orderBook" />
+        <IrSymbolPriceChart :points="series" mode="line" :ref-lines="refLines" />
       </div>
       <dl class="ir-symbol__key-stats">
         <div v-for="s in keyStats" :key="s.label">
@@ -256,111 +187,18 @@ function toggleWatchlist() {
       </dl>
     </section>
 
-    <!-- trading & shareholders -->
-    <div class="ir-symbol__two-col">
-      <div class="ir-symbol__col">
-        <section class="ir-symbol__panel" aria-labelledby="ir-orderbook-heading">
-          <div class="ir-symbol__panel-head">
-            <div>
-              <h3 id="ir-orderbook-heading">عمق بازار و ۵ مظنه برتر (Order Book)</h3>
-              <p>صف‌های خرید و فروش لحظه‌ای سهام ثاخت</p>
-            </div>
-            <span class="ir-symbol__chip">{{ irFaDigits(orderBook.length) }} ردیف فعال</span>
-          </div>
-          <div class="ir-symbol__table-wrap">
-            <table class="ir-symbol__orderbook">
-              <thead>
-                <tr>
-                  <th>تعداد</th>
-                  <th>حجم خرید</th>
-                  <th class="is-up">قیمت خرید</th>
-                  <th class="is-down">قیمت فروش</th>
-                  <th>حجم فروش</th>
-                  <th>تعداد</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(r, i) in orderBook" :key="i">
-                  <td>{{ irFormatNumber(r.bidCount) }}</td>
-                  <td>{{ irFormatNumber(r.bidVolume) }}</td>
-                  <td class="ir-symbol__price is-up">{{ irFormatNumber(r.bidPrice) }}</td>
-                  <td class="ir-symbol__price is-down">{{ irFormatNumber(r.askPrice) }}</td>
-                  <td>{{ irFormatNumber(r.askVolume) }}</td>
-                  <td>{{ irFormatNumber(r.askCount) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="ir-symbol__power">
-            <div class="ir-symbol__power-labels">
-              <span class="is-up">قدرت خریداران: {{ irFormatNumber(buyerPower, 0) }}٪ ({{ irFormatNumber(bidTotal / 1_000_000, 1) }} میلیون سهم)</span>
-              <span class="ir-symbol__power-ratio">نسبت خریدار/فروشنده: {{ irFormatNumber(buySellRatio, 2) }}{{ buySellRatio > 1.2 ? ' (ورود پول هوشمند)' : '' }}</span>
-              <span class="is-down">قدرت فروشندگان: {{ irFormatNumber(100 - buyerPower, 0) }}٪ ({{ irFormatNumber(askTotal / 1_000_000, 1) }} میلیون سهم)</span>
-            </div>
-            <div class="ir-symbol__power-bar" role="img" :aria-label="`قدرت خریداران ${Math.round(buyerPower)} درصد`">
-              <span class="is-up" :style="{ inlineSize: `${buyerPower}%` }" />
-              <span class="is-down" :style="{ inlineSize: `${100 - buyerPower}%` }" />
-            </div>
-          </div>
-        </section>
-
-        <section class="ir-symbol__panel" aria-labelledby="ir-flow-heading">
-          <h3 id="ir-flow-heading" class="ir-symbol__panel-title">آمار معاملات حقیقی و حقوقی (امروز)</h3>
-          <div class="ir-symbol__flow">
-            <div v-for="side in flowSides" :key="side.key" class="ir-symbol__flow-box" :class="`ir-symbol__flow-box--${side.tone}`">
-              <div class="ir-symbol__flow-head">
-                <span>{{ side.title }}</span>
-                <span>حجم: {{ irFormatNumber(todayVolume / 1_000_000, 1) }} م سهم</span>
-              </div>
-              <div class="ir-symbol__flow-row">
-                <div class="ir-symbol__flow-label"><span>حقیقی (Retail):</span><strong>{{ irFaDigits(side.retailPercent) }}٪ ({{ millions(todayVolume * side.retailPercent / 100) }})</strong></div>
-                <div class="ir-symbol__bar"><span :style="{ inlineSize: `${side.retailPercent}%` }" /></div>
-              </div>
-              <div class="ir-symbol__flow-row">
-                <div class="ir-symbol__flow-label"><span>حقوقی (Institutional):</span><strong>{{ irFaDigits(side.institutionalPercent) }}٪ ({{ millions(todayVolume * side.institutionalPercent / 100) }})</strong></div>
-                <div class="ir-symbol__bar ir-symbol__bar--muted"><span :style="{ inlineSize: `${side.institutionalPercent}%` }" /></div>
-              </div>
-            </div>
-          </div>
-        </section>
+    <section class="ir-symbol__dps-card" aria-labelledby="ir-dps-heading">
+      <div class="ir-symbol__dps-head">
+        <span class="ir-symbol__dps-tag">{{ dividendHighlight.tag }}</span>
+        <span>{{ dividendHighlight.meeting }}</span>
       </div>
-
-      <div class="ir-symbol__col">
-        <section class="ir-symbol__panel" aria-labelledby="ir-holders-heading">
-          <div class="ir-symbol__panel-head">
-            <div>
-              <h3 id="ir-holders-heading">ترکیب سهامداران عمده</h3>
-              <p>ساختار مالکیتی و سهامداران بالای ۱ درصد</p>
-            </div>
-            <span v-if="floatHolder" class="ir-symbol__chip ir-symbol__chip--blue">شناور: {{ irFormatNumber(floatHolder.percent, 1) }}٪</span>
-          </div>
-          <ul class="ir-symbol__holders">
-            <li v-for="h in shareholders" :key="h.name" :class="{ 'is-float': h.isFloat }">
-              <div class="ir-symbol__holder-row">
-                <span>{{ h.name }}</span>
-                <strong>{{ irFormatNumber(h.percent, 1) }}٪</strong>
-              </div>
-              <div class="ir-symbol__bar" :class="{ 'ir-symbol__bar--muted': h.isFloat }"><span :style="{ inlineSize: `${h.percent}%` }" /></div>
-              <small>{{ irFormatNumber(Math.round(quote.totalShares * h.percent / 100)) }} برگه سهم<template v-if="h.note"> ({{ h.note }})</template></small>
-            </li>
-          </ul>
-          <NuxtLink to="/ir/governance" class="ir-symbol__text-link">مشاهده سند حاکمیت شرکتی و ساختار هیات‌مدیره ←</NuxtLink>
-        </section>
-
-        <section class="ir-symbol__dps-card" aria-labelledby="ir-dps-heading">
-          <div class="ir-symbol__dps-head">
-            <span class="ir-symbol__dps-tag">{{ dividendHighlight.tag }}</span>
-            <span>{{ dividendHighlight.meeting }}</span>
-          </div>
-          <h4 id="ir-dps-heading">{{ dividendHighlight.title }}</h4>
-          <p>{{ dividendHighlight.description }}</p>
-          <div class="ir-symbol__dps-foot">
-            <span>{{ dividendHighlight.dpsLabel }}</span>
-            <strong>{{ dividendHighlight.dpsValue }}</strong>
-          </div>
-        </section>
+      <h4 id="ir-dps-heading">{{ dividendHighlight.title }}</h4>
+      <p>{{ dividendHighlight.description }}</p>
+      <div class="ir-symbol__dps-foot">
+        <span>{{ dividendHighlight.dpsLabel }}</span>
+        <strong>{{ dividendHighlight.dpsValue }}</strong>
       </div>
-    </div>
+    </section>
 
     <!-- asset backing + DPS history -->
     <section class="ir-symbol__panel" aria-labelledby="ir-assets-heading">
@@ -482,8 +320,8 @@ function toggleWatchlist() {
 
 /* metrics */
 .ir-symbol__metrics { display: grid; grid-template-columns: 1fr; gap: var(--space-2); }
+/* Two cards since the last-price and closing cards were removed. */
 @media (min-width: 640px) { .ir-symbol__metrics { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1100px) { .ir-symbol__metrics { grid-template-columns: repeat(4, 1fr); } }
 .ir-symbol__metric { display: flex; flex-direction: column; gap: 12px; padding: var(--space-3); background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
 .ir-symbol__metric-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1); font-size: 12px; font-weight: 600; color: var(--color-text-muted); }
 .ir-symbol__live { inline-size: 10px; block-size: 10px; border-radius: 50%; background: var(--color-status-success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-status-success) 18%, transparent); }

@@ -1,15 +1,17 @@
 <!--
   Annual financial tables A–E on /ir/financials — sitemap §7.2, ADR-012.
 
-  Tabbed by table; tables A–D switch between مقادیر / تحلیل افقی / تحلیل
-  عمودی as three views of one table (default مقادیر). Every header states the
-  unit and the fiscal-year end, every table carries an "as of" stamp and a CSV
+  Tabbed by table. The مقادیر / تحلیل افقی / تحلیل عمودی switcher was removed
+  on 2026-10-18 at the owner's request — every table now shows the figures
+  themselves and nothing else. The horizontal and vertical series are still
+  parsed in financialTables.ts, so restoring the control is a template change,
+  not a data one. Every header states the unit and the fiscal-year end, every table carries an "as of" stamp and a CSV
   download, and rows distorted by the ۱۴۰۴ revaluation carry the footnote
   marker (†). Wide tables scroll horizontally with the first column pinned.
   Table F has no data yet (sitemap §13.1 q1) and says so.
 -->
 <script setup lang="ts">
-import { financialTables, financialViews, type FinancialTable, type FinancialView, FINANCIAL_UNIT, FISCAL_YEAR_END } from '~/utils/routes'
+import { financialTables, type FinancialTable, type FinancialView, FINANCIAL_UNIT, FISCAL_YEAR_END } from '~/utils/routes'
 import { incomeConsolidated, balanceConsolidated, incomeParent, balanceParent, ratioGroups, ratioYears, type FinStatement } from '~/utils/financialTables'
 import { faDigits, faNumber } from '~/utils/format'
 
@@ -20,10 +22,10 @@ const table = computed<FinancialTable>(() => {
   const t = String(route.query.table ?? '')
   return (financialTables.some(x => x.value === t) ? t : 'income-consolidated') as FinancialTable
 })
+/** Fixed at مقادیر; the other two views are no longer offered (see above). */
 const view = ref<FinancialView>('values')
 
 function setTable(t: FinancialTable) {
-  view.value = 'values'
   router.replace({ query: { ...route.query, table: t }, hash: '#financial-tables' })
 }
 
@@ -105,15 +107,7 @@ const hasNotes = computed(() => stmt.value ? stmt.value.rows.some(r => r.note) :
     </div>
 
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-      <div v-if="stmt" class="inline-flex rounded-pill border border-border p-1" role="radiogroup" aria-label="نوع نمایش">
-        <button
-          v-for="v in financialViews" :key="v.value" type="button" role="radio" :aria-checked="view === v.value"
-          class="rounded-pill px-4 py-1.5 text-label-md font-bold transition-colors"
-          :class="view === v.value ? 'bg-primary-container text-on-primary' : 'text-secondary hover:text-ink'"
-          @click="view = v.value"
-        >{{ v.label }}</button>
-      </div>
-      <p v-else class="text-label-md text-secondary">{{ table === 'ratios' ? 'نسبت‌ها بدون واحد؛ سرمایه و سرمایه در گردش به میلیون ریال' : '' }}</p>
+      <p class="text-label-md text-secondary">{{ table === 'ratios' ? 'نسبت‌ها بدون واحد؛ سرمایه و سرمایه در گردش به میلیون ریال' : '' }}</p>
       <button type="button" class="inline-flex h-9 items-center gap-2 rounded-pill border border-border px-4 text-label-md font-bold text-ink hover:border-primary-container hover:text-primary-container" @click="downloadCsv">
         <AppIcon name="download" />دریافت CSV
       </button>

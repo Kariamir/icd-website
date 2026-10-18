@@ -39,7 +39,7 @@ const PAGES: SearchHit[] = [
   { type: 'pages', title: 'فرصت‌های همکاری و استخدام', text: 'ارسال رزومه، مزایا، آموزش و پرسش‌های متداول', href: '/careers', meta: 'صفحه', sortKey: 0 },
   { type: 'pages', title: 'اطلاعات نماد ثاخت در بورس', text: 'قیمت، حجم معاملات و سابقه سود نماد', href: '/ir/symbol', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'تقویم مجامع و اطلاع‌رسانی', text: 'مجامع عمومی، پرداخت سود و دوره‌های سکوت', href: '/ir/calendar', meta: 'دیده‌بان ثاخت', sortKey: 0 },
-  { type: 'pages', title: 'حاکمیت شرکتی و شفافیت', text: 'گزارش‌های حاکمیت شرکتی، منشورها و کنترل‌های داخلی', href: '/ir/governance', meta: 'دیده‌بان ثاخت', sortKey: 0 },
+  { type: 'pages', title: 'گزارش‌ها و اطلاعیه‌های رسمی', text: 'صورت‌های مالی، گزارش هیات‌مدیره، گزارش کمیته‌ها و اطلاعیه‌های کدال', href: '/ir/financials#documents-archive', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'پرسش‌های متداول سهامداران', text: 'سود سهام، سجام، مجامع و پیش‌فروش', href: '/ir/faq', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'راهنمای خرید و قرارداد', text: 'مراحل پیش‌خرید، قرارداد، پرداخت و تحویل', href: '/sales/guide', meta: 'فروش', sortKey: 0 },
   { type: 'pages', title: 'درخواست مشاوره خرید', text: 'مشاوره رایگان خرید و سرمایه‌گذاری', href: '/sales/consultation', meta: 'فروش', sortKey: 0 },
