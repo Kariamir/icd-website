@@ -6,18 +6,40 @@
 -->
 <script setup lang="ts">
 import { projectsByCompany, type Company } from '~/utils/catalog'
+import { boardOf, memberInitials } from '~/utils/companyBoards'
 import { faDigits, faArea } from '~/utils/format'
 
 const props = defineProps<{ company: Company }>()
 const list = computed(() => projectsByCompany(props.company.slug))
 const totalArea = computed(() => list.value.reduce((s, p) => s + p.areaSqm, 0))
 const years = computed(() => 1405 - props.company.founded)
+
+/*
+ * The company's own board, from the client's workbook (companyBoards.ts).
+ * Split into the board proper and the executives so the two are not shown as
+ * one undifferentiated grid — they are different things, and on a listed
+ * group's site the distinction between موظف and غیرموظف is disclosure, not
+ * decoration.
+ *
+ * ⛔ One of the ten subsidiaries («مهندسی و مدیریت ساخت ثاخت») has no rows in
+ * the workbook, so its page renders no board section at all rather than an
+ * empty heading.
+ */
+const board = computed(() => boardOf(props.company.slug))
+const directors = computed(() => board.value.filter(m => m.group === 'هیات\u200cمدیره'))
+const executives = computed(() => board.value.filter(m => m.group !== 'هیات\u200cمدیره'))
+
+/** غدیر خوزستان is in liquidation; its «board» is a liquidation committee. */
+const inLiquidation = computed(() => board.value.some(m => m.role.includes('تصفیه')))
 </script>
 
 <template>
   <div>
     <PageHero
       :image="company.image"
+      :mark="company.logo"
+      :mark-alt="company.name"
+      faded
       :eyebrow="`${company.isListed ? 'شرکت پذیرفته‌شده در بورس' : 'شرکت تابعه'} — تاسیس ${faDigits(company.founded)}`"
       :title="company.name"
       :subtitle="company.summary"
@@ -63,6 +85,92 @@ const years = computed(() => 1405 - props.company.founded)
             گزارش‌های رسمی گروه <AppIcon name="arrow_back" />
           </NuxtLink>
         </aside>
+      </div>
+    </section>
+
+    <!-- Board and senior management -->
+    <section v-if="board.length" class="border-b border-border bg-surface py-16 md:py-24">
+      <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
+        <SectionHead
+          eyebrow="راهبری"
+          :title="inLiquidation ? 'هیات تصفیه' : 'هیات‌مدیره و مدیران'"
+          :aside="`${faDigits(board.length)} نفر`"
+        />
+
+        <div v-if="directors.length" class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <article
+            v-for="m in directors"
+            :key="`${m.name}-${m.rank}`"
+            class="flex h-full flex-col rounded-md border border-border bg-surface-container-lowest p-6"
+          >
+            <div class="mb-4 flex items-start justify-between gap-3">
+              <!-- No portraits in the workbook; a monogram rather than a
+                   placeholder photograph of nobody. -->
+              <span
+                aria-hidden="true"
+                class="flex size-12 shrink-0 items-center justify-center rounded-pill bg-brand-tint text-body-md font-bold text-primary-container"
+              >{{ memberInitials(m.name) }}</span>
+              <span
+                v-if="m.membership"
+                class="rounded-pill border border-border px-3 py-1 text-label-md text-secondary"
+              >{{ m.membership }}</span>
+            </div>
+            <h3 class="text-body-lg font-bold leading-snug text-ink">{{ m.name }}</h3>
+            <p class="mt-1 text-label-md font-bold text-primary-container">{{ m.role }}</p>
+            <dl class="mt-4 space-y-1.5 border-t border-border pt-4 text-label-md text-secondary">
+              <div v-if="m.sinceYear" class="flex justify-between gap-3">
+                <dt>سال عضویت</dt><dd class="font-bold text-ink">{{ faDigits(m.sinceYear) }}</dd>
+              </div>
+              <div v-if="m.education" class="flex justify-between gap-3">
+                <dt class="shrink-0">تحصیلات</dt><dd class="text-left font-bold text-ink">{{ m.education }}</dd>
+              </div>
+              <div v-if="m.experienceYears" class="flex justify-between gap-3">
+                <dt>سابقه</dt><dd class="font-bold text-ink">{{ faDigits(m.experienceYears) }} سال</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+
+        <template v-if="executives.length">
+          <h3 class="mb-5 mt-12 flex items-center gap-3 text-headline-sm font-headline-sm text-ink">
+            <span class="h-5 w-1.5 rounded-pill bg-primary-container" />مدیران اجرایی
+          </h3>
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <article
+              v-for="m in executives"
+              :key="`${m.name}-${m.rank}`"
+              class="flex h-full flex-col rounded-md border border-primary-container/30 bg-brand-tint/25 p-6"
+            >
+              <div class="mb-4 flex items-start justify-between gap-3">
+                <span
+                  aria-hidden="true"
+                  class="flex size-12 shrink-0 items-center justify-center rounded-pill bg-primary-container text-body-md font-bold text-on-primary"
+                >{{ memberInitials(m.name) }}</span>
+                <span
+                  v-if="m.membership"
+                  class="rounded-pill bg-surface-container-lowest px-3 py-1 text-label-md text-secondary"
+                >{{ m.membership }}</span>
+              </div>
+              <h3 class="text-body-lg font-bold leading-snug text-ink">{{ m.name }}</h3>
+              <p class="mt-1 text-label-md font-bold text-primary-container">{{ m.role }}</p>
+              <dl class="mt-4 space-y-1.5 border-t border-primary-container/20 pt-4 text-label-md text-secondary">
+                <div v-if="m.sinceYear" class="flex justify-between gap-3">
+                  <dt>سال عضویت</dt><dd class="font-bold text-ink">{{ faDigits(m.sinceYear) }}</dd>
+                </div>
+                <div v-if="m.education" class="flex justify-between gap-3">
+                  <dt class="shrink-0">تحصیلات</dt><dd class="text-left font-bold text-ink">{{ m.education }}</dd>
+                </div>
+                <div v-if="m.experienceYears" class="flex justify-between gap-3">
+                  <dt>سابقه</dt><dd class="font-bold text-ink">{{ faDigits(m.experienceYears) }} سال</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </template>
+
+        <p class="mt-8 text-label-md text-outline">
+          ترکیب هیات‌مدیره بر اساس آخرین اطلاعات دریافتی از شرکت است؛ تغییرات ثبت‌شده در روزنامه رسمی مرجع نهایی است.
+        </p>
       </div>
     </section>
 

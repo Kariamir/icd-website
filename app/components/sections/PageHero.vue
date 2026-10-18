@@ -5,6 +5,15 @@
  *
  * `plain` drops the image for the IR cluster, which is exempt from the
  * image-led style (ADR-008, sitemap §14.1): a solid ink band, compact.
+ *
+ * `mark` puts a logo on a light tile beside the title — used by the company
+ * pages, where the subsidiary's own mark belongs next to its name. Because
+ * the marks are transparent PNGs in whatever colour each company uses, the
+ * tile is always light; dropping them straight onto the scrim would lose the
+ * dark ones entirely.
+ *
+ * `faded` dims the photograph so the mark and the name carry the band rather
+ * than competing with the building behind them.
  */
 interface Crumb { label: string, href?: string }
 
@@ -16,6 +25,9 @@ withDefaults(defineProps<{
   breadcrumb?: Crumb[]
   size?: 'lg' | 'md' | 'sm'
   plain?: boolean
+  mark?: string
+  markAlt?: string
+  faded?: boolean
 }>(), {
   subtitle: undefined,
   eyebrow: undefined,
@@ -23,6 +35,9 @@ withDefaults(defineProps<{
   breadcrumb: () => [],
   size: 'md',
   plain: false,
+  mark: undefined,
+  markAlt: '',
+  faded: false,
 })
 
 const heights = {
@@ -38,8 +53,13 @@ const heights = {
     :class="plain ? 'min-h-[220px] md:min-h-[260px]' : heights[size]"
   >
     <template v-if="!plain">
-      <img :src="image" alt="" class="absolute inset-0 size-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/10" />
+      <img
+        :src="image"
+        alt=""
+        class="absolute inset-0 size-full object-cover transition-opacity"
+        :class="faded ? 'opacity-35' : 'opacity-100'"
+      >
+      <div class="absolute inset-0" :class="faded ? 'bg-gradient-to-t from-ink via-ink/70 to-ink/40' : 'bg-gradient-to-t from-ink via-ink/55 to-ink/10'" />
     </template>
     <div class="relative z-10 mx-auto w-full max-w-[1440px] px-space-lg pb-12 pt-16 md:px-margin md:pb-16">
       <nav v-if="breadcrumb.length" aria-label="مسیر صفحه" class="mb-4">
@@ -51,10 +71,18 @@ const heights = {
           </li>
         </ol>
       </nav>
-      <div class="max-w-3xl border-r-4 border-primary-container pr-6">
-        <p v-if="eyebrow" class="mb-2 text-label-lg font-label-lg text-brand-tint">{{ eyebrow }}</p>
-        <h1 class="text-headline-lg-mobile font-headline-lg text-surface-container-lowest md:text-headline-xl">{{ title }}</h1>
-        <p v-if="subtitle" class="mt-3 max-w-2xl text-body-lg text-surface-dim">{{ subtitle }}</p>
+      <div class="flex flex-col items-start gap-6 md:flex-row md:items-center md:gap-8">
+        <span
+          v-if="mark"
+          class="flex h-24 w-32 shrink-0 items-center justify-center rounded-md bg-surface-container-lowest p-4 shadow-[0_18px_40px_-24px_rgba(4,28,44,0.8)] md:h-28 md:w-40"
+        >
+          <img :src="mark" :alt="markAlt" class="max-h-full max-w-full object-contain">
+        </span>
+        <div class="max-w-3xl border-r-4 border-primary-container pr-6">
+          <p v-if="eyebrow" class="mb-2 text-label-lg font-label-lg text-brand-tint">{{ eyebrow }}</p>
+          <h1 class="text-headline-lg-mobile font-headline-lg text-surface-container-lowest md:text-headline-xl">{{ title }}</h1>
+          <p v-if="subtitle" class="mt-3 max-w-2xl text-body-lg text-surface-dim">{{ subtitle }}</p>
+        </div>
       </div>
       <div v-if="$slots.default" class="mt-8">
         <slot />
