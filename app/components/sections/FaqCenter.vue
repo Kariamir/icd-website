@@ -19,9 +19,13 @@ import type { FaqCenterConfig } from '~/utils/faqData'
  */
 const props = withDefaults(defineProps<{
   config: FaqCenterConfig
+  /** The search form itself. */
   searchable?: boolean
+  /** The «جستجوهای پرتکرار» chips under it. */
+  popular?: boolean
+  /** The category tab strip that filters the results. */
   filterable?: boolean
-}>(), { searchable: true, filterable: true })
+}>(), { searchable: true, popular: true, filterable: true })
 
 const query = ref('')
 const activeKey = ref<'all' | string>('all')
@@ -75,7 +79,7 @@ function resetAll() {
           <button v-if="query" type="button" class="faq-center__search-clear" aria-label="پاک کردن جستجو" @click="query = ''">×</button>
           <button type="submit" class="faq-center__search-btn">جستجو</button>
         </form>
-        <div v-if="searchable" class="faq-center__chips">
+        <div v-if="searchable && popular" class="faq-center__chips">
           <span>جستجوهای پرتکرار:</span>
           <button
             v-for="term in config.popularSearches"

@@ -27,6 +27,9 @@ export interface ProjectSummary {
   code: string
   x: number
   y: number
+  /** Real lon/lat for the map on /projects/map (city-level — see catalog). */
+  coords: { lon: number, lat: number }
+  city: string
 }
 
 export const projectSummaries: ProjectSummary[] = catalog.map((p, i) => ({
@@ -37,6 +40,8 @@ export const projectSummaries: ProjectSummary[] = catalog.map((p, i) => ({
   code: `ICD-${String(i + 1).padStart(2, '0')}`,
   x: p.map.x,
   y: p.map.y,
+  coords: p.coords,
+  city: p.city,
 }))
 
 export const featuredProject = projectSummaries.find(p => p.featured)!

@@ -3,13 +3,12 @@
 // approval. Built in the approved Stitch visual language (no Stitch design
 // existed for the home page) and fed from the same catalog as every other
 // page (ADR-015), so a card here always opens the page it names.
-import { companies, projects, units } from '~/utils/catalog'
+import { companies, projects } from '~/utils/catalog'
 import { posts } from '~/utils/posts'
 import { irDocuments } from '~/utils/irDocuments'
 import { aboutHonors } from '~/utils/aboutPageData'
 import { quote, IR_SYMBOL_IS_MOCK, snapshotDateLabel } from '~/utils/irSymbolData'
 import { mediaCategories } from '~/utils/routes'
-import { ph } from '~/utils/media'
 import { faDigits, faNumber } from '~/utils/format'
 
 useSeoMeta({
@@ -27,7 +26,6 @@ const stats = [
 
 const featured = projects.find(p => p.featured)!
 const featuredSide = projects.filter(p => p.slug !== featured.slug && (p.featured || p.status === 'under-construction')).slice(0, 2)
-const preSale = units.filter(u => u.status === 'pre-sale')
 const latestPosts = posts.filter(p => p.category !== 'tenders').slice(0, 3)
 const latestDoc = [...irDocuments].sort((a, b) => b.sortKey - a.sortKey)[0]!
 const change = ((quote.last - quote.prevClose) / quote.prevClose) * 100
@@ -57,7 +55,7 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
     <!-- 2 — خانواده ثاخت (before projects, ADR-011) -->
     <section class="bg-surface py-20 md:py-[120px]">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="خانواده ثاخت" title="ده شرکت، یک زنجیره">
+        <SectionHead eyebrow="خانواده ثاخت" title="شرکت‌های تابعه در یک زنجیره">
           <NuxtLink to="/companies" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint">همه شرکت‌ها <AppIcon name="arrow_back" /></NuxtLink>
         </SectionHead>
         <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -97,12 +95,16 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
     </section>
 
     <!-- 4 — بنر فروش و پیش‌فروش -->
-    <section class="relative overflow-hidden bg-primary-container">
-      <img :src="ph('interior', 1)" alt="" class="absolute inset-0 size-full object-cover opacity-20 mix-blend-luminosity">
+    <!--
+      Flat brand blue, no photograph (owner's request, 2026-10-18). The count
+      is gone from the heading too: the workbook marks every unit `ready`, so
+      it rendered as «پیش‌فروش ۰ واحد» — a banner advertising nothing.
+    -->
+    <section class="bg-primary-container">
       <div class="relative mx-auto flex max-w-[1440px] flex-col justify-between gap-8 px-space-lg py-16 md:flex-row md:items-center md:px-margin md:py-20">
         <div class="max-w-2xl text-on-primary">
           <p class="mb-2 text-label-lg text-brand-tint">فروش و پیش‌فروش</p>
-          <h2 class="text-headline-lg-mobile font-headline-lg md:text-headline-lg">پیش‌فروش {{ faDigits(preSale.length) }} واحد در پروژه‌های در حال ساخت</h2>
+          <h2 class="text-headline-lg-mobile font-headline-lg md:text-headline-lg">پیش‌فروش واحدها در پروژه‌های در حال ساخت</h2>
           <p class="mt-3 text-body-md text-surface-container-lowest/80">قرارداد رسمی، پرداخت مرحله‌ای و تحویل با ضمانت‌نامه.</p>
         </div>
         <div class="flex shrink-0 flex-wrap gap-3">
@@ -162,22 +164,37 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
     </section>
 
     <!--
-      7 — افتخارات. The same three award objects as /about#history, drawn the
-      same way (owner's request, 2026-10-18): the objects themselves, no
-      captions. `honorsData.ts`'s titles are invented placeholders, and a
-      generic medal icon beside a made-up name was the weakest block on the
-      page. Trust signal only — no CTA, per sitemap §3.1 block 7.
+      7 — افتخارات. The same three award objects as /about#history.
+      `honorsData.ts`'s titles are invented placeholders, so the objects are
+      shown without captions (ADR-018).
+
+      Background redesigned 2026-10-18: the objects used to sit on the same
+      flat grey as the section above them and read as three bits of clip art.
+      They now sit on an ink band with a soft brand-blue wash and a sparse dot
+      field — the awards are gold, brass and navy, and a dark ground is what
+      actually makes those read. Each one gets a lit plinth rather than a
+      bordered box. Trust signal only — no CTA, per sitemap §3.1 block 7.
     -->
-    <section class="border-y border-border bg-surface py-16 md:py-20">
-      <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <p class="mb-10 text-center text-label-lg font-label-lg text-primary-container">افتخارات</p>
-        <ul class="mx-auto grid max-w-4xl grid-cols-3 gap-6 md:gap-10">
+    <section class="honors-band relative overflow-hidden bg-ink py-20 md:py-24">
+      <div class="relative mx-auto max-w-[1440px] px-space-lg md:px-margin">
+        <div class="mb-12 flex flex-col items-center gap-3 text-center">
+          <span class="inline-flex items-center gap-2 rounded-pill border border-surface-container-lowest/20 bg-surface-container-lowest/5 px-4 py-1.5 text-label-md text-brand-tint">
+            <AppIcon name="workspace_premium" />افتخارات
+          </span>
+          <p class="max-w-xl text-body-md text-surface-dim">گواهینامه‌ها و تندیس‌های دریافتی گروه</p>
+        </div>
+        <ul class="mx-auto grid max-w-4xl grid-cols-3 gap-5 md:gap-10">
           <li
             v-for="h in aboutHonors"
             :key="h.id"
-            class="flex items-center justify-center rounded-md border border-border bg-surface-container-lowest p-6 md:p-8"
+            class="honors-plinth group relative flex items-end justify-center rounded-lg p-6 md:p-8"
           >
-            <img :src="h.image.src" :alt="h.image.alt" loading="lazy" class="h-32 w-auto max-w-full object-contain md:h-44">
+            <img
+              :src="h.image.src"
+              :alt="h.image.alt"
+              loading="lazy"
+              class="relative h-32 w-auto max-w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:-translate-y-1.5 md:h-48"
+            >
           </li>
         </ul>
       </div>
@@ -198,3 +215,62 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
     </section>
   </div>
 </template>
+
+<style scoped>
+/*
+  The achievements band. Three layers, all painted: a brand wash that lifts
+  the centre off the ink, a sparse dot field for texture, and a lit plinth
+  under each object so it reads as standing on something rather than floating.
+  No image is loaded for any of it.
+*/
+.honors-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 120% at 50% 0%, color-mix(in srgb, var(--color-primary) 38%, transparent) 0%, transparent 62%),
+    radial-gradient(50% 90% at 50% 110%, color-mix(in srgb, var(--color-primary) 22%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.honors-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 13%) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(75% 75% at 50% 50%, #000 20%, transparent 78%);
+  pointer-events: none;
+}
+
+.honors-plinth {
+  min-block-size: 190px;
+  background: linear-gradient(to top, rgb(255 255 255 / 10%), rgb(255 255 255 / 3%));
+  border: 1px solid rgb(255 255 255 / 10%);
+  transition: background 400ms ease, border-color 400ms ease;
+}
+
+.honors-plinth::after {
+  /* the pool of light the object stands in */
+  content: '';
+  position: absolute;
+  inset-inline: 18%;
+  inset-block-end: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 28%), transparent);
+}
+
+.honors-plinth:hover {
+  background: linear-gradient(to top, rgb(255 255 255 / 16%), rgb(255 255 255 / 5%));
+  border-color: color-mix(in srgb, var(--color-tint) 45%, transparent);
+}
+
+@media (min-width: 768px) {
+  .honors-plinth { min-block-size: 280px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .honors-plinth img { transition: none; }
+}
+</style>

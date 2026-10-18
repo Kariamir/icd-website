@@ -94,6 +94,7 @@ export const icons = {
   refresh: 'M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7',
   remove: 'M5 12h14',
   schedule: 'M12 7v5l3 2M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z',
+  my_location: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v3M12 19v3M2 12h3M19 12h3',
   school: 'M12 4L2 9l10 5 10-5-10-5zM6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6',
   search: 'M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z',
   security: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z',

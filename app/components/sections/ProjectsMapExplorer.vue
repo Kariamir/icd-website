@@ -11,9 +11,11 @@ import type { ProjectStatusKey } from '~/utils/catalog'
 // portfolio summary strip. Site header/footer are the shared layout, not
 // reproduced here. Styling uses the balanced (not sharp, not fully round)
 // corner scale from docs/design-system-icd3d.md §4.1, not the mockup's
-// literal Tailwind rounded-2xl/3xl/full classes. The map itself stays a
-// placeholder panel — the real 3D Tehran map engine is a separate,
-// explicitly out-of-scope phase (docs/02-build-checklist.md Phase 6/7).
+// literal Tailwind rounded-2xl/3xl/full classes.
+//
+// The map panel is now a real interactive map of Iran (`IranProjectMap`),
+// replacing the percentage-positioned pins on a blank plate and the
+// «satellite layer» toggle, which toggled nothing.
 
 type ViewMode = 'map' | 'grid'
 type SortKey = 'featured' | 'area' | 'progress'
@@ -27,10 +29,8 @@ const usageFilter = ref('all')
 const provinceFilter = ref('all')
 const companyFilter = ref('all')
 const areaBandFilter = ref<'all' | 'high' | 'mid' | 'low'>('all')
-const mapZoom = ref(1)
-const mapLayer = ref<'engineering' | 'satellite'>('engineering')
 const favorites = reactive(new Set<string>())
-const mapEl = ref<HTMLElement | null>(null)
+const mapEl = ref<InstanceType<typeof import('./IranProjectMap.vue').default> | null>(null)
 
 const statusEntries = Object.entries(STATUS) as [ProjectStatusKey, typeof STATUS[ProjectStatusKey]][]
 
@@ -77,14 +77,10 @@ function toggleFavorite(slug: string) {
   else favorites.add(slug)
 }
 
-function zoomBy(delta: number) {
-  mapZoom.value = Math.min(1.6, Math.max(0.8, Math.round((mapZoom.value + delta) * 10) / 10))
-}
-function recenter() { mapZoom.value = 1 }
-function toggleFullscreen() {
-  if (!mapEl.value) return
-  if (document.fullscreenElement) document.exitFullscreen()
-  else mapEl.value.requestFullscreen?.()
+/* Choosing a card from the list moves the map to that project. */
+function focusOnMap(slug: string) {
+  activeSlug.value = slug
+  mapEl.value?.focusSlug(slug)
 }
 
 const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
@@ -226,7 +222,7 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
                     <strong>{{ card.detail.year }}</strong>
                   </div>
                   <div class="map-explorer__card-actions">
-                    <button v-if="card.slug === activeSlug" type="button" class="map-explorer__card-btn map-explorer__card-btn--secondary" @click="viewMode = 'map'">
+                    <button v-if="card.slug === activeSlug" type="button" class="map-explorer__card-btn map-explorer__card-btn--secondary" @click="viewMode = 'map'; focusOnMap(card.slug)">
                       مشاهده روی نقشه
                     </button>
                     <NuxtLink :to="`/projects/${card.slug}`" class="map-explorer__card-btn" :class="card.slug === activeSlug ? 'map-explorer__card-btn--primary' : 'map-explorer__card-btn--outline'">
@@ -241,20 +237,18 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
         <li v-if="!sortedCards.length" class="map-explorer__empty">پروژه‌ای مطابق فیلترهای انتخابی یافت نشد.</li>
       </ul>
 
-      <div v-if="viewMode === 'map'" ref="mapEl" class="map-explorer__map">
-        <div class="map-explorer__map-layer" :style="{ transform: `scale(${mapZoom})` }">
-          <button
-            v-for="p in sortedCards"
-            :key="p.slug"
-            type="button"
-            class="map-explorer__pin"
-            :class="[`status-${p.status}`, { 'is-active': p.slug === activeSlug }]"
-            :style="{ left: `${p.x}%`, top: `${p.y}%` }"
-            :aria-label="`${p.name} — ${STATUS[p.status].label}`"
-            @mouseenter="activeSlug = p.slug"
-            @focus="activeSlug = p.slug"
-          />
-        </div>
+      <div v-if="viewMode === 'map'" class="map-explorer__map">
+        <!--
+          A real map of Iran, drawn from self-hosted geometry — no tile
+          service, because Google Maps and Mapbox are both unreachable from
+          inside Iran. See app/utils/iranMap.ts.
+        -->
+        <IranProjectMap
+          ref="mapEl"
+          :projects="sortedCards"
+          :active-slug="activeSlug"
+          @select="activeSlug = $event"
+        />
 
         <div v-if="activeProject && activeDetail" class="map-explorer__floating-card">
           <div class="map-explorer__floating-head">
@@ -271,24 +265,6 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
             ورود به صفحه اختصاصی پروژه
           </NuxtLink>
         </div>
-
-        <div class="map-explorer__map-controls">
-          <button type="button" title="بزرگ‌نمایی" @click="zoomBy(0.2)">+</button>
-          <button type="button" title="کوچک‌نمایی" @click="zoomBy(-0.2)">−</button>
-          <button type="button" title="بازنشانی نما" @click="recenter">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-          </button>
-          <button type="button" title="تمام صفحه نقشه" @click="toggleFullscreen">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-          </button>
-        </div>
-
-        <div class="map-explorer__map-layers" role="group" aria-label="لایه نقشه">
-          <button type="button" :class="{ 'is-active': mapLayer === 'engineering' }" @click="mapLayer = 'engineering'">نقشه مهندسی</button>
-          <button type="button" :class="{ 'is-active': mapLayer === 'satellite' }" @click="mapLayer = 'satellite'">تصویر ماهواره‌ای</button>
-        </div>
-
-        <p class="map-explorer__map-note">نقشه سه‌بعدی تعاملی در فاز بعد جایگزین این نسخه می‌شود</p>
       </div>
 
       <div v-else class="map-explorer__grid-note">
@@ -524,31 +500,9 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
   position: relative;
   flex: 1;
   min-height: 780px;
-  background: linear-gradient(135deg, var(--color-surface), var(--color-tint) 140%);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-}
-.map-explorer__map-layer { position: absolute; inset: 0; transition: transform 200ms ease; transform-origin: center; }
-
-.map-explorer__pin {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--color-white);
-  background: var(--status-upcoming-fg);
-  box-shadow: 0 1px 4px rgb(4 28 44 / 25%);
-  cursor: pointer;
-  padding: 0;
-  transform: translate(-50%, -50%);
-}
-.map-explorer__pin.status-under-construction { background: var(--status-under-construction-fg); }
-.map-explorer__pin.status-operating { background: var(--status-operating-bg); }
-.map-explorer__pin.status-completed { background: var(--status-completed-bg); }
-.map-explorer__pin.is-active, .map-explorer__pin:hover, .map-explorer__pin:focus-visible {
-  outline: 2px solid var(--color-brand-blue);
-  outline-offset: 2px;
 }
 
 .map-explorer__floating-card {
@@ -574,44 +528,6 @@ const totalAreaSqm = allDetails.reduce((sum, d) => sum + d.areaSqm, 0)
 .map-explorer__floating-stats dd { margin: 0; font-weight: 600; }
 .map-explorer__floating-cta { text-align: center; background: var(--color-brand-blue); color: var(--color-white); border-radius: var(--radius-pill); padding: 9px; font-size: 12px; font-weight: 700; text-decoration: none; }
 
-.map-explorer__map-controls {
-  position: absolute;
-  top: var(--space-2);
-  inset-inline-start: var(--space-2);
-  display: flex;
-  flex-direction: column;
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  z-index: 5;
-}
-.map-explorer__map-controls button { border: none; background: none; width: 34px; height: 34px; cursor: pointer; font-size: 16px; color: var(--color-ink); display: flex; align-items: center; justify-content: center; border-block-end: 1px solid var(--color-border); }
-.map-explorer__map-controls button:last-child { border-block-end: none; }
-
-.map-explorer__map-layers {
-  position: absolute;
-  top: var(--space-2);
-  inset-inline-end: var(--space-2);
-  display: flex;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  background: var(--color-white);
-  z-index: 5;
-}
-.map-explorer__map-layers button { border: none; background: none; padding: 7px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
-.map-explorer__map-layers button.is-active { background: var(--color-ink); color: var(--color-white); }
-
-.map-explorer__map-note {
-  position: absolute;
-  bottom: var(--space-1);
-  inset-inline-start: var(--space-1);
-  font-size: 12px;
-  color: var(--color-ink);
-  opacity: 0.5;
-  margin: 0;
-}
 
 .map-explorer__grid-note { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-muted); font: var(--text-body-sm); padding: var(--space-4); }
 

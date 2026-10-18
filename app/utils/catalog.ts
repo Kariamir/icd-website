@@ -256,6 +256,17 @@ export interface Project {
   gallery?: string[]
   /** Position on the stylised national map, percent of width/height. */
   map: { x: number, y: number }
+  /**
+   * Real longitude/latitude, for the map on /projects/map.
+   *
+   * ⛔ These are **city-level**, geocoded from the `district` field by hand —
+   * the client's workbook carries no coordinates at all, and `map` above is a
+   * percentage on a decorative plate, not a position on the earth. Four Kish
+   * projects therefore share one point and the map groups them into a single
+   * pin rather than pretending to four addresses. Site-accurate coordinates
+   * are on the asset list.
+   */
+  coords: { lon: number, lat: number }
   featured?: boolean
   origin: 'site' | 'design'
 }
@@ -272,6 +283,7 @@ export const projects: Project[] = [
     image: '/img/projects/tehran-international-tower-1.jpg',
     gallery: ['/img/projects/tehran-international-tower-1.jpg', '/img/projects/tehran-international-tower-2.jpg', '/img/projects/tehran-international-tower-3.jpg', '/img/projects/tehran-international-tower-4.jpg', '/img/projects/tehran-international-tower-5.jpg', '/img/projects/tehran-international-tower-6.jpg', '/img/projects/tehran-international-tower-7.jpg'],
     map: { x: 50, y: 34 },
+    coords: { lon: 51.391, lat: 35.757 },
     featured: true,
     origin: 'site',
   },
@@ -286,6 +298,7 @@ export const projects: Project[] = [
     image: '/img/projects/narenjestan-izadshahr-1.jpg',
     gallery: ['/img/projects/narenjestan-izadshahr-1.jpg', '/img/projects/narenjestan-izadshahr-2.jpg'],
     map: { x: 56, y: 22 },
+    coords: { lon: 51.955, lat: 36.59 },
     featured: true,
     origin: 'site',
   },
@@ -300,6 +313,7 @@ export const projects: Project[] = [
     image: '/img/projects/roya-elite-1.jpg',
     gallery: ['/img/projects/roya-elite-1.jpg', '/img/projects/roya-elite-2.jpg', '/img/projects/roya-elite-3.jpg', '/img/projects/roya-elite-4.jpg', '/img/projects/roya-elite-5.jpg', '/img/projects/roya-elite-6.jpg', '/img/projects/roya-elite-7.jpg', '/img/projects/roya-elite-8.jpg'],
     map: { x: 58, y: 88 },
+    coords: { lon: 53.95, lat: 26.556 },
     featured: true,
     origin: 'site',
   },
@@ -314,6 +328,7 @@ export const projects: Project[] = [
     image: '/img/projects/ara-tower-1.jpg',
     gallery: ['/img/projects/ara-tower-1.jpg', '/img/projects/ara-tower-2.jpg', '/img/projects/ara-tower-3.jpg', '/img/projects/ara-tower-4.jpg', '/img/projects/ara-tower-5.jpg'],
     map: { x: 58, y: 88 },
+    coords: { lon: 53.95, lat: 26.556 },
     featured: true,
     origin: 'site',
   },
@@ -328,6 +343,7 @@ export const projects: Project[] = [
     image: '/img/projects/kia-tower-1.jpg',
     gallery: ['/img/projects/kia-tower-1.jpg', '/img/projects/kia-tower-2.jpg', '/img/projects/kia-tower-3.jpg'],
     map: { x: 58, y: 88 },
+    coords: { lon: 53.95, lat: 26.556 },
     featured: true,
     origin: 'site',
   },
@@ -342,6 +358,7 @@ export const projects: Project[] = [
     image: '/img/projects/nbo12-1.jpg',
     gallery: ['/img/projects/nbo12-1.jpg', '/img/projects/nbo12-2.jpg', '/img/projects/nbo12-3.jpg', '/img/projects/nbo12-4.jpg'],
     map: { x: 58, y: 88 },
+    coords: { lon: 53.95, lat: 26.556 },
     featured: true,
     origin: 'site',
   },
@@ -356,6 +373,7 @@ export const projects: Project[] = [
     image: '/img/projects/sparrow-rasht-1.jpg',
     gallery: ['/img/projects/sparrow-rasht-1.jpg', '/img/projects/sparrow-rasht-2.jpg', '/img/projects/sparrow-rasht-3.jpg', '/img/projects/sparrow-rasht-4.jpg'],
     map: { x: 44, y: 20 },
+    coords: { lon: 49.588, lat: 37.278 },
     featured: true,
     origin: 'site',
   },
@@ -370,6 +388,7 @@ export const projects: Project[] = [
     image: '/img/projects/ghadir-office-tehran-1.jpg',
     gallery: ['/img/projects/ghadir-office-tehran-1.jpg', '/img/projects/ghadir-office-tehran-2.jpg', '/img/projects/ghadir-office-tehran-3.jpg', '/img/projects/ghadir-office-tehran-4.jpg', '/img/projects/ghadir-office-tehran-5.jpg', '/img/projects/ghadir-office-tehran-6.jpg', '/img/projects/ghadir-office-tehran-7.jpg', '/img/projects/ghadir-office-tehran-8.jpg'],
     map: { x: 50, y: 34 },
+    coords: { lon: 51.4, lat: 35.7 },
     featured: true,
     origin: 'site',
   },
@@ -384,6 +403,7 @@ export const projects: Project[] = [
     image: '/img/projects/ofogh-sina-mashhad-1.jpg',
     gallery: ['/img/projects/ofogh-sina-mashhad-1.jpg', '/img/projects/ofogh-sina-mashhad-2.jpg', '/img/projects/ofogh-sina-mashhad-3.jpg', '/img/projects/ofogh-sina-mashhad-4.jpg', '/img/projects/ofogh-sina-mashhad-5.jpg', '/img/projects/ofogh-sina-mashhad-6.jpg', '/img/projects/ofogh-sina-mashhad-7.jpg', '/img/projects/ofogh-sina-mashhad-8.jpg'],
     map: { x: 82, y: 30 },
+    coords: { lon: 59.606, lat: 36.297 },
     featured: true,
     origin: 'site',
   },
@@ -398,6 +418,7 @@ export const projects: Project[] = [
     image: '/img/projects/mega-pars-tehran-1.jpg',
     gallery: ['/img/projects/mega-pars-tehran-1.jpg', '/img/projects/mega-pars-tehran-2.jpg'],
     map: { x: 50, y: 34 },
+    coords: { lon: 51.38, lat: 35.72 },
     featured: true,
     origin: 'site',
   },

@@ -234,7 +234,7 @@ function submit() {
             </p>
           </div>
 
-          <div ref="spineEl" class="relative">
+          <div ref="spineEl" class="tl-track relative">
             <!-- static spine -->
             <div class="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-border md:block" aria-hidden="true" />
             <!--
@@ -279,7 +279,7 @@ function submit() {
 
                 <!-- content card -->
                 <div class="tl-card w-full text-right md:w-[45%]" :class="i % 2 === 0 && 'order-2 md:order-1'">
-                  <span class="tl-year mb-2 block text-headline-md font-headline-md tracking-tight text-primary-container">{{ m.year }}</span>
+                  <span class="tl-year mb-2 block text-[44px] font-headline-xl leading-none tracking-tight text-primary-container md:text-[64px]">{{ m.year }}</span>
                   <h4 class="mb-3 text-headline-sm font-headline-sm text-ink">{{ m.title }}</h4>
                   <p class="text-body-md leading-relaxed text-on-surface-variant">{{ m.body }}</p>
 
@@ -305,18 +305,32 @@ function submit() {
                   <p v-if="m.placeholder" class="mt-3 text-label-md text-status-error">در انتظار سند آرشیوی</p>
                 </div>
 
-                <!-- photograph -->
+                <!--
+                  The photograph is a disc, not a rectangle, with a large
+                  accent circle offset behind it on the outer side — the
+                  single change that gives the section its weight, and the one
+                  the owner's reference is built on. The spine, the pins and
+                  the alternation are untouched: this is the frame the
+                  photograph sits in, not the structure it hangs from.
+                -->
                 <div
-                  class="tl-photo w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]"
-                  :class="i % 2 === 0 && 'order-1 md:order-2'"
+                  class="tl-photo relative flex w-full justify-center md:w-[45%]"
+                  :class="i % 2 === 0 ? 'order-1 md:order-2 tl-photo--a' : 'tl-photo--b'"
                 >
-                  <img
-                    :src="m.image.src"
-                    alt=""
-                    loading="lazy"
-                    class="reveal-img tl-img h-80 w-full object-cover"
-                    :class="m.archival ? 'grayscale contrast-125' : m.contrast && 'contrast-110'"
-                  >
+                  <span
+                    aria-hidden="true"
+                    class="tl-disc"
+                    :class="i === aboutMilestones.length - 1 ? 'tl-disc--solid' : 'tl-disc--tint'"
+                  />
+                  <span class="tl-frame relative block overflow-hidden rounded-pill border-4 border-surface-container-lowest">
+                    <img
+                      :src="m.image.src"
+                      alt=""
+                      loading="lazy"
+                      class="reveal-img tl-img size-full object-cover"
+                      :class="m.archival ? 'grayscale contrast-125' : m.contrast && 'contrast-110'"
+                    >
+                  </span>
                 </div>
               </li>
             </ol>
@@ -367,23 +381,40 @@ function submit() {
         </div>
 
         <!--
-          4 — افتخارات. The three objects the client supplied, shown as objects.
-          No titles: `honorsData.ts` holds invented ones, and captioning a real
-          award with a made-up name is worse than leaving it uncaptioned
-          (see aboutHonors in app/utils/aboutPageData.ts).
+          4 — افتخارات. The three objects the client supplied, shown as
+          objects: no titles, because `honorsData.ts` holds invented ones and
+          captioning a real award with a made-up name is worse than leaving it
+          uncaptioned (ADR-018).
+
+          The band is dark for the same reason as the homepage's: these are
+          gold, brass and navy objects, and on the page's flat grey they read
+          as clip art. Full-bleed out of the section's container so it lands
+          as a change of register at the end of the history, not another card.
         -->
-        <div class="mt-20">
-          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">افتخارات</h3>
-          <ul class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <li
-              v-for="h in aboutHonors"
-              :key="h.id"
-              :ref="captureReveal"
-              class="reveal flex items-center justify-center rounded-md border border-border bg-surface-container-lowest p-8"
-            >
-              <img :src="h.image.src" :alt="h.image.alt" loading="lazy" class="reveal-img h-56 w-auto max-w-full object-contain">
-            </li>
-          </ul>
+        <div class="honors-band relative mt-24 overflow-hidden rounded-lg bg-ink px-6 py-16 md:px-12 md:py-20">
+          <div class="relative">
+            <div class="mb-10 flex flex-col items-center gap-3 text-center">
+              <h3 class="inline-flex items-center gap-2 rounded-pill border border-surface-container-lowest/20 bg-surface-container-lowest/5 px-4 py-1.5 text-label-lg font-label-lg text-brand-tint">
+                <AppIcon name="workspace_premium" />افتخارات
+              </h3>
+              <p class="max-w-xl text-body-md text-surface-dim">گواهینامه‌ها و تندیس‌های دریافتی گروه</p>
+            </div>
+            <ul class="mx-auto grid max-w-3xl grid-cols-3 gap-5 md:gap-8">
+              <li
+                v-for="h in aboutHonors"
+                :key="h.id"
+                :ref="captureReveal"
+                class="reveal honors-plinth group relative flex items-end justify-center rounded-lg p-5 md:p-7"
+              >
+                <img
+                  :src="h.image.src"
+                  :alt="h.image.alt"
+                  loading="lazy"
+                  class="reveal-img relative h-28 w-auto max-w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:-translate-y-1.5 md:h-40"
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -594,6 +625,80 @@ function submit() {
   .tl-row .tl-photo { transition-delay: 120ms; }
 }
 
+/* --- the timeline's own surface ------------------------------------------ */
+/*
+  A sparse dot field behind the whole spine, masked so it fades at both ends.
+  It gives the section a ground to sit on without competing with the
+  photographs — the reference the owner supplied does the same job with a
+  denser field in one corner.
+*/
+.tl-track::before {
+  content: '';
+  position: absolute;
+  inset: -40px -24px;
+  background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 20%, transparent) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  pointer-events: none;
+}
+
+/* --- the photograph, as a disc ------------------------------------------- */
+/*
+  A circle with a white rim, so the frame reads as a plate laid on the page
+  rather than a cropped rectangle. Behind it sits a larger disc, offset to the
+  *outer* side of the spine so each row opens away from the centre — tinted
+  for the past, solid brand blue for ۱۴۰۳, which is the present and the thing
+  the eye should land on last.
+
+  The sizes are square and explicit because `rounded-pill` on a non-square box
+  draws an ellipse, not a circle.
+*/
+.tl-frame {
+  inline-size: min(78vw, 290px);
+  block-size: min(78vw, 290px);
+  flex: none;
+  box-shadow: 0 24px 50px -26px rgb(4 28 44 / 55%);
+}
+
+.tl-disc {
+  position: absolute;
+  inline-size: min(86vw, 320px);
+  block-size: min(86vw, 320px);
+  inset-block-start: -22px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.82);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease-out;
+}
+
+.tl-disc--tint { background: color-mix(in srgb, var(--color-tint) 90%, transparent); }
+.tl-disc--solid { background: var(--color-primary); }
+
+.tl-row.is-in .tl-disc {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (min-width: 768px) {
+  .tl-frame { inline-size: 300px; block-size: 300px; }
+
+  .tl-disc {
+    inline-size: 340px;
+    block-size: 340px;
+    inset-block-start: -26px;
+  }
+
+  /* lean the disc away from the spine */
+  .tl-photo--a .tl-disc { inset-inline-end: 4%; }
+  .tl-photo--b .tl-disc { inset-inline-start: 4%; }
+}
+
+@media (min-width: 1280px) {
+  .tl-frame { inline-size: 340px; block-size: 340px; }
+  .tl-disc { inline-size: 390px; block-size: 390px; }
+}
+
 /* --- the station on the line ------------------------------------------- */
 /*
   `left: 50%` puts the pin's edge on the spine; -50% centres it. The Tailwind
@@ -718,7 +823,61 @@ function submit() {
 
 /* The chain icons and the vision mark are contained, not cropped. */
 
+/* --- the achievements band ---------------------------------------------- */
+/*
+  Painted, not photographed: a brand wash, a sparse dot field, and a lit
+  plinth under each object. The awards are gold, brass and navy — a dark
+  ground is what makes those read.
+*/
+.honors-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 120% at 50% 0%, color-mix(in srgb, var(--color-primary) 38%, transparent) 0%, transparent 62%),
+    radial-gradient(50% 90% at 50% 110%, color-mix(in srgb, var(--color-primary) 22%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.honors-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 13%) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(75% 75% at 50% 50%, #000 20%, transparent 78%);
+  pointer-events: none;
+}
+
+.honors-plinth {
+  min-block-size: 175px;
+  background: linear-gradient(to top, rgb(255 255 255 / 10%), rgb(255 255 255 / 3%));
+  border: 1px solid rgb(255 255 255 / 10%);
+  transition: background 400ms ease, border-color 400ms ease, opacity 700ms ease-out, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.honors-plinth::after {
+  content: '';
+  position: absolute;
+  inset-inline: 18%;
+  inset-block-end: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 28%), transparent);
+}
+
+.honors-plinth:hover {
+  background: linear-gradient(to top, rgb(255 255 255 / 16%), rgb(255 255 255 / 5%));
+  border-color: color-mix(in srgb, var(--color-tint) 45%, transparent);
+}
+
+@media (min-width: 768px) {
+  .honors-plinth { min-block-size: 240px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .honors-plinth img { transition: none; }
+
   .reveal,
   .reveal .reveal-img,
   .tl-row .tl-card,
@@ -733,6 +892,12 @@ function submit() {
   .tl-pin {
     opacity: 1;
     transform: translateX(-50%);
+    transition: none;
+  }
+
+  .tl-disc {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 
