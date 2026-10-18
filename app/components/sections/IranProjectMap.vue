@@ -1,5 +1,5 @@
 <!--
-  The interactive map on /projects/map.
+  The interactive map on /projects.
 
   WHY NOT GOOGLE MAPS. A tile service is the obvious answer and the wrong one
   here: Google Maps and Mapbox are both unreachable from inside Iran, both
@@ -130,26 +130,68 @@ function onDoubleClick(e: MouseEvent) {
   zoomAt(1.8, u.x, u.y)
 }
 
-/* drag to pan */
+/*
+ * Drag to pan, two fingers to pinch.
+ *
+ * `touch-action: none` on the SVG means the browser does none of this for
+ * us — which is the point, since the page itself must keep scrolling — so
+ * every active pointer is tracked and a second one switches the gesture from
+ * a pan to a pinch about the midpoint between the two.
+ */
 const dragging = ref(false)
+const pointers = new Map<number, { x: number, y: number }>()
 let last: { x: number, y: number } | null = null
+let pinchDist = 0
 let moved = false
 
+function midpoint() {
+  const [a, b] = [...pointers.values()]
+  return { x: (a!.x + b!.x) / 2, y: (a!.y + b!.y) / 2 }
+}
+
+function spread() {
+  const [a, b] = [...pointers.values()]
+  return Math.hypot(a!.x - b!.x, a!.y - b!.y)
+}
+
 function onPointerDown(e: PointerEvent) {
-  if (e.button !== 0) return
-  dragging.value = true
+  if (e.pointerType === 'mouse' && e.button !== 0) return
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
   moved = false
-  last = { x: e.clientX, y: e.clientY }
+  if (pointers.size === 1) {
+    dragging.value = true
+    last = { x: e.clientX, y: e.clientY }
+  }
+  else if (pointers.size === 2) {
+    dragging.value = false
+    pinchDist = spread()
+  }
   ;(e.currentTarget as Element).setPointerCapture?.(e.pointerId)
 }
 
 function onPointerMove(e: PointerEvent) {
-  if (!dragging.value || !last) return
+  if (!pointers.has(e.pointerId)) return
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
   const el = svgEl.value
   if (!el) return
   const r = el.getBoundingClientRect()
   const v = view.value
   const scale = Math.min(r.width / v.w, r.height / v.h)
+
+  if (pointers.size >= 2) {
+    const d = spread()
+    if (pinchDist > 0 && d > 0) {
+      const mid = midpoint()
+      const u = toUser(mid.x, mid.y)
+      zoomAt(d / pinchDist, u.x, u.y)
+    }
+    pinchDist = d
+    moved = true
+    return
+  }
+
+  if (!dragging.value || !last) return
   const dx = (e.clientX - last.x) / scale
   const dy = (e.clientY - last.y) / scale
   if (Math.abs(e.clientX - last.x) + Math.abs(e.clientY - last.y) > 3) moved = true
@@ -160,8 +202,19 @@ function onPointerMove(e: PointerEvent) {
 }
 
 function onPointerUp(e: PointerEvent) {
-  dragging.value = false
-  last = null
+  pointers.delete(e.pointerId)
+  if (pointers.size === 0) {
+    dragging.value = false
+    last = null
+    pinchDist = 0
+  }
+  else if (pointers.size === 1) {
+    // a finger lifted mid-pinch: carry on panning with the one that is left
+    const [only] = [...pointers.values()]
+    last = { x: only!.x, y: only!.y }
+    dragging.value = true
+    pinchDist = 0
+  }
   ;(e.currentTarget as Element).releasePointerCapture?.(e.pointerId)
 }
 
@@ -456,6 +509,7 @@ function onPinClick(pin: Pin) {
   position: absolute;
   inset-block-end: var(--space-2);
   inset-inline-start: var(--space-2);
+  max-inline-size: calc(100% - var(--space-2) * 2);
   display: flex;
   flex-wrap: wrap;
   gap: 4px var(--space-2);
@@ -493,6 +547,12 @@ function onPinClick(pin: Pin) {
 
 @media (max-width: 640px) {
   .iran-map__note { display: none; }
+
+  .iran-map__legend {
+    inset-inline: var(--space-2);
+    max-inline-size: none;
+    justify-content: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

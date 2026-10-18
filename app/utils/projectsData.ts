@@ -27,7 +27,7 @@ export interface ProjectSummary {
   code: string
   x: number
   y: number
-  /** Real lon/lat for the map on /projects/map (city-level — see catalog). */
+  /** Real lon/lat for the map on /projects (city-level — see catalog). */
   coords: { lon: number, lat: number }
   city: string
 }

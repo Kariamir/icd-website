@@ -73,6 +73,8 @@ export default defineNuxtConfig({
   // Retired and merged routes (ADR-005, ADR-009, ADR-015). Permanent
   // redirects so old links and bookmarks land on the page that replaced them.
   routeRules: {
+    // The map is a section on /projects now, not a page of its own (ADR-023).
+    '/projects/map': { redirect: { to: '/projects', statusCode: 301 } },
     '/sales/available': { redirect: { to: '/sales', statusCode: 301 } },
     '/sales/pre-sale': { redirect: { to: '/sales?status=pre-sale', statusCode: 301 } },
     '/ir': { redirect: { to: '/ir/financials', statusCode: 301 } },

@@ -43,7 +43,6 @@ export const routes = {
   aboutContact: '/about#contact',
 
   projects: '/projects',
-  projectsMap: '/projects/map',
   projectsUpcoming: '/projects/upcoming',
   projectsUnderConstruction: '/projects/under-construction',
   projectsOperating: '/projects/operating',
@@ -244,7 +243,6 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
         { label: 'پروژه‌های آتی', href: routes.projectsUpcoming },
         { label: 'پروژه‌های در حال بهره‌برداری', href: routes.projectsOperating },
         { label: 'پروژه‌های تکمیل‌شده', href: routes.projectsCompleted },
-        { label: 'نقشه پروژه‌ها', href: routes.projectsMap },
       ],
     }],
   },

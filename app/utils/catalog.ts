@@ -257,7 +257,7 @@ export interface Project {
   /** Position on the stylised national map, percent of width/height. */
   map: { x: number, y: number }
   /**
-   * Real longitude/latitude, for the map on /projects/map.
+   * Real longitude/latitude, for the map on /projects.
    *
    * ⛔ These are **city-level**, geocoded from the `district` field by hand —
    * the client's workbook carries no coordinates at all, and `map` above is a

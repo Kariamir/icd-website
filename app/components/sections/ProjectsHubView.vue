@@ -5,20 +5,27 @@
 -->
 <script setup lang="ts">
 import { projects, projectStatus, projectsByStatus, type ProjectStatusKey } from '~/utils/catalog'
-import { faDigits } from '~/utils/format'
+import { faDigits, faArea } from '~/utils/format'
 
-const cities = computed(() => {
-  const by = new Map<string, { city: string, n: number, x: number, y: number, flagship: boolean }>()
-  for (const p of projects) {
-    const c = by.get(p.city) ?? { city: p.city, n: 0, x: 0, y: 0, flagship: false }
-    c.x = (c.x * c.n + p.map.x) / (c.n + 1)
-    c.y = (c.y * c.n + p.map.y) / (c.n + 1)
-    c.n += 1
-    c.flagship ||= !!p.featured
-    by.set(p.city, c)
-  }
-  return [...by.values()].sort((a, b) => b.n - a.n)
-})
+/*
+ * The map moved here from the retired /projects/map (owner's request,
+ * 2026-10-18): the projects are the reason anyone opens this page, and
+ * putting them behind a second click was a step for nothing. The explorer's
+ * filter strip, sort row and view toggle came with it and were **dropped**
+ * — ten projects in five cities do not need filtering, and the controls
+ * were most of that page's weight.
+ */
+const cities = computed(() => new Set(projects.map(p => p.city)).size)
+
+const activeSlug = ref<string>(projects.find(p => p.featured)?.slug ?? projects[0]!.slug)
+const active = computed(() => projects.find(p => p.slug === activeSlug.value)!)
+const mapRef = ref<InstanceType<typeof import('./IranProjectMap.vue').default> | null>(null)
+
+/** Picking from the list moves the map; picking on the map moves the list. */
+function choose(slug: string) {
+  activeSlug.value = slug
+  mapRef.value?.focusSlug(slug)
+}
 
 const tiles: { key: ProjectStatusKey, sub: string, cta: string, image: string }[] = [
   { key: 'under-construction', sub: 'عملیات عمرانی جاری و توسعه فعال', cta: 'ورود به فهرست کارگاه‌ها', image: '/img/projects/nbo12-1.jpg' },
@@ -40,38 +47,93 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
       :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'پروژه‌ها' }]"
     />
 
-    <!-- Map explorer -->
-    <section class="border-b border-border bg-surface py-20 md:py-[120px]">
+    <!--
+      «پروژه‌های ثاخت روی نقشه» — the real map, immediately under the hero.
+
+      Layout: on a phone the map comes first at a comfortable height with the
+      project list beneath it, because a pin is a poor touch target and the
+      list is how a thumb picks a project. From `lg` the two sit side by side
+      and drive each other.
+    -->
+    <section class="border-b border-border bg-surface py-16 md:py-24">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="نقشه پروژه‌ها" title="کاوشگر جغرافیایی پروژه‌ها" :aside="`${faDigits(projects.length)} پروژه در ${faDigits(cities.length)} شهر`">
-          <NuxtLink to="/projects/map" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg font-label-lg text-primary-container hover:bg-brand-tint">
-            نقشه کامل <AppIcon name="arrow_back" />
-          </NuxtLink>
-        </SectionHead>
-        <div class="relative h-[460px] w-full overflow-hidden rounded-lg bg-[#10222F] md:h-[560px]">
-          <svg class="absolute inset-0 size-full opacity-60" preserveAspectRatio="none" viewBox="0 0 1000 560" aria-hidden="true">
-            <path d="M0 180Q250 140 500 210T1000 160M0 380Q320 410 650 340T1000 420" fill="none" stroke="#264559" stroke-dasharray="6 4" stroke-width="1.5" />
-            <polygon fill="rgba(4,28,44,.5)" points="180,40 340,20 520,50 780,90 900,250 800,500 600,540 380,500 210,400 120,240" stroke="#2c5470" stroke-width="2" />
-          </svg>
-          <NuxtLink
-            v-for="c in cities"
-            :key="c.city"
-            to="/projects/map"
-            class="group absolute z-10 -translate-x-1/2 -translate-y-1/2"
-            :style="{ left: `${c.x}%`, top: `${c.y}%` }"
-            :aria-label="`${c.city}: ${faDigits(c.n)} پروژه`"
-          >
-            <span class="relative flex items-center justify-center">
-              <span v-if="c.flagship" class="absolute size-8 animate-ping rounded-pill bg-primary-container/30" />
-              <span class="size-3.5 rounded-pill border-2 border-surface-container-lowest" :class="c.flagship ? 'bg-primary-container' : 'bg-brand-tint'" />
-            </span>
-            <span class="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xs bg-ink px-2.5 py-1 text-label-md text-surface-container-lowest ring-1 ring-surface-container-lowest/20 transition-colors group-hover:bg-primary-container">
-              {{ c.city }} ({{ faDigits(c.n) }})
-            </span>
-          </NuxtLink>
-          <div class="absolute bottom-5 right-5 z-10 hidden items-center gap-4 rounded-sm bg-ink/90 px-4 py-2.5 text-label-md text-surface-container-lowest sm:flex">
-            <span class="flex items-center gap-2"><span class="size-2.5 rounded-pill bg-primary-container" />پروژه شاخص</span>
-            <span class="flex items-center gap-2"><span class="size-2.5 rounded-pill bg-brand-tint" />سایر پروژه‌ها</span>
+        <SectionHead
+          eyebrow="نقشه پروژه‌ها"
+          title="پروژه‌های ثاخت روی نقشه"
+          :aside="`${faDigits(projects.length)} پروژه در ${faDigits(cities)} شهر`"
+        />
+
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <div class="h-[380px] overflow-hidden rounded-lg border border-border sm:h-[460px] lg:col-span-8 lg:h-[620px]">
+            <IranProjectMap
+              ref="mapRef"
+              :projects="projects"
+              :active-slug="activeSlug"
+              @select="activeSlug = $event"
+            />
+          </div>
+
+          <div class="flex flex-col gap-4 lg:col-span-4">
+            <!-- the project currently under the pointer or the pin -->
+            <article class="overflow-hidden rounded-lg border border-border bg-surface-container-lowest">
+              <NuxtLink :to="`/projects/${active.slug}`" class="group block">
+                <div class="aspect-[16/10] overflow-hidden bg-surface-alt">
+                  <img
+                    :src="active.image"
+                    :alt="active.name"
+                    loading="lazy"
+                    class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  >
+                </div>
+                <div class="p-5">
+                  <StatusPill :status="active.status" />
+                  <h3 class="mt-3 text-body-lg font-bold leading-snug text-ink group-hover:text-primary-container">{{ active.name }}</h3>
+                  <p class="mt-1 flex items-center gap-1.5 text-label-md text-secondary">
+                    <AppIcon name="location_on" class="text-outline" />{{ active.district }}
+                  </p>
+                  <dl class="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4 text-label-md">
+                    <div><dt class="text-secondary">زیربنا</dt><dd class="mt-0.5 font-bold text-ink">{{ faArea(active.areaSqm) }}</dd></div>
+                    <div><dt class="text-secondary">کاربری</dt><dd class="mt-0.5 font-bold text-ink">{{ active.usage }}</dd></div>
+                  </dl>
+                  <span class="mt-4 flex items-center gap-2 text-label-lg font-bold text-primary-container">
+                    صفحه پروژه <AppIcon name="arrow_back" />
+                  </span>
+                </div>
+              </NuxtLink>
+            </article>
+
+            <!--
+              Every project as a row. This is the part that makes the section
+              usable on a phone — and it is also the non-visual path to the
+              same information, which a map alone never is.
+            -->
+            <ul class="max-h-[320px] overflow-y-auto rounded-lg border border-border bg-surface-container-lowest lg:max-h-none lg:flex-1">
+              <li v-for="p in projects" :key="p.slug" class="border-b border-border last:border-b-0">
+                <button
+                  type="button"
+                  class="flex w-full items-center justify-between gap-3 px-4 py-3 text-right transition-colors"
+                  :class="p.slug === activeSlug ? 'bg-brand-tint/40' : 'hover:bg-surface'"
+                  :aria-pressed="p.slug === activeSlug"
+                  @click="choose(p.slug)"
+                  @mouseenter="activeSlug = p.slug"
+                >
+                  <span class="min-w-0">
+                    <span class="block truncate text-body-sm font-bold text-ink">{{ p.name }}</span>
+                    <span class="block truncate text-label-md text-secondary">{{ p.city }}</span>
+                  </span>
+                  <span
+                    class="size-2.5 shrink-0 rounded-pill"
+                    :class="{
+                      'bg-primary-container': p.status === 'under-construction',
+                      'bg-status-success': p.status === 'operating',
+                      'bg-ink': p.status === 'completed',
+                      'bg-outline': p.status === 'upcoming',
+                    }"
+                    aria-hidden="true"
+                  />
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
