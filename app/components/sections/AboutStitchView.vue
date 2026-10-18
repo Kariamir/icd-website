@@ -44,9 +44,22 @@ const stats = [
  * drops it entirely (the CSS below), and with no IntersectionObserver the
  * images simply start visible.
  */
+/*
+ * Reveal-on-arrival for the sections that are otherwise static — the
+ * honours, the board cards, the vision columns. An IntersectionObserver adds
+ * `is-in` once and unobserves; these elements have no reactive class binding,
+ * so writing to `classList` directly is safe.
+ *
+ * The timeline rows deliberately do NOT use this. They carry a reactive
+ * `:class` (the passed state below), and Vue rewrites the class attribute on
+ * every re-render — which silently stripped an imperatively-added `is-in` and
+ * left four of the five milestones invisible as the reader scrolled past
+ * them. Their reveal is reactive state instead, measured in the same pass as
+ * everything else on the spine.
+ */
 const reveals = ref<HTMLElement[]>([])
 function captureReveal(el: Element | ComponentPublicInstance | null) {
-  if (el instanceof HTMLElement) reveals.value.push(el)
+  if (el instanceof HTMLElement && !reveals.value.includes(el)) reveals.value.push(el)
 }
 onMounted(() => {
   if (typeof IntersectionObserver === 'undefined') {
@@ -65,36 +78,62 @@ onMounted(() => {
 })
 
 /*
- * The spine draws itself as the reader descends.
+ * The spine draws itself as the reader descends, and the milestones light up
+ * as they are reached.
  *
- * This is the one piece of motion on the page tied to scroll position rather
- * than fired once: `spineProgress` is the share of the timeline that sits
- * above the middle of the viewport, and a second line is painted over the
- * static one to that height. It is what makes the section feel like a route
- * being travelled rather than a list — and an unfinished line is the reason
- * to keep going. Everything else (cards, photographs, pins) still fires once.
+ * One measurement pass, in a `requestAnimationFrame`, produces all three
+ * pieces of state, so a fast scroll costs one layout read per frame rather
+ * than one per element per scroll event:
  *
- * Read in a rAF so a fast scroll costs one layout read per frame, not one
- * per scroll event, and disabled outright under `prefers-reduced-motion`.
+ *   spineProgress — the share of the timeline above the middle of the
+ *                   viewport, painted as a second line over the static one.
+ *                   An unfinished line is the reason to keep going.
+ *   shown[i]      — has this row arrived? Latches true; never goes back.
+ *   passed[i]     — is this milestone behind the reader? Its pin fills in,
+ *                   which is what makes the spine a route with stations on
+ *                   it rather than a decorated rule.
+ *
+ * `prefers-reduced-motion` resolves all three to their finished state and
+ * never registers the listener.
  */
 const spineEl = ref<HTMLElement | null>(null)
 const spineProgress = ref(0)
+const shown = ref<boolean[]>(aboutMilestones.map(() => false))
+const passed = ref<boolean[]>(aboutMilestones.map(() => false))
+
+const rowEls = ref<(HTMLElement | null)[]>(aboutMilestones.map(() => null))
+function captureRow(el: Element | ComponentPublicInstance | null, i: number) {
+  rowEls.value[i] = el instanceof HTMLElement ? el : null
+}
 
 onMounted(() => {
   if (typeof window === 'undefined') return
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
     spineProgress.value = 1
+    shown.value = aboutMilestones.map(() => true)
+    passed.value = aboutMilestones.map(() => true)
     return
   }
 
   let frame = 0
   const measure = () => {
     frame = 0
+    const vh = window.innerHeight
+    const mid = vh * 0.52
+
     const el = spineEl.value
-    if (!el) return
-    const r = el.getBoundingClientRect()
-    const mid = window.innerHeight * 0.52
-    spineProgress.value = Math.min(1, Math.max(0, (mid - r.top) / r.height))
+    if (el) {
+      const r = el.getBoundingClientRect()
+      spineProgress.value = Math.min(1, Math.max(0, (mid - r.top) / r.height))
+    }
+
+    rowEls.value.forEach((row, i) => {
+      if (!row) return
+      const r = row.getBoundingClientRect()
+      // arrived once its top edge is inside the lower 88% of the viewport
+      if (!shown.value[i] && r.top < vh * 0.88 && r.bottom > 0) shown.value[i] = true
+      passed.value[i] = r.top + r.height / 2 <= mid
+    })
   }
   const onScroll = () => {
     if (!frame) frame = requestAnimationFrame(measure)
@@ -198,33 +237,44 @@ function submit() {
           <div ref="spineEl" class="relative">
             <!-- static spine -->
             <div class="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-border md:block" aria-hidden="true" />
-            <!-- the same spine, drawn to the reader's position -->
+            <!--
+              The same spine, drawn to the reader's position, with a soft tip
+              at the leading edge so the line reads as being drawn by
+              something rather than simply growing.
+            -->
             <div
               class="absolute left-1/2 top-0 hidden w-px origin-top -translate-x-1/2 bg-primary-container md:block"
               aria-hidden="true"
               :style="{ height: `${spineProgress * 100}%` }"
-            />
+            >
+              <span v-if="spineProgress > 0.01 && spineProgress < 0.995" class="tl-tip" />
+            </div>
 
             <ol class="space-y-24 md:space-y-32">
               <li
                 v-for="(m, i) in aboutMilestones"
                 :key="m.id"
-                :ref="captureReveal"
+                :ref="(el) => captureRow(el, i)"
                 class="reveal tl-row relative flex flex-col items-center justify-between gap-12"
-                :class="i % 2 === 0 ? 'md:flex-row tl-row--a' : 'md:flex-row-reverse tl-row--b'"
+                :class="[
+                  i % 2 === 0 ? 'md:flex-row tl-row--a' : 'md:flex-row-reverse tl-row--b',
+                  shown[i] && 'is-in',
+                  (passed[i] || i === aboutMilestones.length - 1) && 'is-passed',
+                ]"
               >
                 <!-- node pin on the spine; the last one is filled -->
+                <!--
+                  The station on the line. Hollow while it is ahead of the
+                  reader, filled once passed — so the spine is a progress
+                  indicator, not decoration. ۱۴۰۳ is filled from the start:
+                  it is the present, and the story ends there.
+                -->
                 <span
                   aria-hidden="true"
-                  class="tl-pin absolute left-1/2 hidden size-6 items-center justify-center border-2 md:flex"
-                  :class="i === aboutMilestones.length - 1
-                    ? 'z-10 border-surface-container-lowest bg-primary-container'
-                    : 'z-10 border-primary-container bg-surface-container-lowest'"
+                  class="tl-pin absolute left-1/2 z-10 hidden size-6 items-center justify-center border-2 border-primary-container md:flex"
                 >
-                  <span
-                    class="size-2"
-                    :class="i === aboutMilestones.length - 1 ? 'bg-surface-container-lowest' : 'bg-primary-container'"
-                  />
+                  <span class="tl-pin-core size-2 bg-primary-container" />
+                  <span class="tl-pin-ring" />
                 </span>
 
                 <!-- content card -->
@@ -234,7 +284,7 @@ function submit() {
                   <p class="text-body-md leading-relaxed text-on-surface-variant">{{ m.body }}</p>
 
                   <p
-                    class="mt-4 inline-flex items-center gap-2 px-3 py-1 text-label-md font-label-md"
+                    class="tl-tag mt-4 inline-flex items-center gap-2 px-3 py-1 text-label-md font-label-md"
                     :class="m.tagTone === 'filled'
                       ? 'bg-primary-container text-surface-container-lowest'
                       : 'border border-border bg-surface text-ink'"
@@ -264,7 +314,7 @@ function submit() {
                     :src="m.image.src"
                     alt=""
                     loading="lazy"
-                    class="reveal-img h-80 w-full object-cover"
+                    class="reveal-img tl-img h-80 w-full object-cover"
                     :class="m.archival ? 'grayscale contrast-125' : m.contrast && 'contrast-110'"
                   >
                 </div>
@@ -544,14 +594,20 @@ function submit() {
   .tl-row .tl-photo { transition-delay: 120ms; }
 }
 
-/* the pin lands on the spine */
-/* `left: 50%` puts the pin's edge on the spine; -50% centres it. The
-   Tailwind translate utility is deliberately absent from the element so this
-   one declaration owns the transform and the two cannot fight. */
+/* --- the station on the line ------------------------------------------- */
+/*
+  `left: 50%` puts the pin's edge on the spine; -50% centres it. The Tailwind
+  translate utility is deliberately absent from the element so this one
+  declaration owns the transform and the two cannot fight.
+*/
 .tl-pin {
+  background: var(--color-white);
   transform: translateX(-50%) scale(0.5);
   opacity: 0;
-  transition: opacity 400ms ease-out 260ms, transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 260ms;
+  transition:
+    opacity 400ms ease-out 260ms,
+    transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 260ms,
+    background-color 500ms ease;
 }
 
 .tl-row.is-in .tl-pin {
@@ -559,14 +615,85 @@ function submit() {
   transform: translateX(-50%) scale(1);
 }
 
-/* the year lifts a little further than its card, so the eye lands on it */
-.tl-year {
-  transform: translateY(8px);
-  opacity: 0;
-  transition: opacity 600ms ease-out 180ms, transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 180ms;
+/* passed: the station fills in behind the reader */
+.tl-row.is-passed .tl-pin {
+  background: var(--color-primary);
 }
 
-.tl-row.is-in .tl-year {
+.tl-pin-core {
+  transition: background-color 500ms ease;
+}
+
+.tl-row.is-passed .tl-pin-core {
+  background: var(--color-white);
+}
+
+/*
+  One ring, once, as the pin lands — the only flourish on the page, and the
+  thing that makes arriving at a milestone feel like arriving somewhere. It
+  runs on a pseudo-free span so nothing else has to share a transform.
+*/
+.tl-pin-ring {
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--color-primary);
+  opacity: 0;
+}
+
+.tl-row.is-in .tl-pin-ring {
+  animation: tl-ring 900ms cubic-bezier(0.16, 1, 0.3, 1) 300ms 1;
+}
+
+@keyframes tl-ring {
+  0% { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+/* the leading edge of the drawn spine */
+.tl-tip {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  inline-size: 7px;
+  block-size: 7px;
+  margin-inline-start: -3px;
+  margin-block-end: -3px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+/*
+  The photograph pulls into focus rather than simply fading — a short blur
+  that resolves as it settles. It is the one gesture that suits archival
+  material: the frame arrives the way a memory does.
+*/
+.tl-img {
+  filter: blur(7px);
+  transition: filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tl-row.is-in .tl-img {
+  filter: blur(0);
+}
+
+/* the archival frames keep their grayscale; the utility sets it after this */
+.tl-img.grayscale {
+  filter: blur(7px) grayscale(1) contrast(1.25);
+}
+
+.tl-row.is-in .tl-img.grayscale {
+  filter: blur(0) grayscale(1) contrast(1.25);
+}
+
+/* the tag chip follows the body in */
+.tl-tag {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 500ms ease-out 320ms, transform 500ms cubic-bezier(0.22, 1, 0.36, 1) 320ms;
+}
+
+.tl-row.is-in .tl-tag {
   opacity: 1;
   transform: none;
 }
@@ -596,7 +723,8 @@ function submit() {
   .reveal .reveal-img,
   .tl-row .tl-card,
   .tl-row .tl-photo,
-  .tl-year {
+  .tl-year,
+  .tl-tag {
     opacity: 1;
     transform: none;
     transition: none;
@@ -608,6 +736,16 @@ function submit() {
     transition: none;
   }
 
+  .tl-img,
+  .tl-img.grayscale {
+    filter: none;
+    transition: none;
+  }
+
+  .tl-img.grayscale { filter: grayscale(1) contrast(1.25); }
+
+  .tl-pin-ring { animation: none; }
   .tl-cue-arrow { animation: none; }
+  .tl-tip { display: none; }
 }
 </style>

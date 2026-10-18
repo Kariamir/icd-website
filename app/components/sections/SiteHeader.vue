@@ -12,6 +12,20 @@
  */
 import { primaryNav, headerCta, shareholderLogin, routes } from '~/utils/routes'
 
+/*
+ * Over the homepage film the bar goes to frosted glass instead of solid
+ * white, so the footage runs edge to edge behind it (owner's request,
+ * 2026-10-18). `HeroFilm` raises the flag while its section is under the
+ * header; see app/composables/useHeroChrome.ts.
+ *
+ * Deliberately a *light* glass rather than a dark one or an inverted logo:
+ * the client's mark is a navy-and-red lockup with no light variant, so
+ * tinting the panel light keeps the logo, the nav and the CTA readable over
+ * both the bright aerial frames and the dark interiors, with nothing
+ * recoloured and no second logo file to keep in step.
+ */
+const overFilm = useOverFilm()
+
 const route = useRoute()
 const drawerOpen = ref(false)
 const openGroup = ref<string | null>(null)
@@ -49,7 +63,10 @@ function toggleGroup(label: string) {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-border bg-surface-container-lowest/95 backdrop-blur">
+  <header
+    class="site-header sticky top-0 z-50 border-b"
+    :class="overFilm ? 'site-header--glass' : 'border-border bg-surface-container-lowest/95 backdrop-blur'"
+  >
     <div class="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between gap-6 px-space-lg md:px-margin">
       <!-- Logo + desktop nav -->
       <div class="flex min-w-0 items-center gap-8">
@@ -202,3 +219,40 @@ function toggleGroup(label: string) {
     </Teleport>
   </header>
 </template>
+
+<style scoped>
+/*
+  The glass bar. Two layers do the work: a white gradient that lifts the text
+  off whatever frame is behind it, and the blur that makes it read as glass
+  rather than as a flat scrim. Saturation is nudged up because blurring a
+  photograph drains it.
+*/
+.site-header {
+  transition: background-color 300ms ease, background-image 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.site-header--glass {
+  background-image: linear-gradient(to bottom, rgb(255 255 255 / 80%), rgb(255 255 255 / 62%));
+  border-block-end-color: rgb(255 255 255 / 55%);
+  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 12px 34px -24px rgb(4 28 44 / 45%);
+}
+
+/*
+  Without backdrop-filter the gradient alone would leave the nav sitting on a
+  half-transparent white over moving footage, which is unreadable. Fall back
+  to an almost-solid bar: less pretty, still legible.
+*/
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header--glass {
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 95%), rgb(255 255 255 / 92%));
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header--glass {
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 97%), rgb(255 255 255 / 97%));
+    backdrop-filter: none;
+  }
+}
+</style>

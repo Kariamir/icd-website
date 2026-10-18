@@ -39,6 +39,18 @@ const plateEls = ref<HTMLElement[]>([])
 const loaded = ref(0)
 const ready = ref(false)
 const done = ref(false)        // the film has run; the page may scroll on
+
+/*
+ * The header goes glass while the film is under it (see useHeroChrome.ts).
+ * Tracked with an observer on the hero itself rather than a scroll handler:
+ * the film already owns one rAF loop and a scroll listener would be a second
+ * thing reading layout on a page that is repainting a canvas every frame.
+ *
+ * The -81px top margin is the header's own height plus its border, so the
+ * flag drops the moment the hero's bottom edge passes under the bar.
+ */
+const overFilm = useOverFilm()
+let chromeObserver: IntersectionObserver | null = null
 const moved = ref(false)
 const progress = ref(0)
 
@@ -229,6 +241,17 @@ onMounted(async () => {
   window.addEventListener('touchmove', onTouchMove, { passive: false })
   window.addEventListener('keydown', onKey)
 
+  if (typeof IntersectionObserver !== 'undefined' && root.value) {
+    chromeObserver = new IntersectionObserver(
+      ([entry]) => { overFilm.value = !!entry?.isIntersecting },
+      { rootMargin: '-81px 0px 0px 0px', threshold: 0 },
+    )
+    chromeObserver.observe(root.value)
+  }
+  else {
+    overFilm.value = true
+  }
+
   const data = await $fetch<{ windows: Track[] }>('/hero/windows.json')
   tracks = data.windows.map(w => ({
     enter: w.enter, exit: w.exit, centre: w.centre,
@@ -244,6 +267,9 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  // Leave the header solid behind us — every other route expects it.
+  chromeObserver?.disconnect()
+  overFilm.value = false
   cancelAnimationFrame(raf)
   window.removeEventListener('resize', resize)
   window.removeEventListener('pointermove', onPointer)
@@ -264,9 +290,16 @@ defineExpose({
 </script>
 
 <template>
+  <!--
+    The film runs *under* the header, not below it: the negative top margin
+    pulls the section up by the header's own 5rem, and the height gains the
+    same amount back so it still fills the viewport exactly. The header floats
+    over it as glass (see useHeroChrome.ts) — without this the bar would push
+    the footage down and there would be nothing behind the glass to see.
+  -->
   <section
     ref="root"
-    class="relative h-[100svh] w-full overflow-hidden bg-ink"
+    class="relative -mt-20 h-[calc(100svh+5rem)] w-full overflow-hidden bg-ink"
     aria-label="فیلم معرفی هلدینگ ثاخت"
   >
     <canvas ref="canvas" class="absolute inset-0 size-full object-cover" />

@@ -32,8 +32,8 @@ export const accountNav: AccountNavItem[] = [
 
 /** The signed-in person, as the top bar and ticket avatars show them. */
 export const accountUser = {
-  name: 'شیوا یوردخانی',
-  initials: 'ش‌ی',
+  name: 'امیر کریمی',
+  initials: 'ا‌ک',
   phone: '۰۹۱۲ ۳۴۵ ۶۷۸۹',
 }
 

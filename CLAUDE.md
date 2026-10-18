@@ -17,6 +17,7 @@
 - معماری: Nuxt 4 + Vue 3 + TypeScript + WPNuxt (WPGraphQL) طبق wpnuxt-ui-boilerplate-full؛ لایه‌بندی اجباری `pages -> sections -> ui -> composables -> WPNuxt -> WordPress`. بدون تایید صریح من از آن منحرف نشو.
 - سایت فارسی و راست‌چین است — همیشه از خواص منطقی CSS استفاده کن، نه left/right ثابت.
 - هیچ داده واقعی WordPress هنوز متصل نیست (ADR-002) — همه صفحات از کاتالوگ واحد `app/utils/catalog.ts` (+ `posts.ts`، `irDocuments.ts`، `financialTables.ts`) می‌خوانند (ADR-015). رکوردهای `origin: 'design'` نمونه‌اند و باید با محتوای واقعی جایگزین شوند.
+- **هرگز کلاس را به‌صورت imperative (classList.add) روی عنصری که `:class` واکنشی هم دارد اضافه نکن** — Vue در هر رندر دوباره، attribute کلاس را بازنویسی می‌کند و آن کلاس بی‌صدا پاک می‌شود (ADR-020).
 - تصاویر: placeholderهای تصویری در `public/img/ph/` از طریق `ph()`/`phFor()` در `app/utils/media.ts`؛ آیکون‌ها فقط از `<AppIcon>`؛ CSS سراسری فقط داخل `@layer`.
 
 ## Project Progress Checklist
