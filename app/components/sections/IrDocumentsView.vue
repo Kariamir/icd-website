@@ -53,8 +53,16 @@ function latest(g: DocumentGroup | 'shareholders') {
 
 <template>
   <div>
+    <!--
+      The owner asked for a photograph here (2026-10-18). ADR-008 exempts IR
+      from the image-led style, so this is the short hero, not the tall one:
+      a sober facade under the usual scrim, `size="sm"`, with the dense lists
+      starting immediately beneath it. The exemption still governs everything
+      below the fold.
+    -->
     <PageHero
-      plain
+      image="/img/projects/tehran-international-tower-6.jpg"
+      size="sm"
       eyebrow="دیده‌بان ثاخت · سال مالی ۱۴۰۴"
       title="اسناد و گزارش‌ها"
       subtitle="مدارک رسمی حسابرسی‌شده، گزارش‌های هیات‌مدیره، جداول مالی و همه اسناد قابل دانلود."

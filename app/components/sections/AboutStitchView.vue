@@ -64,6 +64,52 @@ onMounted(() => {
   onBeforeUnmount(() => io.disconnect())
 })
 
+/*
+ * The spine draws itself as the reader descends.
+ *
+ * This is the one piece of motion on the page tied to scroll position rather
+ * than fired once: `spineProgress` is the share of the timeline that sits
+ * above the middle of the viewport, and a second line is painted over the
+ * static one to that height. It is what makes the section feel like a route
+ * being travelled rather than a list — and an unfinished line is the reason
+ * to keep going. Everything else (cards, photographs, pins) still fires once.
+ *
+ * Read in a rAF so a fast scroll costs one layout read per frame, not one
+ * per scroll event, and disabled outright under `prefers-reduced-motion`.
+ */
+const spineEl = ref<HTMLElement | null>(null)
+const spineProgress = ref(0)
+
+onMounted(() => {
+  if (typeof window === 'undefined') return
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    spineProgress.value = 1
+    return
+  }
+
+  let frame = 0
+  const measure = () => {
+    frame = 0
+    const el = spineEl.value
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const mid = window.innerHeight * 0.52
+    spineProgress.value = Math.min(1, Math.max(0, (mid - r.top) / r.height))
+  }
+  const onScroll = () => {
+    if (!frame) frame = requestAnimationFrame(measure)
+  }
+
+  measure()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll, { passive: true })
+  onBeforeUnmount(() => {
+    if (frame) cancelAnimationFrame(frame)
+    window.removeEventListener('scroll', onScroll)
+    window.removeEventListener('resize', onScroll)
+  })
+})
+
 // #contact — exactly two subjects (sitemap §4.1)
 const form = reactive({ name: '', phone: '', subject: ABOUT_FORM_SUBJECTS[0].value as string, message: '' })
 const errors = reactive<Record<string, string | undefined>>({})
@@ -137,23 +183,40 @@ function submit() {
           spine would have nothing to run between.
         -->
         <div class="mt-20">
-          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">از پارس سازه ۱۳۳۰ تا امروز</h3>
+          <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <h3 class="text-headline-sm font-headline-sm text-ink">از پارس سازه ۱۳۳۰ تا امروز</h3>
+            <!-- The scroll cue fades out once the spine has started drawing. -->
+            <p
+              class="tl-cue flex items-center gap-2 text-label-md text-secondary"
+              :class="spineProgress > 0.04 && 'is-gone'"
+            >
+              <AppIcon name="expand_more" class="tl-cue-arrow text-primary-container" />
+              برای مرور خط زمان اسکرول کنید
+            </p>
+          </div>
 
-          <div class="relative">
-            <!-- central spine -->
+          <div ref="spineEl" class="relative">
+            <!-- static spine -->
             <div class="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-border md:block" aria-hidden="true" />
+            <!-- the same spine, drawn to the reader's position -->
+            <div
+              class="absolute left-1/2 top-0 hidden w-px origin-top -translate-x-1/2 bg-primary-container md:block"
+              aria-hidden="true"
+              :style="{ height: `${spineProgress * 100}%` }"
+            />
 
             <ol class="space-y-24 md:space-y-32">
               <li
                 v-for="(m, i) in aboutMilestones"
                 :key="m.id"
-                class="relative flex flex-col items-center justify-between gap-12"
-                :class="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'"
+                :ref="captureReveal"
+                class="reveal tl-row relative flex flex-col items-center justify-between gap-12"
+                :class="i % 2 === 0 ? 'md:flex-row tl-row--a' : 'md:flex-row-reverse tl-row--b'"
               >
                 <!-- node pin on the spine; the last one is filled -->
                 <span
                   aria-hidden="true"
-                  class="absolute left-1/2 hidden size-6 -translate-x-1/2 items-center justify-center border-2 md:flex"
+                  class="tl-pin absolute left-1/2 hidden size-6 items-center justify-center border-2 md:flex"
                   :class="i === aboutMilestones.length - 1
                     ? 'z-10 border-surface-container-lowest bg-primary-container'
                     : 'z-10 border-primary-container bg-surface-container-lowest'"
@@ -165,8 +228,8 @@ function submit() {
                 </span>
 
                 <!-- content card -->
-                <div class="w-full text-right md:w-[45%]" :class="i % 2 === 0 && 'order-2 md:order-1'">
-                  <span class="mb-2 block text-headline-md font-headline-md tracking-tight text-primary-container">{{ m.year }}</span>
+                <div class="tl-card w-full text-right md:w-[45%]" :class="i % 2 === 0 && 'order-2 md:order-1'">
+                  <span class="tl-year mb-2 block text-headline-md font-headline-md tracking-tight text-primary-container">{{ m.year }}</span>
                   <h4 class="mb-3 text-headline-sm font-headline-sm text-ink">{{ m.title }}</h4>
                   <p class="text-body-md leading-relaxed text-on-surface-variant">{{ m.body }}</p>
 
@@ -194,8 +257,7 @@ function submit() {
 
                 <!-- photograph -->
                 <div
-                  :ref="captureReveal"
-                  class="reveal w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]"
+                  class="tl-photo w-full overflow-hidden rounded-md border border-border bg-surface md:w-[45%]"
                   :class="i % 2 === 0 && 'order-1 md:order-2'"
                 >
                   <img
@@ -423,9 +485,15 @@ function submit() {
 
 <style scoped>
 /*
-  The only motion on this page. A 12px lift, a fade and a 3% settle, once per
-  element. `prefers-reduced-motion` removes it rather than shortening it, and
-  nothing moves on scroll after the element has arrived.
+  Motion on this page. Everything below fires once, as its element arrives,
+  and `prefers-reduced-motion` removes it rather than shortening it. The only
+  scroll-linked piece is the spine, which is drawn in the template from
+  `spineProgress` and also frozen by the media query (via the script).
+
+  The timeline is the one place where the motion carries meaning rather than
+  decoration: the card and its photograph arrive from opposite sides of the
+  spine, which is exactly the alternation the layout is built on, and the pin
+  lands on the line between them.
 */
 .reveal {
   opacity: 0;
@@ -447,12 +515,99 @@ function submit() {
   transform: scale(1);
 }
 
+/* --- timeline row: card and photograph converge on the spine ------------ */
+/*
+  Horizontal offsets are logical-property-safe because they are transforms,
+  not margins — but the page is RTL, so `tl-row--a` (card on the visual left)
+  and `tl-row--b` are mirrored deliberately rather than by `left`/`right`.
+  Below `md` the rows stack and only the vertical lift applies.
+*/
+@media (min-width: 768px) {
+  .tl-row .tl-card,
+  .tl-row .tl-photo {
+    transition: opacity 800ms ease-out, transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;
+  }
+
+  .tl-row--a .tl-card { transform: translateX(-28px); }
+  .tl-row--a .tl-photo { transform: translateX(28px); }
+  .tl-row--b .tl-card { transform: translateX(28px); }
+  .tl-row--b .tl-photo { transform: translateX(-28px); }
+
+  .tl-row.is-in .tl-card,
+  .tl-row.is-in .tl-photo {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* the photograph follows the card by a beat, so the pair reads as a pair */
+  .tl-row .tl-photo { transition-delay: 120ms; }
+}
+
+/* the pin lands on the spine */
+/* `left: 50%` puts the pin's edge on the spine; -50% centres it. The
+   Tailwind translate utility is deliberately absent from the element so this
+   one declaration owns the transform and the two cannot fight. */
+.tl-pin {
+  transform: translateX(-50%) scale(0.5);
+  opacity: 0;
+  transition: opacity 400ms ease-out 260ms, transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 260ms;
+}
+
+.tl-row.is-in .tl-pin {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* the year lifts a little further than its card, so the eye lands on it */
+.tl-year {
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 600ms ease-out 180ms, transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 180ms;
+}
+
+.tl-row.is-in .tl-year {
+  opacity: 1;
+  transform: none;
+}
+
+/* scroll cue — a slow nudge, gone the moment the reader takes the hint */
+.tl-cue {
+  transition: opacity 400ms ease-out;
+}
+
+.tl-cue.is-gone {
+  opacity: 0;
+}
+
+.tl-cue-arrow {
+  animation: tl-nudge 2.2s ease-in-out infinite;
+}
+
+@keyframes tl-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* The chain icons and the vision mark are contained, not cropped. */
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal .reveal-img {
+  .reveal .reveal-img,
+  .tl-row .tl-card,
+  .tl-row .tl-photo,
+  .tl-year {
     opacity: 1;
     transform: none;
     transition: none;
   }
+
+  .tl-pin {
+    opacity: 1;
+    transform: translateX(-50%);
+    transition: none;
+  }
+
+  .tl-cue-arrow { animation: none; }
 }
 </style>

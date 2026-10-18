@@ -9,7 +9,7 @@
  * disclosures are left out of this feed.
  */
 import { articles, type ArticleBlock, type ArticleAuthor, type ArticleAudio } from '~/utils/articlesData'
-import { ph, type PhKind } from '~/utils/media'
+
 import type { MediaCategory } from '~/utils/routes'
 
 export interface Post {
@@ -33,30 +33,55 @@ export interface Post {
 /** Formal disclosures — these belong on /ir/financials, not in the feed. */
 const DISCLOSURES = new Set(['board-performance-1402', 'projects-scorecard-q4-1402'])
 
-const IMAGE: Record<string, [PhKind, number]> = {
-  'resilience-strategy-1410': ['tower', 2],
-  'geotechnical-engineering-megaprojects': ['construction', 1],
-  'parametric-facade-hot-climate': ['residential', 1],
-  'deep-excavation-metro-monitoring': ['construction', 2],
-  'e-procurement-transparency': ['document', 1],
-  'tehran-tower-structural-milestone': ['tower', 1],
-  'megapars-physical-progress': ['commercial', 1],
-  'aerogel-insulation-panels': ['industrial', 1],
-  'kish-dream-permit': ['coastal', 1],
-  'agm-1403-dividend': ['office', 1],
-  'icd-founding-to-bourse-listing': ['archive', 1],
-  'scc-concrete-coastal-towers': ['coastal', 2],
-  'real-estate-financing-bourse': ['skyline', 2],
-  'leed-green-certification-iran': ['campus', 1],
-  'epc-supply-chain-steel-cement': ['industrial', 1],
-  'site-engineer-diary-narenjestan': ['portrait', 1],
-  'women-in-construction-icd': ['portrait', 2],
-  'quarterly-market-outlook-1403': ['document', 1],
-  'housing-price-index-spring-1403': ['skyline', 1],
-  'nav-analysis-ordibehesht': ['document', 1],
-  'density-regulations-district-1': ['aerial', 1],
-  'kish-residential-yield': ['coastal', 1],
+/*
+ * Cover photographs, from the client's own project folders (ADR-017) rather
+ * than the illustrated placeholders they replaced (owner's request,
+ * 2026-10-18).
+ *
+ * Where a post names a project, its cover is that project's own photograph —
+ * the tower milestone shows the tower, the Narenjestan site diary shows
+ * Narenjestan. The rest are market, finance and regulation pieces with no
+ * project of their own; they carry a photograph of the group's work so the
+ * feed reads as one portfolio, and the editorial team should swap in a
+ * per-post image as real articles are written.
+ */
+const IMAGE: Record<string, string> = {
+  // named project → that project's own photograph
+  'tehran-tower-structural-milestone': 'tehran-international-tower-6',
+  'megapars-physical-progress': 'mega-pars-tehran-1',
+  'kish-dream-permit': 'roya-elite-9',
+  'site-engineer-diary-narenjestan': 'narenjestan-izadshahr-1',
+  'scc-concrete-coastal-towers': 'roya-elite-4',
+  'icd-founding-to-bourse-listing': 'tehran-international-tower-1',
+
+  // no named project — group imagery, to be replaced per post
+  'resilience-strategy-1410': 'ara-tower-3',
+  'geotechnical-engineering-megaprojects': 'nbo12-1',
+  'parametric-facade-hot-climate': 'kia-tower-2',
+  'deep-excavation-metro-monitoring': 'ghadir-office-tehran-2',
+  'e-procurement-transparency': 'ghadir-office-tehran-14',
+  'aerogel-insulation-panels': 'x-tisashahr-1',
+  'agm-1403-dividend': 'ghadir-office-tehran-16',
+  'real-estate-financing-bourse': 'sparrow-rasht-1',
+  'leed-green-certification-iran': 'x-baharan-1',
+  'epc-supply-chain-steel-cement': 'ofogh-sina-mashhad-4',
+  'women-in-construction-icd': 'ofogh-sina-mashhad-9',
+  'quarterly-market-outlook-1403': 'x-atlas-tabriz-1',
+  'housing-price-index-spring-1403': 'tehran-international-tower-2',
+  'nav-analysis-ordibehesht': 'x-yas-1',
+  'density-regulations-district-1': 'sparrow-rasht-2',
+  'kish-residential-yield': 'x-marjan-kish-1',
 }
+
+const photo = (name: string) => `/img/projects/${name}.jpg`
+
+/** Covers used inside article bodies and by the tender notices. */
+const BODY_PHOTOS = [
+  'ghadir-office-tehran-13',
+  'nbo12-3',
+  'ara-tower-4',
+  'ofogh-sina-mashhad-2',
+] as const
 
 function categoryOf(a: (typeof articles)[number]): MediaCategory {
   if (a.contentType === 'news') return 'news'
@@ -64,17 +89,16 @@ function categoryOf(a: (typeof articles)[number]): MediaCategory {
   return a.audio?.episode ? 'podcast' : 'stories'
 }
 
-const FIGURES: PhKind[] = ['construction', 'interior', 'aerial', 'office']
-
 function withImages(body: ArticleBlock[]): ArticleBlock[] {
   let i = 0
-  return body.map(b => b.type === 'figure' ? { ...b, image: { ...b.image, src: ph(FIGURES[i++ % FIGURES.length]!, i) } } : b)
+  return body.map(b => b.type === 'figure'
+    ? { ...b, image: { ...b.image, src: photo(BODY_PHOTOS[i++ % BODY_PHOTOS.length]!) } }
+    : b)
 }
 
 const fromArticles: Post[] = articles
   .filter(a => !DISCLOSURES.has(a.slug))
   .map((a) => {
-    const [kind, v] = IMAGE[a.slug] ?? ['skyline', 1]
     return {
       slug: a.slug,
       category: categoryOf(a),
@@ -82,7 +106,7 @@ const fromArticles: Post[] = articles
       excerpt: a.excerpt ?? '',
       date: a.date ?? '',
       sortKey: a.sortKey,
-      image: ph(kind, v),
+      image: photo(IMAGE[a.slug] ?? 'tehran-international-tower-1'),
       author: a.author,
       readingMinutes: a.readingMinutes,
       views: a.views,
@@ -100,7 +124,7 @@ const tenders: Post[] = [
     category: 'tenders',
     title: 'فراخوان مناقصه عمومی اجرای تاسیسات مکانیکی پروژه تجاری اداری خلیج فارس',
     excerpt: 'دعوت از پیمانکاران دارای رتبه معتبر تاسیسات برای دریافت اسناد مناقصه.',
-    date: '۱۰ اردیبهشت ۱۴۰۳', sortKey: 14030210, image: ph('construction', 1), author: PR, readingMinutes: 3, views: 1210,
+    date: '۱۰ اردیبهشت ۱۴۰۳', sortKey: 14030210, image: photo('ghadir-office-tehran-12'), author: PR, readingMinutes: 3, views: 1210,
     deadline: '۲۵ اردیبهشت ۱۴۰۳', tags: ['مناقصه', 'تاسیسات'],
     body: [
       { type: 'p', text: 'شرکت توسعه ساختمان خاورمیانه از گروه ثاخت، اجرای تاسیسات مکانیکی پروژه تجاری اداری خلیج فارس در بندرعباس را از طریق مناقصه عمومی یک‌مرحله‌ای به پیمانکار واجد شرایط واگذار می‌کند.' },
@@ -114,7 +138,7 @@ const tenders: Post[] = [
     category: 'tenders',
     title: 'آگهی مزایده فروش ماشین‌آلات و تجهیزات مازاد کارگاهی',
     excerpt: 'فروش تجهیزات مازاد کارگاه‌های تهران و کرج از طریق مزایده عمومی.',
-    date: '۲۸ فروردین ۱۴۰۳', sortKey: 14030128, image: ph('industrial', 1), author: PR, readingMinutes: 2, views: 860,
+    date: '۲۸ فروردین ۱۴۰۳', sortKey: 14030128, image: photo('nbo12-2'), author: PR, readingMinutes: 2, views: 860,
     deadline: '۱۵ اردیبهشت ۱۴۰۳', tags: ['مزایده', 'تجهیزات'],
     body: [
       { type: 'p', text: 'شرکت ساختمانی آ.اس.پ تعدادی از ماشین‌آلات و تجهیزات مازاد کارگاهی خود را از طریق مزایده عمومی به فروش می‌رساند.' },
@@ -126,7 +150,7 @@ const tenders: Post[] = [
     category: 'tenders',
     title: 'فراخوان ارزیابی کیفی تامین‌کنندگان نمای مجموعه باغ‌شهر نیلوفر',
     excerpt: 'ارزیابی کیفی سازندگان نمای سنگی و کرتین‌وال برای فاز نخست.',
-    date: '۵ اردیبهشت ۱۴۰۳', sortKey: 14030205, image: ph('residential', 2), author: PR, readingMinutes: 2, views: 640,
+    date: '۵ اردیبهشت ۱۴۰۳', sortKey: 14030205, image: photo('x-besat-1'), author: PR, readingMinutes: 2, views: 640,
     deadline: '۳۰ اردیبهشت ۱۴۰۳', tags: ['ارزیابی_کیفی', 'نما'],
     body: [
       { type: 'p', text: 'شرکت شهرسازی و خانه‌سازی باغمیشه از تامین‌کنندگان نمای سنگی و کرتین‌وال برای ارزیابی کیفی فاز نخست مجموعه باغ‌شهر نیلوفر دعوت می‌کند.' },

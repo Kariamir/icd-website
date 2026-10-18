@@ -6,7 +6,7 @@
 import { companies, projects, units } from '~/utils/catalog'
 import { posts } from '~/utils/posts'
 import { irDocuments } from '~/utils/irDocuments'
-import { honors } from '~/utils/honorsData'
+import { aboutHonors } from '~/utils/aboutPageData'
 import { quote, IR_SYMBOL_IS_MOCK, snapshotDateLabel } from '~/utils/irSymbolData'
 import { mediaCategories } from '~/utils/routes'
 import { ph } from '~/utils/media'
@@ -161,13 +161,23 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
       </div>
     </section>
 
-    <!-- 7 — افتخارات و اعتماد (trust signal only, no CTA) -->
-    <section class="border-y border-border bg-surface py-12">
+    <!--
+      7 — افتخارات. The same three award objects as /about#history, drawn the
+      same way (owner's request, 2026-10-18): the objects themselves, no
+      captions. `honorsData.ts`'s titles are invented placeholders, and a
+      generic medal icon beside a made-up name was the weakest block on the
+      page. Trust signal only — no CTA, per sitemap §3.1 block 7.
+    -->
+    <section class="border-y border-border bg-surface py-16 md:py-20">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-          <li v-for="h in honors.slice(0, 6)" :key="h.title" class="flex max-w-56 items-center gap-3 text-label-md text-secondary">
-            <span class="flex size-10 shrink-0 items-center justify-center rounded-pill bg-surface-container-lowest text-primary-container ring-1 ring-border"><AppIcon name="workspace_premium" /></span>
-            {{ h.title }}
+        <p class="mb-10 text-center text-label-lg font-label-lg text-primary-container">افتخارات</p>
+        <ul class="mx-auto grid max-w-4xl grid-cols-3 gap-6 md:gap-10">
+          <li
+            v-for="h in aboutHonors"
+            :key="h.id"
+            class="flex items-center justify-center rounded-md border border-border bg-surface-container-lowest p-6 md:p-8"
+          >
+            <img :src="h.image.src" :alt="h.image.alt" loading="lazy" class="h-32 w-auto max-w-full object-contain md:h-44">
           </li>
         </ul>
       </div>

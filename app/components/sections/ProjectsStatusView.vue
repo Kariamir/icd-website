@@ -11,16 +11,15 @@
 -->
 <script setup lang="ts">
 import { projectStatus, projectsByStatus, type ProjectStatusKey } from '~/utils/catalog'
-import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
 const props = defineProps<{ status: ProjectStatusKey }>()
 
 const copy: Record<ProjectStatusKey, { subtitle: string, intro: string, image: string }> = {
-  'upcoming': { subtitle: 'طرح‌های مطالعاتی و در آستانه آغاز هلدینگ ثاخت', intro: 'طرح‌های در دست مطالعه و آماده آغاز', image: ph('skyline', 1) },
-  'under-construction': { subtitle: 'فرصت‌های فعال پیش‌فروش و کلان‌سازه‌های عمرانی جاری', intro: 'کلان‌پروژه‌های عمرانی فعال در سراسر کشور', image: ph('construction', 2) },
-  'operating': { subtitle: 'مدیریت دارایی‌ها، مجتمع‌های تجاری و گردشگری فعال', intro: 'دارایی‌های در حال بهره‌برداری هلدینگ', image: ph('commercial', 2) },
-  'completed': { subtitle: 'کارنامه اجرایی و نمادهای تحویل‌شده معماری ملی', intro: 'پروژه‌های تحویل قطعی‌شده', image: ph('tower', 2) },
+  'upcoming': { subtitle: 'طرح‌های مطالعاتی و در آستانه آغاز هلدینگ ثاخت', intro: 'طرح‌های در دست مطالعه و آماده آغاز', image: '/img/projects/mega-pars-tehran-2.jpg' },
+  'under-construction': { subtitle: 'فرصت‌های فعال پیش‌فروش و کلان‌سازه‌های عمرانی جاری', intro: 'کلان‌پروژه‌های عمرانی فعال در سراسر کشور', image: '/img/projects/ara-tower-3.jpg' },
+  'operating': { subtitle: 'مدیریت دارایی‌ها، مجتمع‌های تجاری و گردشگری فعال', intro: 'دارایی‌های در حال بهره‌برداری هلدینگ', image: '/img/projects/narenjestan-izadshahr-1.jpg' },
+  'completed': { subtitle: 'کارنامه اجرایی و نمادهای تحویل‌شده معماری ملی', intro: 'پروژه‌های تحویل قطعی‌شده', image: '/img/projects/tehran-international-tower-6.jpg' },
 }
 
 const list = computed(() => projectsByStatus(props.status))

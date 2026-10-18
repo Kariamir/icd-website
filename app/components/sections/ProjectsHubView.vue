@@ -5,7 +5,6 @@
 -->
 <script setup lang="ts">
 import { projects, projectStatus, projectsByStatus, type ProjectStatusKey } from '~/utils/catalog'
-import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
 const cities = computed(() => {
@@ -22,10 +21,10 @@ const cities = computed(() => {
 })
 
 const tiles: { key: ProjectStatusKey, sub: string, cta: string, image: string }[] = [
-  { key: 'under-construction', sub: 'عملیات عمرانی جاری و توسعه فعال', cta: 'ورود به فهرست کارگاه‌ها', image: ph('construction', 1) },
-  { key: 'upcoming', sub: 'طرح‌های در دست مطالعه و آماده آغاز', cta: 'ورود به طرح‌های آتی', image: ph('skyline', 1) },
-  { key: 'operating', sub: 'مدیریت دارایی و بهره‌برداری پایدار', cta: 'مشاهده دارایی‌های فعال', image: ph('commercial', 2) },
-  { key: 'completed', sub: 'کارنامه اجرایی و تحویل قطعی', cta: 'مرور کارنامه تحویل‌شده', image: ph('tower', 1) },
+  { key: 'under-construction', sub: 'عملیات عمرانی جاری و توسعه فعال', cta: 'ورود به فهرست کارگاه‌ها', image: '/img/projects/nbo12-1.jpg' },
+  { key: 'upcoming', sub: 'طرح‌های در دست مطالعه و آماده آغاز', cta: 'ورود به طرح‌های آتی', image: '/img/projects/mega-pars-tehran-2.jpg' },
+  { key: 'operating', sub: 'مدیریت دارایی و بهره‌برداری پایدار', cta: 'مشاهده دارایی‌های فعال', image: '/img/projects/narenjestan-izadshahr-1.jpg' },
+  { key: 'completed', sub: 'کارنامه اجرایی و تحویل قطعی', cta: 'مرور کارنامه تحویل‌شده', image: '/img/projects/tehran-international-tower-6.jpg' },
 ]
 
 const featured = computed(() => projects.filter(p => p.featured).concat(projects.filter(p => !p.featured && p.status === 'under-construction')).slice(0, 3))
@@ -35,7 +34,7 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
   <div>
     <PageHero
       size="lg"
-      :image="ph('skyline', 2)"
+      image="/img/projects/tehran-international-tower-1.jpg"
       title="پروژه‌ها و کارنامه ساختمانی"
       subtitle="نمادهای معماری پایدار و کلان‌سازه‌های مهندسی ایران"
       :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'پروژه‌ها' }]"

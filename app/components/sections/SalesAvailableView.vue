@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { units, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
 import { salesNav } from '~/utils/routes'
-import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
 const route = useRoute()
@@ -50,7 +49,7 @@ const stats = computed(() => [
 <template>
   <div>
     <PageHero
-      :image="ph('interior', 2)"
+      image="/img/projects/kia-tower-1.jpg"
       eyebrow="فروش و پیش‌فروش"
       :title="heading"
       subtitle="پیش‌فروش و تملک واحدهای تجاری، اداری و مسکونی هلدینگ ثاخت با قرارداد رسمی."

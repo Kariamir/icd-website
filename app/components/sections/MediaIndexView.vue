@@ -7,7 +7,6 @@
 <script setup lang="ts">
 import { mediaCategories, type MediaCategory } from '~/utils/routes'
 import { postsByCategory } from '~/utils/posts'
-import { ph } from '~/utils/media'
 import { faDigits, faNumber } from '~/utils/format'
 
 const PAGE = 9
@@ -40,7 +39,7 @@ const cta: Record<MediaCategory, string> = {
 <template>
   <div>
     <PageHero
-      :image="ph('skyline', 2)"
+      image="/img/projects/sparrow-rasht-1.jpg"
       eyebrow="آرشیو رسمی مقالات و گزارش‌ها"
       title="رسانه ثاخت"
       subtitle="روایت توسعه، تحلیل‌های مهندسی و نبض بازار املاک و مستغلات"
