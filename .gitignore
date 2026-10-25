@@ -31,3 +31,11 @@ dist-ssr
 
 # WPNuxt generated files
 .queries/
+
+# Client source assets and local recordings — kept out of the repo: the
+# «Asset Icd» folder alone carries a 213MB master film, and the published
+# derivatives of everything in it are already committed under public/.
+Asset Icd/
+Claude outputs/
+ICD.tscproj/
+*.lnk

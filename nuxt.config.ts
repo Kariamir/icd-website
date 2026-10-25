@@ -89,10 +89,12 @@ export default defineNuxtConfig({
     '/about/history': { redirect: { to: '/about#history', statusCode: 301 } },
     '/about/board': { redirect: { to: '/about#board', statusCode: 301 } },
     '/about/board/**': { redirect: { to: '/about#board', statusCode: 301 } },
-    '/about/vision': { redirect: { to: '/about#vision', statusCode: 301 } },
+    // #vision was removed at the owner's request (ADR-024); its two old
+    // URLs land on the committees section, the nearest surviving content.
+    '/about/vision': { redirect: { to: '/about#committees', statusCode: 301 } },
     '/about/org-chart': { redirect: { to: '/about#committees', statusCode: 301 } },
     '/about/honors': { redirect: { to: '/about#history', statusCode: 301 } },
-    '/about/csr': { redirect: { to: '/about#vision', statusCode: 301 } },
+    '/about/csr': { redirect: { to: '/about#committees', statusCode: 301 } },
     '/about/ceo': { redirect: { to: '/about#contact', statusCode: 301 } },
     '/media/news': { redirect: { to: '/media?category=news', statusCode: 301 } },
     '/media/news/**': { redirect: { to: '/media?category=news', statusCode: 301 } },
@@ -100,6 +102,11 @@ export default defineNuxtConfig({
     '/media/stories/**': { redirect: { to: '/media?category=stories', statusCode: 301 } },
     '/media/reports': { redirect: { to: '/ir/financials?group=committee-reports', statusCode: 301 } },
     '/media/reports/**': { redirect: { to: '/ir/financials?group=committee-reports', statusCode: 301 } },
+    // /careers becomes «امور اداری و منابع انسانی» at /hr, and the terms page
+    // is merged into the privacy page — one destination each (ADR-024).
+    '/careers': { redirect: { to: '/hr', statusCode: 301 } },
+    '/careers/**': { redirect: { to: '/hr', statusCode: 301 } },
+    '/legal/terms': { redirect: { to: '/legal/privacy', statusCode: 301 } },
   },
 
   typescript: {

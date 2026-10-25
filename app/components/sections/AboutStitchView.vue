@@ -10,9 +10,9 @@
   The ids here must match the anchors in app/utils/routes.ts.
 -->
 <script setup lang="ts">
-import { aboutHero, aboutMilestones, aboutChain, aboutPillars, aboutBoard, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
-import { orgCommittees } from '~/utils/orgChartData'
-import { companies, projects } from '~/utils/catalog'
+import { aboutHero, aboutMilestones, aboutChain, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
+import { icdBoard, icdExecutives, icdCommittees, boardSecretary, type CommitteeMember } from '~/utils/governanceData'
+import { subsidiaries, projects } from '~/utils/catalog'
 import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
@@ -24,15 +24,29 @@ import { faDigits } from '~/utils/format'
  * heading claiming delivered work. ⛔ If projects have in fact been handed
  * over, their status in the workbook needs correcting.
  */
+/*
+ * The chair and the managing director come first. `lead` is a property of
+ * the record, not a slice index, so a change of officers in
+ * governanceData.ts reorders the page on its own.
+ */
+const boardOrdered = computed(() => [...icdBoard].sort((a, b) => Number(!!b.lead) - Number(!!a.lead)))
+
+function committeeBadges(m: CommitteeMember): string[] {
+  return [
+    m.independent ? 'مستقل' : 'غیرمستقل',
+    ...(m.financialExpert ? ['عضو مالی'] : []),
+  ]
+}
+
 const deliveredOnly = computed(() => projects.filter(p => p.status === 'completed' || p.status === 'operating'))
 const delivered = computed(() => (deliveredOnly.value.length ? deliveredOnly.value : projects).slice(0, 7))
 const deliveredTitle = computed(() => (deliveredOnly.value.length ? 'کارنامه تحویل‌شده' : 'پروژه‌های گروه'))
-const totalArea = projects.reduce((s, p) => s + p.areaSqm, 0)
+const totalArea = projects.reduce((s, p) => s + (p.areaSqm ?? 0), 0)
 
 const stats = [
   { value: '۴۰+', label: 'سال سابقه', note: 'از تاسیس ۱۳۶۴ و ریشه پارس سازه ۱۳۳۰' },
   { value: `${faDigits(Math.round(totalArea / 1000))} هزار`, label: 'مترمربع زیربنا', note: 'در پرتفوی پروژه‌های گروه' },
-  { value: faDigits(companies.length), label: 'شرکت تخصصی تابعه', note: 'از طراحی تا بهره‌برداری' },
+  { value: faDigits(subsidiaries.length), label: 'شرکت تخصصی تابعه', note: 'از طراحی تا بهره‌برداری' },
   { value: faDigits(projects.length), label: 'پروژه', note: 'در چهار وضعیت اجرایی' },
 ]
 
@@ -197,17 +211,35 @@ function submit() {
     <!-- #history — four movements (sitemap §4.2) -->
     <section id="history" class="scroll-mt-20 bg-surface py-24 md:py-32">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="تاریخچه" title="توسعه، فراتر از بتن و فولاد" aside="یک روایت پیوسته: فیلم، خط زمان، آثار تحویل‌شده و افتخارات." />
+        <SectionHead eyebrow="تاریخچه" title="توسعه، فراتر از بتن و فولاد" />
 
-        <!-- 1 — film -->
-        <div class="group relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-ink md:aspect-[21/9]">
-          <img :src="aboutFilm.poster" alt="" class="size-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-[1.02]">
-          <div class="absolute inset-0 flex items-center justify-center bg-ink/30">
-            <span class="flex size-20 items-center justify-center rounded-pill bg-primary-container text-3xl text-surface-container-lowest" aria-hidden="true"><AppIcon name="play_arrow" /></span>
-          </div>
-          <div class="pointer-events-none absolute inset-x-6 bottom-6 flex items-end justify-between text-surface-container-lowest">
-            <span class="rounded-sm bg-ink/80 px-3 py-1 text-label-lg">{{ aboutFilm.title }}</span>
-            <span class="rounded-sm bg-ink/80 px-3 py-1 text-label-md">{{ aboutFilm.src ? '' : 'فیلم پس از تولید بارگذاری می‌شود' }}</span>
+        <!--
+          1 — the brand film, played in place. The client supplied it as
+          «فیلم شماره ۲» (ADR-024); before that this was a poster frame with a
+          decorative play button and nothing behind it. `preload="none"` keeps
+          the 18MB off every visit, and the poster carries the frame until
+          someone presses play.
+        -->
+        <div class="relative w-full overflow-hidden rounded-lg bg-ink">
+          <video
+            v-if="aboutFilm.src"
+            class="aspect-video w-full bg-ink object-cover"
+            :poster="aboutFilm.poster"
+            controls
+            playsinline
+            preload="none"
+            :aria-label="aboutFilm.title"
+          >
+            <!-- VP9 first for the browsers that take it; H.264 for the rest. -->
+            <source :src="aboutFilm.srcWebm" type="video/webm">
+            <source :src="aboutFilm.src" type="video/mp4">
+          </video>
+          <div v-else class="relative aspect-[16/9] w-full md:aspect-[21/9]">
+            <img :src="aboutFilm.poster" alt="" class="size-full object-cover opacity-75">
+            <div class="absolute inset-x-6 bottom-6 flex items-end justify-between text-surface-container-lowest">
+              <span class="rounded-sm bg-ink/80 px-3 py-1 text-label-lg">{{ aboutFilm.title }}</span>
+              <span class="rounded-sm bg-ink/80 px-3 py-1 text-label-md">فیلم پس از تولید بارگذاری می‌شود</span>
+            </div>
           </div>
         </div>
 
@@ -427,7 +459,7 @@ function submit() {
           <NuxtLink to="/companies" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-surface-container-lowest/40 px-4 text-label-lg text-surface-container-lowest hover:bg-surface-container-lowest hover:text-ink">همه شرکت‌ها <AppIcon name="arrow_back" /></NuxtLink>
         </SectionHead>
         <ul class="-mx-space-lg flex snap-x gap-5 overflow-x-auto px-space-lg pb-4 md:-mx-margin md:px-margin">
-          <li v-for="c in companies" :key="c.slug" class="w-60 shrink-0 snap-start md:w-72">
+          <li v-for="c in subsidiaries" :key="c.slug" class="w-60 shrink-0 snap-start md:w-72">
             <NuxtLink :to="`/companies/${c.slug}`" class="group flex h-72 flex-col justify-between rounded-lg border border-surface-container-lowest/15 bg-surface-container-lowest/95 p-6 transition-colors hover:bg-surface-container-lowest">
               <span class="text-label-md text-secondary">{{ c.tag }}</span>
               <span class="text-center">
@@ -449,72 +481,107 @@ function submit() {
     -->
     <section id="board" class="scroll-mt-20 bg-ink py-24 md:py-32">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead tone="dark" eyebrow="راهبری" title="هیات‌مدیره و مدیران ارشد" aside="تیم اجرایی هلدینگ." />
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <article
-            v-for="m in aboutBoard"
-            :key="m.slug"
-            :ref="captureReveal"
-            class="reveal group overflow-hidden rounded-lg bg-surface-container-lowest"
-          >
-            <div class="aspect-[4/3] overflow-hidden bg-surface-alt">
-              <img
-                :src="m.image.src"
-                :alt="m.image.alt"
-                loading="lazy"
-                class="reveal-img size-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-              >
-            </div>
-            <div class="border-t-4 border-primary-container p-6">
-              <h3 class="text-headline-sm font-headline-sm text-ink">{{ m.name }}</h3>
-              <p class="mt-2 text-label-lg font-bold text-primary-container">{{ m.role }}</p>
-              <p class="mt-4 flex items-start gap-2 text-body-sm leading-relaxed text-secondary">
-                <AppIcon name="school" class="mt-0.5 shrink-0 text-outline" />
-                <span>{{ m.education }}</span>
-              </p>
-            </div>
-          </article>
+        <SectionHead
+          tone="dark"
+          eyebrow="راهبری"
+          title="هیات‌مدیره"
+          :aside="`${faDigits(icdBoard.length)} عضو، منتخب مجمع عمومی عادی — برگرفته از افشای رسمی کدال`"
+        />
+
+        <!--
+          One grid, one card size. The chair and the managing director come
+          first and carry the accent rule; an earlier pass gave them
+          full-height portraits and it pushed the other three members a whole
+          viewport down the page, which is the opposite of what a board
+          section is for — you should be able to see the board.
+
+          Each card carries the legal shareholder the member represents and
+          their موظف/غیرموظف status, because on a listed group's site both
+          are disclosure rather than decoration.
+        -->
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div v-for="m in boardOrdered" :key="m.slug" :ref="captureReveal" class="reveal">
+            <PersonCard
+              :name="m.name"
+              :role="m.role"
+              :image="m.image"
+              :accent="m.lead"
+              :note="m.represents ? `نماینده ${m.represents}` : undefined"
+              :badges="[m.executive ? 'موظف' : 'غیرموظف']"
+              :rows="[{ label: 'تحصیلات', value: m.education }]"
+            />
+          </div>
+        </div>
+
+        <!-- The board secretary sits below the board, at a smaller size. -->
+        <div v-if="boardSecretary" class="mt-7 max-w-sm">
+          <p class="mb-3 text-label-md text-surface-dim">دبیر هیات‌مدیره</p>
+          <PersonCard
+            size="sm"
+            :name="boardSecretary.name"
+            :role="boardSecretary.role"
+            :image="boardSecretary.image"
+            :rows="[{ label: 'تحصیلات', value: boardSecretary.education }]"
+          />
+        </div>
+
+        <!-- Senior executives — a distinct layout, below the board -->
+        <h3 class="mb-7 mt-16 flex items-center gap-3 text-headline-sm font-headline-sm text-surface-container-lowest">
+          <span class="h-5 w-1.5 rounded-pill bg-brand-tint" />مدیران ارشد
+        </h3>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <PersonCard
+            v-for="e in icdExecutives"
+            :key="e.slug"
+            size="sm"
+            :name="e.name"
+            :role="e.role"
+            :image="e.image"
+          />
         </div>
       </div>
     </section>
 
-    <!-- #committees -->
+    <!-- #committees — membership and the secretary of each, from CODAL -->
     <section id="committees" class="scroll-mt-20 border-t border-border bg-surface py-24 md:py-32">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
         <SectionHead eyebrow="حاکمیت شرکتی" title="کمیته‌های تخصصی">
           <NuxtLink to="/ir/financials?group=committee-reports#documents-archive" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint">گزارش عملکرد کمیته‌ها <AppIcon name="arrow_back" /></NuxtLink>
         </SectionHead>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <article v-for="c in orgCommittees" :key="c.id" class="flex flex-col rounded-lg border border-border bg-surface-container-lowest p-7">
-            <span class="mb-5 w-fit rounded-pill bg-brand-tint px-3 py-1 text-label-md font-bold text-primary-container">{{ c.statusLabel }}</span>
-            <h3 class="mb-3 text-headline-sm font-headline-sm text-ink">{{ c.name }}</h3>
-            <p class="mb-5 text-body-sm leading-relaxed text-secondary">{{ c.mandate }}</p>
-            <p class="mt-auto border-t border-border pt-4 text-label-lg font-bold text-ink">{{ c.chairLabel }}</p>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- #vision -->
-    <section id="vision" class="scroll-mt-20 bg-surface-container-lowest py-24 md:py-32">
-      <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="چشم‌انداز" title="چشم‌انداز و حاکمیت شرکتی" />
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <article v-for="p in aboutPillars" :key="p.id" :ref="captureReveal" class="reveal">
-            <div
-              class="mb-5 aspect-[4/3] overflow-hidden rounded-md"
-              :class="p.mark ? 'flex items-center justify-center border border-border bg-surface p-10' : 'bg-surface-alt'"
-            >
-              <img
-                :src="p.image.src"
-                :alt="p.image.alt"
-                loading="lazy"
-                class="reveal-img"
-                :class="p.mark ? 'max-h-full w-auto max-w-full object-contain' : 'size-full object-cover'"
-              >
+        <div class="space-y-12">
+          <article v-for="c in icdCommittees" :key="c.id" :id="`committee-${c.id}`" class="scroll-mt-24 rounded-lg border border-border bg-surface-container-lowest p-7 md:p-10">
+            <div class="mb-7 flex flex-col gap-3 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h3 class="text-headline-md font-headline-md text-ink">{{ c.name }}</h3>
+                <p class="mt-2 max-w-2xl text-body-md leading-relaxed text-secondary">{{ c.mandate }}</p>
+              </div>
+              <p class="shrink-0 text-label-md text-secondary">
+                تاریخ تشکیل {{ c.formed }} · {{ faDigits(c.members.length) }} عضو
+              </p>
             </div>
-            <h3 class="mb-2 text-headline-sm font-headline-sm text-ink">{{ p.title }}</h3>
-            <p class="text-body-md leading-relaxed text-secondary">{{ p.text }}</p>
+
+            <ul class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <li v-for="m in c.members" :key="m.name">
+                <PersonCard
+                  size="sm"
+                  :name="m.name"
+                  :role="m.role"
+                  :note="m.represents ? `نماینده ${m.represents}` : undefined"
+                  :badges="committeeBadges(m)"
+                  :rows="[{ label: 'تحصیلات', value: m.education }]"
+                />
+              </li>
+            </ul>
+
+            <!-- The secretary closes each committee, as the client asked -->
+            <div class="mt-7 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <p class="text-label-md text-secondary">دبیر کمیته</p>
+              <p class="text-body-md text-ink">
+                <span class="font-bold">{{ c.secretary.name }}</span>
+                <span class="text-secondary"> — {{ c.secretary.title }} · {{ c.secretary.education }}</span>
+              </p>
+            </div>
           </article>
         </div>
       </div>

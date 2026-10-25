@@ -29,7 +29,6 @@ export const routes = {
    * section ids in components/sections/AboutStitchView.vue.
    */
   about: '/about',
-  aboutVision: '/about#vision',
   /**
    * #history carries the whole historical narrative in four movements:
    * brand-story video, the ۱۳۳۰ timeline, the delivered-work gallery, and the
@@ -108,21 +107,39 @@ export const routes = {
   contact: '/contact',
 
   /**
-   * /careers is ONE page: brief intro, a two-field resume form, then the three
-   * HR topics as sections (ADR-006). The anchors below are in-page, not routes,
-   * and must stay in sync with the section ids in components/sections/CareersView.vue.
+   * «امور اداری و منابع انسانی» is ONE page (ADR-024, superseding ADR-006's
+   * /careers): the HR desk's own news, the organisational slogan, a brief
+   * intro, the two-field resume form, and the three HR topics as sections.
+   * /careers 301s here. The anchors below are in-page, not routes, and must
+   * stay in sync with the section ids in components/sections/HrView.vue.
    */
-  careers: '/careers',
-  careersResume: '/careers#resume',
-  careersBenefits: '/careers#benefits',
-  careersLearning: '/careers#learning',
-  careersFaq: '/careers#faq',
+  hr: '/hr',
+  hrNews: '/hr#news',
+  hrSlogan: '/hr#slogan',
+  hrResume: '/hr#resume',
+  hrBenefits: '/hr#benefits',
+  hrLearning: '/hr#learning',
+  hrFaq: '/hr#faq',
 
   complaints: '/complaints',
   search: '/search',
-  legalTerms: '/legal/terms',
+  /**
+   * The terms page is merged into the privacy page (ADR-024) — one «حریم
+   * خصوصی» destination carrying both, decluttered. /legal/terms 301s here.
+   */
   legalPrivacy: '/legal/privacy',
 } as const
+
+/**
+ * Systems and services the group runs outside this site. Footer-only, as
+ * sitemap §11 requires of internal systems — the public audience has no need
+ * for them, and they open in a new tab because they are other applications.
+ */
+export const externalSystems: { label: string, href: string }[] = [
+  { label: 'بیمه کوثر', href: 'https://sinad.kins.ir/DarmanAfzar.Customer' },
+  { label: 'سلفیت', href: 'https://selfit.ir' },
+  { label: 'اتوماسیون اداری', href: 'https://ow.icd.co.ir/Didgah/UserLogin/Login' },
+]
 
 /** Media post categories (ADR-005, ADR-009). Values are the ?category= query values. */
 export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'tenders'
@@ -318,8 +335,8 @@ export const footerColumns: MegaMenuColumn[] = [
     items: [
       { label: 'دیده‌بان ثاخت', href: routes.irFinancials },
       { label: 'اطلاعات نماد در بورس', href: routes.irSymbol },
-      { label: 'مناقصات و مزایدات', href: routes.irDocumentGroup('tenders') },
-      { label: 'تقویم مجامع', href: routes.irCalendar },
+      { label: 'مناقصات و مزایدات', href: `${routes.irDocumentGroup('tenders')}#documents-archive` },
+      { label: 'اسناد و گزارش‌ها', href: `${routes.irFinancials}#documents-archive` },
     ],
   },
   {
@@ -328,7 +345,7 @@ export const footerColumns: MegaMenuColumn[] = [
       { label: 'درخواست مشاوره', href: routes.salesConsultation },
       { label: 'پرسش‌های متداول', href: routes.irFaq },
       { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
-      { label: 'فرصت‌های همکاری و استخدام', href: routes.careers },
+      { label: 'پروفایل من', href: routes.account },
     ],
   },
 ]
@@ -347,15 +364,16 @@ export const PENDING_ROUTES = [
 /** Legal / utility links in the footer's bottom bar. */
 export const legalNav: NavItem[] = [
   { label: 'حریم خصوصی', href: routes.legalPrivacy },
-  { label: 'قوانین و مقررات', href: routes.legalTerms },
   { label: 'جستجو', href: routes.search },
 ]
 
-/** Company contact lines (placeholder values from the designs). */
+/** Company contact lines — supplied by the client, 1405/08 (ADR-024). */
 export const companyContact = {
-  phone: '۰۲۱-۸۸۶۶۴۴۰۰',
-  phoneHref: 'tel:+982188664400',
-  email: 'info@icd.ir',
-  address: 'تهران، خیابان ولیعصر، برج اداری مرکزی ثاخت',
+  phone: '۰۲۱-۸۷۱۲۳',
+  phoneHref: 'tel:+982187123',
+  fax: '۰۲۱-۸۸۵۰۵۳۵۰',
+  email: 'info@icd.co.ir',
+  address: 'تهران - میدان آرژانتین - خیابان احمد قصیر - خیابان هشتم - پلاک ۱۱',
+  postalCode: '۱۵۱۴۷۳۷۴۱۱',
   hours: 'شنبه تا چهارشنبه، ۸ تا ۱۷',
 } as const

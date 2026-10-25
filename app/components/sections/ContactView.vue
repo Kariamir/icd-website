@@ -7,7 +7,7 @@
 -->
 <script setup lang="ts">
 import { companyContact } from '~/utils/routes'
-import { companies } from '~/utils/catalog'
+import { subsidiaries } from '~/utils/catalog'
 import { ph } from '~/utils/media'
 import type { IconName } from '~/utils/icons'
 
@@ -15,14 +15,14 @@ const desks: { icon: IconName, title: string, text: string, href: string, cta: s
   { icon: 'real_estate_agent', title: 'مشاوره خرید و پیش‌فروش', text: 'انتخاب واحد، شرایط پرداخت و رزرو بازدید.', href: '/sales/consultation', cta: 'درخواست مشاوره' },
   { icon: 'account_balance', title: 'امور سهامداران', text: 'سود سهام، مجامع و اطلاعیه‌های کدال.', href: '/ir/faq', cta: 'پرسش‌های سهامداران' },
   { icon: 'gavel', title: 'شکایات و پیشنهادات', text: 'ثبت محرمانه با کد رهگیری.', href: '/complaints', cta: 'ثبت در سامانه' },
-  { icon: 'badge', title: 'همکاری و استخدام', text: 'ارسال رزومه و فرصت‌های شغلی.', href: '/careers', cta: 'فرصت‌های همکاری' },
+  { icon: 'badge', title: 'امور اداری و منابع انسانی', text: 'ارسال رزومه و فرصت‌های شغلی.', href: '/hr', cta: 'امور اداری و منابع انسانی' },
 ]
 
 const offices = computed(() => [
   { city: 'تهران', name: 'دفتر مرکزی هلدینگ', address: companyContact.address, phone: companyContact.phone },
-  ...[...new Set(companies.map(c => c.city))].filter(c => c !== 'تهران').map(city => ({
+  ...[...new Set(subsidiaries.map(c => c.city))].filter(c => c !== 'تهران').map(city => ({
     city,
-    name: companies.filter(c => c.city === city).map(c => c.name).join('، '),
+    name: subsidiaries.filter(c => c.city === city).map(c => c.name).join('، '),
     address: `${city} — نشانی دقیق پس از تایید درج می‌شود`,
     phone: '',
   })),

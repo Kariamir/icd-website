@@ -92,7 +92,7 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
                     <AppIcon name="location_on" class="text-outline" />{{ active.district }}
                   </p>
                   <dl class="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4 text-label-md">
-                    <div><dt class="text-secondary">زیربنا</dt><dd class="mt-0.5 font-bold text-ink">{{ faArea(active.areaSqm) }}</dd></div>
+                    <div v-if="active.areaSqm != null"><dt class="text-secondary">زیربنا</dt><dd class="mt-0.5 font-bold text-ink">{{ faArea(active.areaSqm) }}</dd></div>
                     <div><dt class="text-secondary">کاربری</dt><dd class="mt-0.5 font-bold text-ink">{{ active.usage }}</dd></div>
                   </dl>
                   <span class="mt-4 flex items-center gap-2 text-label-lg font-bold text-primary-container">

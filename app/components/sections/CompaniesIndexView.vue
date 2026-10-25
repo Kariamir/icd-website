@@ -4,7 +4,7 @@
   /companies/[slug] (sitemap §5.2).
 -->
 <script setup lang="ts">
-import { companies, projectsByCompany } from '~/utils/catalog'
+import { subsidiaries, projectsByCompany } from '~/utils/catalog'
 import { ph } from '~/utils/media'
 import { faDigits, faIndex } from '~/utils/format'
 </script>
@@ -20,11 +20,11 @@ import { faDigits, faIndex } from '~/utils/format'
 
     <section class="bg-surface-container-lowest py-20 md:py-[120px]">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="پرتفوی و شرکت‌ها" title="شبکه شرکت‌های تابعه" :aside="`${faDigits(companies.length)} نهاد تخصصی عمران، انبوه‌سازی و خدمات فنی مهندسی`" />
+        <SectionHead eyebrow="پرتفوی و شرکت‌ها" title="شبکه شرکت‌های تابعه" :aside="`${faDigits(subsidiaries.length)} نهاد تخصصی عمران، انبوه‌سازی و خدمات فنی مهندسی`" />
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <NuxtLink
-            v-for="(c, i) in companies"
+            v-for="(c, i) in subsidiaries"
             :key="c.slug"
             :to="`/companies/${c.slug}`"
             class="group flex h-[340px] flex-col justify-between rounded-lg border border-border bg-surface p-7 transition-colors duration-150 hover:border-primary-container hover:bg-surface-container-lowest"

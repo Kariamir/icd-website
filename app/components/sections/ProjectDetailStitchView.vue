@@ -19,6 +19,7 @@ const status = computed(() => projectStatus[props.project.status])
 const isSelling = computed(() => props.project.status === 'under-construction' || props.project.status === 'upcoming')
 
 const yearLabel = computed(() => {
+  if (props.project.year == null) return null
   const y = faDigits(props.project.year)
   return { 'upcoming': `آغاز ${y}`, 'under-construction': `آغاز ساخت ${y}`, 'operating': `بهره‌برداری از ${y}`, 'completed': `تحویل ${y}` }[props.project.status]
 })
@@ -32,30 +33,39 @@ const tabs: { key: Tab, label: string, icon: IconName }[] = [
   { key: 'units', label: 'ظرفیت و واحدها', icon: 'domain' },
 ]
 
+/*
+ * Rows whose value the catalog does not carry are dropped, not printed as a
+ * zero — and the structural rows derived from floor count and area go with
+ * them, because a "system" inferred from a missing number is a guess wearing
+ * a specification's clothes (ADR-024).
+ */
+const row = (label: string, value: string | null | undefined): [string, string][] =>
+  value == null ? [] : [[label, value]]
+
 const specs = computed<Record<Tab, [string, string][]>>(() => {
   const p = props.project
   return {
     arch: [
       ['کاربری اصلی', p.usage],
       ['وضعیت پروژه', status.value.short],
-      ['تعداد طبقات', `${faDigits(p.floors)} طبقه`],
-      ['زیربنای ناخالص', faArea(p.areaSqm)],
-      ['زمان‌بندی', yearLabel.value],
+      ...row('تعداد طبقات', p.floors != null ? `${faDigits(p.floors)} طبقه` : null),
+      ...row('زیربنای ناخالص', p.areaSqm != null ? faArea(p.areaSqm) : null),
+      ...row('زمان‌بندی', yearLabel.value),
       ['شرکت مالک و مجری', company.value.name],
     ],
     structure: [
-      ['سیستم سازه‌ای', p.floors > 15 ? 'قاب خمشی بتنی با هسته مرکزی صلب' : 'قاب بتن‌آرمه با دیوار برشی'],
+      ...row('سیستم سازه‌ای', p.floors == null ? null : p.floors > 15 ? 'قاب خمشی بتنی با هسته مرکزی صلب' : 'قاب بتن‌آرمه با دیوار برشی'),
       ['طراحی لرزه‌ای', 'بر پایه عملکرد، مطابق ویرایش چهارم ۲۸۰۰'],
-      ['سقف‌ها', p.areaSqm > 30000 ? 'دال پس‌کشیده (Post-Tensioned)' : 'دال بتنی دوطرفه'],
-      ['پی', p.floors > 15 ? 'رادیه ژنرال با شمع‌های عمیق' : 'رادیه ژنرال'],
+      ...row('سقف‌ها', p.areaSqm == null ? null : p.areaSqm > 30000 ? 'دال پس‌کشیده (Post-Tensioned)' : 'دال بتنی دوطرفه'),
+      ...row('پی', p.floors == null ? null : p.floors > 15 ? 'رادیه ژنرال با شمع‌های عمیق' : 'رادیه ژنرال'),
       ['نظارت و کنترل کیفیت', 'شرکت خدمات مهندسی ایران (IEC)'],
       ['طراحی', 'مهندسان مشاور رهشهر'],
     ],
     geo: [
       ['شهر', p.city],
       ['محدوده', p.district],
-      ['زیربنای کل', faArea(p.areaSqm)],
-      ['ارتفاع تقریبی', `${faDigits(Math.round(p.floors * 3.4))} متر`],
+      ...row('زیربنای کل', p.areaSqm != null ? faArea(p.areaSqm) : null),
+      ...row('ارتفاع تقریبی', p.floors != null ? `${faDigits(Math.round(p.floors * 3.4))} متر` : null),
     ],
     units: [
       ['تعداد واحدها', p.units ? `${faNumber(p.units)} واحد` : 'بدون واحد قابل واگذاری'],
@@ -93,8 +103,8 @@ const gallery = computed(() => [
         <p class="max-w-2xl text-headline-sm font-headline-sm font-medium text-brand-tint">{{ project.excerpt }}</p>
         <div class="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-surface-container-lowest/20 pt-6 text-surface-container-lowest">
           <div><span class="block text-label-md text-surface-dim">موقعیت</span><span class="text-body-lg font-bold">{{ project.city }}، {{ project.district }}</span></div>
-          <div><span class="block text-label-md text-surface-dim">زیربنا</span><span class="text-body-lg font-bold">{{ faArea(project.areaSqm) }}</span></div>
-          <div><span class="block text-label-md text-surface-dim">طبقات</span><span class="text-body-lg font-bold">{{ faDigits(project.floors) }}</span></div>
+          <div v-if="project.areaSqm != null"><span class="block text-label-md text-surface-dim">زیربنا</span><span class="text-body-lg font-bold">{{ faArea(project.areaSqm) }}</span></div>
+          <div v-if="project.floors != null"><span class="block text-label-md text-surface-dim">طبقات</span><span class="text-body-lg font-bold">{{ faDigits(project.floors) }}</span></div>
           <div v-if="project.progress != null" class="min-w-48">
             <span class="block text-label-md text-surface-dim">پیشرفت فیزیکی {{ faDigits(project.progress) }}٪</span>
             <span class="mt-2 block h-1.5 overflow-hidden rounded-pill bg-surface-container-lowest/20"><span class="block h-full rounded-pill bg-brand-tint" :style="{ width: `${project.progress}%` }" /></span>

@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.8 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.9 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.9 — the client's films, the real board, and one HR destination (ADR-024).** **(1)** The homepage hero is «فیلم شماره ۱», whose own ending — the room dims, the parent lockup and the nine subsidiary marks rise on the conference screen, then clear it — **retires the six tracked windows** of ADR-017; «فیلم شماره ۲» then plays on that screen, and again on `/about#history`. **(2)** `#board` is **ICD's own board**, transcribed from the CODAL filings, with the five senior executives below it and the three committees carrying their full membership and each committee's secretary — closing ADR-018's gap. **(3)** `#vision` is **removed**; `/about/vision` and `/about/csr` now 301 to `#committees`. The About section order is hero · `#history` · `#subsidiaries` · `#board` · `#committees` · `#contact`. **(4)** `/careers` becomes **`/hr`** — «امور اداری و منابع انسانی» — carrying the same content plus HR news and the organisational slogan, reached from a footer button rather than a list item; `/careers` 301s there. **(5)** `/legal/terms` **merges into `/legal/privacy`** and 301s to it; the footer's bottom row carries one «حریم خصوصی». **(6)** «تقویم مجامع» leaves the Investment footer column, every footer link deep-links to its named section, and three external systems (بیمه کوثر, Selfit, اتوماسیون اداری) are added. **(7)** «مهندسی و مدیریت ساخت ثاخت» is the **parent**, not a subsidiary, and is out of every «خانواده ثاخت» list while keeping its own page. **(8)** Three projects are added: «اسپارو» (رشت), «ناریا» (ایزدشهر), «کاسپیانا» (نوشهر). Template count: **35**.
 
 **Changes in 1.8 — fidelity to the approved designs, and a flatter menu (ADR-016).** **(1)** `#history` is a **vertical spine timeline** — a centre line, a node pin per milestone, content card and photograph alternating down the page — as the approved design draws it. §4.2's "horizontal scrolling timeline" wording is superseded, and the five movements' copy now comes from the design. **(2)** «درباره ثاخت», «رسانه ثاخت» and «دیده‌بان ثاخت» are **standalone menu items with no dropdown**; «پروژه‌ها» and «فروش و پیش‌فروش» keep theirs. **(3)** `/ir/symbol`, `/ir/calendar`, `/ir/governance` and `/ir/faq` are **retired as routes** and become `#symbol`, `#calendar`, `#governance` and `#faq` on `/ir/financials`, which they 301 to. **(4)** The eight `/about/*` URLs ADR-004 deleted now 301 to their anchors — half of §13 q9 is closed. **(5)** The **account cluster is built**: `/auth/login` and the five `/account/*` screens, with «ورود سهامداران» pointing at the login. Template count: **36**.
 
@@ -25,7 +27,7 @@
 
 | Metric | Count |
 |---|---|
-| Unique routes / templates to build | **36** |
+| Unique routes / templates to build | **35** |
 | Of which are dynamic templates (`[slug]`) | 6 |
 | Estimated rendered URLs at launch | ~79 |
 | Content models | 11 |
@@ -69,11 +71,11 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 |---|---|---|---|---|
 | 0 | هیرو | — | Brand slogan, 3D animation / holding intro video | «کشف پروژه‌ها» or scroll cue |
 | 1 | ثاخت در یک نگاه | About + کارنامه | Key stats: founding year (۱۳۶۴), built area, project count, registered capital | «بیشتر درباره ثاخت» |
-| 2 | خانواده ثاخت | Companies | 8 subsidiary logo tiles, each linked to `/companies/[slug]` | logo click |
+| 2 | رسانه ثاخت | Media | **Moved here from block 6 in v1.9 (ADR-025).** One lead story with its photograph, the next four as rows beside it, and the five categories as a way into the archive | «آرشیو رسانه» |
 | 3 | پروژه‌های شاخص | Projects | 3D Tehran map / carousel / featured project + virtual tour entry | «مشاهده همه پروژه‌ها» |
 | 4 | بنر فروش و پیش‌فروش | Sales | Current pre-sale offer | «مشاوره خرید» |
-| 5 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
-| 6 | نبض ثاخت | Media | 3 latest news/blog/podcast cards | «مشاهده همه اخبار» |
+| 6 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
+| 2b | خانواده ثاخت | Companies | Subsidiary logo tiles, each linked to `/companies/[slug]` | logo click |
 | 7 | افتخارات و اعتماد | About › `#history` | Certificate / award / membership strip | none (trust signal only) |
 | 8 | بنر پایانی مشاوره + خبرنامه | Sales + Contact | Final call to action, email/phone form | «درخواست مشاوره» |
 
@@ -102,10 +104,9 @@ Section ids must stay in sync with `app/components/sections/AboutStitchView.vue`
 | 1 | — | Hero | Full-bleed project photograph, company name, one line | |
 | 2 | `#history` | تاریخچه | **The whole historical narrative, in one section.** See §4.2 | Merges former `/about/history` + «کارنامه» + «افتخارات» (v1.4) |
 | 3 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
-| 4 | `#board` | هیات‌مدیره | One flat card per member: portrait, name, position, education, company represented, 2-line bio | **No individual profile pages.** Replaces `/about/board/[slug]` |
-| 5 | `#committees` | کمیته‌ها | Classification of ثاخت's committees: name, mandate, chair, membership | **New in v1.2** — client priority. Data already exists in `OrgChartView.vue` / `BoardMemberProfile.vue`. Built in v1.7 from the committee data in `orgChartData.ts` |
-| 6 | `#vision` | چشم‌انداز، حاکمیت شرکتی و استانداردهای مهندسی | Three short columns, one image and one sentence each | Merges former `/about/vision` + governance + engineering standards |
-| 7 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
+| 4 | `#board` | هیات‌مدیره و مدیران ارشد | **ICD's own board** from the CODAL filings: five members, each with portrait, position, the legal shareholder represented, موظف/غیرموظف status and qualifications — chair and managing director at full size, the rest below, the board secretary (when named) smaller still. The five senior executives follow in a distinct layout | **No individual profile pages.** Rebuilt in v1.9 (ADR-024); `ui/PersonCard.vue` draws this and the subsidiaries' boards alike |
+| 5 | `#committees` | کمیته‌ها | The three committees — حسابرسی, انتصابات, ریسک — each with its mandate, its full membership (independence and financial-expert status marked) and **its secretary named at the foot** | Rebuilt in v1.9 from the CODAL filings (ADR-024). The invented membership in `orgChartData.ts` is deleted |
+| 6 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
 
 ### 4.2 `#history` — one narrative, four movements
 
@@ -364,22 +365,23 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 43 | `/account/documents` | مدارک | `APP` | Document upload/download | Sensitive — see security checklist |
 | 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets | CEO-message threads removed in v1.4 |
 | 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Contact channels, the desk for each topic, offices, short callback form | Rebuilt in v1.7; the header CTA goes to `/sales/consultation`, this page is its secondary link |
-| 43 | `/careers` | فرصت‌های همکاری و استخدام | `STATIC` + `FORM` | Short intro, two-field resume form, and the HR topics as sections | **Restructured in v1.2** — see §9.1 |
+| 43 | `/hr` | امور اداری و منابع انسانی | `STATIC` + `FORM` | Organisational slogan, short intro, HR news, two-field resume form, and the HR topics as sections | **Renamed and extended in v1.9** (ADR-024); `/careers` 301s here — see §9.1 |
 | 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
 | 46 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | Header icon |
-| 47 | `/legal/terms` | قوانین | `SYSTEM` | Footer bottom row | |
-| 48 | `/legal/privacy` | حریم خصوصی | `SYSTEM` | Footer bottom row | |
+| 48 | `/legal/privacy` | حریم خصوصی | `SYSTEM` | Footer bottom row. Carries the privacy policy **and** the condensed terms of use — `/legal/terms` merged into it and 301s here (v1.9, ADR-024) | |
 | 49 | `/404` | صفحه یافت نشد | `SYSTEM` `3D` | Branded 404 | |
 | 50 | `/500` | خطای سرور | `SYSTEM` | Must render without WebGL | |
 
 > Route numbers are historical and no longer contiguous — 44 was the deleted `/tenders` (ADR-009), and 53–54 are the Option B company routes in §5.2. Numbers are kept stable so earlier versions and the decision log stay readable. The useful estimating figure is **42 templates** (§1).
 
-### 9.1 `/careers` — فرصت‌های همکاری و استخدام
+### 9.1 `/hr` — امور اداری و منابع انسانی
 
-One page, in this order (ADR-006):
+One page, in this order (ADR-006, extended by ADR-024):
 
 | Order | Anchor | Content |
 |---|---|---|
+| 0a | `#slogan` | **The organisational slogan** «ما ثاختیم» and the four values under it, on ink |
+| 0b | `#news` | **HR news** — the desk's own announcements: administrative, training, welfare, internal calls. ⛔ sample records until the HR desk supplies real ones |
 | 1 | — | **Brief intro only.** Two or three sentences on working at ثاخت, over a photograph. No long employer-brand essay |
 | 2 | `#resume` | **Simple resume form: name and contact number only.** Plus the file attachment itself. No cover letter, no portal account, no multi-step wizard |
 | 3 | `#benefits` | مزایا و رفاه کارکنان — benefits and employee welfare |
@@ -430,11 +432,15 @@ Result: ~45% more compact than a conventional 9-item menu.
 |---|---|
 | 1 | Logo + short intro + address + phone + social links |
 | 2 — دسترسی سریع | درباره ثاخت / پروژه‌ها / فروش / تماس با ما / internal systems (اتوماسیون اداری، درگاه هلدینگ) |
-| 3 — سرمایه‌گذاران | دیده‌بان ثاخت / کدال / اسناد و گزارش‌ها (شامل مناقصات و مزایدات) / تقویم مجامع |
-| 4 — خدمات و همکاری | پروفایل من / سوالات متداول / سامانه رسیدگی به شکایات / **فرصت‌های همکاری و استخدام** |
+| 3 — سرمایه‌گذاران | دیده‌بان ثاخت / اطلاعات نماد / مناقصات و مزایدات / اسناد و گزارش‌ها — every entry deep-links to its own section (v1.9); «تقویم مجامع» removed |
+| 4 — خدمات و همکاری | درخواست مشاوره / سوالات متداول / سامانه رسیدگی به شکایات / پروفایل من |
 | 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/companies/[slug]` |
 
-**Bottom row:** © copyright | قوانین و حریم خصوصی
+**Brand column:** also carries the address, postcode, phone and fax the client supplied in 1405/08, and the prominent **«امور اداری و منابع انسانی»** button that replaced the careers link (v1.9).
+
+**Systems row:** بیمه کوثر · Selfit · اتوماسیون اداری — other applications, so they open in a new tab (v1.9).
+
+**Bottom row:** © copyright | حریم خصوصی | جستجو
 
 > Internal systems (office automation, holding portal) are deliberately removed from the main menu and kept footer-only — the public audience has no need for them.
 

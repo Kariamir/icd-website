@@ -36,7 +36,7 @@ export interface SearchHit {
 
 const PAGES: SearchHit[] = [
   { type: 'pages', title: 'درباره ثاخت', text: 'تاریخچه، خانواده ثاخت، هیات‌مدیره، کمیته‌ها و چشم‌انداز', href: '/about', meta: 'صفحه', sortKey: 0 },
-  { type: 'pages', title: 'فرصت‌های همکاری و استخدام', text: 'ارسال رزومه، مزایا، آموزش و پرسش‌های متداول', href: '/careers', meta: 'صفحه', sortKey: 0 },
+  { type: 'pages', title: 'امور اداری و منابع انسانی', text: 'اخبار منابع انسانی، شعار سازمانی، ارسال رزومه، مزایا و آموزش', href: '/hr', meta: 'صفحه', sortKey: 0 },
   { type: 'pages', title: 'اطلاعات نماد ثاخت در بورس', text: 'قیمت، حجم معاملات و سابقه سود نماد', href: '/ir/symbol', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'تقویم مجامع و اطلاع‌رسانی', text: 'مجامع عمومی، پرداخت سود و دوره‌های سکوت', href: '/ir/calendar', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'گزارش‌ها و اطلاعیه‌های رسمی', text: 'صورت‌های مالی، گزارش هیات‌مدیره، گزارش کمیته‌ها و اطلاعیه‌های کدال', href: '/ir/financials#documents-archive', meta: 'دیده‌بان ثاخت', sortKey: 0 },
@@ -61,7 +61,7 @@ export function normalise(s: string) {
 
 function build() {
   const all: SearchHit[] = [
-    ...projects.map(p => ({ type: 'projects' as const, title: p.name, text: p.excerpt, href: `/projects/${p.slug}`, meta: `${projectStatus[p.status].short} · ${p.city}`, image: p.image, sortKey: p.year * 10000 })),
+    ...projects.map(p => ({ type: 'projects' as const, title: p.name, text: p.excerpt, href: `/projects/${p.slug}`, meta: `${projectStatus[p.status].short} · ${p.city}`, image: p.image, sortKey: (p.year ?? 0) * 10000 })),
     ...companies.map(c => ({ type: 'companies' as const, title: c.name, text: c.summary, href: `/companies/${c.slug}`, meta: c.specialty, image: c.image, sortKey: 0 })),
     ...units.map(u => ({ type: 'units' as const, title: u.title, text: `${getProject(u.project)?.name ?? ''} · ${u.usage} · ${u.facing}`, href: `/sales/units/${u.id}`, meta: priceLabel(u.price), image: u.image, sortKey: 0 })),
     ...posts.map(p => ({ type: 'media' as const, title: p.title, text: p.excerpt, href: `/media/${p.slug}`, meta: `${mediaCategories.find(m => m.value === p.category)?.label} · ${p.date}`, image: p.image, sortKey: p.sortKey })),

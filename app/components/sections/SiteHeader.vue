@@ -36,7 +36,7 @@ function pathOf(href: string) {
 
 /** A top item is active on its own page and on every page of its cluster. */
 const clusterPrefix: Record<string, string[]> = {
-  [routes.about]: ['/about', '/companies', '/careers'],
+  [routes.about]: ['/about', '/companies', '/hr'],
   [routes.projects]: ['/projects'],
   [routes.sales]: ['/sales'],
   [routes.irFinancials]: ['/ir'],

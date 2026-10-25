@@ -45,7 +45,7 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
     { icon: 'square_foot', title: 'متراژ', value: faArea(props.unit.areaSqm), note: 'مطابق دستورالعمل تفکیک اداره ثبت اسناد.' },
     { icon: 'king_bed', title: props.unit.bedrooms ? 'اتاق خواب' : 'کاربری', value: props.unit.bedrooms ? `${faDigits(props.unit.bedrooms)} خواب` : props.unit.usage, note: 'پلان بدون ستون مزاحم در فضای اصلی.' },
     { icon: 'weekend', title: 'جهت و نور', value: props.unit.facing, note: 'پنجره‌های قدی با شیشه دوجداره.' },
-    { icon: 'deck', title: 'طبقه', value: props.unit.floor === 0 ? 'همکف' : `طبقه ${faDigits(props.unit.floor)}`, note: `از ${faDigits(project.value.floors)} طبقه پروژه.` },
+    { icon: 'deck', title: 'طبقه', value: props.unit.floor === 0 ? 'همکف' : `طبقه ${faDigits(props.unit.floor)}`, note: project.value.floors != null ? `از ${faDigits(project.value.floors)} طبقه پروژه.` : 'طبقه واحد مطابق پروانه ساختمانی.' },
   ],
   mep: [
     { icon: 'engineering', title: 'سازه', value: 'بتن‌آرمه با دیوار برشی', note: 'طراحی لرزه‌ای مطابق آیین‌نامه ۲۸۰۰.' },

@@ -2,39 +2,50 @@
 /*
  * Homepage block 0 — the film, scrubbed by pointer travel.
  *
- * The clip the client supplied is 31s / 940 frames. It ships as 314 WebP
- * stills (every third frame, 1280×720, public/hero/seq) rather than as a
- * video, because the timeline is driven by the pointer and can jump anywhere:
- * a still can be drawn the instant it is asked for, where seeking a
- * compressed video cannot.
+ * The clip is «فیلم شماره ۱» as the client supplied it (ADR-024): 26.4s,
+ * 1920×1080 at 20fps, a continuous aerial-to-interior move that ends on the
+ * group's end-card. It ships as 240 WebP stills (1280×720, public/hero/seq)
+ * rather than as a video, because the timeline is driven by the pointer and
+ * can jump anywhere: a still can be drawn the instant it is asked for, where
+ * seeking a compressed video cannot.
  *
- * public/hero/windows.json carries the result of tracking the six windows
- * through the closing shot — a normalised box per window per frame — so a
- * subsidiary's mark is pinned to the glass and travels with it rather than
- * being faked at a fixed position.
+ * WHAT CHANGED FROM THE PREVIOUS FILM. The old clip ended on a wall of
+ * windows, and the site tracked six of them so a subsidiary's mark could be
+ * pinned to the glass (public/hero/windows.json). This film carries its own
+ * ending instead — the room dims, the parent lockup fades up on the
+ * conference screen, the nine subsidiary marks fade up beneath it, and
+ * everything fades out onto a clean lit screen. So the tracking is retired,
+ * and the hero carries no group heading of its own: «شرکت‌های تابعه در یک
+ * زنجیره» further down the page is where the companies are named and
+ * opened (owner's instruction, ADR-025).
  *
- * The film holds the viewport until it has run; then the page releases and
- * the rest of the homepage scrolls normally beneath it.
+ * The screen then plays «فیلم شماره ۲», projected into the rectangle the
+ * ending deliberately leaves empty.
  */
-import { companies } from '~/utils/catalog'
 
-const FRAMES = 314
-/* The film occupies the first 93% of the scrub; the last 7% holds on the
-   final frame so the sixth company gets its moment before the page releases. */
-const FILM_END = 0.93
-const SECTION_IN = 150     // «خانواده ثاخت» is full here …
-const SECTION_OUT = 172    // … and gone once the first window is on screen
+const FRAMES = 240
+/* The film occupies the first 95% of the scrub; the last 5% holds on the
+   clean lit screen, which is where «فیلم شماره ۲» comes up. */
+const FILM_END = 0.95
 const VW = 1280, VH = 720
-const PLATE_REF = 385      // window width in px at which a plate renders 1:1
+
+/*
+ * The projection screen in the closing frames, measured off the footage
+ * itself rather than eyeballed: the bright rectangle is x 383–991, y 115–444
+ * in the 1280×720 stills, and it is axis-aligned to the pixel — the camera
+ * settles square-on — so «فیلم شماره ۲» needs no corner-pinning, only the
+ * same object-cover mapping the canvas uses.
+ */
+const SCREEN = { x: 383 / VW, y: 115 / VH, w: 608 / VW, h: 329 / VH }
+/* The end-card is clear by here, so the screen is free. */
+const SCREEN_IN = 226
 
 const pad = (n: number) => String(n).padStart(3, '0')
 const fa = (s: string | number) => String(s).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[Number(d)]!)
 
-interface Track { enter: number, exit: number, centre: number, pts: Record<number, number[]> }
-
 const root = ref<HTMLElement>()
 const canvas = ref<HTMLCanvasElement>()
-const plateEls = ref<HTMLElement[]>([])
+const screenVideo = ref<HTMLVideoElement>()
 
 const loaded = ref(0)
 const ready = ref(false)
@@ -54,20 +65,13 @@ let chromeObserver: IntersectionObserver | null = null
 const moved = ref(false)
 const progress = ref(0)
 
-/* The first six subsidiaries take the six windows the closing shot tracks.
-   The rest are in the panel at the end — the footage has six windows, and
-   the client has ten companies. */
-const windowCompanies = computed(() => companies.slice(0, 6))
-
 let imgs: (HTMLImageElement | undefined)[] = []
 let state: Uint8Array = new Uint8Array(0)
-let tracks: Track[] = []
 let target = 0
 let current = 0
 let vw = 0, vh = 0
 let lastDrawn = -1
 let raf = 0
-let firstWindow = 160
 
 function fit() {
   const s = Math.max(vw / VW, vh / VH)
@@ -179,30 +183,61 @@ function onKey(e: KeyboardEvent) {
 
 /* ------------------------------------------------------------- render */
 
-function updatePlates(idx: number) {
+/*
+ * Where the conference screen is on the page right now. The canvas is drawn
+ * 1:1 and upscaled by CSS `object-fit: cover`, so the same fit() the film
+ * uses maps the measured rectangle onto the viewport — the video sits exactly
+ * where the projection is, at any window size.
+ */
+const screenBox = ref({ left: 0, top: 0, width: 0, height: 0 })
+
+function placeScreen() {
   const f = fit()
-  const i = Math.round(idx)
-  plateEls.value.forEach((el, n) => {
-    const t = tracks[n]
-    if (!el || !t) return
-    const box = t.pts[i]
-    if (!box || i < t.enter || i > t.exit) { el.style.opacity = '0'; return }
-    const [bx, by, bw, bh] = box as [number, number, number, number]
-    const cx = bx + bw / 2
-    // Opacity peaks hard at the centre of frame: two windows are on screen at
-    // once through most of this shot, and a flat fade would leave both marks
-    // equally loud with nothing saying which one is being presented.
-    const focus = Math.max(0, 1 - Math.pow(Math.min(1, Math.abs(cx - 0.5) / 0.30), 1.6))
-    const inRamp = Math.min(1, Math.max(0, (i - t.enter) / 6))
-    const outRamp = t.exit >= FRAMES - 1 ? 1 : Math.min(1, Math.max(0, (t.exit - i) / 6))
-    const k = Math.min(1.15, (bw * f.w) / PLATE_REF)
-    el.style.transform = `translate(${f.x + cx * f.w}px, ${f.y + (by + bh / 2) * f.h}px) scale(${k})`
-    el.style.opacity = String(focus * inRamp * outRamp)
-  })
+  screenBox.value = {
+    left: f.x + SCREEN.x * f.w,
+    top: f.y + SCREEN.y * f.h,
+    width: SCREEN.w * f.w,
+    height: SCREEN.h * f.h,
+  }
 }
 
-const sectionAlpha = ref(0)
 const openingAlpha = ref(1)
+const screenAlpha = ref(0)
+const screenMuted = ref(true)
+const screenArmed = ref(false)
+
+/*
+ * The second film is only fetched once the viewer has actually scrubbed to
+ * the end of the first — `preload="none"` plus this gate, so a visitor who
+ * never reaches the ending never downloads 18MB for it. Autoplay is muted
+ * because no browser will start a sound-on video unprompted; the control
+ * beneath the screen turns the sound on.
+ */
+function toggleScreenSound() {
+  const v = screenVideo.value
+  if (!v) return
+  screenMuted.value = !screenMuted.value
+  v.muted = screenMuted.value
+  if (!v.muted) v.play().catch(() => {})
+}
+
+function startScreenFilm() {
+  if (screenArmed.value) return
+  screenArmed.value = true
+  const v = screenVideo.value
+  if (!v) return
+  if (!v.src) {
+    // VP9 where it is supported, H.264 everywhere else. Assigned rather than
+    // declared as <source> elements so nothing is fetched until this runs.
+    v.src = v.canPlayType('video/webm; codecs="vp9"')
+      ? '/video/icd-story.webm'
+      : '/video/icd-story.mp4'
+    // `preload="none"` means assigning src is not enough on its own —
+    // without this the element keeps showing the poster and never decodes.
+    v.load()
+  }
+  v.play().catch(() => { /* a browser that refuses autoplay leaves the poster */ })
+}
 
 function tick() {
   current += (target - current) * 0.12
@@ -211,22 +246,31 @@ function tick() {
 
   const idx = frameAt(current)
   draw()
-  if (idx >= firstWindow - 8) updatePlates(idx)
-  else plateEls.value.forEach(el => el && (el.style.opacity = '0'))
 
-  sectionAlpha.value = idx > SECTION_IN - 22 && idx < SECTION_OUT
-    ? Math.min(1, (idx - (SECTION_IN - 22)) / 14) * Math.min(1, Math.max(0, (SECTION_OUT - idx) / 10))
-    : 0
-  openingAlpha.value = Math.max(0, 1 - Math.max(0, (idx - 18) / 26))
+  openingAlpha.value = Math.max(0, 1 - Math.max(0, (idx - 14) / 20))
+
+  // «فیلم شماره ۲» comes up on the screen once the end-card has cleared it.
+  screenAlpha.value = Math.min(1, Math.max(0, (idx - SCREEN_IN) / 8))
+  if (screenAlpha.value > 0.05) startScreenFilm()
+
   done.value = current > 0.995
 
   raf = requestAnimationFrame(tick)
 }
 
 function resize() {
-  vw = window.innerWidth; vh = window.innerHeight
+  /*
+   * Measure the CANVAS, not the window. The hero is deliberately 5rem taller
+   * than the viewport so the film runs under the header, so object-cover is
+   * computed against 100svh + 80px — reading window.innerHeight here put the
+   * projected screen about eighty pixels and six percent of scale off.
+   */
+  const el = canvas.value
+  vw = el?.clientWidth || window.innerWidth
+  vh = el?.clientHeight || window.innerHeight
   const cv = canvas.value
   if (cv && cv.width !== VW) { cv.width = VW; cv.height = VH }
+  placeScreen()
   draw(true)
 }
 
@@ -243,7 +287,12 @@ onMounted(async () => {
 
   if (typeof IntersectionObserver !== 'undefined' && root.value) {
     chromeObserver = new IntersectionObserver(
-      ([entry]) => { overFilm.value = !!entry?.isIntersecting },
+      ([entry]) => {
+        overFilm.value = !!entry?.isIntersecting
+        // Nothing should keep playing off-screen while the page scrolls on.
+        if (!entry?.isIntersecting) screenVideo.value?.pause()
+        else if (screenArmed.value) screenVideo.value?.play().catch(() => {})
+      },
       { rootMargin: '-81px 0px 0px 0px', threshold: 0 },
     )
     chromeObserver.observe(root.value)
@@ -251,13 +300,6 @@ onMounted(async () => {
   else {
     overFilm.value = true
   }
-
-  const data = await $fetch<{ windows: Track[] }>('/hero/windows.json')
-  tracks = data.windows.map(w => ({
-    enter: w.enter, exit: w.exit, centre: w.centre,
-    pts: Object.fromEntries(Object.entries(w.pts).map(([k, v]) => [Number(k), v])),
-  }))
-  firstWindow = Math.min(...tracks.map(t => t.enter))
 
   for (let i = 0; i < 16; i++) await loadFrame(i)
   draw(true)
@@ -314,36 +356,44 @@ defineExpose({
         <span class="size-1.5 rounded-pill bg-brand-tint" />شرکت بین‌المللی توسعه ساختمان · نماد ثاخت
       </span>
       <h1 class="max-w-[15ch] text-headline-xl-mobile font-headline-xl leading-tight text-surface-container-lowest md:text-[76px] md:leading-[1.06]">
-        ساختن، با انضباط مهندسی
+        ما ثاختیم
       </h1>
       <p class="max-w-xl text-body-lg text-surface-dim">هلدینگ ساخت‌وساز و املاک؛ توسعه پروژه‌های نهادی از ۱۳۶۴.</p>
     </div>
 
-    <!-- the section title, before the windows arrive -->
+    <!--
+      «فیلم شماره ۲», projected into the screen the ending clears. Positioned
+      from the measured rectangle, so it lands on the projection at any
+      window size rather than floating in front of it.
+    -->
     <div
-      class="pointer-events-none absolute bottom-[22vh] right-space-lg z-25 flex flex-col items-start gap-3 md:right-margin"
-      :style="{ opacity: sectionAlpha }"
+      class="pointer-events-none absolute z-24"
+      :style="{
+        left: `${screenBox.left}px`,
+        top: `${screenBox.top}px`,
+        width: `${screenBox.width}px`,
+        height: `${screenBox.height}px`,
+        opacity: screenAlpha,
+      }"
     >
-      <span class="rounded-pill border border-primary-container/20 bg-surface-container-lowest/75 px-4 py-1.5 text-label-md font-label-lg text-primary-container">ساختار گروه</span>
-      <h2 class="text-headline-lg font-headline-xl text-ink drop-shadow-[0_1px_18px_rgba(255,255,255,0.75)] md:text-[58px]">خانواده ثاخت</h2>
-      <span class="h-0.5 rounded-pill bg-primary-container transition-[width] duration-500" :style="{ width: `${sectionAlpha * 92}px` }" />
-    </div>
-
-    <!-- one mark per tracked window -->
-    <div class="pointer-events-none absolute inset-0 z-22">
-      <NuxtLink
-        v-for="(c, i) in windowCompanies"
-        :key="c.slug"
-        :ref="el => { if (el) plateEls[i] = (el as any).$el ?? el }"
-        :to="`/companies/${c.slug}`"
-        class="pointer-events-auto absolute left-0 top-0 size-0 origin-top-left opacity-0"
+      <video
+        ref="screenVideo"
+        class="size-full bg-ink object-cover"
+        muted
+        playsinline
+        loop
+        preload="none"
+        poster="/video/icd-story-poster.jpg"
+        aria-label="فیلم معرفی شرکت بین‌المللی توسعه ساختمان"
+      />
+      <button
+        v-if="screenAlpha > 0.9"
+        type="button"
+        class="pointer-events-auto absolute -bottom-12 left-1/2 inline-flex h-9 -translate-x-1/2 items-center gap-1.5 rounded-pill border border-surface-container-lowest/30 bg-ink/70 px-4 text-label-md text-surface-container-lowest backdrop-blur"
+        @click="toggleScreenSound"
       >
-        <span class="absolute left-0 top-0 flex w-[300px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2 rounded-md border border-primary-container/20 bg-surface-container-lowest/80 px-5 py-4 text-center backdrop-blur-md">
-          <CompanyMark :company="c" :size="70" />
-          <span class="text-body-md font-label-lg leading-snug text-ink">{{ c.name }}</span>
-          <span class="rounded-pill bg-brand-tint px-3 py-0.5 text-label-md font-label-lg text-primary-container">{{ c.tag }}</span>
-        </span>
-      </NuxtLink>
+        <AppIcon :name="screenMuted ? 'headset_mic' : 'play_circle'" />{{ screenMuted ? 'پخش صدا' : 'قطع صدا' }}
+      </button>
     </div>
 
     <!-- scrub rail -->
@@ -365,7 +415,14 @@ defineExpose({
       class="absolute inset-0 z-80 flex flex-col items-center justify-center gap-5 bg-ink transition-opacity duration-500"
       :class="ready && 'pointer-events-none opacity-0'"
     >
-      <span class="flex size-14 items-center justify-center rounded-md bg-primary-container text-headline-sm font-headline-md text-surface-container-lowest">ث</span>
+      <!--
+        The company's own mark is the loading indicator (owner's request,
+        ADR-024). It sits on a white plate because the lockup is navy and
+        red with no light variant — on ink it would disappear.
+      -->
+      <span class="loader-mark flex items-center justify-center rounded-md bg-surface-container-lowest px-6 py-4">
+        <img src="/img/brand/icd-logo.png" alt="در حال بارگذاری — هلدینگ ساختمانی ثاخت" class="h-10 w-auto md:h-12">
+      </span>
       <span class="h-0.5 w-[min(300px,62vw)] overflow-hidden rounded-pill bg-surface-container-lowest/15">
         <span class="block h-full origin-right rounded-pill bg-brand-tint transition-transform duration-200" :style="{ transform: `scaleX(${loaded / FRAMES})` }" />
       </span>
@@ -373,3 +430,24 @@ defineExpose({
     </div>
   </section>
 </template>
+
+<style scoped>
+/*
+ * The mark breathes rather than spins: a rotating corporate logo reads as a
+ * gimmick, and this one is a wordmark that would be unreadable turning.
+ * Reduced motion removes the animation rather than shortening it.
+ */
+.loader-mark {
+  animation: loader-breathe 1.8s ease-in-out infinite;
+  box-shadow: 0 18px 48px -24px rgb(0 94 184 / 70%);
+}
+
+@keyframes loader-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(0.965); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-mark { animation: none; }
+}
+</style>

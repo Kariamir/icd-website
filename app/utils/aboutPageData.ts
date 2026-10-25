@@ -14,8 +14,6 @@
  * Content still comes from local data (ADR-002); board, subsidiary and honor
  * records are re-read from their existing files rather than duplicated.
  */
-import { phFor } from '~/utils/media'
-import { orgSubsidiaries } from '~/utils/orgChartData'
 
 // ---------------------------------------------------------------------------
 // Hero
@@ -29,44 +27,6 @@ export const aboutHero = {
     alt: 'نمایی از پروژه‌های شاخص هلدینگ ثاخت',
   },
 }
-
-// ---------------------------------------------------------------------------
-// Pillars — merged چشم‌انداز + حاکمیت شرکتی + استانداردهای مهندسی
-// (former /about/vision + governance portion of /about/org-chart)
-// ---------------------------------------------------------------------------
-
-export interface AboutPillar {
-  id: string
-  title: string
-  text: string
-  image: { src: string, alt: string }
-  /** True when `image` is a logo/mark rather than a photograph. */
-  mark?: boolean
-}
-
-export const aboutPillars: AboutPillar[] = [
-  {
-    id: 'vision',
-    title: 'چشم‌انداز',
-    text: 'توسعه‌دهنده نخست مگاپروژه‌های چندمنظوره ایران، با بازدهی متوازن برای سهامدار و شهر.',
-    image: { src: '/img/about/vision.jpg', alt: '' },
-  },
-  {
-    id: 'governance',
-    title: 'حاکمیت شرکتی',
-    text: 'گزارش‌گری شفاف در کدال، کمیته‌های مستقل حسابرسی و ریسک، و پاسخ‌گویی به مجمع.',
-    image: { src: '/img/about/governance.jpg', alt: '' },
-  },
-  {
-    id: 'standards',
-    title: 'استانداردهای مهندسی',
-    text: 'ISO 9001 و 45001، پایش ژئوتکنیک بلادرنگ، و آزمایشگاه مرکزی بتن در زنجیره ساخت.',
-    // A mark, not a photograph — the template renders this one contained on a
-    // light tile rather than cropped to fill like the two above.
-    image: { src: '/img/about/standards.png', alt: 'ISO' },
-    mark: true,
-  },
-]
 
 // ---------------------------------------------------------------------------
 // History — merged تاریخچه + کارنامه (former /about/history)
@@ -111,11 +71,31 @@ export const aboutMilestones: AboutMilestone[] = [
   {
     id: 'm-1330',
     year: '۱۳۳۰',
-    title: 'پایه‌گذاری پارس سازه؛ نخستین گام‌های صنعتی‌سازی',
-    body: 'آغاز فعالیت‌های شرکت مهندسی پارس سازه با تمرکز بر احداث ابنیه سنگین صنعتی و سازه‌های بتنی پیش‌ساخته در سطح کشور.',
-    tag: 'آغاز جریان مکانیزاسیون ساخت‌وساز',
+    title: 'پارس سازه و احداث جاده تاریخی چالوس',
+    body: 'شرکت پارس سازه، ریشه مهندسی گروه، قطعه تهران–شمال جاده تاریخی چالوس را احداث کرد؛ یکی از دشوارترین پروژه‌های راه‌سازی کوهستانی کشور در آن سال‌ها.',
+    tag: 'راه‌سازی کوهستانی تهران–شمال',
     tagTone: 'ink',
     image: { src: '/img/about/history-1330.jpg', alt: '' },
+    archival: true,
+  },
+  /*
+   * ⛔ SOURCING. The client asked for this milestone and supplied the archival
+   * photograph but no text. The facts below are the ones two independent
+   * public sources agree on — three towers named A, S and P at the Kordestan
+   * and Hakim interchange, completed in the mid-1350s by شرکت آ.س.پ, whose
+   * name is its three founders' — and nothing beyond that is claimed. The
+   * sources differ on the start year (early 1350s vs mid-1340s) and on the
+   * floor count (23 vs 24), so neither is stated. Shareholder affairs should
+   * confirm the wording before launch.
+   */
+  {
+    id: 'm-1354',
+    year: '۱۳۵۴',
+    title: 'مجتمع آ.س.پ؛ نخستین نسل بلندمرتبه‌سازی تهران',
+    body: 'شرکت آ.س.پ — امروز از شرکت‌های تابعه گروه — سه برج A، S و P را در تقاطع بزرگراه‌های کردستان و حکیم به بهره‌برداری رساند؛ یکی از نخستین مجتمع‌های بلندمرتبه مسکونی ایران، در همان محدوده‌ای که دهه‌ها بعد برج بین‌المللی تهران ساخته شد.',
+    tag: 'نخستین مجتمع بلندمرتبه مسکونی پایتخت',
+    tagTone: 'deep',
+    image: { src: '/img/about/asp-archive.jpg', alt: 'مجتمع آ.س.پ تهران' },
     archival: true,
   },
   {
@@ -162,11 +142,18 @@ export const aboutMilestones: AboutMilestone[] = [
 ]
 
 /** The brand film block. `src` stays null until the owner supplies footage. */
+/**
+ * The brand film — «فیلم شماره ۲» as the client supplied it, 1405/08
+ * (ADR-024). 1440×1080, 46s, re-encoded for the web and played in place
+ * rather than linked out. `preload="none"` keeps its 18MB off every visit
+ * to /about; the poster is a frame from the film itself.
+ */
 export const aboutFilm = {
   title: 'روایت ثاخت',
   caption: 'فیلم کوتاه برند',
-  poster: '/img/about/film-poster.jpg',
-  src: null as string | null,
+  poster: '/video/icd-story-poster.jpg',
+  src: '/video/icd-story.mp4' as string | null,
+  srcWebm: '/video/icd-story.webm',
 }
 
 /**
@@ -218,90 +205,6 @@ export const aboutHonors: AboutHonor[] = [
   { id: 'h-1', image: { src: '/img/about/honor-1.png', alt: 'گواهینامه بین‌المللی' }, title: null, year: null },
   { id: 'h-2', image: { src: '/img/about/honor-2.png', alt: 'تندیس' }, title: null, year: null },
   { id: 'h-3', image: { src: '/img/about/honor-3.png', alt: 'لوح تقدیر' }, title: null, year: null },
-]
-
-// ---------------------------------------------------------------------------
-// Subsidiaries — enlarged, blurred backdrop, horizontally scrollable
-// ---------------------------------------------------------------------------
-
-export interface AboutSubsidiary {
-  id: string
-  name: string
-  badge: string
-  stake: string
-  logo: { src: string, alt: string }
-}
-
-export const aboutSubsidiaries: AboutSubsidiary[] = orgSubsidiaries.map(company => ({
-  id: company.id,
-  name: company.name,
-  badge: company.badge,
-  stake: company.stake,
-  logo: {
-    src: phFor('aerial masterplan'),
-    alt: company.name,
-  },
-}))
-
-export const aboutSubsidiariesSection = {
-  title: 'خانواده ثاخت',
-  text: 'هشت شرکت تخصصی، یک زنجیره کامل ساخت.',
-  /** Low-opacity blurred backdrop behind the whole section. */
-  backdrop: phFor('هشت شرکت تخصصی، یک زنجیره کامل ساخت.'),
-}
-
-// ---------------------------------------------------------------------------
-// Board — one card per member, no detail route (ADR-004)
-// ---------------------------------------------------------------------------
-
-export interface AboutBoardCard {
-  slug: string
-  name: string
-  role: string
-  education: string
-  image: { src: string, alt: string }
-}
-
-/**
- * The three executives the client supplied, with their own photographs.
- *
- * This replaces the ten invented members in `boardData.ts`, which were
- * placeholder records from before the client delivered any people at all.
- *
- * ⛔ TWO THINGS THE CLIENT STILL OWES THIS SECTION:
- *
- * 1. **This is the executive team, not the full board.** The client pointed at
- *    http://icd.co.ir/اعضاء-هیات-مدیره/ for the complete list; that page is
- *    disallowed to automated fetching by the site's own robots.txt and was not
- *    worked around, so only the three names and photographs supplied directly
- *    are here. The remaining board members need supplying by hand.
- * 2. The workbook's `هیات‌مدیره و مدیران` sheet lists the boards of the **ten
- *    subsidiaries** (36 records), not ICD's own — so it is not a source here.
- *
- * The portraits are 235×200 video frames: adequate on a card, soft if enlarged.
- */
-export const aboutBoard: AboutBoardCard[] = [
-  {
-    slug: 'alireza-ghorbani',
-    name: 'علیرضا قربانی',
-    role: 'مدیرعامل',
-    education: 'کارشناسی ارشد مهندسی عمران',
-    image: { src: '/img/board/alireza-ghorbani.jpg', alt: 'علیرضا قربانی' },
-  },
-  {
-    slug: 'mohammad-rahimi-moghadam',
-    name: 'محمد رحیمی مقدم',
-    role: 'معاون برنامه‌ریزی و سرمایه‌گذاری',
-    education: 'دکترای مهندسی صنایع و سیستم‌ها',
-    image: { src: '/img/board/mohammad-rahimi-moghadam.jpg', alt: 'محمد رحیمی مقدم' },
-  },
-  {
-    slug: 'abbas-jalalian',
-    name: 'عباس جلالیان',
-    role: 'معاون مالی و سرمایه انسانی',
-    education: 'کارشناسی ارشد مدیریت بازرگانی',
-    image: { src: '/img/board/abbas-jalalian.jpg', alt: 'عباس جلالیان' },
-  },
 ]
 
 // ---------------------------------------------------------------------------

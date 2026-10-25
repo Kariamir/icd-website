@@ -219,6 +219,19 @@ export const companies: Company[] = [
   },
 ]
 
+/**
+ * The subsidiary companies — `companies` minus «مهندسی و مدیریت ساخت ثاخت»,
+ * which is the holding itself and not a subsidiary of it (ADR-024, owner's
+ * instruction). Every «خانواده ثاخت» list on the site reads from this:
+ * the homepage block, /about#subsidiaries, /companies and the footer.
+ *
+ * The parent keeps its record and its page, because the catalog attributes
+ * every project to it and a project must be able to link up to its owner.
+ */
+export const PARENT_COMPANY_SLUG = 'icd-engineering'
+
+export const subsidiaries: Company[] = companies.filter(c => c.slug !== PARENT_COMPANY_SLUG)
+
 export function getCompany(slug: string) {
   return companies.find(c => c.slug === slug)
 }
@@ -243,12 +256,22 @@ export interface Project {
   city: string
   district: string
   usage: string
-  areaSqm: number
-  floors: number
+  /**
+   * Gross floor area, floor count and the project's year.
+   *
+   * Optional since ADR-024: the three projects the client added in 1405/08
+   * («اسپارو», «ناریا», «کاسپیانا») came with a name, a location and a
+   * photograph and nothing else. Every surface that shows these hides the
+   * row when the value is absent rather than printing a zero or a guess —
+   * a fabricated floor count on a listed company's project page is a
+   * disclosure error, not a cosmetic gap.
+   */
+  areaSqm?: number
+  floors?: number
   /** Number of residential/commercial units, when the project sells units. */
   units?: number
   /** Solar-hijri year: start for upcoming/under-construction, delivery otherwise. */
-  year: number
+  year?: number
   progress?: number
   excerpt: string
   image: string
@@ -420,6 +443,51 @@ export const projects: Project[] = [
     map: { x: 50, y: 34 },
     coords: { lon: 51.38, lat: 35.72 },
     featured: true,
+    origin: 'site',
+  },
+
+  /*
+   * Added by the client 1405/08 (ADR-024). Each came with a name, a location
+   * and one photograph — no area, no floor count, no year, no progress
+   * figure. Those fields are left undefined rather than estimated, and every
+   * surface hides the row when the value is absent. `usage` is read from the
+   * project's own name («برج تجاری اداری» / «برج مسکونی»), which is the
+   * client's wording, not an inference.
+   */
+  {
+    slug: 'esparrow-rasht', name: 'برج تجاری اداری اسپارو', nameEn: 'Esparrow Commercial Office Tower',
+    status: 'under-construction', company: 'icd-engineering',
+    city: 'رشت', district: 'استان گیلان، مرکز شهر رشت',
+    usage: 'تجاری و اداری',
+    excerpt: 'برج تجاری و اداری در مرکز شهر رشت.',
+    image: '/img/projects/esparrow-rasht-1.jpg',
+    gallery: ['/img/projects/esparrow-rasht-1.jpg'],
+    map: { x: 32, y: 22 },
+    coords: { lon: 49.588, lat: 37.280 },
+    origin: 'site',
+  },
+  {
+    slug: 'naria-izadshahr', name: 'نارنجستان جنوبی: برج‌های مسکونی ناریا', nameEn: 'Naria Residential Towers',
+    status: 'under-construction', company: 'icd-engineering',
+    city: 'ایزدشهر', district: 'استان مازندران، ایزدشهر، ساحل دریای خزر',
+    usage: 'مسکونی',
+    excerpt: 'برج‌های مسکونی ناریا در ساحل دریای خزر، ایزدشهر مازندران.',
+    image: '/img/projects/naria-izadshahr-1.jpg',
+    gallery: ['/img/projects/naria-izadshahr-1.jpg'],
+    map: { x: 56, y: 20 },
+    coords: { lon: 52.100, lat: 36.636 },
+    origin: 'site',
+  },
+  {
+    slug: 'caspiana-nowshahr', name: 'شمع ساحل: برج مسکونی کاسپیانا', nameEn: 'Caspiana Residential Tower',
+    status: 'under-construction', company: 'icd-engineering',
+    city: 'نوشهر', district: 'استان مازندران، نوشهر، ساحل دریای خزر',
+    usage: 'مسکونی',
+    excerpt: 'برج مسکونی کاسپیانا در ساحل دریای خزر، شهر نوشهر.',
+    image: '/img/projects/caspiana-nowshahr-1.jpg',
+    gallery: ['/img/projects/caspiana-nowshahr-1.jpg'],
+    map: { x: 52, y: 20 },
+    coords: { lon: 51.495, lat: 36.648 },
     origin: 'site',
   },
 ]
