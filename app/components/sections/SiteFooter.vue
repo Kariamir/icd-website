@@ -15,9 +15,14 @@ import { subsidiaries } from '~/utils/catalog'
       <div class="grid grid-cols-1 gap-10 border-b border-surface-container-lowest/10 pb-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.3fr]">
         <!-- 1 — brand -->
         <div>
-          <NuxtLink to="/" class="mb-5 flex items-center gap-3">
-            <span class="flex size-10 items-center justify-center rounded-sm bg-primary-container text-headline-sm font-headline-sm">ث</span>
-            <span class="text-headline-sm font-headline-sm">هلدینگ ساختمانی ثاخت</span>
+<!--
+            The company's own lockup rather than a monogram tile (ADR-026).
+            It is navy and red with no light variant, so on the ink footer it
+            sits on a white plate — the same treatment the loading indicator
+            uses.
+          -->
+          <NuxtLink to="/" class="mb-5 inline-flex rounded-sm bg-surface-container-lowest px-4 py-3">
+            <img src="/img/brand/icd-logo.png" alt="هلدینگ ساختمانی ثاخت" class="h-9 w-auto">
           </NuxtLink>
           <p class="mb-6 max-w-xs text-body-sm leading-relaxed text-surface-dim">
             شرکت بین‌المللی توسعه ساختمان؛ توسعه پروژه‌های نهادی از ۱۳۶۴.
@@ -67,9 +72,9 @@ import { subsidiaries } from '~/utils/catalog'
       </div>
 
       <!-- Internal systems — other applications, so they open in a new tab -->
-      <div class="flex flex-col gap-3 border-b border-surface-container-lowest/10 py-6 sm:flex-row sm:items-center sm:gap-6">
-        <span class="text-label-md text-surface-dim/80">سامانه‌ها:</span>
-        <ul class="flex flex-wrap items-center gap-3">
+      <div class="flex flex-col gap-3 border-b border-surface-container-lowest/10 py-6 sm:flex-row sm:items-baseline sm:gap-6">
+        <span class="shrink-0 text-label-md text-surface-dim/80">سامانه‌ها:</span>
+        <ul class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
           <li v-for="s in externalSystems" :key="s.href">
             <a
               :href="s.href"

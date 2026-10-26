@@ -5,7 +5,7 @@
 -->
 <script setup lang="ts">
 import { projects, projectStatus, projectsByStatus, type ProjectStatusKey } from '~/utils/catalog'
-import { faDigits, faArea } from '~/utils/format'
+import { faDigits } from '~/utils/format'
 
 /*
  * The map moved here from the retired /projects/map (owner's request,
@@ -64,7 +64,7 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
         />
 
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          <div class="h-[380px] overflow-hidden rounded-lg border border-border sm:h-[460px] lg:col-span-8 lg:h-[620px]">
+          <div class="h-[380px] overflow-hidden rounded-lg border border-border sm:h-[460px] lg:col-span-8 lg:h-[640px]">
             <IranProjectMap
               ref="mapRef"
               :projects="projects"
@@ -73,11 +73,18 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
             />
           </div>
 
-          <div class="flex flex-col gap-4 lg:col-span-4">
+          <!--
+            The column is given the map's own height from `lg` up, so the two
+            line up instead of the list running past the bottom of the map
+            (ADR-026). The card keeps its size and the list takes what is
+            left and scrolls inside it — `min-h-0` is what lets a flex child
+            shrink enough to scroll at all.
+          -->
+          <div class="flex flex-col gap-4 lg:col-span-4 lg:h-[640px]">
             <!-- the project currently under the pointer or the pin -->
-            <article class="overflow-hidden rounded-lg border border-border bg-surface-container-lowest">
+            <article class="shrink-0 overflow-hidden rounded-lg border border-border bg-surface-container-lowest">
               <NuxtLink :to="`/projects/${active.slug}`" class="group block">
-                <div class="aspect-[16/10] overflow-hidden bg-surface-alt">
+                <div class="aspect-[16/9] overflow-hidden bg-surface-alt">
                   <img
                     :src="active.image"
                     :alt="active.name"
@@ -85,19 +92,23 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
                     class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   >
                 </div>
+                <!--
+                  Deliberately short: this card shares a fixed-height column
+                  with the list, and the stats it used to carry pushed the
+                  list down to a row and a half. Area and usage are on the
+                  project's own page, which is one click away.
+                -->
                 <div class="p-5">
-                  <StatusPill :status="active.status" />
+                  <div class="flex items-start justify-between gap-3">
+                    <StatusPill :status="active.status" />
+                    <span class="flex items-center gap-1.5 text-label-lg font-bold text-primary-container">
+                      صفحه پروژه <AppIcon name="arrow_back" />
+                    </span>
+                  </div>
                   <h3 class="mt-3 text-body-lg font-bold leading-snug text-ink group-hover:text-primary-container">{{ active.name }}</h3>
                   <p class="mt-1 flex items-center gap-1.5 text-label-md text-secondary">
-                    <AppIcon name="location_on" class="text-outline" />{{ active.district }}
+                    <AppIcon name="location_on" class="shrink-0 text-outline" />{{ active.district }}
                   </p>
-                  <dl class="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4 text-label-md">
-                    <div v-if="active.areaSqm != null"><dt class="text-secondary">زیربنا</dt><dd class="mt-0.5 font-bold text-ink">{{ faArea(active.areaSqm) }}</dd></div>
-                    <div><dt class="text-secondary">کاربری</dt><dd class="mt-0.5 font-bold text-ink">{{ active.usage }}</dd></div>
-                  </dl>
-                  <span class="mt-4 flex items-center gap-2 text-label-lg font-bold text-primary-container">
-                    صفحه پروژه <AppIcon name="arrow_back" />
-                  </span>
                 </div>
               </NuxtLink>
             </article>
@@ -107,7 +118,7 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
               usable on a phone — and it is also the non-visual path to the
               same information, which a map alone never is.
             -->
-            <ul class="max-h-[320px] overflow-y-auto rounded-lg border border-border bg-surface-container-lowest lg:max-h-none lg:flex-1">
+            <ul class="max-h-[320px] min-h-0 overflow-y-auto overscroll-contain rounded-lg border border-border bg-surface-container-lowest lg:max-h-none lg:min-h-[200px] lg:flex-1">
               <li v-for="p in projects" :key="p.slug" class="border-b border-border last:border-b-0">
                 <button
                   type="button"

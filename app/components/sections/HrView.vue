@@ -8,7 +8,6 @@
   Vue — it was stripped in the port and the controls did nothing.
 -->
 <script setup lang="ts">
-import { ph } from '~/utils/media'
 import { hrNews, hrSlogan } from '~/utils/hrData'
 import type { IconName } from '~/utils/icons'
 
@@ -83,7 +82,7 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
 <template>
   <div>
     <PageHero
-      :image="ph('office', 1)"
+      image="/img/hr/hr-1.jpg"
       eyebrow="سرمایه انسانی"
       title="امور اداری و منابع انسانی"
       subtitle="اخبار منابع انسانی، مسیر حرفه‌ای و فرصت‌های همکاری در خانواده ثاخت."
@@ -120,7 +119,7 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
           <p class="text-body-lg leading-loose text-secondary">شایسته‌سالاری، شفافیت و اثرگذاری پایدار؛ پروژه‌های نمادین کشور با دانش و انگیزه همکاران ما ساخته می‌شوند.</p>
           <a href="#resume" class="mt-8 inline-flex h-12 items-center gap-2 rounded-pill bg-primary-container px-8 text-label-lg font-label-lg text-on-primary hover:bg-brand-hover">ارسال رزومه <AppIcon name="arrow_back" /></a>
         </div>
-        <div class="overflow-hidden rounded-lg"><img :src="ph('construction', 1)" alt="" class="h-[380px] w-full object-cover"></div>
+        <div class="overflow-hidden rounded-lg"><img src="/img/hr/hr-2.jpg" alt="" class="h-[380px] w-full object-cover"></div>
       </div>
     </section>
 
@@ -221,7 +220,7 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
         <div class="lg:col-span-4">
           <p class="mb-2 text-label-lg text-primary-container">توسعه مهارت</p>
           <h2 class="mb-6 text-headline-lg font-headline-lg text-ink">آموزش و یادگیری</h2>
-          <div class="overflow-hidden rounded-lg"><img :src="ph('office', 1)" alt="" class="aspect-[4/3] w-full object-cover"></div>
+          <div class="overflow-hidden rounded-lg"><img src="/img/hr/hr-3.jpg" alt="" class="aspect-[4/3] w-full object-cover"></div>
         </div>
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-8">
           <article v-for="l in learning" :key="l.title" class="rounded-lg border border-border bg-surface-container-lowest p-6">

@@ -136,9 +136,12 @@ export const routes = {
  * for them, and they open in a new tab because they are other applications.
  */
 export const externalSystems: { label: string, href: string }[] = [
+  { label: 'سامانه درگاه', href: 'https://dargah.icd.co.ir/' },
+  { label: 'درگاه جامع اطلاع‌رسانی هلدینگ', href: 'https://vendor.icd.co.ir/' },
+  { label: 'سامانه منابع انسانی', href: 'https://hr.icd.co.ir/' },
+  { label: 'اتوماسیون اداری', href: 'https://ow.icd.co.ir/Didgah/UserLogin/Login' },
   { label: 'بیمه کوثر', href: 'https://sinad.kins.ir/DarmanAfzar.Customer' },
   { label: 'سلفیت', href: 'https://selfit.ir' },
-  { label: 'اتوماسیون اداری', href: 'https://ow.icd.co.ir/Didgah/UserLogin/Login' },
 ]
 
 /** Media post categories (ADR-005, ADR-009). Values are the ?category= query values. */

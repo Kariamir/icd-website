@@ -164,7 +164,8 @@ export const irFaqCenter: FaqCenterConfig = {
   popularSearches: ['سود', 'پیش‌فروش', 'تضامین', 'NAV', 'سجام'],
   groups: irFaqGroups,
   advisor: {
-    image: phFor('مرکز پرسش‌های متداول سهامداران، خریداران و شرکای تجاری ثاخت'),
+    // The client's own image for this desk (ADR-026), replacing the illustration.
+    image: '/img/about/advisor-desk.jpg',
     imageAlt: 'کارشناس امور ذی‌نفعان و مشاوره هلدینگ ثاخت',
     badge: 'پشتیبانی برخط سهام و املاک',
     caption: 'میز خدمت مستقیم ذی‌نفعان هلدینگ',

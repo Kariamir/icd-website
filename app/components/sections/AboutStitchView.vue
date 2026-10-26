@@ -11,7 +11,7 @@
 -->
 <script setup lang="ts">
 import { aboutHero, aboutMilestones, aboutChain, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
-import { icdBoard, icdExecutives, icdCommittees, boardSecretary, type CommitteeMember } from '~/utils/governanceData'
+import { icdBoard, icdDeputies, icdExecutives, icdCommittees, boardSecretary, type CommitteeMember } from '~/utils/governanceData'
 import { subsidiaries, projects } from '~/utils/catalog'
 import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
@@ -220,7 +220,12 @@ function submit() {
           the 18MB off every visit, and the poster carries the frame until
           someone presses play.
         -->
-        <div class="relative w-full overflow-hidden rounded-lg bg-ink">
+        <!--
+          The frame is capped rather than full-bleed (ADR-026): at 1440px wide
+          the film was the tallest thing on the page and pushed the timeline —
+          which is what the section is for — below the fold.
+        -->
+        <div class="relative mx-auto w-full max-w-4xl overflow-hidden rounded-lg bg-ink">
           <video
             v-if="aboutFilm.src"
             class="aspect-video w-full bg-ink object-cover"
@@ -234,7 +239,7 @@ function submit() {
             <source :src="aboutFilm.srcWebm" type="video/webm">
             <source :src="aboutFilm.src" type="video/mp4">
           </video>
-          <div v-else class="relative aspect-[16/9] w-full md:aspect-[21/9]">
+          <div v-else class="relative aspect-video w-full">
             <img :src="aboutFilm.poster" alt="" class="size-full object-cover opacity-75">
             <div class="absolute inset-x-6 bottom-6 flex items-end justify-between text-surface-container-lowest">
               <span class="rounded-sm bg-ink/80 px-3 py-1 text-label-lg">{{ aboutFilm.title }}</span>
@@ -514,26 +519,39 @@ function submit() {
         </div>
 
         <!-- The board secretary sits below the board, at a smaller size. -->
-        <div v-if="boardSecretary" class="mt-7 max-w-sm">
-          <p class="mb-3 text-label-md text-surface-dim">دبیر هیات‌مدیره</p>
+        <div class="mt-7 max-w-sm">
           <PersonCard
-            size="sm"
+            size="xs"
             :name="boardSecretary.name"
             :role="boardSecretary.role"
             :image="boardSecretary.image"
-            :rows="[{ label: 'تحصیلات', value: boardSecretary.education }]"
           />
         </div>
 
-        <!-- Senior executives — a distinct layout, below the board -->
+        <!-- معاونین — a step smaller than a board card, a step larger than a manager's -->
+        <h3 class="mb-7 mt-16 flex items-center gap-3 text-headline-sm font-headline-sm text-surface-container-lowest">
+          <span class="h-5 w-1.5 rounded-pill bg-brand-tint" />معاونین
+        </h3>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <PersonCard
+            v-for="d in icdDeputies"
+            :key="d.slug"
+            size="sm"
+            :name="d.name"
+            :role="d.role"
+            :image="d.image"
+          />
+        </div>
+
+        <!-- Senior managers — the existing treatment, unchanged -->
         <h3 class="mb-7 mt-16 flex items-center gap-3 text-headline-sm font-headline-sm text-surface-container-lowest">
           <span class="h-5 w-1.5 rounded-pill bg-brand-tint" />مدیران ارشد
         </h3>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <PersonCard
             v-for="e in icdExecutives"
             :key="e.slug"
-            size="sm"
+            size="xs"
             :name="e.name"
             :role="e.role"
             :image="e.image"
@@ -564,7 +582,7 @@ function submit() {
             <ul class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               <li v-for="m in c.members" :key="m.name">
                 <PersonCard
-                  size="sm"
+                  size="xs"
                   :name="m.name"
                   :role="m.role"
                   :note="m.represents ? `نماینده ${m.represents}` : undefined"

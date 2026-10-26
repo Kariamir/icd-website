@@ -6,10 +6,10 @@
 // page (ADR-015), so a card here always opens the page it names.
 import { subsidiaries, projects } from '~/utils/catalog'
 import { posts } from '~/utils/posts'
+import { mediaCategories } from '~/utils/routes'
 import { irDocuments } from '~/utils/irDocuments'
 import { aboutHonors } from '~/utils/aboutPageData'
 import { quote, IR_SYMBOL_IS_MOCK, snapshotDateLabel } from '~/utils/irSymbolData'
-import { mediaCategories } from '~/utils/routes'
 import { faDigits, faNumber } from '~/utils/format'
 
 useSeoMeta({
@@ -120,15 +120,6 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
           </ul>
         </div>
 
-        <!-- the categories, as a way in rather than a filter bar -->
-        <ul class="mt-10 flex flex-wrap gap-2 border-t border-border pt-8">
-          <li v-for="c in mediaCategories" :key="c.value">
-            <NuxtLink
-              :to="`/media?category=${c.value}`"
-              class="inline-flex h-10 items-center rounded-pill border border-border px-5 text-label-lg text-secondary transition-colors hover:border-primary-container hover:text-primary-container"
-            >{{ c.label }}</NuxtLink>
-          </li>
-        </ul>
       </div>
     </section>
 

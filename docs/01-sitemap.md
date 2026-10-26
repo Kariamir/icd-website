@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.9 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.10 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.10 — the real feed, three governance tiers, a smoother map (ADR-026).** **(1)** `/media` carries the **eleven real posts** copied from the live site; every invented article and tender notice is deleted. Nine are `news`, two are `tenders`. ⛔ their images are still served from `icd.co.ir` and must be localised before the old site is retired. **(2)** `#board` grows a third tier: board → **board secretary** (named at last: وحید رازافزون) → **معاونین** → مدیران ارشد. **(3)** `/sales` shows **six sample units**, with the card's photography rebuilt as a carousel after the design the owner referenced. **(4)** The `/projects` map no longer re-renders on every pointer event, and the project list beside it takes the map's own height and scrolls. **(5)** The footer carries **six** systems and the company's lockup; the homepage's blog category chips are removed. Template count unchanged: **35**.
 
 **Changes in 1.9 — the client's films, the real board, and one HR destination (ADR-024).** **(1)** The homepage hero is «فیلم شماره ۱», whose own ending — the room dims, the parent lockup and the nine subsidiary marks rise on the conference screen, then clear it — **retires the six tracked windows** of ADR-017; «فیلم شماره ۲» then plays on that screen, and again on `/about#history`. **(2)** `#board` is **ICD's own board**, transcribed from the CODAL filings, with the five senior executives below it and the three committees carrying their full membership and each committee's secretary — closing ADR-018's gap. **(3)** `#vision` is **removed**; `/about/vision` and `/about/csr` now 301 to `#committees`. The About section order is hero · `#history` · `#subsidiaries` · `#board` · `#committees` · `#contact`. **(4)** `/careers` becomes **`/hr`** — «امور اداری و منابع انسانی» — carrying the same content plus HR news and the organisational slogan, reached from a footer button rather than a list item; `/careers` 301s there. **(5)** `/legal/terms` **merges into `/legal/privacy`** and 301s to it; the footer's bottom row carries one «حریم خصوصی». **(6)** «تقویم مجامع» leaves the Investment footer column, every footer link deep-links to its named section, and three external systems (بیمه کوثر, Selfit, اتوماسیون اداری) are added. **(7)** «مهندسی و مدیریت ساخت ثاخت» is the **parent**, not a subsidiary, and is out of every «خانواده ثاخت» list while keeping its own page. **(8)** Three projects are added: «اسپارو» (رشت), «ناریا» (ایزدشهر), «کاسپیانا» (نوشهر). Template count: **35**.
 
@@ -71,7 +73,7 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 |---|---|---|---|---|
 | 0 | هیرو | — | Brand slogan, 3D animation / holding intro video | «کشف پروژه‌ها» or scroll cue |
 | 1 | ثاخت در یک نگاه | About + کارنامه | Key stats: founding year (۱۳۶۴), built area, project count, registered capital | «بیشتر درباره ثاخت» |
-| 2 | رسانه ثاخت | Media | **Moved here from block 6 in v1.9 (ADR-025).** One lead story with its photograph, the next four as rows beside it, and the five categories as a way into the archive | «آرشیو رسانه» |
+| 2 | رسانه ثاخت | Media | **Moved here from block 6 in v1.9 (ADR-025).** One lead story with its photograph and the next four as rows beside it. The category chips were removed in v1.10 | «آرشیو رسانه» |
 | 3 | پروژه‌های شاخص | Projects | 3D Tehran map / carousel / featured project + virtual tour entry | «مشاهده همه پروژه‌ها» |
 | 4 | بنر فروش و پیش‌فروش | Sales | Current pre-sale offer | «مشاوره خرید» |
 | 6 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
@@ -104,7 +106,7 @@ Section ids must stay in sync with `app/components/sections/AboutStitchView.vue`
 | 1 | — | Hero | Full-bleed project photograph, company name, one line | |
 | 2 | `#history` | تاریخچه | **The whole historical narrative, in one section.** See §4.2 | Merges former `/about/history` + «کارنامه» + «افتخارات» (v1.4) |
 | 3 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
-| 4 | `#board` | هیات‌مدیره و مدیران ارشد | **ICD's own board** from the CODAL filings: five members, each with portrait, position, the legal shareholder represented, موظف/غیرموظف status and qualifications — chair and managing director at full size, the rest below, the board secretary (when named) smaller still. The five senior executives follow in a distinct layout | **No individual profile pages.** Rebuilt in v1.9 (ADR-024); `ui/PersonCard.vue` draws this and the subsidiaries' boards alike |
+| 4 | `#board` | هیات‌مدیره، معاونین و مدیران ارشد | **ICD's own board** from the CODAL filings: five members, each with portrait, position, the legal shareholder represented, موظف/غیرموظف status and qualifications — chair and managing director at full size, the rest below, the board secretary (when named) smaller still. Then the board secretary smaller still, then **معاونین**, then مدیران ارشد — four steps of one card anatomy (v1.10) | **No individual profile pages.** Rebuilt in v1.9 (ADR-024); `ui/PersonCard.vue` draws this and the subsidiaries' boards alike |
 | 5 | `#committees` | کمیته‌ها | The three committees — حسابرسی, انتصابات, ریسک — each with its mandate, its full membership (independence and financial-expert status marked) and **its secretary named at the foot** | Rebuilt in v1.9 from the CODAL filings (ADR-024). The invented membership in `orgChartData.ts` is deleted |
 | 6 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
 
@@ -201,7 +203,7 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** Every unit for sale; `?status=pre-sale` / `?status=ready` and `?project=` filter it | Replaces the former hub |
+| 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** **Six sample units** since v1.10 (`sampleUnits`), each card a photo carousel after the referenced design; `?status=` and `?project=` filter that six | Replaces the former hub |
 | 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
 | 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
 | 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |
@@ -438,7 +440,9 @@ Result: ~45% more compact than a conventional 9-item menu.
 
 **Brand column:** also carries the address, postcode, phone and fax the client supplied in 1405/08, and the prominent **«امور اداری و منابع انسانی»** button that replaced the careers link (v1.9).
 
-**Systems row:** بیمه کوثر · Selfit · اتوماسیون اداری — other applications, so they open in a new tab (v1.9).
+**Systems row (v1.10):** سامانه درگاه · درگاه جامع اطلاع‌رسانی هلدینگ · سامانه منابع انسانی · اتوماسیون اداری · بیمه کوثر · سلفیت — other applications, so they open in a new tab, on a row that wraps rather than crowding.
+
+**Brand column also carries the company's own lockup** (v1.10), on a white plate because the mark is navy and red with no light variant.
 
 **Bottom row:** © copyright | حریم خصوصی | جستجو
 

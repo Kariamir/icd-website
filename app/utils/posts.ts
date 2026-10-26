@@ -1,14 +1,27 @@
 /**
- * Media posts for /media and /media/[slug] (ADR-005, ADR-015).
+ * Media posts for /media and /media/[slug].
  *
- * One categorised feed. The editorial articles recovered in articlesData.ts
- * are mapped onto the five sitemap §8.1 categories here; tender notices are
- * added as ordinary posts in the `tenders` category (ADR-009 — no Tender
- * model). Formal performance reports are not media posts: they live on
- * /ir/financials (ADR-005), so the two report-type articles that are formal
- * disclosures are left out of this feed.
+ * SOURCE: the eleven posts the owner named on the live site (ADR-026), read
+ * from icd.co.ir's own WordPress REST API and transcribed verbatim — titles,
+ * dates and body text as published. Every invented article and tender notice
+ * that stood here before is deleted, not archived: a listed company's media
+ * feed carrying made-up news is worse than a short one.
+ *
+ * ⛔ IMAGES ARE STILL REMOTE. The featured and in-body photographs point at
+ * `https://www.icd.co.ir/wp-content/uploads/…` because the files could not be
+ * copied across — every route out of this environment to that host is refused
+ * by the egress proxy. They load for a real visitor (the host is the client's
+ * own and is reachable from Iran) but they must be localised into
+ * `public/img/media/` before the old site is decommissioned, or this feed
+ * goes blank the day it is switched off. Dropping the files into
+ * `Asset Icd/news/` is all it takes.
+ *
+ * On the live site all eleven sit in one «اخبار» category. Two of them are
+ * genuinely an auction notice and a public call for a construction partner,
+ * so they are mapped to `tenders` here — the category this site already has
+ * for exactly that (ADR-009) — and the other nine to `news`.
  */
-import { articles, type ArticleBlock, type ArticleAuthor, type ArticleAudio } from '~/utils/articlesData'
+import type { ArticleBlock, ArticleAuthor, ArticleAudio } from '~/utils/articlesData'
 
 import type { MediaCategory } from '~/utils/routes'
 
@@ -28,137 +41,266 @@ export interface Post {
   body: ArticleBlock[]
   /** Tender notices: document deadline label. */
   deadline?: string
+  /** The post this was copied from, so the import can be re-checked. */
+  sourceUrl?: string
 }
 
-/** Formal disclosures — these belong on /ir/financials, not in the feed. */
-const DISCLOSURES = new Set(['board-performance-1402', 'projects-scorecard-q4-1402'])
+/** Remote media root — see the ⛔ note at the top of this file. */
+const WP = 'https://www.icd.co.ir/wp-content/uploads'
 
-/*
- * Cover photographs, from the client's own project folders (ADR-017) rather
- * than the illustrated placeholders they replaced (owner's request,
- * 2026-10-18).
- *
- * Where a post names a project, its cover is that project's own photograph —
- * the tower milestone shows the tower, the Narenjestan site diary shows
- * Narenjestan. The rest are market, finance and regulation pieces with no
- * project of their own; they carry a photograph of the group's work so the
- * feed reads as one portfolio, and the editorial team should swap in a
- * per-post image as real articles are written.
- */
-const IMAGE: Record<string, string> = {
-  // named project → that project's own photograph
-  'tehran-tower-structural-milestone': 'tehran-international-tower-6',
-  'megapars-physical-progress': 'mega-pars-tehran-1',
-  'kish-dream-permit': 'roya-elite-9',
-  'site-engineer-diary-narenjestan': 'narenjestan-izadshahr-1',
-  'scc-concrete-coastal-towers': 'roya-elite-4',
-  'icd-founding-to-bourse-listing': 'tehran-international-tower-1',
+const PR: ArticleAuthor = { name: 'روابط عمومی ثاخت', role: 'شرکت بین‌المللی توسعه ساختمان', initials: 'ر.ع' }
 
-  // no named project — group imagery, to be replaced per post
-  'resilience-strategy-1410': 'ara-tower-3',
-  'geotechnical-engineering-megaprojects': 'nbo12-1',
-  'parametric-facade-hot-climate': 'kia-tower-2',
-  'deep-excavation-metro-monitoring': 'ghadir-office-tehran-2',
-  'e-procurement-transparency': 'ghadir-office-tehran-14',
-  'aerogel-insulation-panels': 'x-tisashahr-1',
-  'agm-1403-dividend': 'ghadir-office-tehran-16',
-  'real-estate-financing-bourse': 'sparrow-rasht-1',
-  'leed-green-certification-iran': 'x-baharan-1',
-  'epc-supply-chain-steel-cement': 'ofogh-sina-mashhad-4',
-  'women-in-construction-icd': 'ofogh-sina-mashhad-9',
-  'quarterly-market-outlook-1403': 'x-atlas-tabriz-1',
-  'housing-price-index-spring-1403': 'tehran-international-tower-2',
-  'nav-analysis-ordibehesht': 'x-yas-1',
-  'density-regulations-district-1': 'sparrow-rasht-2',
-  'kish-residential-yield': 'x-marjan-kish-1',
-}
+const fig = (src: string, caption = ''): ArticleBlock => ({ type: 'figure', image: { src, alt: caption }, caption })
+const p = (text: string): ArticleBlock => ({ type: 'p', text })
 
-const photo = (name: string) => `/img/projects/${name}.jpg`
-
-/** Covers used inside article bodies and by the tender notices. */
-const BODY_PHOTOS = [
-  'ghadir-office-tehran-13',
-  'nbo12-3',
-  'ara-tower-4',
-  'ofogh-sina-mashhad-2',
-] as const
-
-function categoryOf(a: (typeof articles)[number]): MediaCategory {
-  if (a.contentType === 'news') return 'news'
-  if (a.contentType === 'report') return 'analysis'
-  return a.audio?.episode ? 'podcast' : 'stories'
-}
-
-function withImages(body: ArticleBlock[]): ArticleBlock[] {
-  let i = 0
-  return body.map(b => b.type === 'figure'
-    ? { ...b, image: { ...b.image, src: photo(BODY_PHOTOS[i++ % BODY_PHOTOS.length]!) } }
-    : b)
-}
-
-const fromArticles: Post[] = articles
-  .filter(a => !DISCLOSURES.has(a.slug))
-  .map((a) => {
-    return {
-      slug: a.slug,
-      category: categoryOf(a),
-      title: a.title,
-      excerpt: a.excerpt ?? '',
-      date: a.date ?? '',
-      sortKey: a.sortKey,
-      image: photo(IMAGE[a.slug] ?? 'tehran-international-tower-1'),
-      author: a.author,
-      readingMinutes: a.readingMinutes,
-      views: a.views,
-      audio: a.audio,
-      tags: a.tags,
-      body: withImages(a.body),
-    }
-  })
-
-const PR: ArticleAuthor = { name: 'روابط عمومی ثاخت', role: 'دفتر مناقصات و قراردادها', initials: 'ر.ع' }
-
-const tenders: Post[] = [
+const ALL: Post[] = [
   {
-    slug: 'tender-mep-bandar-abbas-hotel',
-    category: 'tenders',
-    title: 'فراخوان مناقصه عمومی اجرای تاسیسات مکانیکی پروژه تجاری اداری خلیج فارس',
-    excerpt: 'دعوت از پیمانکاران دارای رتبه معتبر تاسیسات برای دریافت اسناد مناقصه.',
-    date: '۱۰ اردیبهشت ۱۴۰۳', sortKey: 14030210, image: photo('ghadir-office-tehran-12'), author: PR, readingMinutes: 3, views: 1210,
-    deadline: '۲۵ اردیبهشت ۱۴۰۳', tags: ['مناقصه', 'تاسیسات'],
+    slug: 'ghadir-ceo-appointment-congratulations',
+    category: 'news',
+    title: 'تبریک انتصاب مدیرعامل سرمایه گذاری غدیر',
+    excerpt: 'پیام تبریک هلدینگ بین‌المللی توسعه ساختمان به مناسبت انتصاب مدیرعامل جدید گروه سرمایه‌گذاری غدیر.',
+    date: '۸ مهر ۱۴۰۵',
+    sortKey: 14050708,
+    image: `${WP}/2026/09/tabrik.jpg`,
+    author: PR,
+    readingMinutes: 1,
+    views: 0,
+    tags: ['انتصاب', 'گروه غدیر'],
+    sourceUrl: 'https://www.icd.co.ir/12345-74/',
+    // The post on the live site carries no body text — the message is the
+    // poster itself, which is why it is shown and nothing is written around it.
+    body: [fig(`${WP}/2026/09/tabrik.jpg`, 'پیام تبریک انتصاب مدیرعامل گروه سرمایه‌گذاری غدیر')],
+  },
+  {
+    slug: 'appreciation-engineer-hedayat',
+    category: 'news',
+    title: 'سپاس و قدردانی از جناب آقای مهندس هدایت',
+    excerpt: 'پیام قدردانی هیات‌مدیره، مدیرعامل و کارکنان هلدینگ از خدمات مهندس سید مجید هدایت در گروه سرمایه‌گذاری غدیر.',
+    date: '۷ مهر ۱۴۰۵',
+    sortKey: 14050707.2,
+    image: `${WP}/2026/09/hedayt.png`,
+    author: PR,
+    readingMinutes: 3,
+    views: 0,
+    tags: ['قدردانی', 'گروه غدیر'],
+    sourceUrl: 'https://www.icd.co.ir/12345-73/',
     body: [
-      { type: 'p', text: 'شرکت توسعه ساختمان خاورمیانه از گروه ثاخت، اجرای تاسیسات مکانیکی پروژه تجاری اداری خلیج فارس در بندرعباس را از طریق مناقصه عمومی یک‌مرحله‌ای به پیمانکار واجد شرایط واگذار می‌کند.' },
-      { type: 'h2', text: 'شرایط شرکت' },
-      { type: 'checklist', items: ['دارا بودن رتبه معتبر در رشته تاسیسات و تجهیزات', 'ارائه ضمانت‌نامه شرکت در مناقصه', 'سابقه اجرای حداقل دو پروژه مشابه در پنج سال اخیر'] },
-      { type: 'p', text: 'اسناد مناقصه و الزامات ثبت مدارک در صفحه اسناد و گزارش‌ها منتشر شده است.' },
+      p('جناب آقای مهندس سید مجید هدایت'),
+      p('با اهداء سلام و تحیات'),
+      p('پایان یک دوره خدمت، فرصتی است برای ادای احترام به سال‌هایی که عمر و توان آدمی در راه خدمت به این سرزمین و پاسداشت آرمان‌هایی بزرگ به ودیعه نهاده شده است. سال‌هایی که ایمان، تقوا و احساس مسئولیت، در پرتو وفاداری به آرمان‌های انقلاب اسلامی و حرکت در مسیر منویات حضرت امام خمینی (ره) و رهنمودهای رهبر شهید حضرت آیت‌الله العظمی امام خامنه‌ای(قدس‌الله نفسه الزکیه) به خدمت معنا و جهت بخشیده است.'),
+      p('دوران مسئولیت جنابعالی در گروه سرمایه‌گذاری غدیر، فصل ارزشمندی از مدیریت و خدمت در عرصه اقتصادی کشور بود که در منظومه‌ای از ایمان، پاکدستی، ولایتمداری و مدیریت جهادی که حاصل سال‌های متمادی خدمت در نظام مقدس جمهوری اسلامی ایران بوده است در راهبری و تعالی مجموعه‌ای بزرگ و اثرگذار به کار گرفته شد. این خصال ارزشمند، دوران سپری شده را در خاطر مدیران و همکاران مجموعه، با احترام و نیک‌نامی ماندگار خواهد ساخت. چنان‌که امیرالمؤمنین علی(ع) فرمودند: «إِنَّ تَقْوَى اللَّهِ مِفْتَاحُ سَدَادٍ، وَذَخِيرَةُ مَعَادٍ»؛ تقوای الهی، کلید استواری و ذخیره‌ای برای فرجام نیک است.'),
+      p('اینک با پایان یافتن دوره مسئولیت جنابعالی در گروه سرمایه‌گذاری غدیر، این مجال را مغتنم می‌شماریم تا از جانب خانواده بزرگ هلدینگ بین‌المللی توسعه ساختمان، مراتب سپاس و ارادت خود را از خدمات و زحمات ارزشمندتان تقدیم داریم و برای جنابعالی از درگاه ایزد منان عزت، سلامت، عاقبت‌به‌خیری و توفیق روزافزون، ظلّ توجهات حضرت ولی‌عصر(عج) و در پرتو رهنمودهای مقام معظم رهبری (مدظله‌العالی) مسئلت می‌نماییم.'),
+      p('امید آنکه ایران عزیز، همچنان از دانش، تجربه و اندوخته گران‌بهای سال‌های خدمتتان بهره‌مند بماند.'),
+      p('هیات مدیره، مدیرعامل و کارکنان'),
+      p('هلدینگ بین المللی توسعه ساختمان'),
     ],
   },
   {
-    slug: 'auction-surplus-equipment-1403',
-    category: 'tenders',
-    title: 'آگهی مزایده فروش ماشین‌آلات و تجهیزات مازاد کارگاهی',
-    excerpt: 'فروش تجهیزات مازاد کارگاه‌های تهران و کرج از طریق مزایده عمومی.',
-    date: '۲۸ فروردین ۱۴۰۳', sortKey: 14030128, image: photo('nbo12-2'), author: PR, readingMinutes: 2, views: 860,
-    deadline: '۱۵ اردیبهشت ۱۴۰۳', tags: ['مزایده', 'تجهیزات'],
+    slug: 'ghadir-group-ceo-introduced',
+    category: 'news',
+    title: 'مدیرعامل گروه سرمایه‌گذاری غدیر معارفه شد',
+    excerpt: 'مراسم معارفه مهندس مهدی زحمتکش به‌عنوان مدیرعامل و عضو هیئت‌مدیره گروه سرمایه‌گذاری غدیر برگزار شد.',
+    date: '۷ مهر ۱۴۰۵',
+    sortKey: 14050707.1,
+    image: `${WP}/2026/09/zahmat_kesh.jpg`,
+    author: PR,
+    readingMinutes: 3,
+    views: 0,
+    tags: ['معارفه', 'گروه غدیر'],
+    sourceUrl: 'https://www.icd.co.ir/12345-72/',
     body: [
-      { type: 'p', text: 'شرکت ساختمانی آ.اس.پ تعدادی از ماشین‌آلات و تجهیزات مازاد کارگاهی خود را از طریق مزایده عمومی به فروش می‌رساند.' },
-      { type: 'p', text: 'فهرست اقلام، قیمت پایه و شرایط بازدید در اسناد مزایده آمده است.' },
+      p('به گزارش روابط‌عمومی گروه سرمایه‌گذاری غدیر؛ مراسم معارفه مهندس مهدی زحمتکش مدیرعامل جدید و عضو هیئت‌مدیره گروه سرمایه‌گذاری غدیر، با حضور دکتر کامران پورمحمدی معاون اقتصادی سازمان تأمین اجتماعی نیروهای مسلح، دکتر احد امیری رئیس هیئت‌مدیره گروه، اعضای هیئت‌مدیره، معاونان و مدیران ارشد و مدیران عامل هلدینگ‌های تابعه در ستاد گروه سرمایه‌گذاری غدیر برگزار شد.'),
+      p('در این مراسم، رئیس هیئت‌مدیره گروه سرمایه‌گذاری غدیر ضمن معرفی مهندس مهدی زحمتکش به عنوان مدیرعامل و عضو هیئت‌مدیره گروه سرمایه‌گذاری غدیر، از تلاش‌ها و اقدامات مهندس سیدمجید هدایت در دوره دوساله مدیریت وی تقدیر و تشکر کرد.'),
+      p('گفتنی است؛ مهندس مهدی زحمتکش مدیرعامل گروه سرمایه‌گذاری غدیر در این مراسم با اشاره به رویکردهای مدیریتی خود، حفظ و صیانت از سرمایه‌گذاری‌های انجام‌شده، اصلاح و بهینه‌سازی پرتفوی، ایجاد سرمایه‌گذاری‌های جدید و چابک و تقویت تعامل سازنده با دولت، نظام حکمرانی و مجموعه‌های تصمیم‌ساز را از محورهای اصلی دوره جدید برشمرد.'),
+      p('وی همچنین بر ضرورت فراهم شدن بستر حمایت از تصمیم‌های مدیریتی و عبور از رویکرد صرفاً سرمایه‌گذاری به سمت «سرمایه‌سازی» و خلق ارزش پایدار تأکید کرد.'),
+      p('در ادامه این آئین دکتر احد امیری رئیس هیئت‌مدیره گروه سرمایه‌گذاری غدیر، نیز ضمن تقدیر از زحمات ارزشمند مهندس سیدمجید هدایت در دوره مسئولیت، کارنامه مدیریتی و تجربه تخصصی مهندس زحمتکش، آشنایی وی با بدنه خانواده بزرگ غدیر و رویکرد جوان‌گرایی را از جمله ظرفیت‌های دوره جدید مدیریت گروه عنوان کرد.'),
+      p('برابر این گزارش؛ مهندس مهدی زحمتکش پیش از این مدیرعامل مجتمع صنایع آلومینیوم جنوب بوده و در سوابق مدیریتی وی، عضویت در هیئت‌مدیره شرکت فولاد مبارکه، ریاست هیئت‌مدیره پتروشیمی مارون، عضویت در هیئت‌مدیره شرکت معدنی و صنعتی گهرزمین، عضویت موظف هیئت‌مدیره و معاونت بازرگانی مجتمع صنایع آلومینیوم جنوب، معاونت شرکت صبا فولاد خلیج فارس، مشاورت مدیرعامل شرکت صنایع معدنی فولاد سنگان خراسان و قائم‌مقامی مدیرعامل شرکت بین‌المللی مهندسی ایران دیده می‌شود.'),
     ],
   },
   {
-    slug: 'tender-facade-niloufar',
+    slug: 'auction-afifabad-commercial-goodwill',
     category: 'tenders',
-    title: 'فراخوان ارزیابی کیفی تامین‌کنندگان نمای مجموعه باغ‌شهر نیلوفر',
-    excerpt: 'ارزیابی کیفی سازندگان نمای سنگی و کرتین‌وال برای فاز نخست.',
-    date: '۵ اردیبهشت ۱۴۰۳', sortKey: 14030205, image: photo('x-besat-1'), author: PR, readingMinutes: 2, views: 640,
-    deadline: '۳۰ اردیبهشت ۱۴۰۳', tags: ['ارزیابی_کیفی', 'نما'],
+    title: 'آگهی مزایده- سرقفلی فضاهای تجاری مجتمع تجاری عفیف‌آباد',
+    excerpt: 'واگذاری سرقفلی فضاهای تجاری مجتمع تجاری عفیف‌آباد شیراز از طریق مزایده عمومی.',
+    date: '۵ مهر ۱۴۰۵',
+    sortKey: 14050705,
+    image: `${WP}/2026/09/mozayede.jpg`,
+    author: PR,
+    readingMinutes: 2,
+    views: 0,
+    deadline: '۲۰ مهر ۱۴۰۵',
+    tags: ['مزایده', 'عفیف‌آباد'],
+    sourceUrl: 'https://www.icd.co.ir/12345-71/',
     body: [
-      { type: 'p', text: 'شرکت شهرسازی و خانه‌سازی باغمیشه از تامین‌کنندگان نمای سنگی و کرتین‌وال برای ارزیابی کیفی فاز نخست مجموعه باغ‌شهر نیلوفر دعوت می‌کند.' },
+      p('شرکت بین‌المللی توسعه ساختمان در نظر دارد از طریق مزایده عمومی نسبت به واگذاری سرقفلی فضاهای تجاری واقع در مجتمع تجاری عفیف‌آباد به آدرس: شیراز، عفیف‌آباد، نبش خیابان عرفان‌منش، براساس مشخصات ذیل اقدام نماید.'),
+      p('متقاضیان می‌توانند جهت دریافت اطلاعات و اسناد مزایده و هماهنگی جهت بازدید از املاک یادشده از تاریخ درج آگهی تا تاریخ ۱۴۰۵/۰۷/۱۵ از ساعت ۸ الی ۱۷ (به‌جز روزهای تعطیل) به دفتر شرکت واقع در تهران یا شیراز مراجعه یا با شماره تلفن‌های اعلامی تماس حاصل فرمایند.'),
+      p('آخرین مهلت دریافت پیشنهادات: ساعت ۱۶ روز دوشنبه مورخ ۱۴۰۵/۰۷/۲۰ در محل مندرج در اسناد مزایده می‌باشد.'),
+      p('جلسه بازگشایی پاکات: روز چهارشنبه مورخ ۱۴۰۵/۰۷/۲۲ ساعت ۱۰ صبح در دفتر مرکزی شرکت به نشانی تهران، بیهقی، بخارست هشتم، پلاک ۱۱ خواهد بود.'),
+      p('سپرده شرکت در مزایده: برابر ۲ درصد از مبلغ پایه غرفه انتخابی می‌باشد.'),
+      p('مزایده‌گزار در رد یا قبول یک یا کلیه پیشنهادات دریافتی مختار است.'),
+      fig(`${WP}/2026/09/mozayede.jpg`, 'آگهی مزایده سرقفلی فضاهای تجاری مجتمع تجاری عفیف‌آباد'),
+    ],
+  },
+  {
+    slug: 'ghadir-ceo-meeting-profitable-development',
+    category: 'news',
+    title: 'تأکید مدیرعامل گروه سرمایه‌گذاری غدیر بر توسعه سودآور، مدیریت دارایی‌ها و اجرای باکیفیت پروژه‌ها',
+    excerpt: 'نشست مدیرعامل گروه سرمایه‌گذاری غدیر با مدیران شرکت بین‌المللی توسعه ساختمان، با محوریت عملکرد، برنامه‌های راهبردی و چشم‌انداز توسعه هلدینگ.',
+    date: '۹ تیر ۱۴۰۵',
+    sortKey: 14050409,
+    image: `${WP}/2026/06/h7-1.jpg`,
+    author: PR,
+    readingMinutes: 6,
+    views: 0,
+    tags: ['گروه غدیر', 'نشست مدیران'],
+    sourceUrl: 'https://www.icd.co.ir/12345-70/',
+    body: [
+      p('نشست آقای مهندس سید مجید هدایت، مدیرعامل گروه سرمایه‌گذاری غدیر به همراه معاونین و مشاورین ایشان، با مدیران شرکت بین‌المللی توسعه ساختمان (هلدینگ ساختمانی غدیر) به منظور بررسی عملکرد، برنامه‌های راهبردی و چشم‌انداز توسعه این هلدینگ روز دوشنبه هشتم تیرماه برگزار شد.'),
+      p('در این نشست، آخرین وضعیت پروژه‌های عمرانی و ساختمانی، عملکرد شرکت‌های تابعه، برنامه‌های توسعه‌ای، مدیریت دارایی‌های ملکی، روند سرمایه‌گذاری‌ها و مهم‌ترین برنامه‌های پیش‌روی هلدینگ مورد بررسی قرار گرفت.'),
+      p('علیرضا قربانی مدیرعامل شرکت بین‌المللی توسعه ساختمان، ضمن قدردانی از حمایت‌ها، همراهی‌ها و رهنمودهای مهندس هدایت، گزارشی از عملکرد هلدینگ، پروژه‌های در دست اجرا و برنامه‌های آتی ارائه کرد و با تأکید بر رویکرد هلدینگ در شفافیت، حاکمیت شرکتی، پاسخگویی و توجه ویژه به ذی‌نفعان اظهار داشت: شرکت بین‌المللی توسعه ساختمان به عنوان یکی از شرکت‌های بورسی، خود را متعهد به صیانت از حقوق سهامداران، ارتقای شفافیت، انضباط مالی و ایجاد ارزش پایدار برای تمامی ذی‌نفعان می‌داند و تمامی برنامه‌های توسعه‌ای خود را با هدف افزایش سودآوری، بهره‌وری و تقویت جایگاه هلدینگ در بازار سرمایه دنبال می‌کند که در همین راستا رتبه اول در ارزیابی سالانه سازمان بورس اوراق بهادار در حوزه صنعت ساختمان را کسب نموده است.'),
+      fig(`${WP}/2026/06/h2.jpg`),
+      p('وی با اشاره به ظرفیت‌های ارزشمند هلدینگ افزود: «همکاران توانمند در حوزه‌های مختلف و برندهای خوش‌نام و باسابقه‌ای همچون آ.س.پ، تیسا کیش و دیگر شرکت‌های زیرمجموعه، سرمایه‌های ارزشمند این هلدینگ هستند. بهره‌گیری از این ظرفیت، توسعه سرمایه‌گذاری‌های هدفمند، ارتقای کیفیت اجرای پروژه‌ها و خلق ارزش برای سهامداران، مسیر تبدیل هلدینگ ساختمانی غدیر به یکی از موفق‌ترین و اثرگذارترین بنگاه‌های اقتصادی کشور در حوزه صنعت ساختمان را هموار خواهد کرد.'),
+      p('در ادامه، مهندس هدایت با اشاره به جایگاه راهبردی هلدینگ ساختمانی غدیر در پرتفوی گروه سرمایه‌گذاری غدیر، بر افزایش بهره‌وری، مدیریت هوشمندانه منابع، توسعه فعالیت‌های سودآور و ارتقای ارزش دارایی‌های گروه تأکید کرد.'),
+      fig(`${WP}/2026/06/h3.jpg`),
+      p('وی پس از ارائه گزارش سامانه مدیریت املاک و اراضی، این امر را در شرکت توسعه ساختمان و تبع آن اجرا و پیاده‌سازی این الگو برای تمام هلدینگ‌های گروه را یکی از اولویت‌های اصلی هلدینگ برشمرد و خواستار برنامه‌ریزی منسجم برای بهره‌برداری حداکثری از دارایی‌های ملکی شد و این حوزه را یکی از مهم‌ترین ظرفیت‌های خلق ارزش و افزایش بازده اقتصادی برای سهامداران دانست. همچنین پیشنهاد هلدینگ ساختمان غدیر در همکاری با سایر هلدینگ‌های گروه سرمایه‌گذاری غدیر برای شناسنامه‌دار نمودن کلیه املاک و مستغلات این گروه و هلدینگ‌های تابعه، مطالعه بازار، ارزش‌آفرینی، مولدسازی، خرید و فروش و مدیریت تخصصی و طراحی و ساخت پروژه‌های عمرانی هلدینگ‌های گروه غدیر مورد استقبال قرار گرفت و مقرر شد این پیشنهاد در قالب نامه به گروه سرمایه‌گذاری غدیر ارائه گردد.'),
+      p('مدیرعامل شرکت سرمایه‌گذاری غدیر همچنین رعایت دقیق زمان‌بندی اجرای پروژه‌ها همراه با حفظ و ارتقای کیفیت را از الزامات اساسی فعالیت‌های عمرانی عنوان کرد و اظهار داشت: تحقق برنامه‌های زمان‌بندی در کنار رعایت استانداردهای فنی، مهندسی و کیفی، زمینه‌ساز افزایش رضایت ذی‌نفعان، ارتقای اعتبار برند و خلق ارزش پایدار برای گروه غدیر خواهد بود.'),
+      fig(`${WP}/2026/06/h5.jpg`),
+      p('در پایان این نشست، بر پیگیری مستمر مصوبات، تقویت نظام کنترل پروژه، توسعه سرمایه‌گذاری‌های هدفمند، مدیریت بهینه دارایی‌های ملکی، ارتقای کیفیت اجرای پروژه‌ها و هم‌افزایی هرچه بیشتر میان گروه سرمایه‌گذاری غدیر و شرکت بین‌المللی توسعه ساختمان در راستای تحقق اهداف کلان این گروه تأکید شد.'),
+      fig(`${WP}/2026/06/h6.jpg`),
+    ],
+  },
+  {
+    slug: 'muharram-mourning-ceremony',
+    category: 'news',
+    title: 'مراسم ایام سوگواری حضرت اباعبدالله الحسین(ع)',
+    excerpt: 'برگزاری مراسم زیارت عاشورا و عزاداری دهه نخست محرم در هلدینگ، با حضور مدیران و کارکنان.',
+    date: '۲ تیر ۱۴۰۵',
+    sortKey: 14050402.3,
+    image: `${WP}/2026/06/ziarat1.jpg`,
+    author: PR,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['محرم', 'آیین‌های سازمانی'],
+    sourceUrl: 'https://www.icd.co.ir/12345-69/',
+    body: [
+      p('همزمان با ایام سوگواری حضرت اباعبدالله الحسین(ع)، برنامه‌های عزاداری در هلدینگ بین‌المللی توسعه ساختمان با حضور مدیران و کارکنان برگزار شد.'),
+      p('در طول دهه نخست محرم، مراسم پرفیض زیارت عاشورا در هلدینگ برگزار شد و همکاران با حضور در این محفل معنوی، روز کاری خود را با یاد و نام سیدالشهدا(ع) آغاز کردند.'),
+      p('همچنین روز دوشنبه ۱۴۰۵/۰۴/۰۱ برابر با هفتم محرم الحرام ۱۴۴۸، مراسم عزاداری و سینه‌زنی در نمازخانه هلدینگ با حضور مدیران ارشد هلدینگ، مدیران عامل شرکت‌های تابعه و جمعی از کارکنان برگزار شد. در این مراسم، عزاداران حسینی با نوحه‌خوانی و سینه‌زنی، ارادت خود را به ساحت مقدس حضرت اباعبدالله الحسین(ع) و شهدای کربلا ابراز کردند.'),
+      fig(`${WP}/2026/06/ziarat2-1024x768.jpg`),
+      p('فضای معنوی حاکم بر این مراسم، جلوه‌ای از همدلی و انسجام خانواده بزرگ هلدینگ بین‌المللی توسعه ساختمان بود؛ خانواده‌ای که در کنار تلاش برای تحقق اهداف سازمانی، همواره پاسداشت ارزش‌های دینی و فرهنگی را نیز از وظایف خود می‌داند.'),
+      fig(`${WP}/2026/06/ziar5-1024x575.jpg`),
+    ],
+  },
+  {
+    slug: 'roya-kish-limited-units-sale',
+    category: 'news',
+    title: 'فروش تعداد محدودی از واحدهای مسکونی مجتمع رویای کیش (ساحل مرجان)',
+    excerpt: 'عرضه تعداد محدودی واحد مسکونی در مجتمع رویای کیش، با قیمت و شرایط پرداخت ویژه.',
+    date: '۲ تیر ۱۴۰۵',
+    sortKey: 14050402.2,
+    image: `${WP}/2026/06/kish_roya.jpg`,
+    author: PR,
+    readingMinutes: 1,
+    views: 0,
+    tags: ['فروش', 'رویای کیش'],
+    sourceUrl: 'https://www.icd.co.ir/12345-68/',
+    body: [
+      p('فروش تعداد محدودی از واحدهای مسکونی مجتمع رویای کیش (ساحل مرجان)'),
+      p('قیمت و شرایط پرداخت ویژه'),
+      p('شماره تماس جهت کسب اطلاعات بیشتر و هماهنگی برای بازدید ۸۷۱۲۳-۰۲۱ داخلی ۱۸۰۲ و ۱۸۰۷'),
+      p('آدرس شرکت: تهران، بیهقی، بخارست هشتم، پلاک ۱۱، شرکت بین المللی توسعه ساختمان، طبقه هشتم'),
+      p('آدرس مجتمع: جزیره کیش، ساحل مرجان'),
+      fig(`${WP}/2026/06/kish_roya.jpg`, 'فروش واحدهای مسکونی مجتمع رویای کیش'),
+    ],
+  },
+  {
+    slug: 'narenjestan-south-partner-call',
+    category: 'tenders',
+    title: 'آغاز فرآیند انتخاب شریک سازنده برای تکمیل پروژه نارنجستان جنوبی از طریق فراخوان عمومی',
+    excerpt: 'انتشار فراخوان عمومی شناسایی و انتخاب شریک سازنده پروژه نارنجستان جنوبی در دو نوبت.',
+    date: '۲ تیر ۱۴۰۵',
+    sortKey: 14050402.1,
+    image: `${WP}/2026/06/nar1.jpg`,
+    author: PR,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['فراخوان', 'نارنجستان جنوبی'],
+    sourceUrl: 'https://www.icd.co.ir/12345-66/',
+    body: [
+      p('روابط عمومی شرکت بین المللی توسعه ساختمان: در راستای تسریع در تکمیل پروژه نارنجستان جنوبی و بهره‌گیری از ظرفیت‌های بخش خصوصی، فرآیند شناسایی و انتخاب شریک سازنده برای این پروژه در دستور کار قرار گرفت.'),
+      p('بر همین اساس، پس از انجام بررسی‌های کارشناسی و تهیه اسناد مربوطه، فراخوان انتخاب شریک سازنده پروژه نارنجستان جنوبی در دو نوبت و از طریق روزنامه‌های کثیرالانتشار در تاریخ‌های ۱۴۰۵/۰۲/۲۱ و ۱۴۰۵/۰۳/۱۸ منتشر شد تا زمینه مشارکت سرمایه‌گذاران و شرکت‌های واجد صلاحیت در اجرای این پروژه فراهم شود.'),
+      p('هدف از انتشار این فراخوان، جذب توانمندی‌های فنی، اجرایی و مالی بخش خصوصی و انتخاب شریک مناسب برای تسریع در روند تکمیل پروژه و بهره‌برداری هرچه سریع‌تر از آن است.'),
+      p('شرکت متعهد است با رعایت اصول شفافیت، رقابت سالم و حفظ منافع ذی‌نفعان، فرآیند انتخاب شریک سازنده را مطابق ضوابط و مقررات مربوطه دنبال کرده و نتایج آن را پس از طی مراحل قانونی اطلاع‌رسانی نماید.'),
+      fig(`${WP}/2026/06/farakhan02.jpg`, 'فراخوان انتخاب شریک سازنده پروژه نارنجستان جنوبی'),
+    ],
+  },
+  {
+    slug: 'finance-hr-deputy-introduced',
+    category: 'news',
+    title: 'معارفه معاون مالی و منابع انسانی هلدینگ',
+    excerpt: 'آقای عباس جلالیان در جلسه ۵۵۵ هیأت‌مدیره به‌عنوان معاون مالی و منابع انسانی معرفی شد.',
+    date: '۲۱ اردیبهشت ۱۴۰۵',
+    sortKey: 14050221,
+    image: `${WP}/2026/05/jalalian.jpg`,
+    author: PR,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['معارفه', 'منابع انسانی'],
+    sourceUrl: 'https://www.icd.co.ir/12345-64/',
+    body: [
+      p('در جلسه ۵۵۵ هیأت‌مدیره هلدینگ به تاریخ ۱۴۰۵/۰۱/۲۴ که با حضور اعضای محترم هیأت‌مدیره و مدیران ارشد برگزار شد، آقای عباس جلالیان به عنوان معاون مالی و منابع انسانی معرفی و فعالیت خود را در این مسئولیت آغاز کرد.'),
+      p('آقای جلالیان پیش از این مسئولیت مدیریت منابع انسانی هلدینگ را بر عهده داشته و با توجه به سوابق و تجربیات مدیریتی خود، از سوی هیأت‌مدیره به این سمت منصوب شده است.'),
+      p('در این مراسم، اعضای هیأت‌مدیره ضمن قدردانی از خدمات و تلاش‌های آقای خسرو آهنک در دوران تصدی معاونت مالی و منابع انسانی، از اقدامات و دستاوردهای ایشان در پیشبرد اهداف سازمانی تقدیر کردند.'),
+      p('همچنین با تأکید بر اهمیت نقش معاونت مالی و منابع انسانی در تحقق برنامه‌های راهبردی هلدینگ، برای آقای جلالیان در مسئولیت جدید آرزوی موفقیت و توفیق روزافزون شد.'),
+    ],
+  },
+  {
+    slug: 'bourse-annual-assessment-rank-one',
+    category: 'news',
+    title: 'موفقیت شرکت بین المللی توسعه ساختمان در ارزیابی سالانه سازمان بورس؛ تعهد به شفافیت و خلق ارزش پایدار',
+    excerpt: 'کسب رتبه ۱ در صنعت و رتبه ۵۱ در کل بازار در ارزیابی سالانه سازمان بورس اوراق بهادار.',
+    date: '۳۱ فروردین ۱۴۰۵',
+    sortKey: 14050131,
+    image: `${WP}/2025/03/gds.png`,
+    author: PR,
+    readingMinutes: 3,
+    views: 0,
+    tags: ['بورس', 'شفافیت'],
+    sourceUrl: 'https://www.icd.co.ir/12345-63/',
+    body: [
+      p('سهامداران محترم شرکت بین المللی توسعه ساختمان'),
+      p('موضوع: موفقیت شرکت بین المللی توسعه ساختمان در ارزیابی سالانه سازمان بورس؛ تعهد به شفافیت و خلق ارزش پایدار'),
+      p('با سلام و احترام؛'),
+      p('به اطلاع سهامداران، مشتریان، فعالان بازار سرمایه و عموم علاقه‌مندان می‌رسانیم که شرکت بین المللی توسعه ساختمان با اتکا بر دانش، تخصص و تعهد به شفافیت کامل اطلاعاتی، موفق به کسب نتایج درخشان در ارزیابی سالانه سازمان بورس اوراق بهادار گردید.'),
+      p('این دستاورد که منجر به کسب رتبه ۱ در صنعت و رتبه ۵۱ در کل بازار گردید، مرهون پایبندی شرکت به اصول حرفه‌ای، رویکرد نوآورانه و تعهد راسخ به شفافیت کامل در ارائه اطلاعات به سهامداران و تمامی ذینفعان است. ما بر این باوریم که شفافیت، رکن اساسی اعتمادسازی و لازمه موفقیت بلندمدت در بازار سرمایه است و تلاش می‌کنیم تا همواره اطلاعات حیاتی شرکت را به بهترین و واضح‌ترین شکل ممکن در دسترس شما قرار دهیم.'),
+      p('امتیازات کسب شده توسط شرکت در این ارزیابی، نشان‌دهنده جایگاه مستحکم و رشد پایدار ما در صنعت و کل بازار سرمایه است. جزئیات این امتیازات به شرح جدول زیر است:'),
+      fig(`${WP}/2026/04/clean.jpg`, 'جدول امتیازات ارزیابی سالانه سازمان بورس'),
+    ],
+  },
+  {
+    slug: 'condolence-message',
+    category: 'news',
+    title: 'پیام تسلیت',
+    excerpt: 'پیام تسلیت روابط عمومی شرکت بین المللی توسعه ساختمان.',
+    date: '۱۱ اسفند ۱۴۰۴',
+    sortKey: 14041211,
+    image: `${WP}/2026/03/kh.jpg`,
+    author: PR,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['پیام'],
+    sourceUrl: 'https://www.icd.co.ir/12345-62/',
+    body: [
+      p('بسم الله الرّحمن الرّحیم'),
+      p('وَ لا تَحْسَبَنَّ الَّذِینَ قُتِلُوا فِی سَبِیلِ اللّهِ أَمْواتاً بَلْ أَحْیاءٌ عِنْدَ رَبّهِمْ یُرْزَقُونَ'),
+      p('شهادت قائد امت ایران، خلف صالح امام زمان (عج الله)، پیشوای منتظران، رهبر عظیم الشأن انقلاب اسلامی حضرت آیت الله العظمی امام خامنه‌ای قدس سره الشریف، به دست شقی‌ترین اشرار عالم، داغ سنگینی بود که جان‌های مشتاقان را گداخت.'),
+      p('با قلبی مملو از درد و وجودی سرشار از حزن و اندوه، یاد عالم ربانی و رهبر الهی حضرت امام سید علی خامنه‌ای (قدس سره) را گرامی می‌داریم. باعث افتخار و عزت ملت شریف ایران است که قائد و ولی امر مسلمین جهان در ماه مبارک رمضان در جوار رحمت الهی قرار گرفتند. بدون تردید راه نورانی رهبر شهید تا انقلاب جهانی حضرت مهدی موعود با قدرت هر چه تمام ادامه خواهد یافت و برکات الهی شامل حال ایران اسلامی خواهد شد.'),
+      p('روابط عمومی شرکت بین المللی توسعه ساختمان'),
     ],
   },
 ]
 
-export const posts: Post[] = [...fromArticles, ...tenders].sort((a, b) => b.sortKey - a.sortKey)
+export const posts: Post[] = [...ALL].sort((a, b) => b.sortKey - a.sortKey)
 
 export function getPost(slug: string) {
   return posts.find(p => p.slug === slug)
@@ -170,5 +312,9 @@ export function postsByCategory(category?: MediaCategory | '') {
 
 export function relatedPosts(slug: string, count = 3) {
   const self = getPost(slug)
-  return posts.filter(p => p.slug !== slug && p.category === self?.category).slice(0, count)
+  const sameCategory = posts.filter(p => p.slug !== slug && p.category === self?.category)
+  // Eleven posts in two categories: a tender notice would otherwise show only
+  // one related item. Fall back to the rest of the feed rather than a gap.
+  const rest = posts.filter(p => p.slug !== slug && p.category !== self?.category)
+  return [...sameCategory, ...rest].slice(0, count)
 }

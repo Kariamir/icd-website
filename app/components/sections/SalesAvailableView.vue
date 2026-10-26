@@ -6,7 +6,7 @@
   former /sales/pre-sale route redirects to.
 -->
 <script setup lang="ts">
-import { units, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
+import { sampleUnits, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
 import { salesNav } from '~/utils/routes'
 import { faDigits } from '~/utils/format'
 
@@ -20,12 +20,15 @@ const status = computed(() => {
 const projectSlug = computed(() => String(route.query.project ?? ''))
 const project = computed(() => (projectSlug.value ? getProject(projectSlug.value) : undefined))
 
-const list = computed(() => units.filter(u =>
+/* Six sample units, per the owner's instruction (ADR-026). The filters still
+   narrow that six rather than the whole catalog, so the page never claims
+   more than it shows. */
+const list = computed(() => sampleUnits.filter(u =>
   (!status.value || u.status === status.value)
   && (!projectSlug.value || u.project === projectSlug.value),
 ))
 
-const projectOptions = computed(() => projects.filter(p => units.some(u => u.project === p.slug)))
+const projectOptions = computed(() => projects.filter(p => sampleUnits.some(u => u.project === p.slug)))
 
 function setProject(e: Event) {
   const v = (e.target as HTMLSelectElement).value
@@ -39,9 +42,9 @@ const heading = computed(() => {
 })
 
 const stats = computed(() => [
-  { label: 'واحدهای عرضه‌شده', value: `${faDigits(units.length)} واحد` },
-  { label: 'پیش‌فروش', value: `${faDigits(units.filter(u => u.status === 'pre-sale').length)} واحد` },
-  { label: 'آماده تحویل', value: `${faDigits(units.filter(u => u.status === 'ready').length)} واحد` },
+  { label: 'واحدهای عرضه‌شده', value: `${faDigits(sampleUnits.length)} واحد` },
+  { label: 'پیش‌فروش', value: `${faDigits(sampleUnits.filter(u => u.status === 'pre-sale').length)} واحد` },
+  { label: 'آماده تحویل', value: `${faDigits(sampleUnits.filter(u => u.status === 'ready').length)} واحد` },
   { label: 'پروژه‌ها', value: `${faDigits(projectOptions.value.length)} پروژه` },
 ])
 </script>

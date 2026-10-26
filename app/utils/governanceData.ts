@@ -92,16 +92,41 @@ export const icdBoard: BoardMember[] = [
 ]
 
 /**
- * ⛔ Not supplied. When the client names the board secretary, fill this in —
- * the section renders them below the board at a deliberately smaller size,
- * which is the treatment the owner asked for.
+ * The board secretary, named by the client 1405/08 (ADR-026) — this closes
+ * ADR-024's open flag. He is shown below the board at a deliberately smaller
+ * size, which is the treatment the owner asked for, and he also appears among
+ * the senior managers in his line role; the two are different jobs.
  */
-export const boardSecretary: BoardMember | null = null
+export const boardSecretary: { slug: string, name: string, role: string, image?: string } = {
+  slug: 'vahid-razafzoun',
+  name: 'وحید رازافزون',
+  role: 'دبیر هیات‌مدیره',
+}
 
-/** Senior executives, as the client listed them (1405/08). */
-export const icdExecutives: { slug: string, name: string, role: string, image?: string }[] = [
+/**
+ * The deputies — a tier of their own between the board and the line managers
+ * (ADR-026). Cards here are a step smaller than a board card and a step
+ * larger than a senior manager's, which is the hierarchy the owner asked the
+ * design to show.
+ *
+ * ⛔ «فلاحی» is as the client wrote it: a surname with no given name, and his
+ * title is an advisory one rather than a deputy's. Note also that the
+ * spelling differs from the board member محمدامین فلاح — if they are the same
+ * person this needs correcting, and if they are not, the given name is still
+ * needed so the card does not carry a bare surname.
+ */
+export const icdDeputies: { slug: string, name: string, role: string, image?: string }[] = [
   { slug: 'mohammad-rahimi-moghadam', name: 'محمد رحیمی مقدم', role: 'معاون برنامه‌ریزی و سرمایه‌گذاری', image: '/img/board/mohammad-rahimi-moghadam.jpg' },
   { slug: 'abbas-jalalian', name: 'عباس جلالیان', role: 'معاون مالی و منابع انسانی', image: '/img/board/abbas-jalalian.jpg' },
+  { slug: 'fallahi', name: 'فلاحی', role: 'مشاور مدیرعامل در امور فنی' },
+]
+
+/**
+ * Senior managers. رحیمی مقدم and جلالیان moved up to `icdDeputies` at the
+ * owner's instruction and are deliberately not repeated here — one person,
+ * one place.
+ */
+export const icdExecutives: { slug: string, name: string, role: string, image?: string }[] = [
   { slug: 'amirhossein-nouripour', name: 'امیرحسین نوری‌پور', role: 'مدیر املاک و مستغلات' },
   { slug: 'amir-shirinbeigpour', name: 'امیر شیرین‌بیگ‌پور', role: 'مدیر حقوقی' },
   { slug: 'vahid-razafzoun', name: 'وحید رازافزون', role: 'مدیر حوزه مدیرعامل و روابط عمومی' },

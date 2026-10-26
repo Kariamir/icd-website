@@ -125,7 +125,7 @@ function memberRows(m: CompanyBoardMember) {
             <PersonCard
               v-for="m in executives"
               :key="`${m.name}-${m.rank}`"
-              size="sm"
+              size="xs"
               :name="m.name"
               :role="m.role"
               :badges="m.membership ? [m.membership] : []"

@@ -27,7 +27,12 @@ withDefaults(defineProps<{
   badges?: string[]
   /** Attribute rows at the foot. */
   rows?: { label: string, value: string }[]
-  size?: 'lg' | 'md' | 'sm'
+  /**
+   * Four steps, one anatomy. `md` is a board card, `sm` a deputy's — a step
+   * smaller but still carrying a portrait — and `xs` a line manager or a
+   * committee member, where the portrait becomes a thumb beside the name.
+   */
+  size?: 'lg' | 'md' | 'sm' | 'xs'
   tone?: 'light' | 'dark'
   /** Draws the accent rule along the top — used for the chair and the CEO. */
   accent?: boolean
@@ -51,30 +56,40 @@ withDefaults(defineProps<{
       accent && 'person--accent',
     ]"
   >
-    <!-- portrait -->
+    <!--
+      Portrait. A card at these sizes always gets the plate, photograph or
+      not: without it, one person with no supplied portrait left a mostly
+      empty card stretched to the height of the photographed ones beside it.
+      The monogram fills the same frame instead.
+    -->
     <div
-      v-if="image && size !== 'sm'"
-      class="overflow-hidden bg-surface-alt"
-      :class="size === 'lg' ? 'aspect-[4/5]' : 'aspect-square'"
+      v-if="size !== 'xs'"
+      class="flex items-center justify-center overflow-hidden bg-surface-alt"
+      :class="size === 'lg' ? 'aspect-[4/5]' : size === 'sm' ? 'aspect-[4/3]' : 'aspect-square'"
     >
-      <img :src="image" :alt="name" loading="lazy" class="size-full object-cover object-top">
+      <img v-if="image" :src="image" :alt="name" loading="lazy" class="size-full object-cover object-top">
+      <span
+        v-else
+        aria-hidden="true"
+        class="flex size-20 items-center justify-center rounded-pill bg-brand-tint text-headline-sm font-headline-sm text-primary-container"
+      >{{ initialsOf(name) }}</span>
     </div>
 
-    <div :class="size === 'lg' ? 'p-7' : size === 'md' ? 'p-6' : 'p-5'">
-      <div v-if="badges.length || (size === 'sm' || !image)" class="mb-4 flex items-start justify-between gap-3">
+    <div :class="size === 'lg' ? 'p-7' : size === 'md' ? 'p-6' : size === 'sm' ? 'p-5' : 'p-4'">
+      <div v-if="badges.length || size === 'xs'" class="mb-4 flex items-start justify-between gap-3">
         <!-- a small portrait, or a monogram when none was supplied -->
         <img
-          v-if="image && size === 'sm'"
+          v-if="image && size === 'xs'"
           :src="image"
           :alt="name"
           loading="lazy"
           class="size-12 shrink-0 rounded-pill object-cover object-top"
         >
         <span
-          v-else-if="!image"
+          v-else-if="!image && size === 'xs'"
           aria-hidden="true"
           class="flex shrink-0 items-center justify-center rounded-pill bg-brand-tint font-bold text-primary-container"
-          :class="size === 'sm' ? 'size-10 text-label-lg' : 'size-12 text-body-md'"
+          :class="size === 'xs' ? 'size-10 text-label-lg' : 'size-12 text-body-md'"
         >{{ initialsOf(name) }}</span>
         <span v-else class="shrink-0" />
 
@@ -89,12 +104,12 @@ withDefaults(defineProps<{
 
       <h3
         class="font-bold leading-snug text-ink"
-        :class="size === 'lg' ? 'text-headline-sm font-headline-sm' : size === 'md' ? 'text-body-lg' : 'text-body-md'"
+        :class="size === 'lg' ? 'text-headline-sm font-headline-sm' : size === 'md' ? 'text-body-lg' : size === 'sm' ? 'text-body-lg' : 'text-body-md'"
       >{{ name }}</h3>
       <p
         v-if="role"
         class="mt-1 font-bold text-primary-container"
-        :class="size === 'sm' ? 'text-label-md' : 'text-label-lg'"
+        :class="size === 'xs' ? 'text-label-md' : 'text-label-lg'"
       >{{ role }}</p>
       <p v-if="note" class="mt-2 text-label-md leading-relaxed text-secondary">{{ note }}</p>
 

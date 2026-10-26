@@ -72,17 +72,82 @@ const panX = ref(0)
 const panY = ref(0)
 const svgEl = ref<SVGSVGElement | null>(null)
 
-/** The visible window in the SVG's own user units. */
+/**
+ * The window the user is heading for, in the SVG's own user units. The
+ * window actually PAINTED is `cur` below, which eases toward this.
+ */
 const view = computed(() => {
   const w = MAP.width / zoom.value
   const h = MAP.height / zoom.value
   return { w, h, x: panX.value, y: panY.value }
 })
 
-const viewBox = computed(() => {
-  const v = view.value
-  return `${v.x.toFixed(1)} ${v.y.toFixed(1)} ${v.w.toFixed(1)} ${v.h.toFixed(1)}`
+/*
+ * WHY THE VIEWBOX IS NOT A REACTIVE BINDING (ADR-026).
+ *
+ * It used to be `:viewBox="viewBox"`, and every pointermove wrote panX/panY,
+ * so Vue re-rendered the whole SVG — thirty-one province paths, the
+ * neighbouring countries and every pin — on each of the ~120 events a trackpad
+ * drag produces per second. That is the jank the owner reported.
+ *
+ * The painted window now lives outside reactivity in `cur`, a
+ * requestAnimationFrame loop eases it toward the target and writes the
+ * attribute straight onto the element, and the pins hold their on-screen size
+ * through a CSS custom property set in the same pass. During a gesture Vue
+ * re-renders nothing at all.
+ */
+const cur = { z: 1, x: 0, y: 0 }
+let raf = 0
+/** 1 follows the finger exactly; below 1 eases, for wheel and button zooms. */
+let ease = 1
+
+/*
+ * Pins keep their size on screen as the map zooms, the way a real map's
+ * markers do. The counter-scale is written here rather than bound, for the
+ * same reason as the viewBox — and as an SVG `transform` attribute rather
+ * than a CSS one, because an SVG transform scales about the group's own
+ * origin, which is exactly the pin's point, while a CSS transform would
+ * scale about the view box and throw every marker off its city.
+ */
+const pinEls: { el: SVGGElement, x: number, y: number }[] = []
+function capturePin(el: unknown, pin: Pin) {
+  if (el instanceof SVGGElement) pinEls.push({ el, x: pin.x, y: pin.y })
+}
+
+function paint() {
+  const el = svgEl.value
+  if (!el) return
+  const w = MAP.width / cur.z
+  const h = MAP.height / cur.z
+  el.setAttribute('viewBox', `${cur.x.toFixed(1)} ${cur.y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`)
+  const k = (1 / cur.z).toFixed(4)
+  for (const pin of pinEls) pin.el.setAttribute('transform', `translate(${pin.x} ${pin.y}) scale(${k})`)
+}
+
+function tick() {
+  const k = ease
+  const dz = zoom.value - cur.z
+  const dx = panX.value - cur.x
+  const dy = panY.value - cur.y
+  const settled = Math.abs(dz) < 0.0005 && Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3
+  if (settled) {
+    cur.z = zoom.value; cur.x = panX.value; cur.y = panY.value
+  }
+  else {
+    cur.z += dz * k; cur.x += dx * k; cur.y += dy * k
+  }
+  paint()
+  raf = requestAnimationFrame(tick)
+}
+
+onBeforeUpdate(() => { pinEls.length = 0 })
+
+onMounted(() => {
+  cur.z = zoom.value; cur.x = panX.value; cur.y = panY.value
+  paint()
+  raf = requestAnimationFrame(tick)
 })
+onBeforeUnmount(() => cancelAnimationFrame(raf))
 
 /** Keep the window inside the map however the user pushes it. */
 function clamp() {
@@ -104,11 +169,20 @@ function zoomAt(factor: number, ux: number, uy: number) {
 }
 
 /** Client pixels → the SVG's user units, honouring the current window. */
-function toUser(clientX: number, clientY: number) {
+let rectCache: DOMRect | null = null
+function rect() {
   const el = svgEl.value
-  if (!el) return { x: 0, y: 0 }
-  const r = el.getBoundingClientRect()
-  const v = view.value
+  if (!el) return null
+  if (!rectCache) rectCache = el.getBoundingClientRect()
+  return rectCache
+}
+
+function toUser(clientX: number, clientY: number) {
+  const r = rect()
+  if (!r) return { x: 0, y: 0 }
+  // Measured against what is on screen NOW, not the target, or a zoom that is
+  // still easing would put the cursor's anchor in the wrong place.
+  const v = { w: MAP.width / cur.z, h: MAP.height / cur.z, x: cur.x, y: cur.y }
   // the SVG uses preserveAspectRatio="xMidYMid meet": work out the letterbox
   const scale = Math.min(r.width / v.w, r.height / v.h)
   const offX = (r.width - v.w * scale) / 2
@@ -121,11 +195,17 @@ function toUser(clientX: number, clientY: number) {
 
 function onWheel(e: WheelEvent) {
   e.preventDefault()
+  ease = 0.22
   const u = toUser(e.clientX, e.clientY)
-  zoomAt(e.deltaY < 0 ? 1.18 : 1 / 1.18, u.x, u.y)
+  // Scale the step by how hard the wheel was turned, so a trackpad's many
+  // small deltas glide instead of stepping, and a mouse notch still moves.
+  const mag = Math.min(1, Math.abs(e.deltaY) / 120)
+  const factor = 1 + 0.26 * mag
+  zoomAt(e.deltaY < 0 ? factor : 1 / factor, u.x, u.y)
 }
 
 function onDoubleClick(e: MouseEvent) {
+  ease = 0.16
   const u = toUser(e.clientX, e.clientY)
   zoomAt(1.8, u.x, u.y)
 }
@@ -156,6 +236,8 @@ function spread() {
 
 function onPointerDown(e: PointerEvent) {
   if (e.pointerType === 'mouse' && e.button !== 0) return
+  rectCache = null
+  ease = 1
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
   moved = false
   if (pointers.size === 1) {
@@ -219,6 +301,7 @@ function onPointerUp(e: PointerEvent) {
 }
 
 function step(dx: number, dy: number) {
+  ease = 0.2
   const v = view.value
   panX.value += dx * v.w * 0.18
   panY.value += dy * v.h * 0.18
@@ -231,15 +314,18 @@ function onKey(e: KeyboardEvent) {
   }
   const m = moves[e.key]
   if (m) { step(m[0], m[1]); e.preventDefault(); return }
+  ease = 0.2
   if (e.key === '+' || e.key === '=') { zoomAt(1.3, panX.value + view.value.w / 2, panY.value + view.value.h / 2); e.preventDefault() }
   if (e.key === '-' || e.key === '_') { zoomAt(1 / 1.3, panX.value + view.value.w / 2, panY.value + view.value.h / 2); e.preventDefault() }
 }
 
 function zoomCentre(factor: number) {
+  ease = 0.16
   zoomAt(factor, panX.value + view.value.w / 2, panY.value + view.value.h / 2)
 }
 
 function reset() {
+  ease = 0.16
   zoom.value = 1
   panX.value = 0
   panY.value = 0
@@ -247,6 +333,7 @@ function reset() {
 
 /** Centre the map on one pin and move in — used when a card is chosen. */
 function focusPin(pin: Pin, z = 4) {
+  ease = 0.16
   zoom.value = Math.min(MAX_Z, Math.max(zoom.value, z))
   panX.value = pin.x - MAP.width / zoom.value / 2
   panY.value = pin.y - MAP.height / zoom.value / 2
@@ -267,8 +354,9 @@ defineExpose({ focusSlug: (slug: string) => {
 /*
  * Pins keep their size on screen as the map zooms, the way a real map's
  * markers do — the SVG scales everything else, so these divide it back out.
+ * The divisor is the `--pin-s` custom property the rAF loop writes, so a
+ * gesture changes nothing Vue has to re-render.
  */
-const pinScale = computed(() => 1 / zoom.value)
 
 const statusColour: Record<ProjectStatusKey, string> = {
   'upcoming': 'var(--color-text-muted)',
@@ -295,7 +383,7 @@ function onPinClick(pin: Pin) {
     <svg
       ref="svgEl"
       class="iran-map__svg"
-      :viewBox="viewBox"
+      :viewBox="`0 0 ${MAP.width} ${MAP.height}`"
       preserveAspectRatio="xMidYMid meet"
       role="group"
       tabindex="0"
@@ -328,7 +416,7 @@ function onPinClick(pin: Pin) {
       <g
         v-for="pin in pins"
         :key="pin.id"
-        :transform="`translate(${pin.x} ${pin.y}) scale(${pinScale})`"
+        :ref="(el) => capturePin(el, pin)"
         class="iran-map__pin"
         :class="{ 'is-active': activePin?.id === pin.id }"
       >
