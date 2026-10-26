@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.10 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.11 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.11 — the whole catalog is back on sale, and the project page gets a real map (ADR-027).** **(1)** `/sales` shows **every unit again** — the six-unit sample of 1.10 is reverted — and its project picker is removed; `?project=` still deep-links from a project page. **(2)** `#board`'s deputies tier loses «فلاحی» and the senior managers gain «امید بیگ‌پور — مدیر حقوقی و قراردادها». ⛔ he and «امیر شیرین‌بیگ‌پور — مدیر حقوقی» are plausibly the same person; both are published until the owner says. **(3)** `/projects/[slug]` replaces its illustrated aerial with an **OpenStreetMap embed** at district zoom, because the coordinates are city-level; ⛔ the embed could not be reached from this environment and must be confirmed on a real connection. **(4)** Illustrated placeholders are gone from every page but two floor plans: the project gallery is the project's own photographs, and the hero plates on `/companies`, `/contact` and `/complaints` are real. Template count unchanged: **35**.
 
 **Changes in 1.10 — the real feed, three governance tiers, a smoother map (ADR-026).** **(1)** `/media` carries the **eleven real posts** copied from the live site; every invented article and tender notice is deleted. Nine are `news`, two are `tenders`. ⛔ their images are still served from `icd.co.ir` and must be localised before the old site is retired. **(2)** `#board` grows a third tier: board → **board secretary** (named at last: وحید رازافزون) → **معاونین** → مدیران ارشد. **(3)** `/sales` shows **six sample units**, with the card's photography rebuilt as a carousel after the design the owner referenced. **(4)** The `/projects` map no longer re-renders on every pointer event, and the project list beside it takes the map's own height and scrolls. **(5)** The footer carries **six** systems and the company's lockup; the homepage's blog category chips are removed. Template count unchanged: **35**.
 
@@ -203,7 +205,7 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
-| 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** **Six sample units** since v1.10 (`sampleUnits`), each card a photo carousel after the referenced design; `?status=` and `?project=` filter that six | Replaces the former hub |
+| 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** **Every unit in the catalog** since v1.11 — the six-unit sample is reverted and the project picker removed — each card a photo carousel after the referenced design; `?status=` and `?project=` still filter it | Replaces the former hub |
 | 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
 | 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
 | 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |

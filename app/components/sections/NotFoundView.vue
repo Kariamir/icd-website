@@ -5,7 +5,6 @@
   quick link resolves to a real route.
 -->
 <script setup lang="ts">
-import { ph } from '~/utils/media'
 import type { IconName } from '~/utils/icons'
 
 withDefaults(defineProps<{ code?: number }>(), { code: 404 })
@@ -25,7 +24,7 @@ const quick: { icon: IconName, label: string, to: string }[] = [
 
 <template>
   <section class="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6 py-16 md:py-24">
-    <img :src="ph('skyline', 1)" alt="" class="absolute inset-x-0 bottom-0 h-1/2 w-full object-cover opacity-20 [mask-image:linear-gradient(to_top,black,transparent)]">
+    <img src="/img/projects/tehran-international-tower-1.jpg" alt="" class="absolute inset-x-0 bottom-0 h-1/2 w-full object-cover opacity-20 [mask-image:linear-gradient(to_top,black,transparent)]">
     <div class="relative z-10 mx-auto w-full max-w-3xl text-center">
       <span class="mb-4 inline-block select-none text-8xl font-black leading-none text-primary-container md:text-[140px]">{{ code === 404 ? '۴۰۴' : '۵۰۰' }}</span>
       <h1 class="mb-3 text-2xl font-extrabold text-ink md:text-3xl">{{ code === 404 ? 'صفحه مورد نظر یافت نشد' : 'خطایی رخ داد' }}</h1>

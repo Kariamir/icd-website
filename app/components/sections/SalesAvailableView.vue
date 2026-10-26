@@ -6,12 +6,11 @@
   former /sales/pre-sale route redirects to.
 -->
 <script setup lang="ts">
-import { sampleUnits, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
+import { units, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
 import { salesNav } from '~/utils/routes'
 import { faDigits } from '~/utils/format'
 
 const route = useRoute()
-const router = useRouter()
 
 const status = computed(() => {
   const s = String(route.query.status ?? '')
@@ -20,20 +19,16 @@ const status = computed(() => {
 const projectSlug = computed(() => String(route.query.project ?? ''))
 const project = computed(() => (projectSlug.value ? getProject(projectSlug.value) : undefined))
 
-/* Six sample units, per the owner's instruction (ADR-026). The filters still
-   narrow that six rather than the whole catalog, so the page never claims
-   more than it shows. */
-const list = computed(() => sampleUnits.filter(u =>
+/* Every unit the catalog carries. The six-unit sample of ADR-026 is reverted
+   at the owner's instruction (ADR-027). `?project=` still narrows the list —
+   that is how a project page deep-links into its own units — but the page no
+   longer offers a project picker of its own. */
+const list = computed(() => units.filter(u =>
   (!status.value || u.status === status.value)
   && (!projectSlug.value || u.project === projectSlug.value),
 ))
 
-const projectOptions = computed(() => projects.filter(p => sampleUnits.some(u => u.project === p.slug)))
-
-function setProject(e: Event) {
-  const v = (e.target as HTMLSelectElement).value
-  router.replace({ query: { ...route.query, project: v || undefined } })
-}
+const representedProjects = computed(() => projects.filter(p => units.some(u => u.project === p.slug)))
 
 const heading = computed(() => {
   if (status.value === 'pre-sale') return 'پیش‌فروش پروژه‌های در حال ساخت'
@@ -42,10 +37,10 @@ const heading = computed(() => {
 })
 
 const stats = computed(() => [
-  { label: 'واحدهای عرضه‌شده', value: `${faDigits(sampleUnits.length)} واحد` },
-  { label: 'پیش‌فروش', value: `${faDigits(sampleUnits.filter(u => u.status === 'pre-sale').length)} واحد` },
-  { label: 'آماده تحویل', value: `${faDigits(sampleUnits.filter(u => u.status === 'ready').length)} واحد` },
-  { label: 'پروژه‌ها', value: `${faDigits(projectOptions.value.length)} پروژه` },
+  { label: 'واحدهای عرضه‌شده', value: `${faDigits(units.length)} واحد` },
+  { label: 'پیش‌فروش', value: `${faDigits(units.filter(u => u.status === 'pre-sale').length)} واحد` },
+  { label: 'آماده تحویل', value: `${faDigits(units.filter(u => u.status === 'ready').length)} واحد` },
+  { label: 'پروژه‌ها', value: `${faDigits(representedProjects.value.length)} پروژه` },
 ])
 </script>
 
@@ -69,22 +64,11 @@ const stats = computed(() => [
     <SubNav :items="salesNav" label="بخش‌های فروش" />
 
     <section class="mx-auto max-w-[1440px] px-space-lg py-12 md:px-margin md:py-16">
-      <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+      <div class="mb-8">
         <p class="text-body-md text-secondary">
           <strong class="text-ink">{{ faDigits(list.length) }}</strong> واحد
           <template v-if="project"> در <NuxtLink :to="`/projects/${project.slug}`" class="text-primary-container hover:underline">{{ project.name }}</NuxtLink></template>
         </p>
-        <label class="flex items-center gap-3 text-label-lg text-secondary">
-          پروژه
-          <select
-            :value="projectSlug"
-            class="h-11 min-w-56 rounded-xs border border-border bg-surface-container-lowest px-3 text-body-sm text-ink focus:border-primary-container focus:outline-none"
-            @change="setProject"
-          >
-            <option value="">همه پروژه‌ها</option>
-            <option v-for="p in projectOptions" :key="p.slug" :value="p.slug">{{ p.name }}</option>
-          </select>
-        </label>
       </div>
 
       <div v-if="list.length" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

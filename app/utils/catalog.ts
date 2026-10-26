@@ -564,32 +564,15 @@ export const units: Unit[] = [
 ]
 
 /**
- * The six units the sales page shows (ADR-026, owner's instruction: «limit
- * the sales section to 6 sample units»).
- *
- * Chosen from `units` by having a real area — two of the client's fifteen
- * rows are parking spaces at 0m², which make poor shop-window cards — and
- * then by spread of size and floor. The other nine records stay in the
- * catalog and keep their own pages: they are reachable from their project,
- * they are simply not the six on the shelf.
- *
- * ⛔ The photographs are the parent PROJECT's, because `Asset Icd/photo unit`
- * exists with one folder per unit and all six folders are still empty. The
- * moment they are filled, each unit gets its own gallery and this comment
- * goes with it.
- */
-export const SAMPLE_UNIT_IDS = ['4208', 'cb12', 'bb33', 'd215', 'gb08', 'b204'] as const
-
-export const sampleUnits: Unit[] = SAMPLE_UNIT_IDS
-  .map(id => units.find(u => u.id === id))
-  .filter((u): u is Unit => !!u)
-
-/**
  * The photographs for a unit card: its project's, if the client supplied any.
  *
  * The unit's own `image` is an illustrated placeholder (`ph()`), so leading
  * with it put a drawing in front of real photographs of the building the
  * unit is in. It is the fallback, not the first frame.
+ *
+ * ⛔ No unit has photographs of its OWN: `Asset Icd/photo unit` carries one
+ * folder per unit and every folder is still empty. The moment they are
+ * filled, each unit gets its own gallery and this note goes with it.
  */
 export function unitGallery(unit: Unit): string[] {
   const gallery = getProject(unit.project)?.gallery ?? []

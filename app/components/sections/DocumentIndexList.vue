@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { initialsOf } from '~/utils/governanceData'
 import { documentCategories, irContacts, type DocumentCategoryKey, type DocumentHubContent, type DocumentRecord } from '~/utils/documentsData'
 import { formatJalaliLong, irFaDigits } from '~/utils/irDateUtils'
 
@@ -287,8 +288,10 @@ const spotlightIcons: Record<'video' | 'pdf' | 'doc', string> = {
       </div>
       <div class="document-index__contact-grid">
         <div v-for="c in irContacts" :key="c.email" class="document-index__contact-card">
-          <div class="document-index__contact-avatar">
-            <BaseImage :src="c.image" :alt="c.name" />
+          <!-- a monogram when no photograph was supplied, never a drawn face (ADR-021) -->
+          <div class="document-index__contact-avatar" :class="!c.image && 'document-index__contact-avatar--mono'">
+            <BaseImage v-if="c.image" :src="c.image" :alt="c.name" />
+            <span v-else aria-hidden="true">{{ initialsOf(c.name) }}</span>
           </div>
           <h3>{{ c.name }}</h3>
           <span class="document-index__contact-role">{{ c.role }}</span>
@@ -452,6 +455,7 @@ const spotlightIcons: Record<'video' | 'pdf' | 'doc', string> = {
 @media (min-width: 640px) { .document-index__contact-grid { grid-template-columns: 1fr 1fr; } }
 .document-index__contact-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-3); background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
 .document-index__contact-avatar { inline-size: 112px; block-size: 112px; border-radius: 50%; overflow: hidden; border: 3px solid var(--color-tint); background: var(--color-surface-alt); margin-block-end: var(--space-2); }
+.document-index__contact-avatar--mono { display: flex; align-items: center; justify-content: center; background: var(--color-tint); color: var(--color-brand-blue); font: var(--text-h3); font-weight: 800; }
 .document-index__contact-avatar :deep(img) { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .document-index__contact-card h3 { font: var(--text-h3); font-weight: 800; margin: 0 0 4px; }
 .document-index__contact-role { font-size: 12px; font-weight: 700; color: var(--color-primary); margin-block-end: var(--space-2); }

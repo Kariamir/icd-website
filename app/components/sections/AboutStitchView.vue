@@ -13,7 +13,6 @@
 import { aboutHero, aboutMilestones, aboutChain, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
 import { icdBoard, icdDeputies, icdExecutives, icdCommittees, boardSecretary, type CommitteeMember } from '~/utils/governanceData'
 import { subsidiaries, projects } from '~/utils/catalog'
-import { ph } from '~/utils/media'
 import { faDigits } from '~/utils/format'
 
 /*
@@ -458,7 +457,7 @@ function submit() {
 
     <!-- #subsidiaries — enlarged, blurred backdrop, horizontal scroll -->
     <section id="subsidiaries" class="relative scroll-mt-20 overflow-hidden bg-ink py-24 md:py-32">
-      <img :src="ph('skyline', 2)" alt="" class="absolute inset-0 size-full scale-110 object-cover opacity-25 blur-md">
+      <img src="/img/projects/tehran-international-tower-1.jpg" alt="" class="absolute inset-0 size-full scale-110 object-cover opacity-25 blur-md">
       <div class="relative mx-auto max-w-[1440px] px-space-lg md:px-margin">
         <SectionHead tone="dark" eyebrow="خانواده ثاخت" title="شرکت‌های تخصصی تابعه" aside="هشت شرکت، یک زنجیره کامل ساخت.">
           <NuxtLink to="/companies" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-surface-container-lowest/40 px-4 text-label-lg text-surface-container-lowest hover:bg-surface-container-lowest hover:text-ink">همه شرکت‌ها <AppIcon name="arrow_back" /></NuxtLink>

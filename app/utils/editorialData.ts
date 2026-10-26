@@ -10,10 +10,10 @@
  * related news). Every page composes the same block kinds so the four
  * routes share one template (`StaticEditorial.vue`).
  */
-import { phFor } from '~/utils/media'
 import type { ProjectStatusKey } from '~/utils/catalog'
+import { getProject } from '~/utils/catalog'
 import { getProjectDetail } from '~/utils/projectsData'
-import { articles } from '~/utils/articlesData'
+import { posts } from '~/utils/posts'
 
 /** Kept for backwards compatibility with older consumers. */
 export interface EditorialSectionViewModel {
@@ -96,10 +96,9 @@ export interface EditorialPageViewModel {
   blocks: EditorialBlock[]
 }
 
-const IMG = (seed: string) => phFor(seed)
-const HERO = (seed: string) => phFor(seed)
-
-function projectCard(slug: string, description: string, image: string): EditorialProjectCard {
+/* The carousel shows each project's OWN photograph (ADR-027); it used to key
+   an illustrated drawing off an invented seed string. */
+function projectCard(slug: string, description: string): EditorialProjectCard {
   const d = getProjectDetail(slug)
   return {
     slug,
@@ -110,26 +109,27 @@ function projectCard(slug: string, description: string, image: string): Editoria
     description,
     metricLabel: 'زیربنای ناخالص:',
     metricValue: d?.area ?? '—',
-    image,
+    image: getProject(slug)?.image ?? '/img/placeholder.svg',
   }
 }
 
-const articleHref: Record<string, string> = { news: '/media/news', story: '/media/stories', report: '/media/reports' }
-
-const relatedNews: EditorialNewsItem[] = articles.slice(0, 3).map(a => ({
-  date: a.date ?? '',
+/* The three latest REAL posts (ADR-027). This block used to draw invented
+   articles and link them at /media/news/… and /media/stories/… — routes the
+   consolidation retired, so every link 301'd away from the piece it named. */
+const relatedNews: EditorialNewsItem[] = posts.slice(0, 3).map(a => ({
+  date: a.date,
   title: a.title,
-  excerpt: a.excerpt ?? '',
-  href: `${articleHref[a.contentType] ?? '/media'}/${a.slug}`,
+  excerpt: a.excerpt,
+  href: `/media/${a.slug}`,
 }))
 
 const featuredProjects: EditorialProjectCard[] = [
-  projectCard('tehran-international-tower', 'بلندترین تک‌برج چندمنظوره هلدینگ با ۵۶ طبقه، مجهز به جداگرهای پیشرفته لرزه‌ای و نمای هوشمند دوپوسته.', IMG('icd-ed-tower')),
-  projectCard('mega-pars-tehran', 'بزرگ‌ترین مجموعه تجاری، اداری و تفریحی هلدینگ با سازه مختلط فولادی-بتنی و پارکینگ هوشمند طبقاتی.', IMG('icd-ed-megapars')),
-  projectCard('ofogh-sina-mashhad', 'هتل‌آپارتمان و پهنه‌های تجاری متراکم با سازه پیش‌تنیده ضدزلزله و دسترسی‌های مستقل شهری.', IMG('icd-ed-asp')),
-  projectCard('narenjestan-izadshahr', 'مجتمع مسکونی شهری با معماری اقلیمی، حیاط‌های مرکزی و سامانه مدیریت انرژی ساختمان.', IMG('icd-ed-shiraz')),
-  projectCard('roya-elite', 'مجتمع اقامتی-گردشگری ساحلی با بتن ضدسولفات و سقف‌های دال مجوف در اقلیم مرطوب.', IMG('icd-ed-kish')),
-  projectCard('narenjestan-izadshahr', 'شهرک مسکونی و تجاری ساحلی با زیرساخت مستقل آب و فاضلاب و فضای سبز پیوسته.', IMG('icd-ed-narenjestan')),
+  projectCard('tehran-international-tower', 'بلندترین تک‌برج چندمنظوره هلدینگ با ۵۶ طبقه، مجهز به جداگرهای پیشرفته لرزه‌ای و نمای هوشمند دوپوسته.'),
+  projectCard('mega-pars-tehran', 'بزرگ‌ترین مجموعه تجاری، اداری و تفریحی هلدینگ با سازه مختلط فولادی-بتنی و پارکینگ هوشمند طبقاتی.'),
+  projectCard('ofogh-sina-mashhad', 'هتل‌آپارتمان و پهنه‌های تجاری متراکم با سازه پیش‌تنیده ضدزلزله و دسترسی‌های مستقل شهری.'),
+  projectCard('narenjestan-izadshahr', 'مجتمع مسکونی شهری با معماری اقلیمی، حیاط‌های مرکزی و سامانه مدیریت انرژی ساختمان.'),
+  projectCard('roya-elite', 'مجتمع اقامتی-گردشگری ساحلی با بتن ضدسولفات و سقف‌های دال مجوف در اقلیم مرطوب.'),
+  projectCard('narenjestan-izadshahr', 'شهرک مسکونی و تجاری ساحلی با زیرساخت مستقل آب و فاضلاب و فضای سبز پیوسته.'),
 ]
 
 export const visionPage: EditorialPageViewModel = {
@@ -138,7 +138,7 @@ export const visionPage: EditorialPageViewModel = {
   intro: 'شرکت بین‌المللی توسعه ساختمان (ثاخت) با تکیه بر چهار دهه فعالیت پیوسته، پیشرفته‌ترین بسترهای مهندسی ژئوتکنیک، طراحی سازه‌های فوق‌سنگین و توسعه پایدار املاک را در مقیاس ملی رهبری می‌کند.',
   breadcrumbParent: { label: 'درباره ثاخت', href: '/about' },
   hero: {
-    image: HERO('icd-vision-hero'),
+    image: '/img/about/vision.jpg',
     alt: 'گودبرداری عمیق و سازه نگهبان در یکی از کارگاه‌های هلدینگ ثاخت',
     liveBadge: 'پروژه فعال: سازه مهندسی و پایدارسازی ژئوتکنیک فاز ۴',
     codeBadge: 'کدال نماد: ثاخت | ICD1',
@@ -237,7 +237,7 @@ export const csrPage: EditorialPageViewModel = {
   intro: 'هلدینگ ثاخت گزارش‌گری پایداری خود را بر مبنای استانداردهای زیست‌محیطی، اجتماعی و حاکمیت شرکتی (ESG) تنظیم می‌کند.',
   breadcrumbParent: { label: 'درباره ثاخت', href: '/about' },
   hero: {
-    image: HERO('icd-csr-hero'),
+    image: '/img/about/governance.jpg',
     alt: 'فضای سبز و نمای پایدار یکی از مجتمع‌های هلدینگ ثاخت',
     liveBadge: 'گزارش پایداری سال ۱۴۰۳ منتشر شد',
     codeBadge: 'چارچوب گزارش‌گری GRI و ESG',
@@ -332,7 +332,7 @@ export const legalPrivacyPage: EditorialPageViewModel = {
   intro: 'حریم خصوصی کاربران و سهامداران، و شرایط استفاده از وب‌سایت و خدمات برخط ثاخت.',
   breadcrumbParent: { label: 'اسناد حقوقی' },
   hero: {
-    image: HERO('icd-privacy-hero'),
+    image: '/img/about/governance.jpg',
     alt: 'مرکز داده و زیرساخت فناوری اطلاعات هلدینگ ثاخت',
     codeBadge: 'آخرین بازنگری: ۱۴۰۳/۰۴/۰۱',
     heading: 'سیاست حریم خصوصی و حفاظت از داده‌های شخصی',

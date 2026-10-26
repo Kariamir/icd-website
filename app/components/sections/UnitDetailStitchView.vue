@@ -4,12 +4,12 @@
   tab script and alert()-based form are reimplemented in Vue.
 -->
 <script setup lang="ts">
-import { getProject, getCompany, priceLabel, unitStatus, unitsByProject, type Unit } from '~/utils/catalog'
-import { ph } from '~/utils/media'
+import { getProject, getCompany, priceLabel, unitStatus, unitsByProject, unitGallery, type Unit } from '~/utils/catalog'
 import { faArea, faDigits, faNumber } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
 
 const props = defineProps<{ unit: Unit }>()
+const shots = computed(() => unitGallery(props.unit).slice(0, 3))
 const project = computed(() => getProject(props.unit.project)!)
 const company = computed(() => getCompany(project.value.company)!)
 const siblings = computed(() => unitsByProject(props.unit.project).filter(u => u.id !== props.unit.id))
@@ -91,10 +91,19 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
         </div>
       </div>
 
-      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2">
-        <div class="overflow-hidden rounded-md md:col-span-3 md:row-span-2"><img :src="unit.image" :alt="unit.title" class="aspect-[16/10] size-full object-cover"></div>
-        <div class="overflow-hidden rounded-md"><img :src="ph('interior', 2)" alt="" class="aspect-[4/3] size-full object-cover"></div>
-        <div class="overflow-hidden rounded-md"><img :src="project.image" alt="" class="aspect-[4/3] size-full object-cover"></div>
+      <!--
+        The unit's photographs are its project's (ADR-027): two of these three
+        frames used to be illustrated drawings, and `unitGallery` already
+        resolves to the real building. ⛔ No unit has photographs of its own
+        yet — `Asset Icd/photo unit` is still empty.
+      -->
+      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4" :class="shots.length > 1 && 'md:grid-rows-2'">
+        <div class="overflow-hidden rounded-md" :class="shots.length > 1 ? 'md:col-span-3 md:row-span-2' : 'md:col-span-4'">
+          <img :src="shots[0]" :alt="unit.title" class="aspect-[16/10] size-full object-cover">
+        </div>
+        <div v-for="(s, i) in shots.slice(1, 3)" :key="i" class="overflow-hidden rounded-md">
+          <img :src="s" alt="" loading="lazy" class="aspect-[4/3] size-full object-cover">
+        </div>
       </div>
 
       <div class="mt-8 grid grid-cols-2 gap-y-4 border-t border-border pt-6 md:grid-cols-5">

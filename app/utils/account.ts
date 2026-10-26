@@ -120,6 +120,9 @@ export const orders: Order[] = [
 export interface FavouriteUnit {
   unit: string
   project: string
+  /** The parent project's own photograph (ADR-027) — the card used to draw an
+      illustrated placeholder keyed off the project name. */
+  image: string
   specs: string
   status: 'موجود' | 'پیش‌فروش' | 'فروخته شد'
   /** A sold unit offers similar units instead of the unit itself. */
@@ -127,10 +130,10 @@ export interface FavouriteUnit {
 }
 
 export const favouriteUnits: FavouriteUnit[] = [
-  { unit: '۱۴۰۴', project: 'برج بین‌المللی تهران', specs: '۱۸۵ متر · طبقه ۱۴ · ۳ خوابه', status: 'موجود' },
-  { unit: '۸۰۷', project: 'مگاپارس تهران', specs: '۱۲۰ متر · طبقه ۸ · ۲ خوابه', status: 'پیش‌فروش' },
-  { unit: '۲۱۲', project: 'نارنجستان ایزدشهر', specs: '۹۵ متر · طبقه ۲ · ۲ خوابه', status: 'فروخته شد', sold: true },
-  { unit: '۳۳۰', project: 'رویای کیش', specs: '۱۴۰ متر · طبقه ۳ · ۳ خوابه', status: 'پیش‌فروش' },
+  { unit: '۱۴۰۴', project: 'برج بین‌المللی تهران', image: '/img/projects/tehran-international-tower-1.jpg', specs: '۱۸۵ متر · طبقه ۱۴ · ۳ خوابه', status: 'موجود' },
+  { unit: '۸۰۷', project: 'مگاپارس تهران', image: '/img/projects/mega-pars-tehran-1.jpg', specs: '۱۲۰ متر · طبقه ۸ · ۲ خوابه', status: 'پیش‌فروش' },
+  { unit: '۲۱۲', project: 'نارنجستان ایزدشهر', image: '/img/projects/narenjestan-izadshahr-1.jpg', specs: '۹۵ متر · طبقه ۲ · ۲ خوابه', status: 'فروخته شد', sold: true },
+  { unit: '۳۳۰', project: 'رویای کیش', image: '/img/projects/roya-elite-4.jpg', specs: '۱۴۰ متر · طبقه ۳ · ۳ خوابه', status: 'پیش‌فروش' },
 ]
 
 /* ---------------------------------------------------------------- documents */

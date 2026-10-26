@@ -5,14 +5,13 @@
 -->
 <script setup lang="ts">
 import { subsidiaries, projectsByCompany } from '~/utils/catalog'
-import { ph } from '~/utils/media'
 import { faDigits, faIndex } from '~/utils/format'
 </script>
 
 <template>
   <div>
     <PageHero
-      :image="ph('skyline', 1)"
+      image="/img/projects/x-tisashahr-2.jpg"
       title="شرکت‌های تابعه و خانواده ثاخت"
       subtitle="بازوهای تخصصی سرمایه‌گذاری، پیمانکاری و مهندسی در گستره ملی"
       :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'درباره ثاخت', href: '/about' }, { label: 'شرکت‌های تابعه' }]"

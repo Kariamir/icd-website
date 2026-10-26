@@ -2,7 +2,6 @@
 // Route /complaints — سامانه رسیدگی به شکایات (sitemap §9), lead-form
 // template 06 under a PageHero so it matches the rest of the site.
 import { leadHelpDesk, leadInquiryTypes } from '~/utils/leadFormData'
-import { ph } from '~/utils/media'
 
 const complaintOnly = leadInquiryTypes.filter(t => t.key === 'complaint')
 
@@ -15,7 +14,7 @@ useSeoMeta({
 <template>
   <div>
     <PageHero
-      :image="ph('office', 1)"
+      image="/img/projects/ghadir-office-tehran-5.jpg"
       size="sm"
       eyebrow="بررسی محرمانه و اعلام نتیجه با کد رهگیری"
       title="شکایات و پیشنهادات"

@@ -10,11 +10,19 @@
  * repository rows need, so existing `DocumentViewModel[]` consumers keep
  * working unchanged.
  */
-import { phFor } from '~/utils/media'
 import type { DocumentViewModel } from '~/types/content'
 import type { JalaliDate } from '~/utils/irDateUtils'
 
-const IMG = (seed: string) => phFor(seed)
+/* Real photographs of the group's own offices (ADR-027). */
+const IR_IMAGES: Record<string, string> = {
+  'icd-ir-interim-reports': '/img/projects/ghadir-office-tehran-7.jpg',
+  'icd-ir-annual-report': '/img/projects/ghadir-office-tehran-5.jpg',
+  'icd-ir-agm-hall': '/img/projects/ghadir-office-tehran-4.jpg',
+  'icd-ir-governance-report': '/img/projects/ghadir-office-tehran-3.jpg',
+  'icd-ir-charters': '/img/projects/ghadir-office-tehran-6.jpg',
+  'icd-ir-board-meeting': '/img/projects/ghadir-office-tehran-7.jpg',
+}
+const IMG = (seed: string) => IR_IMAGES[seed] ?? '/img/placeholder.svg'
 
 /** Official CODAL listing for the ثاخت symbol (mock deep link). */
 export const codalSymbolUrl = 'https://codal.ir/ReportList.aspx?search&Symbol=%D8%AB%D8%A7%D8%AE%D8%AA'
@@ -85,7 +93,7 @@ export interface DocumentContact {
   email: string
   phone: string
   note: string
-  image: string
+  image?: string
 }
 
 export interface DocumentHubContent {
@@ -181,9 +189,21 @@ const irQuickLinks = [
   { label: 'پرسش‌های متداول سهامداران', href: '/ir/faq' },
 ]
 
+/*
+ * ⛔ THESE TWO PEOPLE ARE SAMPLE RECORDS from the design era: the names, the
+ * @icd.ir addresses (the company's real domain is icd.co.ir) and the
+ * extensions were never supplied by the client. Shareholder affairs must
+ * replace them with the real desk before launch, or the section must go — a
+ * listed company publishing invented contacts on its own IR page is a
+ * disclosure problem, not a design placeholder.
+ *
+ * Their drawn portraits are removed (ADR-027): the card falls back to a
+ * monogram, because an illustration of a face beside a named person reads as
+ * a photograph of that person (ADR-021).
+ */
 export const irContacts: DocumentContact[] = [
-  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵', image: phFor('مهندس علیرضا سلیمانی') },
-  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی', image: phFor('دکتر فاطمه محمدی') },
+  { name: 'مهندس علیرضا سلیمانی', role: 'مدیر امور سهام، مجامع و ناشران', email: 'soleimani@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۴)', note: 'ساعات پاسخگویی: شنبه تا چهارشنبه ۹ الی ۱۵' },
+  { name: 'دکتر فاطمه محمدی', role: 'کارشناس ارشد افشای اطلاعات و سامانه کدال', email: 'codal@icd.ir', phone: '۰۲۱-۸۸۸۸۳۲۴۲ (داخلی ۱۰۸)', note: 'پاسخگویی به تحلیلگران و استعلامات بورسی' },
 ]
 
 export const documentHubs: Record<'financials' | 'governance', DocumentHubContent> = {

@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { companyContact } from '~/utils/routes'
 import { subsidiaries } from '~/utils/catalog'
-import { ph } from '~/utils/media'
 import type { IconName } from '~/utils/icons'
 
 const desks: { icon: IconName, title: string, text: string, href: string, cta: string }[] = [
@@ -32,7 +31,7 @@ const offices = computed(() => [
 <template>
   <div>
     <PageHero
-      :image="ph('office', 1)"
+      image="/img/projects/ghadir-office-tehran-7.jpg"
       title="تماس با ما"
       subtitle="پاسخگویی در روزهای کاری؛ برای هر موضوع، مسیر مستقیم همان واحد."
       :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'تماس با ما' }]"
@@ -85,7 +84,7 @@ const offices = computed(() => [
           <QuickLeadForm subject="contact" submit-label="درخواست تماس" />
         </div>
         <div class="relative min-h-[320px] overflow-hidden rounded-lg">
-          <img :src="ph('aerial', 1)" alt="" class="absolute inset-0 size-full object-cover">
+          <img src="/img/projects/ghadir-office-tehran-16.jpg" alt="" class="absolute inset-0 size-full object-cover">
           <div class="absolute bottom-5 right-5 max-w-xs rounded-md bg-surface-container-lowest p-5">
             <p class="flex items-center gap-2 text-label-lg font-bold text-ink"><AppIcon name="location_on" class="text-primary-container" />دفتر مرکزی ثاخت</p>
             <p class="mt-1 text-body-sm text-secondary">{{ companyContact.address }}</p>

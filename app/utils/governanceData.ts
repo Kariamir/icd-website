@@ -109,25 +109,30 @@ export const boardSecretary: { slug: string, name: string, role: string, image?:
  * larger than a senior manager's, which is the hierarchy the owner asked the
  * design to show.
  *
- * ⛔ «فلاحی» is as the client wrote it: a surname with no given name, and his
- * title is an advisory one rather than a deputy's. Note also that the
- * spelling differs from the board member محمدامین فلاح — if they are the same
- * person this needs correcting, and if they are not, the given name is still
- * needed so the card does not carry a bare surname.
+ * «فلاحی» was removed at the owner's instruction (ADR-027) — the record had
+ * only a bare surname and an advisory title, so there is nothing left to
+ * flag.
  */
 export const icdDeputies: { slug: string, name: string, role: string, image?: string }[] = [
   { slug: 'mohammad-rahimi-moghadam', name: 'محمد رحیمی مقدم', role: 'معاون برنامه‌ریزی و سرمایه‌گذاری', image: '/img/board/mohammad-rahimi-moghadam.jpg' },
   { slug: 'abbas-jalalian', name: 'عباس جلالیان', role: 'معاون مالی و منابع انسانی', image: '/img/board/abbas-jalalian.jpg' },
-  { slug: 'fallahi', name: 'فلاحی', role: 'مشاور مدیرعامل در امور فنی' },
 ]
 
 /**
  * Senior managers. رحیمی مقدم and جلالیان moved up to `icdDeputies` at the
  * owner's instruction and are deliberately not repeated here — one person,
  * one place.
+ *
+ * ⛔ TWO LEGAL MANAGERS. «امید بیگ‌پور — مدیر حقوقی و قراردادها» was added at
+ * the owner's instruction (ADR-027) and «امیر شیرین‌بیگ‌پور — مدیر حقوقی» is
+ * the record the owner typed earlier. The surnames and the posts overlap, so
+ * these are plausibly one person entered twice — but «add» is what was asked
+ * and deleting a named individual on an inference is the worse mistake, so
+ * both stand until the owner says which is right.
  */
 export const icdExecutives: { slug: string, name: string, role: string, image?: string }[] = [
   { slug: 'amirhossein-nouripour', name: 'امیرحسین نوری‌پور', role: 'مدیر املاک و مستغلات' },
+  { slug: 'omid-beigpour', name: 'امید بیگ‌پور', role: 'مدیر حقوقی و قراردادها', image: '/img/board/omid-beigpour.jpg' },
   { slug: 'amir-shirinbeigpour', name: 'امیر شیرین‌بیگ‌پور', role: 'مدیر حقوقی' },
   { slug: 'vahid-razafzoun', name: 'وحید رازافزون', role: 'مدیر حوزه مدیرعامل و روابط عمومی' },
 ]

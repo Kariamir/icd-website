@@ -5,8 +5,7 @@
   and related projects. The design's tab script is reimplemented in Vue.
 -->
 <script setup lang="ts">
-import { getCompany, projectStatus, relatedProjects, unitsByProject, priceLabel, unitStatus, type Project } from '~/utils/catalog'
-import { ph } from '~/utils/media'
+import { getCompany, projectStatus, relatedProjects, unitsByProject, unitGallery, priceLabel, unitStatus, type Project } from '~/utils/catalog'
 import { faArea, faDigits, faNumber } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
 
@@ -22,6 +21,31 @@ const yearLabel = computed(() => {
   if (props.project.year == null) return null
   const y = faDigits(props.project.year)
   return { 'upcoming': `آغاز ${y}`, 'under-construction': `آغاز ساخت ${y}`, 'operating': `بهره‌برداری از ${y}`, 'completed': `تحویل ${y}` }[props.project.status]
+})
+
+/*
+ * The location map. The owner asked for an embed «similar to Google Maps»;
+ * Google Maps and Mapbox are both unreachable from inside Iran and both need
+ * a key and a billing account (ADR-022), so this is OpenStreetMap's own
+ * embed — keyless, no account, no third-party script, and a real street map
+ * rather than the country-scale SVG on /projects.
+ *
+ * ⛔ The coordinates are CITY-LEVEL and hand-geocoded (ADR-022), so the frame
+ * is held at district zoom and the caption says the position is approximate.
+ * Zooming to a street would assert an address the client has not supplied.
+ */
+const MAP_SPAN = 0.045 // ≈5km of longitude either side: district, not street
+
+const mapEmbed = computed(() => {
+  const { lon, lat } = props.project.coords
+  const bbox = [lon - MAP_SPAN, lat - MAP_SPAN / 2, lon + MAP_SPAN, lat + MAP_SPAN / 2]
+  const q = new URLSearchParams({ bbox: bbox.map(n => n.toFixed(5)).join(','), layer: 'mapnik', marker: `${lat},${lon}` })
+  return `https://www.openstreetmap.org/export/embed.html?${q}`
+})
+
+const mapLink = computed(() => {
+  const { lon, lat } = props.project.coords
+  return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`
 })
 
 type Tab = 'arch' | 'structure' | 'geo' | 'units'
@@ -76,12 +100,28 @@ const specs = computed<Record<Tab, [string, string][]>>(() => {
   }
 })
 
-const gallery = computed(() => [
-  { src: props.project.image, cap: 'نمای اصلی پروژه', span: 'md:col-span-8', ratio: 'aspect-[16/10]' },
-  { src: ph('interior', 1), cap: 'لابی و فضاهای مشاع', span: 'md:col-span-4', ratio: 'aspect-[4/3] md:aspect-[3/4]' },
-  { src: ph(props.project.status === 'under-construction' ? 'construction' : 'aerial', 1), cap: props.project.status === 'under-construction' ? 'وضعیت کارگاه' : 'نمای هوایی سایت', span: 'md:col-span-7', ratio: 'aspect-[16/9]' },
-  { src: ph('blueprint', 2), cap: 'پلان تیپ طبقات', span: 'md:col-span-5', ratio: 'aspect-[4/3]' },
-])
+/*
+ * The gallery is the project's OWN photographs (ADR-027). It used to be the
+ * hero shot followed by three illustrated placeholders captioned «لابی و
+ * فضاهای مشاع», «نمای هوایی سایت» and «پلان تیپ طبقات» — captions that named
+ * things no supplied photograph showed. Only the first frame is captioned
+ * now, because what the others depict is not something this repo knows.
+ *
+ * The client supplied between one and eight photographs per project, so the
+ * bento adapts to the count rather than padding it out to four.
+ */
+const GALLERY_LAYOUTS: { span: string, ratio: string }[][] = [
+  [{ span: 'md:col-span-12', ratio: 'aspect-[16/9]' }],
+  [{ span: 'md:col-span-7', ratio: 'aspect-[16/10]' }, { span: 'md:col-span-5', ratio: 'aspect-[4/3]' }],
+  [{ span: 'md:col-span-8', ratio: 'aspect-[16/10]' }, { span: 'md:col-span-4', ratio: 'aspect-[4/3] md:aspect-[3/4]' }, { span: 'md:col-span-12', ratio: 'aspect-[21/9]' }],
+  [{ span: 'md:col-span-8', ratio: 'aspect-[16/10]' }, { span: 'md:col-span-4', ratio: 'aspect-[4/3] md:aspect-[3/4]' }, { span: 'md:col-span-7', ratio: 'aspect-[16/9]' }, { span: 'md:col-span-5', ratio: 'aspect-[4/3]' }],
+]
+
+const gallery = computed(() => {
+  const shots = [...new Set([props.project.image, ...(props.project.gallery ?? [])])].slice(0, 4)
+  const layout = GALLERY_LAYOUTS[shots.length - 1] ?? GALLERY_LAYOUTS[3]!
+  return shots.map((src, i) => ({ src, cap: i === 0 ? 'نمای اصلی پروژه' : '', ...layout[i]! }))
+})
 </script>
 
 <template>
@@ -146,7 +186,7 @@ const gallery = computed(() => [
       </SectionHead>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <NuxtLink v-for="u in units" :key="u.id" :to="`/sales/units/${u.id}`" class="group flex items-center gap-4 rounded-md border border-border p-4 transition-colors hover:border-primary-container">
-          <img :src="u.image" alt="" class="size-20 shrink-0 rounded-sm object-cover">
+          <img :src="unitGallery(u)[0]" alt="" loading="lazy" class="size-20 shrink-0 rounded-sm object-cover">
           <div class="min-w-0 flex-1">
             <p class="truncate text-body-md font-bold text-ink group-hover:text-primary-container">{{ u.title }}</p>
             <p class="text-label-md text-secondary">{{ faArea(u.areaSqm) }} · طبقه {{ faDigits(u.floor) }} · {{ unitStatus[u.status] }}</p>
@@ -165,7 +205,7 @@ const gallery = computed(() => [
           <div class="w-full overflow-hidden rounded-md bg-surface-alt" :class="g.ratio">
             <img :src="g.src" alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 hover:scale-[1.02]">
           </div>
-          <figcaption class="mt-3 border-r-2 border-primary-container pr-3 text-label-lg text-secondary">{{ g.cap }}</figcaption>
+          <figcaption v-if="g.cap" class="mt-3 border-r-2 border-primary-container pr-3 text-label-lg text-secondary">{{ g.cap }}</figcaption>
         </figure>
       </div>
     </section>
@@ -173,11 +213,34 @@ const gallery = computed(() => [
     <!-- Location -->
     <section class="mx-auto w-full max-w-[1440px] px-space-lg pt-20 md:px-margin md:pt-[120px]">
       <SectionHead eyebrow="موقعیت" :title="`${project.city}، ${project.district}`" />
-      <div class="relative h-[380px] w-full overflow-hidden rounded-lg md:h-[440px]">
-        <img :src="ph('aerial', 1)" alt="" class="size-full object-cover">
-        <div class="absolute bottom-5 right-5 max-w-sm rounded-md bg-surface-container-lowest p-6">
-          <p class="mb-2 flex items-center gap-2 text-label-lg font-bold text-ink"><AppIcon name="location_on" class="text-primary-container" />نشانی پروژه</p>
-          <p class="text-body-sm leading-relaxed text-secondary">{{ project.city }}، {{ project.district }} — نشانی دقیق پس از تایید واحد فروش درج می‌شود.</p>
+      <div class="overflow-hidden rounded-lg border border-border bg-surface">
+        <!--
+          An iframe, not a script: the map is one request to openstreetmap.org
+          and the page works without it. `loading="lazy"` keeps it off the
+          critical path, since it sits well below the fold.
+        -->
+        <iframe
+          :src="mapEmbed"
+          :title="`نقشه موقعیت ${project.name}`"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="block h-[380px] w-full border-0 md:h-[440px]"
+        />
+        <div class="flex flex-col gap-4 p-6 md:flex-row md:items-start md:justify-between">
+          <div class="max-w-xl">
+            <p class="mb-2 flex items-center gap-2 text-label-lg font-bold text-ink"><AppIcon name="location_on" class="text-primary-container" />نشانی پروژه</p>
+            <p class="text-body-sm leading-relaxed text-secondary">
+              {{ project.city }}، {{ project.district }} — موقعیت نمایش‌داده‌شده تقریبی است و نشانی دقیق پس از تایید واحد فروش درج می‌شود.
+            </p>
+          </div>
+          <a
+            :href="mapLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex h-11 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-6 text-label-lg text-primary-container transition-colors hover:bg-brand-tint"
+          >
+            <AppIcon name="open_in_new" />نمایش در نقشه
+          </a>
         </div>
       </div>
     </section>

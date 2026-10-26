@@ -7,7 +7,6 @@
  * its card swaps the filled primary action for an outlined "similar units".
  */
 import { favouriteUnits } from '~/utils/account'
-import { phFor } from '~/utils/media'
 
 const statusTone: Record<string, string> = {
   'موجود': 'bg-primary text-white',
@@ -30,7 +29,7 @@ const statusTone: Record<string, string> = {
         class="flex flex-col overflow-hidden rounded-md border border-border bg-white"
       >
         <img
-          :src="phFor(u.project)"
+          :src="u.image"
           alt=""
           loading="lazy"
           class="aspect-video w-full bg-surface-alt object-cover"

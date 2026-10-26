@@ -9,7 +9,6 @@
  * → dark "didn't find your answer?" CTA. Both routes share the layout via
  * `FaqCenter.vue`; only the config objects below differ.
  */
-import { phFor } from '~/utils/media'
 import type { FaqItemViewModel } from '~/types/content'
 
 export interface FaqEntryViewModel extends FaqItemViewModel {
@@ -199,7 +198,7 @@ export const salesFaqCenter: FaqCenterConfig = {
   popularSearches: ['اقساط', 'تسهیلات', 'تحویل', 'سند', 'فسخ'],
   groups: salesGuideGroups,
   advisor: {
-    image: phFor('راهنمای گام‌به‌گام خرید، قرارداد و تحویل واحدهای ثاخت'),
+    image: '/img/projects/ofogh-sina-mashhad-2.jpg',
     imageAlt: 'مشاور فروش هلدینگ ثاخت در دفتر فروش',
     badge: 'مشاوره فروش و پیش‌فروش',
     caption: 'دفتر فروش مرکزی هلدینگ — تهران',
