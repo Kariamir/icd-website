@@ -512,7 +512,9 @@ function submit() {
               :accent="m.lead"
               :note="m.represents ? `نماینده ${m.represents}` : undefined"
               :badges="[m.executive ? 'موظف' : 'غیرموظف']"
-              :rows="[{ label: 'تحصیلات', value: m.education }]"
+              :rows="m.background
+                ? [{ label: 'تحصیلات', value: m.education }, { label: 'سوابق', value: m.background }]
+                : [{ label: 'تحصیلات', value: m.education }]"
             />
           </div>
         </div>

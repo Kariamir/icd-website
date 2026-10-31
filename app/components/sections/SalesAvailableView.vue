@@ -33,13 +33,21 @@ const representedProjects = computed(() => projects.filter(p => units.some(u => 
 const heading = computed(() => {
   if (status.value === 'pre-sale') return 'پیش‌فروش پروژه‌های در حال ساخت'
   if (status.value === 'ready') return 'واحدهای آماده تحویل'
+  if (status.value === 'sold') return 'واحدهای فروخته‌شده'
   return 'واحدهای آماده واگذاری و سرمایه‌گذاری'
 })
+
+/* `sold` is an archive, not an offer, so the empty state says so rather than
+   telling a reader nothing has been «عرضه» (ADR-028). */
+const emptyMessage = computed(() => status.value === 'sold'
+  ? 'هنوز واحد فروخته‌شده‌ای برای نمایش ثبت نشده است.'
+  : 'واحدی با این شرایط در حال حاضر عرضه نشده است.')
 
 const stats = computed(() => [
   { label: 'واحدهای عرضه‌شده', value: `${faDigits(units.length)} واحد` },
   { label: 'پیش‌فروش', value: `${faDigits(units.filter(u => u.status === 'pre-sale').length)} واحد` },
   { label: 'آماده تحویل', value: `${faDigits(units.filter(u => u.status === 'ready').length)} واحد` },
+  { label: 'فروخته‌شده', value: `${faDigits(units.filter(u => u.status === 'sold').length)} واحد` },
   { label: 'پروژه‌ها', value: `${faDigits(representedProjects.value.length)} پروژه` },
 ])
 </script>
@@ -75,7 +83,7 @@ const stats = computed(() => [
         <UnitTile v-for="u in list" :key="u.id" :unit="u" />
       </div>
       <div v-else class="rounded-lg border border-border bg-surface p-12 text-center">
-        <p class="mb-6 text-body-lg text-secondary">واحدی با این شرایط در حال حاضر عرضه نشده است.</p>
+        <p class="mb-6 text-body-lg text-secondary">{{ emptyMessage }}</p>
         <NuxtLink to="/sales" class="inline-flex h-11 items-center rounded-pill border border-primary-container px-6 text-label-lg text-primary-container hover:bg-brand-tint">نمایش همه واحدها</NuxtLink>
       </div>
     </section>

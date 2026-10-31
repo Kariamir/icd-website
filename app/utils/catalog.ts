@@ -41,7 +41,22 @@ export interface Company {
   specialty: string
   founded: number
   /** Holding's share of the company, percent. See the note at the top. */
+  /**
+   * The holding's stake, per the client's own «معرفی شرکت» deck (ADR-028),
+   * which supersedes the fractions-and-percentages muddle ADR-017 had to
+   * guess from the workbook. Two were badly wrong: باغمیشه read 0.39٪
+   * against a real 29.62٪, and آریا عمران پارس 3٪ against 33٪.
+   */
   holdingShare: number
+  /**
+   * ⛔ True for a «شرکت وابسته» rather than a «شرکت تابعه». The deck splits
+   * the group in two — seven subsidiaries the holding controls, and four
+   * affiliates it holds a minority of — and the site presents all nine as
+   * «شرکت‌های تابعه». Two of the nine are in fact affiliates. Whether they
+   * should keep their place in «خانواده ثاخت» is the owner's call; until
+   * then the card says which it is rather than claiming control.
+   */
+  affiliate?: boolean
   ceo: string
   chair?: string
   /** Not supplied by the client; the company page hides the row when absent. */
@@ -76,7 +91,7 @@ export const companies: Company[] = [
   {
     slug: 'asp', name: 'آ.س.پ', mark: 'A.S.P', markSub: 'A.S.P CONSTRUCTION',
     tag: 'فرابورس ایران', isListed: true,
-    specialty: 'انبوه‌سازی و ساخت', founded: 1348, holdingShare: 39.35,
+    specialty: 'انبوه‌سازی و ساخت', founded: 1348, holdingShare: 39.7,
     ceo: 'امید خالقی', chair: 'رحمت اله احمدی',
     city: 'تهران', phone: '88881363-4',
     address: 'تهران، خیابان ولیعصر، پایین تر از میدان ونک، خیابان شهید عباسپور (توانیر سابق)، پلاک 16',
@@ -92,7 +107,7 @@ export const companies: Company[] = [
   {
     slug: 'tisa-kish', name: 'تیساکیش', mark: 'تیسا', markSub: 'TISA KISH',
     tag: 'سهامی خاص',
-    specialty: 'انبوه‌سازی و ساخت', founded: 1383, holdingShare: 99.99,
+    specialty: 'انبوه‌سازی و ساخت', founded: 1383, holdingShare: 100.0,
     ceo: 'عبدالرضا امینائی چترودی', chair: 'مجتبی قنبری',
     city: 'تهران', phone: '88538608-10',
     address: 'تهران، میدان آرژانتین، خیابان احمد قصیر (بخارست)، خیابان هشتم، پلاک 11، طبقه 1',
@@ -108,7 +123,7 @@ export const companies: Company[] = [
   {
     slug: 'pars-sazeh', name: 'پارس سازه', mark: 'پارس سازه', markSub: 'PARS SAZEH',
     tag: 'سهامی خاص',
-    specialty: 'مهندسی و مدیریت طرح', founded: 1330, holdingShare: 99.99,
+    specialty: 'مهندسی و مدیریت طرح', founded: 1330, holdingShare: 100.0,
     ceo: 'علیرضا افشردی', chair: 'قاسم عابدی',
     city: 'تهران', phone: '88524717',
     address: 'تهران، میدان آرژانتین، خیابان احمد قصیر (بخارست)، خیابان هشتم، پلاک 11، طبقه 5',
@@ -124,7 +139,7 @@ export const companies: Company[] = [
   {
     slug: 'peyman-ghadir', name: 'پیمان غدیر', mark: 'پیمان غدیر', markSub: 'PEYMAN GHADIR',
     tag: 'سهامی خاص',
-    specialty: 'مهندسی و مدیریت طرح', founded: 1367, holdingShare: 99.99,
+    specialty: 'مهندسی و مدیریت طرح', founded: 1367, holdingShare: 100.0,
     ceo: 'حمیدرضا خوشدل مفیدی', chair: 'احسان مشتاق',
     city: 'تهران', phone: '88538591-5',
     address: 'تهران، میدان آرژانتین، خیابان احمد قصیر (بخارست)، خیابان هشتم، پلاک 11، طبقه 4',
@@ -140,7 +155,7 @@ export const companies: Company[] = [
   {
     slug: 'ofogh-saze-paya', name: 'افق سازه پایا', mark: 'افق سازه', markSub: 'OFOGH SAZE PAYA',
     tag: 'سهامی خاص',
-    specialty: 'بهره‌برداری و نگهداری', founded: 1387, holdingShare: 98.0,
+    specialty: 'بهره‌برداری و نگهداری', founded: 1387, holdingShare: 100.0,
     ceo: 'سعید شکاری', chair: 'اسماعیل اسدی',
     city: 'خراسان رضوی', phone: '051-38482556',
     address: 'خراسان رضوی، شهرستان مشهد، بخش مرکزی مشهد، بهشت، خیابان پاستونو، پلاک 170-برج مریم طبقه 1-واحد 1',
@@ -156,7 +171,7 @@ export const companies: Company[] = [
   {
     slug: 'sarpanah-fars', name: 'سرپناه فارس', mark: 'سرپناه', markSub: 'SARPANAH FARS',
     tag: 'سهامی خاص',
-    specialty: 'بهره‌برداری و نگهداری', founded: 1363, holdingShare: 97.95,
+    specialty: 'بهره‌برداری و نگهداری', founded: 1363, holdingShare: 98.0,
     ceo: 'میثم باقری', chair: 'علیرضا افشردی',
     city: 'تهران', phone: '021-87123 داخلی:1609',
     address: 'تهران، میدان آرژانتین، خیابان احمد قصیر (بخارست)، خیابان هشتم، پلاک 11، طبقه 3',
@@ -172,7 +187,7 @@ export const companies: Company[] = [
   {
     slug: 'ghadir-khuzestan', name: 'غدیر خوزستان', mark: 'غدیر', markSub: 'GHADIR KHUZESTAN',
     tag: 'سهامی خاص',
-    specialty: 'بهره‌برداری و نگهداری', founded: 1367, holdingShare: 99.99,
+    specialty: 'بهره‌برداری و نگهداری', founded: 1367, holdingShare: 100.0,
     ceo: 'علی بهاری',
     city: 'اهواز', phone: '061-33920198-9',
     address: 'اهواز، کیلومتر 7 جاده اهواز-اندیمشک، کیلومتر 2 جاده تصفیه نیشکر',
@@ -188,7 +203,7 @@ export const companies: Company[] = [
   {
     slug: 'aria-omran-pars', name: 'طرح و توسعه آریا عمران پارس', mark: 'آریا عمران', markSub: 'ARIA OMRAN PARS',
     tag: 'بورس تهران', isListed: true,
-    specialty: 'انبوه‌سازی و ساخت', founded: 1387, holdingShare: 3.0,
+    specialty: 'انبوه‌سازی و ساخت', founded: 1387, holdingShare: 33.0, affiliate: true,
     ceo: 'دکتر سعید نظری', chair: 'مرتضی رحمان زاده',
     city: 'تهران', phone: '77504189',
     address: 'تهران، خیابان خواجه نصیرالدین طوسی، کوچه شهید محمد مستقیمی، خیابان خواجه نصیرالدین غربی، پلاک 206',
@@ -204,7 +219,7 @@ export const companies: Company[] = [
   {
     slug: 'baghmisheh', name: 'شهرسازی و خانه سازی باغمیشه', mark: 'باغمیشه', markSub: 'BAGHMISHEH',
     tag: 'بورس تهران', isListed: true,
-    specialty: 'انبوه‌سازی و ساخت', founded: 1364, holdingShare: 0.39,
+    specialty: 'انبوه‌سازی و ساخت', founded: 1364, holdingShare: 29.62, affiliate: true,
     ceo: 'یوسف عطاری خسروشاهی', chair: 'مظفر سلیمانی',
     city: 'تبریز', phone: '041-33293400',
     address: 'تبریز، کوی ولیعصر، فلکه تختی(تختي شرقي)، نبش خ بوعلی سینا، پ 58',
@@ -247,6 +262,9 @@ export const projectStatus: Record<ProjectStatusKey, { label: string, href: stri
   'completed': { label: 'پروژه‌های تکمیل‌شده', short: 'تکمیل‌شده', href: '/projects/completed' },
 }
 
+/* The reporting date of every `progress` figure below (ADR-028). */
+export const PROGRESS_AS_OF = '۳۱ شهریور ۱۴۰۵'
+
 export interface Project {
   slug: string
   name: string
@@ -272,7 +290,14 @@ export interface Project {
   units?: number
   /** Solar-hijri year: start for upcoming/under-construction, delivery otherwise. */
   year?: number
+  /**
+   * Physical progress, as a percentage. Real figures from the client's own
+   * «گزارش پیشرفت کلی» (ADR-028) — `progressAsOf` dates them, because a
+   * construction percentage with no date is worthless and, on a listed
+   * company's site, misleading.
+   */
   progress?: number
+  progressAsOf?: string
   excerpt: string
   image: string
   /** Every photograph the client supplied for this project. */
@@ -346,7 +371,8 @@ export const projects: Project[] = [
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
-    year: 1390, progress: 43,
+    year: 1390, progress: 43.7,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/ara-tower-1.jpg',
     gallery: ['/img/projects/ara-tower-1.jpg', '/img/projects/ara-tower-2.jpg', '/img/projects/ara-tower-3.jpg', '/img/projects/ara-tower-4.jpg', '/img/projects/ara-tower-5.jpg'],
@@ -361,7 +387,8 @@ export const projects: Project[] = [
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
-    year: 1390, progress: 34,
+    year: 1390, progress: 34.2,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/kia-tower-1.jpg',
     gallery: ['/img/projects/kia-tower-1.jpg', '/img/projects/kia-tower-2.jpg', '/img/projects/kia-tower-3.jpg'],
@@ -376,7 +403,8 @@ export const projects: Project[] = [
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 1698, floors: 6,
-    year: 1403, progress: 80,
+    year: 1403, progress: 80.5,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/nbo12-1.jpg',
     gallery: ['/img/projects/nbo12-1.jpg', '/img/projects/nbo12-2.jpg', '/img/projects/nbo12-3.jpg', '/img/projects/nbo12-4.jpg'],
@@ -391,7 +419,8 @@ export const projects: Project[] = [
     city: 'شهر رشت', district: 'استان گیلان، شهر رشت تقاطع خیابان سعدی و معلم',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 40543, floors: 16,
-    year: 1391, progress: 24,
+    year: 1391, progress: 24.8,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/sparrow-rasht-1.jpg',
     gallery: ['/img/projects/sparrow-rasht-1.jpg', '/img/projects/sparrow-rasht-2.jpg', '/img/projects/sparrow-rasht-3.jpg', '/img/projects/sparrow-rasht-4.jpg'],
@@ -406,7 +435,8 @@ export const projects: Project[] = [
     city: 'تهران', district: 'استان تهران، تهران',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 23375, floors: 21,
-    year: 1399, progress: 95,
+    year: 1399, progress: 95.5,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/ghadir-office-tehran-1.jpg',
     gallery: ['/img/projects/ghadir-office-tehran-1.jpg', '/img/projects/ghadir-office-tehran-2.jpg', '/img/projects/ghadir-office-tehran-3.jpg', '/img/projects/ghadir-office-tehran-4.jpg', '/img/projects/ghadir-office-tehran-5.jpg', '/img/projects/ghadir-office-tehran-6.jpg', '/img/projects/ghadir-office-tehran-7.jpg', '/img/projects/ghadir-office-tehran-8.jpg'],
@@ -421,7 +451,8 @@ export const projects: Project[] = [
     city: 'مشهد', district: 'استان مشهد، مشهد',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 18664, floors: 19,
-    year: 1392, progress: 66,
+    year: 1392, progress: 66.6,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/ofogh-sina-mashhad-1.jpg',
     gallery: ['/img/projects/ofogh-sina-mashhad-1.jpg', '/img/projects/ofogh-sina-mashhad-2.jpg', '/img/projects/ofogh-sina-mashhad-3.jpg', '/img/projects/ofogh-sina-mashhad-4.jpg', '/img/projects/ofogh-sina-mashhad-5.jpg', '/img/projects/ofogh-sina-mashhad-6.jpg', '/img/projects/ofogh-sina-mashhad-7.jpg', '/img/projects/ofogh-sina-mashhad-8.jpg'],
@@ -436,7 +467,8 @@ export const projects: Project[] = [
     city: 'تهران', district: 'استان تهران، تهران تقاطع خیابان معلم',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 215204, floors: 18,
-    year: 1384, progress: 88,
+    year: 1384, progress: 88.3,
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/mega-pars-tehran-1.jpg',
     gallery: ['/img/projects/mega-pars-tehran-1.jpg', '/img/projects/mega-pars-tehran-2.jpg'],
@@ -514,12 +546,16 @@ export function relatedProjects(slug: string, count = 3) {
 
 // ─────────────────────────────────────────────────────────────────── units
 
-export type UnitStatus = 'ready' | 'pre-sale' | 'reserved'
+/* `sold` added at the owner's instruction (ADR-028): a unit that has gone
+   stays listed rather than vanishing, so a buyer can see what the project
+   has already placed and what is comparable. */
+export type UnitStatus = 'ready' | 'pre-sale' | 'reserved' | 'sold'
 
 export const unitStatus: Record<UnitStatus, string> = {
   'ready': 'آماده تحویل',
   'pre-sale': 'پیش‌فروش',
   'reserved': 'رزروشده',
+  'sold': 'فروخته‌شده',
 }
 
 export interface Unit {
@@ -538,6 +574,27 @@ export interface Unit {
   status: UnitStatus
   image: string
   plan: string
+  /**
+   * Who may be allocated this unit (ADR-028). Some units are not on open
+   * sale — every parking space and storeroom in the Tehran International
+   * Tower, for instance, goes only to an existing owner in the tower. Where
+   * this is set the unit page says so plainly under the payment terms, and
+   * the card carries a chip, because a restriction discovered at contract
+   * stage is worse than one stated on the listing.
+   */
+  transfer?: string
+  /**
+   * A walkthrough of the unit. `video` is a file the sales desk uploads;
+   * `walkthrough` is an interactive tour hosted elsewhere, shown in a frame.
+   * ⛔ Nothing has been supplied yet, so no unit carries either and the
+   * section does not render — see ADR-028.
+   */
+  tour?: { video?: string, poster?: string, walkthrough?: string }
+  /**
+   * Films of the unit, shown BEFORE the photographs in the gallery at the
+   * owner's instruction. Empty until the sales desk uploads any.
+   */
+  videos?: { src: string, poster?: string, caption?: string }[]
 }
 
 const U = (u: Omit<Unit, 'image' | 'plan'> & { kind: PhKind, v?: number }): Unit => {
@@ -545,10 +602,13 @@ const U = (u: Omit<Unit, 'image' | 'plan'> & { kind: PhKind, v?: number }): Unit
   return { ...rest, image: ph(kind, v ?? 1), plan: ph('blueprint', 1) }
 }
 
+/* The owner's own example of a restricted allocation (ADR-028). */
+const TOWER_OWNERS_ONLY = 'واگذاری این واحد صرفاً به مالکان فعلی برج بین‌المللی تهران انجام می‌شود. پارکینگ‌ها و انباری‌های برج در عرضه عمومی قرار نمی‌گیرند.'
+
 export const units: Unit[] = [
   U({ id: '4208', ref: '4208', title: 'پنت‌هاوس اداری-مسکونی تیپ A2', project: 'tehran-international-tower', usage: 'مسکونی', areaSqm: 285, floor: 42, bedrooms: 4, facing: 'جنوب‌شرقی', price: 755250000000, status: 'ready', kind: 'residential' }),
-  U({ id: 'u1', ref: 'u1', title: 'پارکینگ - تجاری', project: 'tehran-international-tower', usage: 'تجاری', areaSqm: 0, floor: 0, facing: '—', status: 'ready', kind: 'commercial' }),
-  U({ id: 'u2', ref: 'u2', title: 'پارکینگ', project: 'tehran-international-tower', usage: 'مسکونی', areaSqm: 0, floor: 0, facing: '—', status: 'ready', kind: 'residential' }),
+  U({ id: 'u1', ref: 'u1', title: 'پارکینگ - تجاری', project: 'tehran-international-tower', usage: 'تجاری', areaSqm: 0, floor: 0, facing: '—', status: 'ready', kind: 'commercial', transfer: TOWER_OWNERS_ONLY }),
+  U({ id: 'u2', ref: 'u2', title: 'پارکینگ', project: 'tehran-international-tower', usage: 'مسکونی', areaSqm: 0, floor: 0, facing: '—', status: 'ready', kind: 'residential', transfer: TOWER_OWNERS_ONLY }),
   U({ id: 'bb33', ref: 'bb33', title: 'BB33', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 81, floor: -1, facing: '—', status: 'ready', kind: 'commercial' }),
   U({ id: 'cb12', ref: 'cb12', title: 'CB12', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 89, floor: -1, facing: '—', status: 'ready', kind: 'commercial' }),
   U({ id: 'cb13', ref: 'cb13', title: 'CB13', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 54, floor: -1, facing: '—', status: 'ready', kind: 'commercial' }),
@@ -589,7 +649,9 @@ export function unitsByProject(project: string) {
 
 /** «۵۳٫۶ میلیارد تومان» from a rial amount. */
 export function priceLabel(rials?: number): string {
-  if (!rials) return 'قیمت پس از استعلام'
+  /* «تماس بگیرید» at the owner's instruction (ADR-028) — most of the client's
+     rows carry no price, and this is the wording the sales desk uses. */
+  if (!rials) return 'تماس بگیرید'
   const toman = rials / 10
   const billions = toman / 1_000_000_000
   const s = billions.toLocaleString('en-US', { maximumFractionDigits: 1 })

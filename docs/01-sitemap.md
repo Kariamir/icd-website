@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.11 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.12 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.12 — two interaction bugs, a sold category, and the subsidiaries as a system (ADR-028).** **(1)** The header dropdown and the `/projects` list no longer follow the pointer: the menu closes when you pick from it, and the project card changes on click, not hover. **(2)** `/sales` gains a **«فروخته‌شده»** tab; `Unit` gains `transfer` (allocation restrictions, stated on the unit page under the payment terms), `tour` and `videos`. The unit page gains a **virtual tour** above a narrower plan, and unpriced units read **«تماس بگیرید»**. **(3)** `/projects/[slug]` says **«مجری»**, not «مالک و مجری», with the holding named as owner beneath it. **(4)** Homepage block 2b is redrawn as an **orbit** after the owner's reference, with a legend grid that is the whole phone layout. **(5)** Every subsidiary's ownership percentage and founding year is corrected from the client's own deck — ⛔ باغمیشه was ۰٫۳۹٪ against a real ۲۹٫۶۲٪ — and nine projects gain real areas, floor counts and **dated** progress figures from «گزارش پیشرفت کلی» (۳۱ شهریور ۱۴۰۵). **(6)** «ورود سهامداران» → «ورود» with a working sign-out; `academy` joins the media categories; the footer systems become cards. Template count unchanged: **35**.
 
 **Changes in 1.11 — the whole catalog is back on sale, and the project page gets a real map (ADR-027).** **(1)** `/sales` shows **every unit again** — the six-unit sample of 1.10 is reverted — and its project picker is removed; `?project=` still deep-links from a project page. **(2)** `#board`'s deputies tier loses «فلاحی» and the senior managers gain «امید بیگ‌پور — مدیر حقوقی و قراردادها». ⛔ he and «امیر شیرین‌بیگ‌پور — مدیر حقوقی» are plausibly the same person; both are published until the owner says. **(3)** `/projects/[slug]` replaces its illustrated aerial with an **OpenStreetMap embed** at district zoom, because the coordinates are city-level; ⛔ the embed could not be reached from this environment and must be confirmed on a real connection. **(4)** Illustrated placeholders are gone from every page but two floor plans: the project gallery is the project's own photographs, and the hero plates on `/companies`, `/contact` and `/complaints` are real. Template count unchanged: **35**.
 
@@ -206,6 +208,7 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 | # | Route | Label | Type | Function | Notes |
 |---|---|---|---|---|---|
 | 19 | `/sales` | فروش و پیش‌فروش | `INDEX` | **The designed sales page (v1.7).** **Every unit in the catalog** since v1.11 — the six-unit sample is reverted and the project picker removed — each card a photo carousel after the referenced design; `?status=` and `?project=` still filter it | Replaces the former hub |
+| 19b | `/sales?status=sold` | واحدهای فروخته‌شده | `INDEX` | **New in v1.12.** The archive of placed units — a tab on `/sales`, not a route. ⛔ empty until the sales desk marks any `sold` | |
 | 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
 | 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
 | 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |
@@ -350,6 +353,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | `stories` | روایت ثاخت | `/media/stories` | Long-form blog, interviews |
 | `podcast` | پادکست | part of `/media/stories` | Audio episodes — detail page renders a player |
 | `analysis` | تحلیل بازار | part of `/media/reports` | Market commentary that is editorial, not a formal report |
+| `academy` | آکادمی ثاخت | — | **New in v1.12.** Training and knowledge pieces from the HR desk, linked from `/hr#learning`. ⛔ empty until the desk publishes |
 | `tenders` | مناقصات و مزایدات | — | **New in v1.3.** Tender and auction notices as news items. Informational only; the documents themselves live on `/ir/financials` (§7.1) |
 
 **What moved out.** Formal company and committee performance reports — the «کارنامه ثاخت» documents — are now at `/ir/reports` (§7). What stays in `/media` is editorial: news, interviews, podcasts, and market commentary.

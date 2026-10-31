@@ -35,6 +35,8 @@ export interface BoardMember {
   /** موظف / غیرموظف — disclosure, not decoration. */
   executive: boolean
   education: string
+  /** A further post or affiliation the owner supplied, shown under education. */
+  background?: string
   /** Portrait supplied by the client, 1254×1254. */
   image?: string
   /** True for the chair, who leads the grid. */
@@ -84,9 +86,13 @@ export const icdBoard: BoardMember[] = [
     slug: 'mohammadamin-fallah',
     name: 'محمدامین فلاح',
     role: 'عضو هیات‌مدیره',
-    represents: 'شرکت سرمایه‌گذاری سرمایه گستر هرمس',
+    /* Represented shareholder, status and qualifications corrected by the
+       owner 1405/08 (ADR-028); the CODAL transcription had the earlier
+       incumbent's details against this seat. */
+    represents: 'شرکت پیشگامان اندیشه پویا کارمانیا',
     executive: false,
-    education: 'کارشناسی ارشد علوم اقتصادی',
+    education: 'دکترای مدیریت مالی، دانشگاه علامه طباطبایی',
+    background: 'کارخانجات صنعتی آزمایش',
     image: '/img/board/mohammadamin-fallah.jpg',
   },
 ]
@@ -123,17 +129,12 @@ export const icdDeputies: { slug: string, name: string, role: string, image?: st
  * owner's instruction and are deliberately not repeated here — one person,
  * one place.
  *
- * ⛔ TWO LEGAL MANAGERS. «امید بیگ‌پور — مدیر حقوقی و قراردادها» was added at
- * the owner's instruction (ADR-027) and «امیر شیرین‌بیگ‌پور — مدیر حقوقی» is
- * the record the owner typed earlier. The surnames and the posts overlap, so
- * these are plausibly one person entered twice — but «add» is what was asked
- * and deleting a named individual on an inference is the worse mistake, so
- * both stand until the owner says which is right.
+ * «امیر شیرین‌بیگ‌پور — مدیر حقوقی» was removed at the owner's instruction
+ * (ADR-028), which settles ADR-027's duplicate: امید بیگ‌پور holds the post.
  */
 export const icdExecutives: { slug: string, name: string, role: string, image?: string }[] = [
   { slug: 'amirhossein-nouripour', name: 'امیرحسین نوری‌پور', role: 'مدیر املاک و مستغلات' },
   { slug: 'omid-beigpour', name: 'امید بیگ‌پور', role: 'مدیر حقوقی و قراردادها', image: '/img/board/omid-beigpour.jpg' },
-  { slug: 'amir-shirinbeigpour', name: 'امیر شیرین‌بیگ‌پور', role: 'مدیر حقوقی' },
   { slug: 'vahid-razafzoun', name: 'وحید رازافزون', role: 'مدیر حوزه مدیرعامل و روابط عمومی' },
 ]
 

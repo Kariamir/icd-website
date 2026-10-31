@@ -53,6 +53,8 @@ const company = computed(() => getCompany(props.project.company))
         <div class="h-1.5 overflow-hidden rounded-pill bg-surface-alt">
           <div class="h-full rounded-pill bg-primary-container" :style="{ width: `${project.progress}%` }" />
         </div>
+        <!-- A construction percentage with no date is worthless (ADR-028). -->
+        <p v-if="project.progressAsOf" class="mt-1.5 text-label-md text-outline">تا {{ project.progressAsOf }}</p>
       </div>
     </div>
   </NuxtLink>

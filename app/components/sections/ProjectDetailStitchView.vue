@@ -75,7 +75,8 @@ const specs = computed<Record<Tab, [string, string][]>>(() => {
       ...row('تعداد طبقات', p.floors != null ? `${faDigits(p.floors)} طبقه` : null),
       ...row('زیربنای ناخالص', p.areaSqm != null ? faArea(p.areaSqm) : null),
       ...row('زمان‌بندی', yearLabel.value),
-      ['شرکت مالک و مجری', company.value.name],
+      ['شرکت مجری', company.value.name],
+      ['مالک پروژه', 'شرکت بین‌المللی توسعه ساختمان (ثاخت)'],
     ],
     structure: [
       ...row('سیستم سازه‌ای', p.floors == null ? null : p.floors > 15 ? 'قاب خمشی بتنی با هسته مرکزی صلب' : 'قاب بتن‌آرمه با دیوار برشی'),
@@ -148,6 +149,7 @@ const gallery = computed(() => {
           <div v-if="project.progress != null" class="min-w-48">
             <span class="block text-label-md text-surface-dim">پیشرفت فیزیکی {{ faDigits(project.progress) }}٪</span>
             <span class="mt-2 block h-1.5 overflow-hidden rounded-pill bg-surface-container-lowest/20"><span class="block h-full rounded-pill bg-brand-tint" :style="{ width: `${project.progress}%` }" /></span>
+            <span v-if="project.progressAsOf" class="mt-1.5 block text-label-md text-surface-dim">گزارش پیشرفت تا {{ project.progressAsOf }}</span>
           </div>
         </div>
       </div>
@@ -245,19 +247,30 @@ const gallery = computed(() => {
       </div>
     </section>
 
-    <!-- Owner company (ADR-011: project → company) -->
+    <!--
+      The company that BUILDS it (ADR-011: project → company; label corrected
+      in ADR-028). The card used to read «شرکت مالک و مجری», which named one
+      company as both. It is not: every project here is owned by the holding,
+      «شرکت بین‌المللی توسعه ساختمان (ثاخت)», and carried out by one of its
+      subsidiaries — so the card names the builder and the line beneath it
+      names the owner.
+    -->
     <section class="mx-auto w-full max-w-[1440px] px-space-lg pt-20 md:px-margin md:pt-[120px]">
       <NuxtLink :to="`/companies/${company.slug}`" class="group flex flex-col justify-between gap-6 rounded-lg border border-border bg-surface p-6 transition-colors hover:border-primary-container md:flex-row md:items-center md:p-8">
         <div class="flex items-center gap-5">
           <span class="flex size-16 shrink-0 items-center justify-center rounded-md bg-ink px-2 text-center text-label-lg font-extrabold text-surface-container-lowest">{{ company.mark }}</span>
           <div>
-            <p class="text-label-md text-secondary">شرکت مالک و مجری</p>
+            <p class="text-label-md text-secondary">مجری</p>
             <h2 class="text-headline-sm font-headline-sm text-ink">{{ company.name }}</h2>
             <p class="mt-1 text-body-sm text-secondary">{{ company.specialty }}</p>
           </div>
         </div>
         <span class="inline-flex items-center gap-2 text-label-lg font-bold text-primary-container">مشاهده شرکت و پروژه‌های آن <AppIcon name="arrow_back" class="transition-transform group-hover:-translate-x-1" /></span>
       </NuxtLink>
+      <p class="mt-4 flex items-start gap-2 text-label-md leading-relaxed text-secondary">
+        <AppIcon name="info" class="mt-0.5 shrink-0 text-outline" />
+        مالکیت این پروژه با شرکت بین‌المللی توسعه ساختمان (ثاخت) است و اجرای آن بر عهده شرکت‌های تابعه هلدینگ قرار دارد.
+      </p>
     </section>
 
     <!-- Related -->

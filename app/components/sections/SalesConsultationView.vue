@@ -37,15 +37,35 @@ async function submit() {
 <template>
   <div>
     <SubNav :items="salesNav" label="بخش‌های فروش" />
-    <section class="flex justify-center bg-surface px-4 py-16 md:py-24">
-      <div class="mx-auto w-full max-w-xl">
+    <!--
+      Glassmorphism, at the owner's instruction (ADR-028). The photograph the
+      client supplied for this desk sits behind the whole section, blurred
+      and dimmed, and the panels float on it as frosted glass.
+
+      Two things keep it legible rather than merely fashionable: the image is
+      overlaid with an ink scrim before anything is drawn on it, so the
+      contrast of the text never depends on which part of the photograph
+      happens to be behind it; and `@supports` plus
+      `prefers-reduced-transparency` both fall back to a solid panel, the
+      same contract the glass header has carried since ADR-020.
+    -->
+    <section class="consult relative flex justify-center overflow-hidden px-4 py-16 md:py-24">
+      <img
+        src="/img/about/advisor-desk.jpg"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 size-full scale-110 object-cover"
+      >
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/75 to-ink/90" aria-hidden="true" />
+
+      <div class="relative mx-auto w-full max-w-xl">
         <div class="mb-10 text-center">
-          <p class="mb-3 inline-flex items-center gap-2 text-label-md text-secondary"><span class="size-2 rounded-pill bg-primary-container" />فروش و پیش‌فروش</p>
-          <h1 class="mb-3 text-headline-lg font-headline-lg text-ink">درخواست مشاوره خرید و سرمایه‌گذاری</h1>
-          <p class="mx-auto max-w-lg text-body-md text-on-surface-variant">کارشناسان فروش حداکثر ظرف ۲۴ ساعت کاری با شما تماس می‌گیرند.</p>
+          <p class="mb-3 inline-flex items-center gap-2 text-label-md text-brand-tint"><span class="size-2 rounded-pill bg-brand-tint" />فروش و پیش‌فروش</p>
+          <h1 class="mb-3 text-headline-lg font-headline-lg text-surface-container-lowest">درخواست مشاوره خرید و سرمایه‌گذاری</h1>
+          <p class="mx-auto max-w-lg text-body-md text-surface-dim">کارشناسان فروش حداکثر ظرف ۲۴ ساعت کاری با شما تماس می‌گیرند.</p>
         </div>
 
-        <div v-if="done" class="rounded-lg border border-border bg-surface-container-lowest p-8 text-center md:p-10" role="status">
+        <div v-if="done" class="consult-glass rounded-lg p-8 text-center md:p-10" role="status">
           <span class="mx-auto mb-5 flex size-14 items-center justify-center rounded-pill bg-status-success/10 text-2xl text-status-success"><AppIcon name="check_circle" /></span>
           <h2 class="mb-2 text-headline-sm font-headline-sm text-ink">درخواست شما ثبت شد</h2>
           <p class="mb-6 text-body-md text-secondary">کد پیگیری: <strong class="text-ink">{{ done }}</strong></p>
@@ -55,7 +75,7 @@ async function submit() {
           </div>
         </div>
 
-        <form v-else id="consultation-form" class="space-y-6 rounded-lg border border-border bg-surface-container-lowest p-8 md:p-10" novalidate @submit.prevent="submit">
+        <form v-else id="consultation-form" class="consult-glass space-y-6 rounded-lg p-8 md:p-10" novalidate @submit.prevent="submit">
           <div>
             <label for="full-name" class="mb-2 block text-label-lg text-ink">نام و نام خانوادگی <span class="text-status-error">*</span></label>
             <input id="full-name" v-model="name" type="text" autocomplete="name" placeholder="مثال: علیرضا محمدی" class="h-12 w-full rounded-xs border border-border px-4 text-body-md focus:border-primary-container focus:outline-none" :aria-invalid="!!errors.name">
@@ -92,10 +112,46 @@ async function submit() {
         </form>
 
         <p class="mt-8 text-center text-body-sm text-secondary">
-          تماس مستقیم: <a :href="companyContact.phoneHref" class="font-bold text-ink hover:text-primary-container">{{ companyContact.phone }}</a>
-          · <NuxtLink to="/contact" class="text-primary-container hover:underline">سایر راه‌های ارتباطی</NuxtLink>
+          تماس مستقیم: <a :href="companyContact.phoneHref" class="font-bold text-surface-container-lowest hover:text-brand-tint">{{ companyContact.phone }}</a>
+          · <NuxtLink to="/contact" class="text-brand-tint hover:underline">سایر راه‌های ارتباطی</NuxtLink>
         </p>
       </div>
     </section>
   </div>
 </template>
+
+<style scoped>
+@layer components {
+  /*
+   * Frosted glass over the photograph. A light panel, not a dark one: the
+   * form's labels, inputs and validation messages are all drawn for a light
+   * surface, and recolouring every one of them would be a second set of
+   * states to keep in step for no gain.
+   */
+  .consult-glass {
+    border: 1px solid rgb(255 255 255 / 0.55);
+    background: rgb(255 255 255 / 0.92);
+    box-shadow: 0 30px 70px -30px rgb(4 28 44 / 0.6);
+  }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .consult-glass {
+      background: linear-gradient(135deg, rgb(255 255 255 / 0.82), rgb(255 255 255 / 0.68));
+      backdrop-filter: blur(22px) saturate(1.3);
+    }
+  }
+
+  /* The same opt-out the glass header carries (ADR-020). */
+  @media (prefers-reduced-transparency: reduce) {
+    .consult-glass {
+      background: var(--color-surface-container-lowest);
+      backdrop-filter: none;
+    }
+  }
+
+  /* The photograph is a backdrop, so it is blurred rather than shown. */
+  .consult img {
+    filter: blur(18px);
+  }
+}
+</style>

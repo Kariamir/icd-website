@@ -5,11 +5,22 @@
 -->
 <script setup lang="ts">
 import { getProject, getCompany, priceLabel, unitStatus, unitsByProject, unitGallery, type Unit } from '~/utils/catalog'
+import { routes } from '~/utils/routes'
 import { faArea, faDigits, faNumber } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
 
 const props = defineProps<{ unit: Unit }>()
 const shots = computed(() => unitGallery(props.unit).slice(0, 3))
+
+/*
+ * The gallery leads with film when there is any (ADR-028): a moving shot of
+ * a unit tells a buyer more in five seconds than three stills, so an
+ * uploaded video takes the large frame and the photographs fall in behind.
+ * ⛔ No unit has a film yet — `Unit.videos` is empty everywhere.
+ */
+const clips = computed(() => props.unit.videos ?? [])
+const leadIsFilm = computed(() => clips.value.length > 0)
+const sideShots = computed(() => leadIsFilm.value ? shots.value.slice(0, 2) : shots.value.slice(1, 3))
 const project = computed(() => getProject(props.unit.project)!)
 const company = computed(() => getCompany(project.value.company)!)
 const siblings = computed(() => unitsByProject(props.unit.project).filter(u => u.id !== props.unit.id))
@@ -97,11 +108,20 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
         resolves to the real building. ⛔ No unit has photographs of its own
         yet — `Asset Icd/photo unit` is still empty.
       -->
-      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4" :class="shots.length > 1 && 'md:grid-rows-2'">
-        <div class="overflow-hidden rounded-md" :class="shots.length > 1 ? 'md:col-span-3 md:row-span-2' : 'md:col-span-4'">
-          <img :src="shots[0]" :alt="unit.title" class="aspect-[16/10] size-full object-cover">
+      <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4" :class="sideShots.length > 0 && 'md:grid-rows-2'">
+        <div class="overflow-hidden rounded-md bg-ink" :class="sideShots.length ? 'md:col-span-3 md:row-span-2' : 'md:col-span-4'">
+          <video
+            v-if="leadIsFilm"
+            :src="clips[0]!.src"
+            :poster="clips[0]!.poster"
+            controls
+            playsinline
+            preload="metadata"
+            class="aspect-[16/10] size-full object-cover"
+          />
+          <img v-else :src="shots[0]" :alt="unit.title" class="aspect-[16/10] size-full object-cover">
         </div>
-        <div v-for="(s, i) in shots.slice(1, 3)" :key="i" class="overflow-hidden rounded-md">
+        <div v-for="(s, i) in sideShots" :key="i" class="overflow-hidden rounded-md">
           <img :src="s" alt="" loading="lazy" class="aspect-[4/3] size-full object-cover">
         </div>
       </div>
@@ -115,11 +135,63 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
       </div>
     </section>
 
-    <!-- Floor plan -->
+    <!--
+      Virtual tour (ADR-028). Two kinds: a film the sales desk uploads, and a
+      walkthrough hosted elsewhere that renders in a frame. It sits ABOVE the
+      plan because a buyer wants to walk the unit before reading its
+      dimensions.
+      ⛔ Nothing has been uploaded for any unit yet, so every unit currently
+      renders the second state.
+    -->
+    <section class="mb-16 rounded-lg border border-border bg-surface-container-lowest p-6 md:mb-20 md:p-10">
+      <SectionHead title="تور مجازی" aside="بازدید از واحد پیش از حضور در محل." />
+
+      <div v-if="unit.tour?.walkthrough" class="overflow-hidden rounded-md border border-border bg-ink">
+        <iframe
+          :src="unit.tour.walkthrough"
+          :title="`تور مجازی ${unit.title}`"
+          loading="lazy"
+          allowfullscreen
+          class="block aspect-video w-full border-0"
+        />
+      </div>
+      <div v-else-if="unit.tour?.video" class="overflow-hidden rounded-md border border-border bg-ink">
+        <video
+          :src="unit.tour.video"
+          :poster="unit.tour.poster"
+          controls
+          playsinline
+          preload="metadata"
+          class="block aspect-video w-full"
+        />
+      </div>
+      <div
+        v-else
+        class="flex flex-col items-start gap-5 rounded-md border border-dashed border-border bg-surface p-8 md:flex-row md:items-center md:justify-between"
+      >
+        <div class="flex items-start gap-4">
+          <span class="flex size-12 shrink-0 items-center justify-center rounded-sm bg-primary-container/10 text-primary-container"><AppIcon name="videocam" /></span>
+          <div>
+            <strong class="block text-body-lg text-ink">تور مجازی این واحد هنوز منتشر نشده است</strong>
+            <p class="mt-1 max-w-xl text-body-sm leading-relaxed text-secondary">
+              فیلم و پیاده‌روی مجازی واحدها به‌تدریج اضافه می‌شود. تا آن زمان می‌توانید بازدید حضوری از واحد را رزرو کنید.
+            </p>
+          </div>
+        </div>
+        <NuxtLink
+          :to="routes.salesConsultation"
+          class="inline-flex h-11 shrink-0 items-center gap-2 rounded-pill bg-primary-container px-6 text-label-lg text-on-primary transition-colors hover:bg-brand-hover"
+        >
+          <AppIcon name="calendar_month" />رزرو بازدید حضوری
+        </NuxtLink>
+      </div>
+    </section>
+
+    <!-- Floor plan — deliberately narrower than the tour above it (ADR-028). -->
     <section class="mb-16 rounded-lg border border-border bg-surface-container-lowest p-6 md:mb-20 md:p-10">
       <SectionHead title="پلان معماری" aside="نقشه تیپ واحد؛ پلان رسمی پس از استعلام ارسال می‌شود." />
-      <div class="overflow-hidden rounded-md border border-border bg-surface">
-        <img :src="unit.plan" alt="پلان واحد" class="aspect-[16/9] w-full object-cover">
+      <div class="mx-auto max-w-xl overflow-hidden rounded-md border border-border bg-surface">
+        <img :src="unit.plan" alt="پلان واحد" class="aspect-[4/3] w-full object-cover">
       </div>
       <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
         <div v-for="r in rooms" :key="r.name" class="rounded-md border border-border bg-surface-container-low p-4">
@@ -141,6 +213,36 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
         ><AppIcon :name="t.icon" />{{ t.label }}</button>
       </div>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2" role="tabpanel">
+        <!--
+          Transfer and allocation conditions (ADR-028). Some units never
+          reach open sale — every parking space and storeroom in the Tehran
+          International Tower goes to an existing owner in the tower — and a
+          restriction a buyer meets at contract stage is far worse than one
+          printed on the listing. It spans both columns because it is a
+          paragraph, not a figure.
+        -->
+        <div
+          v-if="tab === 'legal'"
+          class="rounded-md border p-6 md:col-span-2"
+          :class="unit.transfer ? 'border-primary-container bg-brand-tint/40' : 'border-border bg-surface-container-low'"
+        >
+          <div class="flex items-start gap-4">
+            <span
+              class="flex size-12 shrink-0 items-center justify-center rounded-sm"
+              :class="unit.transfer ? 'bg-primary-container text-on-primary' : 'bg-primary-container/10 text-primary-container'"
+            ><AppIcon name="how_to_reg" /></span>
+            <div>
+              <span class="block text-label-md font-semibold text-secondary">شرایط واگذاری و انتقال</span>
+              <strong class="mt-1 block text-headline-sm font-headline-sm text-ink">
+                {{ unit.transfer ? 'واگذاری محدود' : 'واگذاری عمومی' }}
+              </strong>
+              <p class="mt-2 text-body-sm leading-relaxed text-on-surface-variant">
+                {{ unit.transfer ?? 'محدودیتی برای واگذاری این واحد ثبت نشده است؛ شرایط قطعی انتقال سند را واحد فروش در زمان عقد قرارداد اعلام می‌کند.' }}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div v-for="c in tabCards[tab]" :key="c.title" class="flex items-start gap-4 rounded-md border border-border bg-surface-container-low p-6">
           <span class="flex size-12 shrink-0 items-center justify-center rounded-sm bg-primary-container/10 text-primary-container"><AppIcon :name="c.icon" /></span>
           <div>

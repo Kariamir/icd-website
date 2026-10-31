@@ -82,6 +82,12 @@ function memberRows(m: CompanyBoardMember) {
           <h3 class="border-b border-border pb-4 text-headline-sm font-headline-sm text-ink">شناسنامه مدیریتی و سهامداری</h3>
           <dl class="divide-y divide-border">
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">سهم هلدینگ</dt><dd class="text-body-md font-bold text-ink">{{ faDigits(company.holdingShare) }}٪</dd></div>
+            <!--
+              تابعه vs وابسته (ADR-028). The client's own deck splits the
+              group in two, and a minority holding presented as a subsidiary
+              overstates control — so the card says which this is.
+            -->
+            <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">نوع رابطه</dt><dd class="text-body-md font-bold text-ink">{{ company.affiliate ? 'شرکت وابسته' : 'شرکت تابعه' }}</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">مدیرعامل</dt><dd class="text-body-md font-bold text-ink">{{ company.ceo }}</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">سال تاسیس</dt><dd class="text-body-md font-bold text-ink">{{ faDigits(company.founded) }}</dd></div>
             <div class="flex items-center justify-between py-4"><dt class="text-body-md text-secondary">تخصص</dt><dd class="text-body-md font-bold text-ink">{{ company.specialty }}</dd></div>

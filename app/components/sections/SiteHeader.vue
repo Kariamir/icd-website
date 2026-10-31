@@ -51,6 +51,7 @@ function isActive(href: string) {
 watch(() => route.fullPath, () => {
   drawerOpen.value = false
   openGroup.value = null
+  openMenu.value = null
 })
 
 watch(drawerOpen, (open) => {
@@ -59,6 +60,29 @@ watch(drawerOpen, (open) => {
 
 function toggleGroup(label: string) {
   openGroup.value = openGroup.value === label ? null : label
+}
+
+/*
+ * The desktop dropdown is Vue state, not a CSS `:hover` (ADR-028).
+ *
+ * As pure `group-hover` it stayed open after you clicked an entry: the route
+ * changed under a pointer that was still inside the panel, so the hover was
+ * still true and the menu hung there until you moved away and clicked again.
+ * Driving it from state lets a click close it while the pointer stays put.
+ */
+const openMenu = ref<string | null>(null)
+
+function enterMenu(href: string) {
+  openMenu.value = href
+}
+function leaveMenu(href: string) {
+  if (openMenu.value === href) openMenu.value = null
+}
+/** Focus leaving the whole group closes it; moving between its links does not. */
+function blurMenu(e: FocusEvent, href: string) {
+  const next = e.relatedTarget as Node | null
+  if (next && (e.currentTarget as HTMLElement).contains(next)) return
+  leaveMenu(href)
 }
 </script>
 
@@ -77,15 +101,29 @@ function toggleGroup(label: string) {
         </NuxtLink>
 
         <nav class="hidden items-center gap-1 xl:flex" aria-label="منوی اصلی">
-          <div v-for="item in primaryNav" :key="item.href" class="group/nav relative">
+          <div
+            v-for="item in primaryNav"
+            :key="item.href"
+            class="group/nav relative"
+            @mouseenter="enterMenu(item.href)"
+            @mouseleave="leaveMenu(item.href)"
+            @focusin="enterMenu(item.href)"
+            @focusout="blurMenu($event, item.href)"
+          >
             <NuxtLink
               :to="item.href"
               class="relative flex h-20 items-center gap-1 whitespace-nowrap px-2.5 text-label-lg font-label-lg transition-colors duration-150"
               :class="isActive(item.href) ? 'text-primary-container' : 'text-ink hover:text-primary-container'"
               :aria-current="isActive(item.href) ? 'page' : undefined"
+              @click="openMenu = null"
             >
               {{ item.label }}
-              <AppIcon v-if="item.megaMenu" name="expand_more" class="text-outline transition-transform duration-150 group-hover/nav:rotate-180" />
+              <AppIcon
+                v-if="item.megaMenu"
+                name="expand_more"
+                class="text-outline transition-transform duration-150"
+                :class="openMenu === item.href && 'rotate-180'"
+              />
               <span
                 class="absolute inset-x-3 bottom-0 h-0.5 rounded-pill bg-primary-container transition-opacity"
                 :class="isActive(item.href) ? 'opacity-100' : 'opacity-0'"
@@ -93,13 +131,17 @@ function toggleGroup(label: string) {
             </NuxtLink>
             <div
               v-if="item.megaMenu"
-              class="invisible absolute right-0 top-full z-50 w-72 translate-y-1 opacity-0 transition-all duration-150 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100"
+              class="absolute right-0 top-full z-50 w-72 transition-all duration-150"
+              :class="openMenu === item.href
+                ? 'visible translate-y-0 opacity-100'
+                : 'invisible translate-y-1 opacity-0'"
             >
               <ul class="mt-1 overflow-hidden rounded-md border border-border bg-surface-container-lowest p-2 shadow-[0_18px_40px_-20px_rgba(4,28,44,0.35)]">
                 <li v-for="sub in item.megaMenu[0]!.items" :key="sub.href">
                   <NuxtLink
                     :to="sub.href"
                     class="block rounded-sm px-3 py-2.5 text-body-sm text-ink transition-colors hover:bg-surface hover:text-primary-container"
+                    @click="openMenu = null"
                   >
                     <span>{{ sub.label }}</span>
                   </NuxtLink>

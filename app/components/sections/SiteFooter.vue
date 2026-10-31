@@ -71,17 +71,31 @@ import { subsidiaries } from '~/utils/catalog'
         </div>
       </div>
 
-      <!-- Internal systems — other applications, so they open in a new tab -->
-      <div class="flex flex-col gap-3 border-b border-surface-container-lowest/10 py-6 sm:flex-row sm:items-baseline sm:gap-6">
-        <span class="shrink-0 text-label-md text-surface-dim/80">سامانه‌ها:</span>
-        <ul class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
+      <!--
+        Internal systems (ADR-028). These are applications people sign into
+        and work in, not more footer links, so each gets a card: an icon, the
+        system's name and what it is for. They open in a new tab because
+        none of them is this site.
+      -->
+      <div class="border-b border-surface-container-lowest/10 py-8">
+        <p class="mb-4 text-label-lg font-bold text-surface-container-lowest">سامانه‌ها</p>
+        <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <li v-for="s in externalSystems" :key="s.href">
             <a
               :href="s.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 rounded-pill border border-surface-container-lowest/20 px-4 py-2 text-label-md text-surface-dim transition-colors hover:border-brand-tint hover:text-brand-tint"
-            >{{ s.label }}<AppIcon name="open_in_new" class="text-[0.95em]" /></a>
+              class="group flex h-full items-center gap-3.5 rounded-md border border-surface-container-lowest/15 bg-surface-container-lowest/[0.04] px-4 py-3.5 transition-colors hover:border-brand-tint hover:bg-surface-container-lowest/10"
+            >
+              <span class="flex size-10 shrink-0 items-center justify-center rounded-sm bg-surface-container-lowest/10 text-brand-tint transition-colors group-hover:bg-brand-tint group-hover:text-ink">
+                <AppIcon :name="s.icon" />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-label-lg font-bold text-surface-container-lowest">{{ s.label }}</span>
+                <span class="block truncate text-label-md text-surface-dim">{{ s.note }}</span>
+              </span>
+              <AppIcon name="open_in_new" class="shrink-0 text-[0.95em] text-surface-dim transition-colors group-hover:text-brand-tint" />
+            </a>
           </li>
         </ul>
       </div>

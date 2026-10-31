@@ -28,6 +28,13 @@ withDefaults(defineProps<{
   mark?: string
   markAlt?: string
   faded?: boolean
+  /**
+   * `object-position` for the background photograph. The default centres it,
+   * which crops equally top and bottom — wrong when the subject is in the
+   * upper half, as on /hr, where centring cut the worker's head off
+   * (ADR-028).
+   */
+  imagePosition?: string
 }>(), {
   subtitle: undefined,
   eyebrow: undefined,
@@ -38,6 +45,7 @@ withDefaults(defineProps<{
   mark: undefined,
   markAlt: '',
   faded: false,
+  imagePosition: 'center',
 })
 
 const heights = {
@@ -58,6 +66,7 @@ const heights = {
         alt=""
         class="absolute inset-0 size-full object-cover transition-opacity"
         :class="faded ? 'opacity-35' : 'opacity-100'"
+        :style="{ objectPosition: imagePosition }"
       >
       <div class="absolute inset-0" :class="faded ? 'bg-gradient-to-t from-ink via-ink/70 to-ink/40' : 'bg-gradient-to-t from-ink via-ink/55 to-ink/10'" />
     </template>

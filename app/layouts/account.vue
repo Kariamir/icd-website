@@ -13,6 +13,10 @@
  */
 import { accountNav, accountUser } from '~/utils/account'
 
+async function signOut() {
+  await navigateTo('/')
+}
+
 const route = useRoute()
 
 function isActive(href: string) {
@@ -50,9 +54,18 @@ function isActive(href: string) {
         <span class="hidden truncate md:inline">{{ accountUser.name }}</span>
       </p>
 
+      <!--
+        Signing out (ADR-028). The control was drawn but inert; it now leaves
+        the cluster and returns to the public site.
+        ⛔ There is no session to end — the account area has never had real
+        authentication (ADR-016), so this clears nothing and every /account/*
+        route stays reachable without signing in. When sessions exist, this
+        handler is where the token is dropped.
+      -->
       <button
         type="button"
         class="shrink-0 rounded-pill border border-white/35 px-space-md py-space-sm text-label-lg font-label-lg text-white transition-colors hover:bg-white/10 md:px-[18px]"
+        @click="signOut"
       >
         خروج
       </button>

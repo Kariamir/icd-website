@@ -4,7 +4,7 @@
 // reorder further without approval. Built in the approved Stitch visual language (no Stitch design
 // existed for the home page) and fed from the same catalog as every other
 // page (ADR-015), so a card here always opens the page it names.
-import { subsidiaries, projects } from '~/utils/catalog'
+import { projects } from '~/utils/catalog'
 import { posts } from '~/utils/posts'
 import { mediaCategories } from '~/utils/routes'
 import { irDocuments } from '~/utils/irDocuments'
@@ -123,22 +123,13 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
       </div>
     </section>
 
-    <!-- 3 — خانواده ثاخت (before projects, ADR-011) -->
-    <section class="bg-surface py-20 md:py-[120px]">
-      <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="خانواده ثاخت" title="شرکت‌های تابعه در یک زنجیره">
-          <NuxtLink to="/companies" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint">همه شرکت‌ها <AppIcon name="arrow_back" /></NuxtLink>
-        </SectionHead>
-        <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <li v-for="c in subsidiaries" :key="c.slug">
-            <NuxtLink :to="`/companies/${c.slug}`" class="group flex h-40 flex-col items-center justify-center rounded-lg border border-border bg-surface-container-lowest p-4 text-center transition-colors hover:border-primary-container md:h-48">
-              <CompanyMark :company="c" :size="84" />
-              <span class="mt-3 text-label-md text-secondary">{{ c.name }}</span>
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <!--
+      3 — خانواده ثاخت (before projects, ADR-011).
+      Redrawn as an orbit at the owner's instruction, after the solar-system
+      reference in `Asset Icd` (ADR-028). The eight-tile grid it replaced is
+      still there in spirit as the legend beneath the diagram.
+    -->
+    <SubsidiaryOrbit />
 
     <!-- 4 — پروژه‌های شاخص -->
     <section class="bg-surface-container-lowest py-20 md:py-[120px]">
@@ -157,6 +148,7 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
               <div v-if="featured.progress != null" class="mt-5 max-w-sm">
                 <div class="mb-1.5 flex justify-between text-label-md text-surface-container-lowest"><span>پیشرفت فیزیکی</span><span>{{ faDigits(featured.progress) }}٪</span></div>
                 <div class="h-1.5 rounded-pill bg-surface-container-lowest/20"><div class="h-full rounded-pill bg-brand-tint" :style="{ width: `${featured.progress}%` }" /></div>
+                <p v-if="featured.progressAsOf" class="mt-1.5 text-label-md text-surface-dim">تا {{ featured.progressAsOf }}</p>
               </div>
             </div>
           </NuxtLink>

@@ -81,7 +81,14 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
             shrink enough to scroll at all.
           -->
           <div class="flex flex-col gap-4 lg:col-span-4 lg:h-[640px]">
-            <!-- the project currently under the pointer or the pin -->
+            <!--
+              The chosen project. It used to follow the POINTER: every row had
+              `@mouseenter`, and since this card sits above the list, reaching
+              its «صفحه پروژه» link meant dragging the cursor back across the
+              other rows, which swapped the card out from under the click
+              (ADR-028). Selection is a click now — or focus, so the keyboard
+              still drives the map.
+            -->
             <article class="shrink-0 overflow-hidden rounded-lg border border-border bg-surface-container-lowest">
               <NuxtLink :to="`/projects/${active.slug}`" class="group block">
                 <div class="aspect-[16/9] overflow-hidden bg-surface-alt">
@@ -126,7 +133,7 @@ const featured = computed(() => projects.filter(p => p.featured).concat(projects
                   :class="p.slug === activeSlug ? 'bg-brand-tint/40' : 'hover:bg-surface'"
                   :aria-pressed="p.slug === activeSlug"
                   @click="choose(p.slug)"
-                  @mouseenter="activeSlug = p.slug"
+                  @focus="activeSlug = p.slug"
                 >
                   <span class="min-w-0">
                     <span class="block truncate text-body-sm font-bold text-ink">{{ p.name }}</span>

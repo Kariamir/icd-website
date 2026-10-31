@@ -32,7 +32,7 @@ function to(c: string, p = 1) {
 }
 
 const cta: Record<MediaCategory, string> = {
-  news: 'مطالعه خبر', stories: 'مطالعه روایت', podcast: 'شنیدن پادکست', analysis: 'مطالعه تحلیل', tenders: 'مشاهده آگهی',
+  news: 'مطالعه خبر', stories: 'مطالعه روایت', podcast: 'شنیدن پادکست', analysis: 'مطالعه تحلیل', academy: 'مطالعه درس', tenders: 'مشاهده آگهی',
 }
 </script>
 

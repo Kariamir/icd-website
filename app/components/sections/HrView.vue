@@ -8,6 +8,8 @@
   Vue — it was stripped in the port and the controls did nothing.
 -->
 <script setup lang="ts">
+import { postsByCategory } from '~/utils/posts'
+import type { MediaCategory } from '~/utils/routes'
 import { hrNews, hrSlogan } from '~/utils/hrData'
 import type { IconName } from '~/utils/icons'
 
@@ -27,12 +29,26 @@ const benefits: { icon: IconName, title: string, text: string, tag: string }[] =
   { icon: 'insights', title: 'پاداش عملکرد', text: 'پاداش فصلی متصل به پیشرفت پروژه‌ها و سودآوری.', tag: 'سنجش شاخص‌های KPI' },
 ]
 
-const learning: { icon: IconName, title: string, text: string, tag: string }[] = [
-  { icon: 'school', title: 'آکادمی ثاخت', text: 'دوره‌های تخصصی مهندسی و مالی برای ستاد و کارگاه‌ها.', tag: 'سطح سازمانی' },
+/*
+ * «آکادمی ثاخت» opens the editorial category where its material is
+ * published (ADR-028).
+ * ⛔ The category is REAL but EMPTY: /media carries the eleven posts copied
+ * from the live site (nine news, two tenders) and none of them is training
+ * material, so the archive shows its empty state until the HR desk
+ * publishes there.
+ */
+const ACADEMY_CATEGORY: MediaCategory = 'academy'
+
+const learning: { icon: IconName, title: string, text: string, tag: string, href?: string }[] = [
+  { icon: 'school', title: 'آکادمی ثاخت', text: 'دوره‌های تخصصی مهندسی و مالی برای ستاد و کارگاه‌ها.', tag: 'سطح سازمانی', href: `/media?category=${ACADEMY_CATEGORY}` },
   { icon: 'groups', title: 'توسعه مدیریت و رهبری', text: 'کانون ارزیابی و پرورش مدیران پروژه‌های آینده.', tag: 'Executive Leadership' },
   { icon: 'assignment', title: 'مدیریت پروژه (PMBOK و FIDIC)', text: 'شرایط عمومی پیمان، قراردادهای EPC و کنترل پروژه.', tag: 'مدرک معتبر' },
   { icon: 'architecture', title: 'BIM و ساختمان سبز', text: 'مدل‌سازی اطلاعات ساخت و بهینه‌سازی انرژی.', tag: 'فناوری روز' },
 ]
+
+/* The latest pieces from that category, so the page shows the academy's
+   output rather than only naming it. */
+const academyPosts = computed(() => postsByCategory(ACADEMY_CATEGORY).slice(0, 3))
 
 const faqs = [
   { q: 'بررسی رزومه‌ها چگونه انجام می‌شود؟', a: 'رزومه‌ها ظرف ۴۸ تا ۷۲ ساعت کاری بررسی می‌شوند و در صورت تطابق با نیاز ستاد یا شرکت‌های تابعه، برای مصاحبه اولیه تماس گرفته می‌شود.' },
@@ -83,6 +99,7 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
   <div>
     <PageHero
       image="/img/hr/hr-1.jpg"
+      image-position="center 18%"
       eyebrow="سرمایه انسانی"
       title="امور اداری و منابع انسانی"
       subtitle="اخبار منابع انسانی، مسیر حرفه‌ای و فرصت‌های همکاری در خانواده ثاخت."
@@ -223,12 +240,56 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
           <div class="overflow-hidden rounded-lg"><img src="/img/hr/hr-3.jpg" alt="" class="aspect-[4/3] w-full object-cover"></div>
         </div>
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-8">
-          <article v-for="l in learning" :key="l.title" class="rounded-lg border border-border bg-surface-container-lowest p-6">
-            <span class="mb-4 flex size-11 items-center justify-center rounded-sm bg-surface text-primary-container"><AppIcon :name="l.icon" /></span>
-            <p class="mb-1 text-label-md text-secondary">{{ l.tag }}</p>
-            <h3 class="mb-2 text-body-lg font-bold text-ink">{{ l.title }}</h3>
-            <p class="text-body-sm text-secondary">{{ l.text }}</p>
-          </article>
+          <template v-for="l in learning" :key="l.title">
+            <NuxtLink
+              v-if="l.href"
+              :to="l.href"
+              class="group block rounded-lg border border-border bg-surface-container-lowest p-6 transition-colors hover:border-primary-container"
+            >
+              <span class="mb-4 flex size-11 items-center justify-center rounded-sm bg-surface text-primary-container"><AppIcon :name="l.icon" /></span>
+              <p class="mb-1 text-label-md text-secondary">{{ l.tag }}</p>
+              <h3 class="mb-2 flex items-center gap-1.5 text-body-lg font-bold text-ink group-hover:text-primary-container">
+                {{ l.title }}<AppIcon name="arrow_back" class="text-[0.9em] transition-transform group-hover:-translate-x-1" />
+              </h3>
+              <p class="text-body-sm text-secondary">{{ l.text }}</p>
+            </NuxtLink>
+            <article v-else class="rounded-lg border border-border bg-surface-container-lowest p-6">
+              <span class="mb-4 flex size-11 items-center justify-center rounded-sm bg-surface text-primary-container"><AppIcon :name="l.icon" /></span>
+              <p class="mb-1 text-label-md text-secondary">{{ l.tag }}</p>
+              <h3 class="mb-2 text-body-lg font-bold text-ink">{{ l.title }}</h3>
+              <p class="text-body-sm text-secondary">{{ l.text }}</p>
+            </article>
+          </template>
+        </div>
+
+        <!-- What the academy has actually published (ADR-028). -->
+        <div class="lg:col-span-12">
+          <div class="mb-5 flex items-end justify-between gap-4 border-t border-border pt-8">
+            <h3 class="text-headline-sm font-headline-sm text-ink">آخرین مطالب آکادمی ثاخت</h3>
+            <NuxtLink
+              :to="`/media?category=${ACADEMY_CATEGORY}`"
+              class="inline-flex shrink-0 items-center gap-1.5 text-label-lg font-bold text-primary-container hover:underline"
+            >همه مطالب <AppIcon name="arrow_back" /></NuxtLink>
+          </div>
+          <p v-if="!academyPosts.length" class="rounded-lg border border-dashed border-border bg-surface-container-lowest p-6 text-body-sm text-secondary">
+            هنوز مطلبی در این دسته منتشر نشده است؛ تازه‌ترین مطالب آکادمی به‌زودی اینجا قرار می‌گیرد.
+          </p>
+          <ul v-else class="grid grid-cols-1 gap-5 md:grid-cols-3">
+            <li v-for="post in academyPosts" :key="post.slug">
+              <NuxtLink
+                :to="`/media/${post.slug}`"
+                class="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-container-lowest transition-colors hover:border-primary-container"
+              >
+                <div class="aspect-[16/9] overflow-hidden bg-surface-alt">
+                  <img :src="post.image" :alt="post.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+                </div>
+                <div class="flex grow flex-col p-5">
+                  <p class="mb-2 text-label-md text-secondary">{{ post.date }}</p>
+                  <h4 class="text-body-md font-bold leading-snug text-ink group-hover:text-primary-container">{{ post.title }}</h4>
+                </div>
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

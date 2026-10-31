@@ -60,6 +60,7 @@ export const routes = {
   sales: '/sales',
   salesPreSale: '/sales?status=pre-sale',
   salesReady: '/sales?status=ready',
+  salesSold: '/sales?status=sold',
   salesUnit: (id: string) => `/sales/units/${id}`,
   salesGuide: '/sales/guide',
   salesConsultation: '/sales/consultation',
@@ -135,23 +136,31 @@ export const routes = {
  * sitemap §11 requires of internal systems — the public audience has no need
  * for them, and they open in a new tab because they are other applications.
  */
-export const externalSystems: { label: string, href: string }[] = [
-  { label: 'سامانه درگاه', href: 'https://dargah.icd.co.ir/' },
-  { label: 'درگاه جامع اطلاع‌رسانی هلدینگ', href: 'https://vendor.icd.co.ir/' },
-  { label: 'سامانه منابع انسانی', href: 'https://hr.icd.co.ir/' },
-  { label: 'اتوماسیون اداری', href: 'https://ow.icd.co.ir/Didgah/UserLogin/Login' },
-  { label: 'بیمه کوثر', href: 'https://sinad.kins.ir/DarmanAfzar.Customer' },
-  { label: 'سلفیت', href: 'https://selfit.ir' },
+/*
+ * The applications the group runs elsewhere. Each carries an icon and a line
+ * of its own since ADR-028 — as a wrapping row of plain pills they read as
+ * six more footer links, and they are destinations people actually work in.
+ */
+export const externalSystems: { label: string, note: string, icon: IconName, href: string }[] = [
+  { label: 'سامانه درگاه', note: 'ورود کارکنان و پیمانکاران', icon: 'key', href: 'https://dargah.icd.co.ir/' },
+  { label: 'درگاه جامع اطلاع‌رسانی', note: 'سامانه تامین‌کنندگان هلدینگ', icon: 'domain', href: 'https://vendor.icd.co.ir/' },
+  { label: 'سامانه منابع انسانی', note: 'امور اداری، حقوق و مرخصی', icon: 'badge', href: 'https://hr.icd.co.ir/' },
+  { label: 'اتوماسیون اداری', note: 'مکاتبات و گردش کار', icon: 'description', href: 'https://ow.icd.co.ir/Didgah/UserLogin/Login' },
+  { label: 'بیمه کوثر', note: 'درمان تکمیلی کارکنان', icon: 'health_and_safety', href: 'https://sinad.kins.ir/DarmanAfzar.Customer' },
+  { label: 'سلفیت', note: 'خدمات رفاهی و ورزشی', icon: 'card_giftcard', href: 'https://selfit.ir' },
 ]
 
 /** Media post categories (ADR-005, ADR-009). Values are the ?category= query values. */
-export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'tenders'
+export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'academy' | 'tenders'
 
 export const mediaCategories: { value: MediaCategory, label: string }[] = [
   { value: 'news', label: 'نبض ثاخت' },
   { value: 'stories', label: 'روایت ثاخت' },
   { value: 'podcast', label: 'پادکست' },
   { value: 'analysis', label: 'تحلیل بازار' },
+  /* Added for /hr's «آکادمی ثاخت» (ADR-028). ⛔ Empty: no training piece has
+     been published yet, so the category renders its empty state. */
+  { value: 'academy', label: 'آکادمی ثاخت' },
   { value: 'tenders', label: 'مناقصات و مزایدات' },
 ]
 
@@ -274,6 +283,7 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
         { label: 'همه واحدهای قابل واگذاری', href: routes.sales },
         { label: 'پیش‌فروش پروژه‌های در حال ساخت', href: routes.salesPreSale },
         { label: 'واحدهای آماده تحویل', href: routes.salesReady },
+        { label: 'واحدهای فروخته‌شده', href: routes.salesSold },
         { label: 'راهنمای خرید و قرارداد', href: routes.salesGuide },
         { label: 'درخواست مشاوره رایگان', href: routes.salesConsultation },
       ],
@@ -296,7 +306,7 @@ export const headerCta: NavItem = { label: 'مشاوره و تماس سریع', 
  * page — the designed landing of the IR cluster. Swap to routes.authLogin once
  * that page exists.
  */
-export const shareholderLogin: NavItem = { label: 'ورود سهامداران', href: routes.authLogin }
+export const shareholderLogin: NavItem = { label: 'ورود', href: routes.authLogin }
 
 /**
  * Cluster sub-navigation shown as a tab strip under the hero on every page of
@@ -306,6 +316,7 @@ export const salesNav: NavItem[] = [
   { label: 'همه واحدها', href: routes.sales },
   { label: 'پیش‌فروش', href: routes.salesPreSale },
   { label: 'آماده تحویل', href: routes.salesReady },
+  { label: 'فروخته‌شده', href: routes.salesSold },
   { label: 'راهنمای خرید', href: routes.salesGuide },
   { label: 'درخواست مشاوره', href: routes.salesConsultation },
 ]
