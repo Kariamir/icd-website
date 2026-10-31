@@ -264,6 +264,9 @@ export const projectStatus: Record<ProjectStatusKey, { label: string, href: stri
 
 /* The reporting date of every `progress` figure below (ADR-028). */
 export const PROGRESS_AS_OF = '۳۱ شهریور ۱۴۰۵'
+/* The «معرفی شرکت» deck's own date, for the handful of figures that come
+   from it rather than from the newer progress report (ADR-030). */
+export const DECK_AS_OF = 'دی ۱۴۰۱'
 
 export interface Project {
   slug: string
@@ -298,6 +301,23 @@ export interface Project {
    */
   progress?: number
   progressAsOf?: string
+  /**
+   * Site area — the plot, as distinct from `areaSqm`, which is built area.
+   * From the client's «معرفی شرکت» deck (ADR-030); a reader comparing two
+   * projects cannot do it on gross floor area alone.
+   */
+  landSqm?: number
+  /** Net usable area (زیربنای مفید), where the deck states it. */
+  usableSqm?: number
+  /** How the unit count breaks down, where the deck states it. */
+  unitMix?: { label: string, count: number }[]
+  /**
+   * The company managing construction (مدیر پیمان), when the deck names one
+   * other than the project's own `company`. The holding owns every project
+   * (ADR-028); `company` is the executor and this is the construction
+   * manager above it.
+   */
+  contractManager?: string
   excerpt: string
   image: string
   /** Every photograph the client supplied for this project. */
@@ -316,20 +336,31 @@ export interface Project {
    */
   coords: { lon: number, lat: number }
   featured?: boolean
-  origin: 'site' | 'design'
+  /**
+   * Where the record came from: the live icd.co.ir site, the approved design,
+   * or the client's «معرفی شرکت» deck of ۱۴۰۱/۱۰/۱۸ (ADR-030).
+   */
+  origin: 'site' | 'design' | 'deck'
 }
 
 export const projects: Project[] = [
   {
     slug: 'tehran-international-tower', name: 'برج بین‌المللی تهران', nameEn: 'Tehran International Tower',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'completed',
     city: 'منطقه ۱', district: 'تهران، بزرگراه شهید همت، تقاطع کردستان',
     usage: 'تجاری، اداری و مسکونی',
-    areaSqm: 42000, floors: 56, units: 572,
-    year: 1402, progress: 68,
+    areaSqm: 220000,
+    year: 1389,
+    usableSqm: 120000,
+    landSqm: 29583,
+    floors: 56,
+    units: 580,
+    unitMix: [{ label: 'مسکونی', count: 555 }, { label: 'تجاری', count: 23 }, { label: 'اداری', count: 2 }],
+    company: 'icd-engineering',
+    contractManager: 'شرکت آ.س.پ',
     excerpt: 'بلندترین برج چندمنظوره پایتخت با ترکیب فضاهای تجاری، اداری و مسکونی.',
     image: '/img/projects/tehran-international-tower-1.jpg',
-    gallery: ['/img/projects/tehran-international-tower-1.jpg', '/img/projects/tehran-international-tower-2.jpg', '/img/projects/tehran-international-tower-3.jpg', '/img/projects/tehran-international-tower-4.jpg', '/img/projects/tehran-international-tower-5.jpg', '/img/projects/tehran-international-tower-6.jpg', '/img/projects/tehran-international-tower-7.jpg'],
+    gallery: ['/img/projects/tehran-international-tower-1.jpg', '/img/projects/tehran-international-tower-2.jpg', '/img/projects/tehran-international-tower-3.jpg', '/img/projects/tehran-international-tower-4.jpg', '/img/projects/tehran-international-tower-5.jpg', '/img/projects/tehran-international-tower-6.jpg', '/img/projects/tehran-international-tower-7.jpg', '/img/projects/tehran-international-tower-8.jpg', '/img/projects/tehran-international-tower-9.jpg', '/img/projects/tehran-international-tower-10.jpg', '/img/projects/tehran-international-tower-11.jpg', '/img/projects/tehran-international-tower-12.jpg'],
     map: { x: 50, y: 34 },
     coords: { lon: 51.391, lat: 35.757 },
     featured: true,
@@ -342,9 +373,12 @@ export const projects: Project[] = [
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 106490, floors: 0,
     year: 1387,
+    landSqm: 59500,
+    usableSqm: 68844,
+    contractManager: 'شرکت مهندسی و ساخت پارس سازه',
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/narenjestan-izadshahr-1.jpg',
-    gallery: ['/img/projects/narenjestan-izadshahr-1.jpg', '/img/projects/narenjestan-izadshahr-2.jpg'],
+    gallery: ['/img/projects/narenjestan-izadshahr-1.jpg', '/img/projects/narenjestan-izadshahr-2.jpg', '/img/projects/narenjestan-izadshahr-3.jpg'],
     map: { x: 56, y: 22 },
     coords: { lon: 51.955, lat: 36.59 },
     featured: true,
@@ -352,14 +386,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'roya-elite', name: 'رویا الیت', nameEn: 'Roya Elite',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 19600, floors: 14,
     year: 1405,
+    company: 'tisa-kish',
+    landSqm: 42000,
+    usableSqm: 11200,
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/roya-elite-1.jpg',
-    gallery: ['/img/projects/roya-elite-1.jpg', '/img/projects/roya-elite-2.jpg', '/img/projects/roya-elite-3.jpg', '/img/projects/roya-elite-4.jpg', '/img/projects/roya-elite-5.jpg', '/img/projects/roya-elite-6.jpg', '/img/projects/roya-elite-7.jpg', '/img/projects/roya-elite-8.jpg'],
+    gallery: ['/img/projects/roya-elite-1.jpg', '/img/projects/roya-elite-2.jpg', '/img/projects/roya-elite-3.jpg', '/img/projects/roya-elite-4.jpg', '/img/projects/roya-elite-5.jpg', '/img/projects/roya-elite-6.jpg', '/img/projects/roya-elite-7.jpg', '/img/projects/roya-elite-8.jpg', '/img/projects/roya-elite-12.jpg'],
     map: { x: 58, y: 88 },
     coords: { lon: 53.95, lat: 26.556 },
     featured: true,
@@ -367,12 +404,13 @@ export const projects: Project[] = [
   },
   {
     slug: 'ara-tower', name: 'برج آرا', nameEn: 'Ara Tower',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
     year: 1390, progress: 43.7,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'tisa-kish',
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/ara-tower-1.jpg',
     gallery: ['/img/projects/ara-tower-1.jpg', '/img/projects/ara-tower-2.jpg', '/img/projects/ara-tower-3.jpg', '/img/projects/ara-tower-4.jpg', '/img/projects/ara-tower-5.jpg'],
@@ -383,12 +421,13 @@ export const projects: Project[] = [
   },
   {
     slug: 'kia-tower', name: 'برج کیا', nameEn: 'Kia Tower',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
     year: 1390, progress: 34.2,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'tisa-kish',
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/kia-tower-1.jpg',
     gallery: ['/img/projects/kia-tower-1.jpg', '/img/projects/kia-tower-2.jpg', '/img/projects/kia-tower-3.jpg'],
@@ -399,12 +438,13 @@ export const projects: Project[] = [
   },
   {
     slug: 'nbo12', name: 'NBO12', nameEn: 'NBO12',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 1698, floors: 6,
     year: 1403, progress: 80.5,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'tisa-kish',
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/nbo12-1.jpg',
     gallery: ['/img/projects/nbo12-1.jpg', '/img/projects/nbo12-2.jpg', '/img/projects/nbo12-3.jpg', '/img/projects/nbo12-4.jpg'],
@@ -415,15 +455,21 @@ export const projects: Project[] = [
   },
   {
     slug: 'sparrow-rasht', name: 'مجتمع تجاری و اداری اسپارو', nameEn: 'Sparrow Business and Office Complex',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'شهر رشت', district: 'استان گیلان، شهر رشت تقاطع خیابان سعدی و معلم',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 40543, floors: 16,
     year: 1391, progress: 24.8,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'pars-sazeh',
+    landSqm: 4100,
+    usableSqm: 15683,
+    units: 114,
+    unitMix: [{ label: 'تجاری', count: 85 }, { label: 'اداری', count: 29 }],
+    contractManager: 'شرکت مهندسی و ساخت پارس سازه',
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/sparrow-rasht-1.jpg',
-    gallery: ['/img/projects/sparrow-rasht-1.jpg', '/img/projects/sparrow-rasht-2.jpg', '/img/projects/sparrow-rasht-3.jpg', '/img/projects/sparrow-rasht-4.jpg'],
+    gallery: ['/img/projects/sparrow-rasht-1.jpg', '/img/projects/sparrow-rasht-2.jpg', '/img/projects/sparrow-rasht-3.jpg', '/img/projects/sparrow-rasht-4.jpg', '/img/projects/sparrow-rasht-5.jpg', '/img/projects/sparrow-rasht-6.jpg'],
     map: { x: 44, y: 20 },
     coords: { lon: 49.588, lat: 37.278 },
     featured: true,
@@ -437,9 +483,12 @@ export const projects: Project[] = [
     areaSqm: 23375, floors: 21,
     year: 1399, progress: 95.5,
     progressAsOf: PROGRESS_AS_OF,
+    landSqm: 1788,
+    usableSqm: 8229,
+    contractManager: 'شرکت آ.س.پ',
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/ghadir-office-tehran-1.jpg',
-    gallery: ['/img/projects/ghadir-office-tehran-1.jpg', '/img/projects/ghadir-office-tehran-2.jpg', '/img/projects/ghadir-office-tehran-3.jpg', '/img/projects/ghadir-office-tehran-4.jpg', '/img/projects/ghadir-office-tehran-5.jpg', '/img/projects/ghadir-office-tehran-6.jpg', '/img/projects/ghadir-office-tehran-7.jpg', '/img/projects/ghadir-office-tehran-8.jpg'],
+    gallery: ['/img/projects/ghadir-office-tehran-1.jpg', '/img/projects/ghadir-office-tehran-2.jpg', '/img/projects/ghadir-office-tehran-3.jpg', '/img/projects/ghadir-office-tehran-4.jpg', '/img/projects/ghadir-office-tehran-5.jpg', '/img/projects/ghadir-office-tehran-6.jpg', '/img/projects/ghadir-office-tehran-7.jpg', '/img/projects/ghadir-office-tehran-8.jpg', '/img/projects/ghadir-office-tehran-19.jpg', '/img/projects/ghadir-office-tehran-20.jpg'],
     map: { x: 50, y: 34 },
     coords: { lon: 51.4, lat: 35.7 },
     featured: true,
@@ -447,12 +496,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'ofogh-sina-mashhad', name: 'ساختمان پزشکان افق سینا', nameEn: 'Ofogh Sina Doctors Building',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'مشهد', district: 'استان مشهد، مشهد',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 18664, floors: 19,
     year: 1392, progress: 66.6,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'ofogh-saze-paya',
+    landSqm: 1391,
+    usableSqm: 10000,
+    units: 86,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/ofogh-sina-mashhad-1.jpg',
     gallery: ['/img/projects/ofogh-sina-mashhad-1.jpg', '/img/projects/ofogh-sina-mashhad-2.jpg', '/img/projects/ofogh-sina-mashhad-3.jpg', '/img/projects/ofogh-sina-mashhad-4.jpg', '/img/projects/ofogh-sina-mashhad-5.jpg', '/img/projects/ofogh-sina-mashhad-6.jpg', '/img/projects/ofogh-sina-mashhad-7.jpg', '/img/projects/ofogh-sina-mashhad-8.jpg'],
@@ -463,15 +516,19 @@ export const projects: Project[] = [
   },
   {
     slug: 'mega-pars-tehran', name: 'مجتمع تجاری فرهنگی مگا پارس', nameEn: 'Mega Pars Cultural Commercial complex',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'تهران', district: 'استان تهران، تهران تقاطع خیابان معلم',
     usage: 'چندمنظوره تجاری و اداری',
     areaSqm: 215204, floors: 18,
     year: 1384, progress: 88.3,
     progressAsOf: PROGRESS_AS_OF,
+    company: 'aria-omran-pars',
+    landSqm: 26341,
+    usableSqm: 65000,
+    units: 330,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/mega-pars-tehran-1.jpg',
-    gallery: ['/img/projects/mega-pars-tehran-1.jpg', '/img/projects/mega-pars-tehran-2.jpg'],
+    gallery: ['/img/projects/mega-pars-tehran-1.jpg', '/img/projects/mega-pars-tehran-2.jpg', '/img/projects/mega-pars-tehran-3.jpg'],
     map: { x: 50, y: 34 },
     coords: { lon: 51.38, lat: 35.72 },
     featured: true,
@@ -488,9 +545,10 @@ export const projects: Project[] = [
    */
   {
     slug: 'esparrow-rasht', name: 'برج تجاری اداری اسپارو', nameEn: 'Esparrow Commercial Office Tower',
-    status: 'under-construction', company: 'icd-engineering',
+    status: 'under-construction',
     city: 'رشت', district: 'استان گیلان، مرکز شهر رشت',
     usage: 'تجاری و اداری',
+    company: 'pars-sazeh',
     excerpt: 'برج تجاری و اداری در مرکز شهر رشت.',
     image: '/img/projects/esparrow-rasht-1.jpg',
     gallery: ['/img/projects/esparrow-rasht-1.jpg'],
@@ -515,12 +573,108 @@ export const projects: Project[] = [
     status: 'under-construction', company: 'icd-engineering',
     city: 'نوشهر', district: 'استان مازندران، نوشهر، ساحل دریای خزر',
     usage: 'مسکونی',
+    landSqm: 14400,
+    areaSqm: 43815,
+    usableSqm: 26160,
+    units: 222,
+    unitMix: [{ label: 'اقامتی', count: 202 }, { label: 'تجاری', count: 20 }],
+    contractManager: 'شرکت مهندسی و ساخت پارس سازه',
+    progress: 28,
+    progressAsOf: DECK_AS_OF,
     excerpt: 'برج مسکونی کاسپیانا در ساحل دریای خزر، شهر نوشهر.',
     image: '/img/projects/caspiana-nowshahr-1.jpg',
-    gallery: ['/img/projects/caspiana-nowshahr-1.jpg'],
+    gallery: ['/img/projects/caspiana-nowshahr-1.jpg', '/img/projects/caspiana-nowshahr-2.jpg', '/img/projects/caspiana-nowshahr-3.jpg'],
     map: { x: 52, y: 20 },
     coords: { lon: 51.495, lat: 36.648 },
     origin: 'site',
+  },
+{
+    slug: 'saadi-shiraz', name: 'مجتمع تجاری سعدی شیراز', nameEn: 'Saadi Commercial Complex',
+    status: 'operating',
+    city: 'شیراز', district: 'استان فارس، شیراز، عفیف‌آباد',
+    usage: 'تجاری و تفریحی',
+    landSqm: 6010,
+    areaSqm: 53992,
+    usableSqm: 18818,
+    units: 265,
+    unitMix: [{ label: 'تجاری', count: 265 }],
+    progress: 99.1,
+    progressAsOf: PROGRESS_AS_OF,
+    company: 'icd-engineering',
+    excerpt: 'مجتمع تجاری و تفریحی در عفیف‌آباد شیراز، با ۲۶۵ واحد تجاری و ۴۵۰ پارکینگ.',
+    image: '/img/projects/saadi-shiraz-1.jpg',
+    gallery: ['/img/projects/saadi-shiraz-1.jpg', '/img/projects/saadi-shiraz-2.jpg', '/img/projects/saadi-shiraz-3.jpg', '/img/projects/saadi-shiraz-4.jpg', '/img/projects/saadi-shiraz-5.jpg', '/img/projects/saadi-shiraz-6.jpg', '/img/projects/saadi-shiraz-7.jpg', '/img/projects/saadi-shiraz-8.jpg'],
+    map: { x: 53, y: 66 },
+    coords: { lon: 52.511, lat: 29.632 },
+    featured: true,
+    origin: 'deck',
+  },
+  {
+    slug: 'didar-kish', name: 'برج‌های مسکونی دیدار', nameEn: 'Didar Residential Towers',
+    status: 'under-construction',
+    city: 'جزیره کیش', district: 'جزیره کیش، لوپ دیدار',
+    usage: 'مسکونی',
+    landSqm: 36000,
+    areaSqm: 55000,
+    usableSqm: 36554,
+    units: 377,
+    unitMix: [
+      { label: 'بلوک A', count: 104 },
+      { label: 'بلوک B', count: 104 },
+      { label: 'بلوک C', count: 65 },
+      { label: 'بلوک D', count: 56 },
+      { label: 'بلوک E', count: 48 },
+    ],
+    progress: 43,
+    progressAsOf: DECK_AS_OF,
+    company: 'tisa-kish',
+    excerpt: 'پنج بلوک مسکونی در لوپ دیدار کیش؛ بلوک‌های C، D و E تکمیل شده‌اند.',
+    image: '/img/projects/didar-kish-1.jpg',
+    gallery: ['/img/projects/didar-kish-1.jpg', '/img/projects/didar-kish-2.jpg', '/img/projects/didar-kish-3.jpg', '/img/projects/didar-kish-4.jpg', '/img/projects/didar-kish-5.jpg', '/img/projects/didar-kish-6.jpg', '/img/projects/didar-kish-7.jpg'],
+    map: { x: 58, y: 88 },
+    coords: { lon: 53.98, lat: 26.53 },
+    featured: true,
+    origin: 'deck',
+  },
+  {
+    slug: 'tisa-one-kish', name: 'مجتمع تجاری تیسا ۱', nameEn: 'Tisa 1 Commercial Complex',
+    status: 'under-construction',
+    city: 'جزیره کیش', district: 'جزیره کیش، بلوار ساحل',
+    usage: 'تجاری',
+    landSqm: 19388,
+    areaSqm: 65000,
+    progress: 21.5,
+    progressAsOf: DECK_AS_OF,
+    company: 'tisa-kish',
+    excerpt: 'مجتمع تجاری در بلوار ساحل جزیره کیش.',
+    image: '/img/projects/tisa-one-kish-1.jpg',
+    gallery: ['/img/projects/tisa-one-kish-1.jpg', '/img/projects/tisa-one-kish-2.jpg'],
+    map: { x: 58, y: 88 },
+    coords: { lon: 53.92, lat: 26.52 },
+    origin: 'deck',
+  },
+  {
+    slug: 'pasargad-tehran', name: 'مجتمع پاسارگاد', nameEn: 'Pasargad Complex',
+    status: 'under-construction',
+    city: 'منطقه ۱۵', district: 'تهران، تقاطع خاوران',
+    usage: 'مسکونی، اداری و تجاری',
+    landSqm: 20000,
+    areaSqm: 130000,
+    units: 636,
+    unitMix: [
+      { label: 'مسکونی', count: 357 },
+      { label: 'اداری', count: 84 },
+      { label: 'تجاری', count: 195 },
+    ],
+    progress: 16.4,
+    progressAsOf: DECK_AS_OF,
+    company: 'asp',
+    excerpt: 'مجتمع چندمنظوره در تقاطع خاوران تهران، منطقه ۱۵.',
+    image: '/img/projects/pasargad-tehran-1.jpg',
+    gallery: ['/img/projects/pasargad-tehran-1.jpg'],
+    map: { x: 51, y: 35 },
+    coords: { lon: 51.502, lat: 35.681 },
+    origin: 'deck',
   },
 ]
 

@@ -66,6 +66,20 @@ const tabs: { key: Tab, label: string, icon: IconName }[] = [
 const row = (label: string, value: string | null | undefined): [string, string][] =>
   value == null ? [] : [[label, value]]
 
+/*
+ * One caveat per tab, not one for the page (ADR-030). The dimensions, capacity
+ * and architecture rows now come from the client's own «معرفی شرکت» deck and
+ * progress report, so labelling them «نمونه» would be false modesty. The
+ * structure tab is a different matter: every row there is inferred from floor
+ * count and area, and it says so. The two rows that named real engineering
+ * firms — IEC for supervision, رهشهر for design — are gone: an invented
+ * attribution to a named third party is the one kind of placeholder that can
+ * do damage outside this repo.
+ */
+const specNote = computed(() => tab.value === 'structure'
+  ? 'مقادیر این بخش بر پایه تعداد طبقات و زیربنا تخمین زده شده‌اند و با شناسنامه فنی رسمی پروژه جایگزین می‌شوند.'
+  : 'منبع: گزارش پیشرفت و سند معرفی شرکت.')
+
 const specs = computed<Record<Tab, [string, string][]>>(() => {
   const p = props.project
   return {
@@ -76,6 +90,7 @@ const specs = computed<Record<Tab, [string, string][]>>(() => {
       ...row('زیربنای ناخالص', p.areaSqm != null ? faArea(p.areaSqm) : null),
       ...row('زمان‌بندی', yearLabel.value),
       ['شرکت مجری', company.value.name],
+      ...row('مدیر پیمان', p.contractManager),
       ['مالک پروژه', 'شرکت بین‌المللی توسعه ساختمان (ثاخت)'],
     ],
     structure: [
@@ -83,20 +98,25 @@ const specs = computed<Record<Tab, [string, string][]>>(() => {
       ['طراحی لرزه‌ای', 'بر پایه عملکرد، مطابق ویرایش چهارم ۲۸۰۰'],
       ...row('سقف‌ها', p.areaSqm == null ? null : p.areaSqm > 30000 ? 'دال پس‌کشیده (Post-Tensioned)' : 'دال بتنی دوطرفه'),
       ...row('پی', p.floors == null ? null : p.floors > 15 ? 'رادیه ژنرال با شمع‌های عمیق' : 'رادیه ژنرال'),
-      ['نظارت و کنترل کیفیت', 'شرکت خدمات مهندسی ایران (IEC)'],
-      ['طراحی', 'مهندسان مشاور رهشهر'],
     ],
     geo: [
       ['شهر', p.city],
       ['محدوده', p.district],
+      ...row('مساحت عرصه', p.landSqm != null ? faArea(p.landSqm) : null),
       ...row('زیربنای کل', p.areaSqm != null ? faArea(p.areaSqm) : null),
+      ...row('زیربنای مفید', p.usableSqm != null ? faArea(p.usableSqm) : null),
       ...row('ارتفاع تقریبی', p.floors != null ? `${faDigits(Math.round(p.floors * 3.4))} متر` : null),
     ],
+    /*
+     * The unit breakdown is the deck's own (ADR-030). There used to be a
+     * «پارکینگ» row here computed as units × 1.3 — a number no source carries,
+     * printed with the authority of a specification. It is gone.
+     */
     units: [
       ['تعداد واحدها', p.units ? `${faNumber(p.units)} واحد` : 'بدون واحد قابل واگذاری'],
+      ...(p.unitMix ?? []).map(m => [m.label, `${faNumber(m.count)} واحد`] as [string, string]),
       ['واحدهای عرضه‌شده در سایت', `${faDigits(units.value.length)} واحد`],
       ['شرایط واگذاری', isSelling.value ? 'پیش‌فروش با قرارداد رسمی' : 'فروش قطعی / اجاره'],
-      ['پارکینگ', p.units ? `${faNumber(Math.round(p.units * 1.3))} جای پارک` : '—'],
     ],
   }
 })
@@ -178,7 +198,7 @@ const gallery = computed(() => {
           <span class="text-left text-body-md font-bold text-ink">{{ v }}</span>
         </div>
       </div>
-      <p class="mt-3 text-label-md text-outline">مقادیر نمونه‌اند و با داده رسمی پروژه جایگزین می‌شوند.</p>
+      <p class="mt-3 text-label-md text-outline">{{ specNote }}</p>
     </section>
 
     <!-- Units for sale -->
