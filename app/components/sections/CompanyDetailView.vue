@@ -26,8 +26,8 @@ const years = computed(() => 1405 - props.company.founded)
  * empty heading.
  */
 const board = computed(() => boardOf(props.company.slug))
-const directors = computed(() => board.value.filter(m => m.group === 'هیات\u200cمدیره'))
-const executives = computed(() => board.value.filter(m => m.group !== 'هیات\u200cمدیره'))
+const directors = computed(() => board.value.filter(m => m.group === 'هیئت\u200cمدیره'))
+const executives = computed(() => board.value.filter(m => m.group !== 'هیئت\u200cمدیره'))
 
 /** غدیر خوزستان is in liquidation; its «board» is a liquidation committee. */
 const inLiquidation = computed(() => board.value.some(m => m.role.includes('تصفیه')))
@@ -108,7 +108,7 @@ function memberRows(m: CompanyBoardMember) {
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
         <SectionHead
           eyebrow="راهبری"
-          :title="inLiquidation ? 'هیات تصفیه' : 'هیات‌مدیره و مدیران'"
+          :title="inLiquidation ? 'هیئت تصفیه' : 'هیئت‌مدیره و مدیران'"
           :aside="`${faDigits(board.length)} نفر`"
         />
 
@@ -141,7 +141,7 @@ function memberRows(m: CompanyBoardMember) {
         </template>
 
         <p class="mt-8 text-label-md text-outline">
-          ترکیب هیات‌مدیره بر اساس آخرین اطلاعات دریافتی از شرکت است؛ تغییرات ثبت‌شده در روزنامه رسمی مرجع نهایی است.
+          ترکیب هیئت‌مدیره بر اساس آخرین اطلاعات دریافتی از شرکت است؛ تغییرات ثبت‌شده در روزنامه رسمی مرجع نهایی است.
         </p>
       </div>
     </section>

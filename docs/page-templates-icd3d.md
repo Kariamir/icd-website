@@ -26,7 +26,7 @@
 ## ۴. `02a-index-card-grid.png` — Filterable Archive / Listing Page
 
 **اجزای ضروری:** نوار فیلتر (وضعیت، شهر، نوع)؛ شمارش نتایج؛ گرید کارت (تصویر، نام، موقعیت، بج وضعیت)؛ صفحه‌بندی؛ حالت خالی (empty state).
-**کاربرد:** ۴ ایندکس وضعیت پروژه، اخبار، روایت، گزارش، هیات‌مدیره، افتخارات، واحدهای فروش، استخدام
+**کاربرد:** ۴ ایندکس وضعیت پروژه، اخبار، روایت، گزارش، هیئت‌مدیره، افتخارات، واحدهای فروش، استخدام
 **نمونه واقعی:** [clarkconstruction.com/our-work/projects](https://www.clarkconstruction.com/our-work/projects) — فیلتر و صفحه‌بندی واقعی روی پارامتر URL.
 
 ## ۵. `02b-index-simple-list.png` — Document Repository / Report Library

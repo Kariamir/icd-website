@@ -38,7 +38,7 @@
   --badge-completed-text: var(--color-white);
 
   /* --- typography (docs/design-system-icd3d.md §3) --- */
-  --font-fa: 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
+  --font-fa: 'Darbareh', 'Vazirmatn', Tahoma, 'Segoe UI', sans-serif;
   --font-en: 'Work Sans', 'Segoe UI', Arial, sans-serif;
   --font-body: var(--font-fa);
 

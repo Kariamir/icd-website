@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.12 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.13 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.13 — a new typeface, a spelling fix, and the orbit spaced out (ADR-029).** **(1)** **Darbareh (درباره)** replaces Vazirmatn as the site typeface — one variable file at 78KB, lighter than what it replaces, with Vazirmatn kept behind it as the fallback. ⛔ it shipped without a licence file. **(2)** «هیات» is corrected to **«هیئت»** across 22 files, and the compound is normalised to one form, «هیئت‌مدیره». **(3)** فلاح's «سوابق» row is removed so every board card carries the same three facts. **(4)** The orbit's rings are offset 40° from one another instead of 24° and the planets pinned to 76px, which was the collision: the ring gap was narrower than a planet. **(5)** The Pars Saze and Tisa Kish marks are replaced with the client's high-resolution versions. Template count unchanged: **35**.
 
 **Changes in 1.12 — two interaction bugs, a sold category, and the subsidiaries as a system (ADR-028).** **(1)** The header dropdown and the `/projects` list no longer follow the pointer: the menu closes when you pick from it, and the project card changes on click, not hover. **(2)** `/sales` gains a **«فروخته‌شده»** tab; `Unit` gains `transfer` (allocation restrictions, stated on the unit page under the payment terms), `tour` and `videos`. The unit page gains a **virtual tour** above a narrower plan, and unpriced units read **«تماس بگیرید»**. **(3)** `/projects/[slug]` says **«مجری»**, not «مالک و مجری», with the holding named as owner beneath it. **(4)** Homepage block 2b is redrawn as an **orbit** after the owner's reference, with a legend grid that is the whole phone layout. **(5)** Every subsidiary's ownership percentage and founding year is corrected from the client's own deck — ⛔ باغمیشه was ۰٫۳۹٪ against a real ۲۹٫۶۲٪ — and nine projects gain real areas, floor counts and **dated** progress figures from «گزارش پیشرفت کلی» (۳۱ شهریور ۱۴۰۵). **(6)** «ورود سهامداران» → «ورود» with a working sign-out; `academy` joins the media categories; the footer systems become cards. Template count unchanged: **35**.
 
@@ -110,7 +112,7 @@ Section ids must stay in sync with `app/components/sections/AboutStitchView.vue`
 | 1 | — | Hero | Full-bleed project photograph, company name, one line | |
 | 2 | `#history` | تاریخچه | **The whole historical narrative, in one section.** See §4.2 | Merges former `/about/history` + «کارنامه» + «افتخارات» (v1.4) |
 | 3 | `#subsidiaries` | خانواده ثاخت | **Enlarged, full-width section.** Low-opacity blurred project photo behind; horizontally scrollable row of large subsidiary logo tiles | Links out per §5.2 option |
-| 4 | `#board` | هیات‌مدیره، معاونین و مدیران ارشد | **ICD's own board** from the CODAL filings: five members, each with portrait, position, the legal shareholder represented, موظف/غیرموظف status and qualifications — chair and managing director at full size, the rest below, the board secretary (when named) smaller still. Then the board secretary smaller still, then **معاونین**, then مدیران ارشد — four steps of one card anatomy (v1.10) | **No individual profile pages.** Rebuilt in v1.9 (ADR-024); `ui/PersonCard.vue` draws this and the subsidiaries' boards alike |
+| 4 | `#board` | هیئت‌مدیره، معاونین و مدیران ارشد | **ICD's own board** from the CODAL filings: five members, each with portrait, position, the legal shareholder represented, موظف/غیرموظف status and qualifications — chair and managing director at full size, the rest below, the board secretary (when named) smaller still. Then the board secretary smaller still, then **معاونین**, then مدیران ارشد — four steps of one card anatomy (v1.10) | **No individual profile pages.** Rebuilt in v1.9 (ADR-024); `ui/PersonCard.vue` draws this and the subsidiaries' boards alike |
 | 5 | `#committees` | کمیته‌ها | The three committees — حسابرسی, انتصابات, ریسک — each with its mandate, its full membership (independence and financial-expert status marked) and **its secretary named at the foot** | Rebuilt in v1.9 from the CODAL filings (ADR-024). The invented membership in `orgChartData.ts` is deleted |
 | 6 | `#contact` | ارتباط | Single form, one «موضوع» dropdown with **exactly two options**: «ارسال رزومه» and «ارتباط با سهامداران» | |
 
@@ -239,7 +241,7 @@ One destination for every official document the company publishes. v1.2 split th
 |---|---|---|---|
 | صورت‌های مالی حسابرسی‌شده | `statements` | Audited financial statements, by year | ✓ required |
 | گزارش تفسیری مدیریت | `mda` | Management interpretive report (MD&A) | ✓ required — **new in v1.6** |
-| گزارش فعالیت هیات‌مدیره | `board-reports` | Official board activity reports | ✓ required |
+| گزارش فعالیت هیئت‌مدیره | `board-reports` | Official board activity reports | ✓ required |
 | گزارش پایداری | `sustainability` | Sustainability / ESG report | ✓ required — **new in v1.6** |
 | گزارش‌های عملکرد کمیته‌ها | `committee-reports` | Committee performance reports — moved from `/media/reports` (ADR-005) | ✓ required |
 | مناقصات و مزایدات | `tenders` | Tender and auction notices. **Informational only** — see §9.2 | — |
@@ -255,7 +257,7 @@ The source workbook's `توضیحات` sheet lists the **minimum data the site m
 |---|---|---|---|
 | ۱ | فایل صورت‌های مالی حسابرسی شده | `/ir/financials` › `statements` | already specified |
 | ۲ | گزارش تفسیری مدیریت | `/ir/financials` › `mda` | **was missing** |
-| ۳ | گزارش فعالیت هیئت مدیره | `/ir/financials` › `board-reports` | already specified |
+| ۳ | گزارش فعالیت هیئت‌مدیره | `/ir/financials` › `board-reports` | already specified |
 | ۴ | گزارش پایداری | `/ir/financials` › `sustainability` | **was missing as a report.** v1.2 folded CSR content into `/about#vision` as narrative; the directive requires a published report, which narrative prose does not satisfy |
 | ۵ | کمیته های تخصصی (ریسک، حسابرسی، انتصابات …) | `/about#committees` + `/ir/financials` › `committee-reports` + `/ir/governance` | partially — the About section carries the classification, but `/ir/governance` must link to it so the disclosure is reachable from the IR cluster |
 | ۶ | ترکیب سهامداران عمده و درصد سهام شناور آزاد | `/ir/financials` › new table, §7.2 table F | **was missing entirely** |

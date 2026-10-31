@@ -42,8 +42,8 @@ const desks = [
     phoneHref: calendarSupport.phoneHref,
   },
   {
-    title: 'دبیرخانه هیات‌مدیره',
-    text: 'ترکیب هیات‌مدیره و کمیته‌ها، صورت‌جلسات مجامع و معاملات با اشخاص وابسته.',
+    title: 'دبیرخانه هیئت‌مدیره',
+    text: 'ترکیب هیئت‌مدیره و کمیته‌ها، صورت‌جلسات مجامع و معاملات با اشخاص وابسته.',
     phoneLabel: calendarSupport.messageLabel,
     phoneHref: calendarSupport.messageHref,
   },

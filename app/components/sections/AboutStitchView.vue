@@ -488,7 +488,7 @@ function submit() {
         <SectionHead
           tone="dark"
           eyebrow="راهبری"
-          title="هیات‌مدیره"
+          title="هیئت‌مدیره"
           :aside="`${faDigits(icdBoard.length)} عضو، منتخب مجمع عمومی عادی — برگرفته از افشای رسمی کدال`"
         />
 
@@ -512,9 +512,7 @@ function submit() {
               :accent="m.lead"
               :note="m.represents ? `نماینده ${m.represents}` : undefined"
               :badges="[m.executive ? 'موظف' : 'غیرموظف']"
-              :rows="m.background
-                ? [{ label: 'تحصیلات', value: m.education }, { label: 'سوابق', value: m.background }]
-                : [{ label: 'تحصیلات', value: m.education }]"
+              :rows="[{ label: 'تحصیلات', value: m.education }]"
             />
           </div>
         </div>

@@ -3,18 +3,18 @@
  * specialist committees (ADR-024).
  *
  * SOURCE: the client's CODAL disclosures, supplied 1405/08 as
- * `Asset Icd/هیات مدیره/هیات مدیره.png` and the three sheets in
+ * `Asset Icd/هیئت‌مدیره/هیئت‌مدیره.png` and the three sheets in
  * `Asset Icd/کمیته ها/`. These are signed regulatory filings, so the names,
  * roles, legal shareholders, موظف/غیرموظف status and qualifications below are
  * transcribed from them verbatim rather than paraphrased.
  *
  * This closes ADR-018's ⛔ flag that `#board` showed the executive team and
  * not the board. Note what the filings actually say: علیرضا قربانی is both
- * نایب‌رئیس هیات‌مدیره and مدیرعامل, which the site previously did not state,
+ * نایب‌رئیس هیئت‌مدیره and مدیرعامل, which the site previously did not state,
  * and he is the board's only موظف member.
  *
  * ⛔ Two gaps remain for the client:
- *   1. No دبیر هیات‌مدیره is named in any supplied document. The section
+ *   1. No دبیر هیئت‌مدیره is named in any supplied document. The section
  *      below renders a smaller secretary card when `boardSecretary` is set
  *      (the owner asked for that treatment); until a name arrives it is null
  *      and the card is simply absent.
@@ -35,8 +35,6 @@ export interface BoardMember {
   /** موظف / غیرموظف — disclosure, not decoration. */
   executive: boolean
   education: string
-  /** A further post or affiliation the owner supplied, shown under education. */
-  background?: string
   /** Portrait supplied by the client, 1254×1254. */
   image?: string
   /** True for the chair, who leads the grid. */
@@ -47,7 +45,7 @@ export const icdBoard: BoardMember[] = [
   {
     slug: 'aliakbar-soleimani',
     name: 'علی‌اکبر سلیمانی',
-    role: 'رئیس هیات‌مدیره',
+    role: 'رئیس هیئت‌مدیره',
     represents: 'شرکت سرمایه‌گذاری غدیر',
     executive: false,
     education: 'کارشناسی مهندسی عمران',
@@ -57,7 +55,7 @@ export const icdBoard: BoardMember[] = [
   {
     slug: 'alireza-ghorbani',
     name: 'علیرضا قربانی',
-    role: 'نایب‌رئیس هیات‌مدیره و مدیرعامل',
+    role: 'نایب‌رئیس هیئت‌مدیره و مدیرعامل',
     represents: 'شرکت سرمایه‌گذاری زرین پرشیا',
     executive: true,
     education: 'کارشناسی ارشد مهندسی عمران',
@@ -67,7 +65,7 @@ export const icdBoard: BoardMember[] = [
   {
     slug: 'mohsen-jafarnia',
     name: 'محسن جعفرنیا',
-    role: 'عضو هیات‌مدیره',
+    role: 'عضو هیئت‌مدیره',
     represents: 'شرکت صنعتی و بازرگانی غدیر',
     executive: false,
     education: 'کارشناسی ارشد مهندسی عمران',
@@ -76,7 +74,7 @@ export const icdBoard: BoardMember[] = [
   {
     slug: 'ali-sari',
     name: 'علی ساری',
-    role: 'عضو هیات‌مدیره',
+    role: 'عضو هیئت‌مدیره',
     represents: 'شرکت سرمایه‌گذاری اعتضاد غدیر',
     executive: false,
     education: 'کارشناسی ارشد مدیریت',
@@ -85,14 +83,16 @@ export const icdBoard: BoardMember[] = [
   {
     slug: 'mohammadamin-fallah',
     name: 'محمدامین فلاح',
-    role: 'عضو هیات‌مدیره',
-    /* Represented shareholder, status and qualifications corrected by the
-       owner 1405/08 (ADR-028); the CODAL transcription had the earlier
-       incumbent's details against this seat. */
+    role: 'عضو هیئت‌مدیره',
+    /* Represented shareholder and qualifications corrected by the owner
+       1405/08 (ADR-028); the CODAL transcription had the earlier incumbent's
+       details against this seat. The «سوابق» row added with them is gone
+       again at the owner's instruction (ADR-029) — every board card carries
+       the same three facts, and one card with an extra row reads as a
+       ranking rather than a difference in what was supplied. */
     represents: 'شرکت پیشگامان اندیشه پویا کارمانیا',
     executive: false,
     education: 'دکترای مدیریت مالی، دانشگاه علامه طباطبایی',
-    background: 'کارخانجات صنعتی آزمایش',
     image: '/img/board/mohammadamin-fallah.jpg',
   },
 ]
@@ -106,7 +106,7 @@ export const icdBoard: BoardMember[] = [
 export const boardSecretary: { slug: string, name: string, role: string, image?: string } = {
   slug: 'vahid-razafzoun',
   name: 'وحید رازافزون',
-  role: 'دبیر هیات‌مدیره',
+  role: 'دبیر هیئت‌مدیره',
 }
 
 /**
@@ -179,7 +179,7 @@ export const icdCommittees: Committee[] = [
     id: 'appointments',
     name: 'کمیته انتصابات',
     formed: '۱۴۰۴/۰۷/۰۲',
-    mandate: 'شناسایی و ارزیابی نامزدهای عضویت در هیات‌مدیره و مدیریت ارشد، و پیشنهاد سازوکار جانشین‌پروری.',
+    mandate: 'شناسایی و ارزیابی نامزدهای عضویت در هیئت‌مدیره و مدیریت ارشد، و پیشنهاد سازوکار جانشین‌پروری.',
     members: [
       { name: 'علی‌اکبر سلیمانی', role: 'رئیس کمیته', education: 'کارشناسی مهندسی عمران', independent: false, represents: 'شرکت سرمایه‌گذاری غدیر' },
       { name: 'بقراط رشوند هرانکی', role: 'عضو کمیته', education: 'دکترا مدیریت', independent: true },

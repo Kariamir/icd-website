@@ -23,10 +23,25 @@
  */
 import { subsidiaries } from '~/utils/catalog'
 
-/** Ring radii as a share of the stage's half-width, outermost last. */
-const RINGS = [21, 33, 45]
+/*
+ * Ring radii as a share of the stage's width, outermost last. `left`/`top`
+ * percentages resolve against the stage, which is a square, so these describe
+ * a true circle.
+ */
+const RINGS = [20, 33, 46]
 /** Seconds per revolution. Different per ring, so the system never locks up. */
 const PERIODS = [64, 88, 112]
+/**
+ * How far each ring is rotated from the one inside it. Three planets to a
+ * ring sit 120° apart, so without this they line up into spokes and the
+ * rings' 13% gap — about 94px — is less than a planet is wide, which is
+ * exactly how they came to overlap (ADR-029). At 40° the nearest planet on
+ * the next ring is a third of a revolution away.
+ */
+const RING_OFFSETS = [0, 40, 80]
+/** Planet diameter in px. Fixed rather than a rem step: the root font is
+ *  18px here, so `size-20` would be 90px and eat the ring gap. */
+const PLANET = 76
 
 /**
  * Each subsidiary placed on a ring. Filled from the inside out, three to a
@@ -37,7 +52,7 @@ const bodies = computed(() => subsidiaries.map((company, i) => {
   const ring = Math.min(Math.floor(i / 3), RINGS.length - 1)
   const slot = i % 3
   const perRing = Math.min(3, subsidiaries.length - ring * 3)
-  const angle = (360 / perRing) * slot + ring * 24
+  const angle = (360 / perRing) * slot + RING_OFFSETS[ring]!
   const rad = (angle * Math.PI) / 180
   /*
    * The planet's position as a percentage OF THE STAGE, not a translate.
@@ -86,7 +101,7 @@ const bodies = computed(() => subsidiaries.map((company, i) => {
         about 300px across and nine logos on them are unreadable and
         untappable, so the grid below simply becomes the whole section.
       -->
-      <div class="orbit-system relative mx-auto hidden aspect-square w-full max-w-[640px] md:block">
+      <div class="orbit-system relative mx-auto hidden aspect-square w-full max-w-[720px] md:block">
         <!-- the rings themselves -->
         <svg class="absolute inset-0 size-full" viewBox="0 0 100 100" aria-hidden="true">
           <circle
@@ -97,15 +112,15 @@ const bodies = computed(() => subsidiaries.map((company, i) => {
             :r="r"
             fill="none"
             stroke="currentColor"
-            stroke-width="0.22"
-            class="text-surface-container-lowest/20"
+            stroke-width="0.18"
+            class="text-surface-container-lowest/25"
           />
         </svg>
 
         <!-- the holding, at the centre -->
         <NuxtLink
           to="/companies"
-          class="absolute left-1/2 top-1/2 z-10 flex size-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border-2 border-primary-container bg-surface-container-lowest p-4 shadow-[0_0_60px_-10px_var(--color-primary-container)] transition-transform hover:scale-105"
+          class="orbit-core absolute left-1/2 top-1/2 z-10 flex size-[124px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border-2 border-primary-container bg-surface-container-lowest p-5 transition-transform hover:scale-105"
         >
           <img src="/img/brand/icd-logo.png" alt="شرکت بین‌المللی توسعه ساختمان (ثاخت)" class="max-h-full w-auto object-contain">
         </NuxtLink>
@@ -135,9 +150,10 @@ const bodies = computed(() => subsidiaries.map((company, i) => {
                 <div class="orbit-counter" :style="{ animationDuration: `${b.period}s` }">
                   <NuxtLink
                     :to="`/companies/${b.company.slug}`"
-                    class="group relative flex size-20 items-center justify-center rounded-pill border border-surface-container-lowest/25 bg-surface-container-lowest p-2.5 transition-[border-color,transform] hover:scale-110 hover:border-primary-container focus-visible:scale-110"
+                    class="orbit-planet group relative flex items-center justify-center rounded-pill border border-surface-container-lowest/30 bg-surface-container-lowest transition-[border-color,transform,box-shadow] hover:scale-110 hover:border-primary-container focus-visible:scale-110"
+                    :style="{ width: `${PLANET}px`, height: `${PLANET}px`, padding: '11px' }"
                   >
-                    <CompanyMark :company="b.company" :size="46" />
+                    <CompanyMark :company="b.company" :size="42" />
                     <span
                       class="pointer-events-none absolute top-full left-1/2 mt-2 hidden -translate-x-1/2 whitespace-nowrap rounded-sm bg-surface-container-lowest px-2.5 py-1 text-label-md text-ink opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 lg:block"
                     >{{ b.company.name }}</span>
@@ -185,6 +201,18 @@ const bodies = computed(() => subsidiaries.map((company, i) => {
       radial-gradient(1px 1px at 88% 56%, rgb(255 255 255 / 0.3), transparent),
       radial-gradient(1.5px 1.5px at 8% 76%, rgb(255 255 255 / 0.35), transparent),
       radial-gradient(1px 1px at 61% 88%, rgb(255 255 255 / 0.3), transparent);
+  }
+
+  /* The core reads as lit rather than merely outlined. */
+  .orbit-core {
+    box-shadow:
+      0 0 0 10px rgb(0 94 184 / 0.10),
+      0 0 70px -6px var(--color-primary-container);
+  }
+
+  /* A planet sits above its ring, so the line does not cut through it. */
+  .orbit-planet {
+    box-shadow: 0 10px 26px -8px rgb(4 28 44 / 0.85);
   }
 
   .orbit-spin {

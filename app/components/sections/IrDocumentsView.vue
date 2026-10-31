@@ -40,7 +40,7 @@ const groupLabel = (g: DocumentGroup) => documentGroups.find(d => d.value === g)
 const pillars: { group: DocumentGroup | 'shareholders', icon: IconName, title: string, text: string }[] = [
   { group: 'statements', icon: 'picture_as_pdf', title: 'صورت‌های مالی حسابرسی‌شده', text: 'صورت‌های مالی اساسی با یادداشت‌ها و گزارش حسابرس.' },
   { group: 'mda', icon: 'analytics', title: 'گزارش تفسیری مدیریت', text: 'تحلیل مدیریت از عملکرد، ریسک‌ها و بودجه سال آتی.' },
-  { group: 'board-reports', icon: 'assignment', title: 'گزارش فعالیت هیات‌مدیره', text: 'گزارش سالانه هیات‌مدیره به مجمع عمومی.' },
+  { group: 'board-reports', icon: 'assignment', title: 'گزارش فعالیت هیئت‌مدیره', text: 'گزارش سالانه هیئت‌مدیره به مجمع عمومی.' },
   { group: 'sustainability', icon: 'health_and_safety', title: 'گزارش پایداری', text: 'عملکرد زیست‌محیطی، اجتماعی و حاکمیتی گروه.' },
   { group: 'committee-reports', icon: 'verified_user', title: 'گزارش کمیته‌های تخصصی', text: 'کمیته‌های حسابرسی، ریسک و انتصابات.' },
   { group: 'shareholders', icon: 'groups', title: 'ترکیب سهامداران و سهام شناور', text: 'سهامداران بالای یک درصد و ضریب شناوری آزاد.' },
@@ -65,7 +65,7 @@ function latest(g: DocumentGroup | 'shareholders') {
       size="sm"
       eyebrow="دیده‌بان ثاخت · سال مالی ۱۴۰۴"
       title="اسناد و گزارش‌ها"
-      subtitle="مدارک رسمی حسابرسی‌شده، گزارش‌های هیات‌مدیره، جداول مالی و همه اسناد قابل دانلود."
+      subtitle="مدارک رسمی حسابرسی‌شده، گزارش‌های هیئت‌مدیره، جداول مالی و همه اسناد قابل دانلود."
       :breadcrumb="[{ label: 'صفحه اصلی', href: '/' }, { label: 'دیده‌بان ثاخت' }]"
     >
       <div class="flex flex-wrap gap-3">

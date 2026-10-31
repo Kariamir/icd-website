@@ -3,9 +3,24 @@
 
 /* Self-hosted, free fonts (SIL Open Font License) — served from /public/fonts,
    never fetched from Google or any other CDN at runtime or build time, so the
-   site renders identically from inside Iran. Vazirmatn (Persian, by Saber
-   Rastikerdar) is a single variable file covering weights 100–900; Work Sans
-   covers the Latin `en` locale. License: public/fonts/Vazirmatn-OFL.txt. */
+   site renders identically from inside Iran.
+
+   Darbareh (درباره) is the site typeface since ADR-029, supplied by the
+   client — one variable file, weight axis 200–900. Vazirmatn stays loaded
+   behind it in every stack: it is already self-hosted, it covers the same
+   Persian range, and it is what renders if Darbareh ever fails to arrive.
+   Work Sans covers the Latin `en` locale.
+   ⛔ Darbareh shipped without a licence file — Vazirmatn's OFL is at
+   public/fonts/Vazirmatn-OFL.txt, and Darbareh's terms need confirming
+   before launch. */
+@font-face {
+  font-family: 'Darbareh';
+  src: url('/fonts/Darbareh-Variable.woff2') format('woff2-variations'),
+       url('/fonts/Darbareh-Variable.woff2') format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: 'Vazirmatn';
   src: url('/fonts/Vazirmatn-Variable.woff2') format('woff2-variations'),

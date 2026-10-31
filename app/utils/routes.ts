@@ -188,7 +188,7 @@ export type DocumentGroup =
 export const documentGroups: { value: DocumentGroup, label: string, required?: true }[] = [
   { value: 'statements', label: 'صورت‌های مالی حسابرسی‌شده', required: true },
   { value: 'mda', label: 'گزارش تفسیری مدیریت', required: true },
-  { value: 'board-reports', label: 'گزارش فعالیت هیات‌مدیره', required: true },
+  { value: 'board-reports', label: 'گزارش فعالیت هیئت‌مدیره', required: true },
   { value: 'sustainability', label: 'گزارش پایداری', required: true },
   { value: 'committee-reports', label: 'گزارش‌های عملکرد کمیته‌ها', required: true },
   { value: 'tenders', label: 'مناقصات و مزایدات' },
