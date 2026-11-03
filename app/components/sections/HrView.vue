@@ -8,23 +8,40 @@
   Vue — it was stripped in the port and the controls did nothing.
 -->
 <script setup lang="ts">
-import { postsByCategory, getPost } from '~/utils/posts'
-import type { MediaCategory } from '~/utils/routes'
+import { posts } from '~/utils/posts'
+import { mediaCategories, type MediaCategory } from '~/utils/routes'
 import { hrNews, hrSlogan } from '~/utils/hrData'
 import type { IconName } from '~/utils/icons'
 
 /*
- * Each HR announcement resolves to its post in «رسانه ثاخت» (ADR-031), so the
- * card carries the article's own photograph, date and title and opens it.
- * An entry whose post has been unpublished drops out rather than rendering a
- * card that links nowhere.
+ * «آکادمی و اخبار منابع انسانی» — one feed, not two sections (ADR-032).
+ * The academy block that used to sit under #learning is merged in here: the
+ * desk publishes training pieces and announcements into the same media
+ * archive, and splitting them across two places on one page meant a reader
+ * had to scroll past the resume form to find the newest thing the desk had
+ * written.
+ *
+ * The feed is every post in the `academy` category plus every post an entry
+ * in `hrData.ts` points at, newest first, de-duplicated — the training
+ * calendar is both. `kind` from `hrData.ts` overrides the category label
+ * where the desk has given one.
  */
-const news = [...hrNews]
-  .sort((a, b) => b.sortKey - a.sortKey)
-  .flatMap((n) => {
-    const post = getPost(n.post)
-    return post ? [{ ...n, post }] : []
-  })
+/*
+ * «آکادمی ثاخت» is the editorial category the HR desk publishes into
+ * (ADR-028). It is no longer a card in the learning grid (ADR-031) and no
+ * longer a section of its own (ADR-032) — it is half of the feed above.
+ */
+const ACADEMY_CATEGORY: MediaCategory = 'academy'
+
+const hrKinds = Object.fromEntries(hrNews.map(n => [n.post, n.kind as string]))
+
+const hrFeed = computed(() =>
+  posts.filter(post => post.category === ACADEMY_CATEGORY || post.slug in hrKinds))
+
+const leadPost = computed(() => hrFeed.value[0])
+const sidePosts = computed(() => hrFeed.value.slice(1, 5))
+const categoryLabel = (post: { category: MediaCategory }) =>
+  mediaCategories.find(c => c.value === post.category)?.label ?? ''
 
 const figures = [
   { value: '۴۰+ سال', label: 'پیشگامی در صنعت احداث' },
@@ -41,16 +58,6 @@ const benefits: { icon: IconName, title: string, text: string, tag: string }[] =
 ]
 
 /*
- * «آکادمی ثاخت» opens the editorial category where its material is
- * published (ADR-028).
- * ⛔ The category is REAL but EMPTY: /media carries the eleven posts copied
- * from the live site (nine news, two tenders) and none of them is training
- * material, so the archive shows its empty state until the HR desk
- * publishes there.
- */
-const ACADEMY_CATEGORY: MediaCategory = 'academy'
-
-/*
  * «آکادمی ثاخت» is NOT a card here (ADR-031). It is the section immediately
  * below, which carries its heading, its description and its published
  * material — a card that merely named it listed the same thing twice on one
@@ -61,10 +68,6 @@ const learning: { icon: IconName, title: string, text: string, tag: string }[] =
   { icon: 'assignment', title: 'مدیریت پروژه (PMBOK و FIDIC)', text: 'شرایط عمومی پیمان، قراردادهای EPC و کنترل پروژه.', tag: 'مدرک معتبر' },
   { icon: 'architecture', title: 'BIM و ساختمان سبز', text: 'مدل‌سازی اطلاعات ساخت و بهینه‌سازی انرژی.', tag: 'فناوری روز' },
 ]
-
-/* The latest pieces from that category, so the page shows the academy's
-   output rather than only naming it. */
-const academyPosts = computed(() => postsByCategory(ACADEMY_CATEGORY).slice(0, 3))
 
 const faqs = [
   { q: 'بررسی رزومه‌ها چگونه انجام می‌شود؟', a: 'رزومه‌ها ظرف ۴۸ تا ۷۲ ساعت کاری بررسی می‌شوند و در صورت تطابق با نیاز ستاد یا شرکت‌های تابعه، برای مصاحبه اولیه تماس گرفته می‌شود.' },
@@ -156,36 +159,38 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
       </div>
     </section>
 
-    <!-- #news — the HR desk's own announcements -->
+    <!--
+      #news — «آکادمی و اخبار منابع انسانی» (ADR-032). One feed carrying both
+      the desk's announcements and its training pieces, in the homepage media
+      block's anatomy: one lead story with its photograph, the next four as
+      rows beside it. The two use the same components (ui/PostLeadCard,
+      ui/PostRowList), so they cannot drift apart.
+    -->
     <section id="news" class="scroll-mt-20 border-b border-border bg-surface py-16 md:py-24">
       <div class="mx-auto max-w-[1440px] px-space-lg md:px-margin">
-        <SectionHead eyebrow="اطلاع‌رسانی" title="اخبار منابع انسانی" aside="تازه‌ترین اطلاعیه‌های اداری، آموزشی و رفاهی">
+        <SectionHead
+          eyebrow="اطلاع‌رسانی و آموزش"
+          title="آکادمی و اخبار منابع انسانی"
+          aside="اطلاعیه‌های اداری و رفاهی در کنار مطالب آموزشی آکادمی ثاخت"
+        >
           <NuxtLink
-            to="/media"
+            :to="`/media?category=${ACADEMY_CATEGORY}`"
             class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint"
-          >آرشیو رسانه <AppIcon name="arrow_back" /></NuxtLink>
+          >آرشیو آکادمی <AppIcon name="arrow_back" /></NuxtLink>
         </SectionHead>
-        <ul class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <li v-for="n in news" :key="n.id">
-            <NuxtLink
-              :to="`/media/${n.post.slug}`"
-              class="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-container-lowest transition-colors hover:border-primary-container"
-            >
-              <div class="relative aspect-[16/9] overflow-hidden bg-surface-alt">
-                <img :src="n.post.image" :alt="n.post.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]">
-                <span class="absolute bottom-3 right-3 rounded-pill bg-surface-container-lowest/95 px-3 py-1 text-label-md font-label-lg text-primary-container backdrop-blur">{{ n.kind }}</span>
-              </div>
-              <div class="flex grow flex-col p-5">
-                <time class="mb-2 text-label-md text-secondary">{{ n.post.date }}</time>
-                <h3 class="mb-2 text-body-lg font-bold leading-snug text-ink group-hover:text-primary-container">{{ n.post.title }}</h3>
-                <p class="mb-4 text-body-sm leading-relaxed text-secondary">{{ n.post.excerpt }}</p>
-                <span class="mt-auto inline-flex items-center gap-1.5 text-label-md font-bold text-primary-container">
-                  مطالعه خبر <AppIcon name="arrow_back" class="text-[0.9em] transition-transform group-hover:-translate-x-1" />
-                </span>
-              </div>
-            </NuxtLink>
-          </li>
-        </ul>
+
+        <div v-if="leadPost" class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+          <div class="lg:col-span-7">
+            <PostLeadCard :post="leadPost" :badge="hrKinds[leadPost.slug]" :category-label="categoryLabel(leadPost)" />
+          </div>
+          <div class="lg:col-span-5">
+            <PostRowList :posts="sidePosts" :badges="hrKinds" :label="categoryLabel" />
+          </div>
+        </div>
+
+        <p v-else class="mt-10 rounded-lg border border-dashed border-border bg-surface-container-lowest p-6 text-body-sm text-secondary">
+          هنوز مطلبی منتشر نشده است؛ تازه‌ترین اطلاعیه‌ها و مطالب آموزشی به‌زودی اینجا قرار می‌گیرد.
+        </p>
       </div>
     </section>
 
@@ -276,43 +281,6 @@ const sizeLabel = computed(() => file.value ? `${(file.value.size / 1024 / 1024)
           </article>
         </div>
 
-        <!--
-          «آکادمی ثاخت» — the section the learning grid used to merely name
-          (ADR-031). Heading enlarged and given the line that was the card's
-          description, with its published material beneath.
-        -->
-        <div class="lg:col-span-12">
-          <div class="mt-4 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-t border-border pt-10">
-            <div>
-              <span class="mb-4 flex size-12 items-center justify-center rounded-md bg-brand-tint text-primary-container"><AppIcon name="school" /></span>
-              <h3 class="text-headline-lg-mobile font-headline-lg leading-tight text-ink md:text-headline-lg">آکادمی ثاخت</h3>
-              <p class="mt-3 max-w-xl text-body-lg leading-relaxed text-secondary">دوره‌های تخصصی مهندسی و مالی برای ستاد و کارگاه‌ها.</p>
-            </div>
-            <NuxtLink
-              :to="`/media?category=${ACADEMY_CATEGORY}`"
-              class="inline-flex h-12 shrink-0 items-center gap-2 rounded-pill bg-primary-container px-7 text-label-lg font-label-lg text-on-primary hover:bg-brand-hover"
-            >همه مطالب آکادمی <AppIcon name="arrow_back" /></NuxtLink>
-          </div>
-          <p v-if="!academyPosts.length" class="mt-8 rounded-lg border border-dashed border-border bg-surface-container-lowest p-6 text-body-sm text-secondary">
-            هنوز مطلبی در این دسته منتشر نشده است؛ تازه‌ترین مطالب آکادمی به‌زودی اینجا قرار می‌گیرد.
-          </p>
-          <ul v-else class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-            <li v-for="post in academyPosts" :key="post.slug">
-              <NuxtLink
-                :to="`/media/${post.slug}`"
-                class="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface-container-lowest transition-colors hover:border-primary-container"
-              >
-                <div class="aspect-[16/9] overflow-hidden bg-surface-alt">
-                  <img :src="post.image" :alt="post.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]">
-                </div>
-                <div class="flex grow flex-col p-5">
-                  <p class="mb-2 text-label-md text-secondary">{{ post.date }}</p>
-                  <h4 class="text-body-md font-bold leading-snug text-ink group-hover:text-primary-container">{{ post.title }}</h4>
-                </div>
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
 

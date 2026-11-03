@@ -345,20 +345,33 @@ defineExpose({
     aria-label="فیلم معرفی هلدینگ ثاخت"
   >
     <canvas ref="canvas" class="absolute inset-0 size-full object-cover" />
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_90%_at_50%_45%,transparent_45%,rgba(4,28,44,0.5)_100%)]" />
+
+    <!--
+      THE FILM IS NEVER DIMMED, TINTED OR FILTERED (ADR-032). The radial
+      vignette that used to sit here — a 50% ink wash over the whole frame —
+      is deleted at the owner's instruction. The title earns its contrast
+      from its own surface instead: each run of type sits on an opaque block
+      that travels with the text, so the words are legible over a bright
+      aerial frame and over a dark interior alike, and everything outside
+      those blocks is the footage at full strength. `box-decoration-break:
+      clone` is what makes the block follow every wrapped line rather than
+      drawing one ragged shape behind the lot.
+    -->
 
     <!-- opening title -->
     <div
       class="pointer-events-none absolute inset-x-0 bottom-[14vh] z-20 flex flex-col items-start gap-4 px-space-lg md:px-margin"
       :style="{ opacity: openingAlpha }"
     >
-      <span class="inline-flex items-center gap-2 rounded-pill border border-surface-container-lowest/25 bg-surface-container-lowest/10 px-4 py-1.5 text-label-md text-brand-tint">
+      <span class="inline-flex items-center gap-2 rounded-pill bg-primary-container px-4 py-2 text-label-md font-label-lg text-on-primary shadow-[0_2px_14px_rgba(4,28,44,0.35)]">
         <span class="size-1.5 rounded-pill bg-brand-tint" />شرکت بین‌المللی توسعه ساختمان · نماد ثاخت
       </span>
-      <h1 class="max-w-[15ch] text-headline-xl-mobile font-headline-xl leading-tight text-surface-container-lowest md:text-[76px] md:leading-[1.06]">
-        ما ثاختیم
+      <h1 class="hero-title max-w-[15ch] text-headline-xl-mobile font-headline-xl leading-[1.5] text-surface-container-lowest md:text-[76px] md:leading-[1.35]">
+        <span class="hero-title__run">ما ثاختیم</span>
       </h1>
-      <p class="max-w-xl text-body-lg text-surface-dim">هلدینگ ساخت‌وساز و املاک؛ توسعه پروژه‌های نهادی از ۱۳۶۴.</p>
+      <p class="hero-lede max-w-xl text-body-lg leading-[2]">
+        <span class="hero-lede__run">هلدینگ ساخت‌وساز و املاک؛ توسعه پروژه‌های نهادی از ۱۳۶۴.</span>
+      </p>
     </div>
 
     <!--
@@ -449,5 +462,42 @@ defineExpose({
 
 @media (prefers-reduced-motion: reduce) {
   .loader-mark { animation: none; }
+}
+
+/*
+ * The title's own surface (ADR-032). The film is never touched: no scrim, no
+ * tint, no backdrop-filter — a backdrop-filter would blur the footage behind
+ * the words, which is a filter on the film by another name. Instead each run
+ * of type carries an opaque ink block with a brand-blue leading edge, clipped
+ * to the text itself, so white type is legible over any frame and the rest of
+ * the picture is untouched.
+ *
+ * `box-decoration-break: clone` makes the block repeat per wrapped line. On
+ * the rare engine that lacks it the declaration is ignored and the type falls
+ * back to one continuous block — still legible, just less tidy, which is the
+ * right way round for a fallback.
+ */
+.hero-title__run,
+.hero-lede__run {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: 0.42em 0.3em;
+  padding-block: 0.1em;
+  background-color: var(--color-ink, #041c2c);
+  box-shadow: inset -0.14em 0 0 0 var(--color-brand-blue, #005eb8);
+}
+
+.hero-title__run {
+  /* The heading is the page's loudest element; its block is fully opaque. */
+  box-shadow:
+    inset -0.1em 0 0 0 var(--color-brand-blue, #005eb8),
+    0 10px 36px -18px rgb(4 28 44 / 85%);
+}
+
+.hero-lede__run {
+  padding-block: 0.22em;
+  color: var(--color-tint, #cde2ff);
+  background-color: rgb(4 28 44 / 92%);
+  box-shadow: inset -0.14em 0 0 0 var(--color-brand-blue, #005eb8);
 }
 </style>

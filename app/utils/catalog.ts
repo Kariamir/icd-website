@@ -312,6 +312,16 @@ export interface Project {
   /** How the unit count breaks down, where the deck states it. */
   unitMix?: { label: string, count: number }[]
   /**
+   * The company's own forecast completion date («پیش‌بینی تاریخ اتمام پروژه»
+   * in the ۳۱ شهریور ۱۴۰۵ progress report), as a Jalali label (ADR-032).
+   */
+  expectedCompletion?: string
+  /**
+   * Where the report breaks progress down by phase instead of giving one
+   * figure. Shown instead of the single bar, never alongside it.
+   */
+  progressPhases?: { label: string, percent: number }[]
+  /**
    * The company managing construction (مدیر پیمان), when the deck names one
    * other than the project's own `company`. The holding owns every project
    * (ADR-028); `company` is the executor and this is the construction
@@ -371,11 +381,17 @@ export const projects: Project[] = [
     status: 'under-construction', company: 'icd-engineering',
     city: 'شهر ایزدشهر', district: 'استان مازندران، شهر ایزدشهربلوار نفت',
     usage: 'چندمنظوره تجاری و اداری',
-    areaSqm: 106490, floors: 0,
+    areaSqm: 106490,
     year: 1387,
     landSqm: 59500,
     usableSqm: 68844,
     contractManager: 'شرکت مهندسی و ساخت پارس سازه',
+    progressPhases: [
+      { label: 'فاز یک', percent: 78 },
+      { label: 'فاز دو', percent: 33 },
+      { label: 'فاز سه', percent: 5 },
+    ],
+    progressAsOf: PROGRESS_AS_OF,
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/narenjestan-izadshahr-1.jpg',
     gallery: ['/img/projects/narenjestan-izadshahr-1.jpg', '/img/projects/narenjestan-izadshahr-2.jpg', '/img/projects/narenjestan-izadshahr-3.jpg'],
@@ -391,8 +407,8 @@ export const projects: Project[] = [
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 19600, floors: 14,
     year: 1405,
+    expectedCompletion: 'آبان ۱۴۰۸',
     company: 'tisa-kish',
-    landSqm: 42000,
     usableSqm: 11200,
     excerpt: 'برج‌ها و مجموعه‌های مسکونی',
     image: '/img/projects/roya-elite-1.jpg',
@@ -408,6 +424,7 @@ export const projects: Project[] = [
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
+    usableSqm: 9600,
     year: 1390, progress: 43.7,
     progressAsOf: PROGRESS_AS_OF,
     company: 'tisa-kish',
@@ -425,6 +442,7 @@ export const projects: Project[] = [
     city: 'جزیره کیش', district: 'استان هرمزگان، جزیره کیش ساخل مرجان',
     usage: 'برج‌ها و مجموعه‌های مسکونی',
     areaSqm: 15200, floors: 16,
+    usableSqm: 9600,
     year: 1390, progress: 34.2,
     progressAsOf: PROGRESS_AS_OF,
     company: 'tisa-kish',
@@ -444,6 +462,7 @@ export const projects: Project[] = [
     areaSqm: 1698, floors: 6,
     year: 1403, progress: 80.5,
     progressAsOf: PROGRESS_AS_OF,
+    usableSqm: 1142,
     company: 'tisa-kish',
     excerpt: 'چندمنظوره تجاری و اداری',
     image: '/img/projects/nbo12-1.jpg',
@@ -461,6 +480,7 @@ export const projects: Project[] = [
     areaSqm: 40543, floors: 16,
     year: 1391, progress: 24.8,
     progressAsOf: PROGRESS_AS_OF,
+    expectedCompletion: '۱ دی ۱۴۰۷',
     company: 'pars-sazeh',
     landSqm: 4100,
     usableSqm: 15683,
@@ -483,6 +503,7 @@ export const projects: Project[] = [
     areaSqm: 23375, floors: 21,
     year: 1399, progress: 95.5,
     progressAsOf: PROGRESS_AS_OF,
+    expectedCompletion: '۲۹ اسفند ۱۴۰۵',
     landSqm: 1788,
     usableSqm: 8229,
     contractManager: 'شرکت آ.س.پ',
@@ -502,6 +523,7 @@ export const projects: Project[] = [
     areaSqm: 18664, floors: 19,
     year: 1392, progress: 66.6,
     progressAsOf: PROGRESS_AS_OF,
+    expectedCompletion: '۳۰ دی ۱۴۰۶',
     company: 'ofogh-saze-paya',
     landSqm: 1391,
     usableSqm: 10000,
@@ -522,6 +544,7 @@ export const projects: Project[] = [
     areaSqm: 215204, floors: 18,
     year: 1384, progress: 88.3,
     progressAsOf: PROGRESS_AS_OF,
+    expectedCompletion: '۲۹ اسفند ۱۴۰۶',
     company: 'aria-omran-pars',
     landSqm: 26341,
     usableSqm: 65000,
@@ -594,8 +617,9 @@ export const projects: Project[] = [
     city: 'شیراز', district: 'استان فارس، شیراز، عفیف‌آباد',
     usage: 'تجاری و تفریحی',
     landSqm: 6010,
-    areaSqm: 53992,
-    usableSqm: 18818,
+    areaSqm: 55872,
+    usableSqm: 21550,
+    floors: 12,
     units: 265,
     unitMix: [{ label: 'تجاری', count: 265 }],
     progress: 99.1,
@@ -675,6 +699,34 @@ export const projects: Project[] = [
     map: { x: 51, y: 35 },
     coords: { lon: 51.502, lat: 35.681 },
     origin: 'deck',
+  },
+{
+    /*
+     * In the ۳۱ شهریور ۱۴۰۵ progress report's «پروژه‌های در دست اجرا» table
+     * but never in the catalog (ADR-032). The report gives it a city, so
+     * unlike بعثت/عرفان/بهاران/یاس it can be published honestly.
+     * ⛔ The report does not say which subsidiary carries it out; it is filed
+     * under the holding until someone says otherwise.
+     */
+    slug: 'social-security-bushehr', name: 'ساختمان اداره کل تامین اجتماعی استان بوشهر', nameEn: 'Bushehr Social Security Administration Building',
+    status: 'under-construction',
+    city: 'بوشهر', district: 'استان بوشهر، شهر بوشهر',
+    usage: 'اداری',
+    areaSqm: 1858,
+    usableSqm: 1753,
+    floors: 5,
+    year: 1404,
+    progress: 14,
+    progressAsOf: PROGRESS_AS_OF,
+    expectedCompletion: '۳۰ تیر ۱۴۰۶',
+    company: 'icd-engineering',
+    excerpt: 'ساختمان اداری پنج‌طبقه اداره کل تامین اجتماعی استان بوشهر.',
+    /* ⛔ No photograph has been supplied for this one, so it carries the
+       illustrated placeholder rather than another project's building. */
+    image: '/img/ph/office-1.svg',
+    map: { x: 42, y: 72 },
+    coords: { lon: 50.838, lat: 28.919 },
+    origin: 'site',
   },
 ]
 

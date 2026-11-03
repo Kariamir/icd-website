@@ -4,8 +4,12 @@
  * routes.ts, and «خانواده ثاخت» listing the eight subsidiaries from the
  * company catalog (each linked to its page). Styled after the approved
  * Stitch footer. Shared by every route via layouts/default.vue.
+ *
+ * The «منابع انسانی» call-out that stood under the brand column is removed
+ * (ADR-032): the page became a header menu item in ADR-031, and a button in
+ * the footer made it the third entry point for one destination.
  */
-import { footerColumns, legalNav, companyContact, externalSystems, routes } from '~/utils/routes'
+import { footerColumns, legalNav, companyContact, externalSystems } from '~/utils/routes'
 import { subsidiaries } from '~/utils/catalog'
 </script>
 
@@ -37,13 +41,6 @@ import { subsidiaries } from '~/utils/catalog'
             <li class="flex items-center gap-2"><AppIcon name="mail" class="shrink-0 text-brand-tint" /><a :href="`mailto:${companyContact.email}`" class="hover:text-brand-tint" dir="ltr">{{ companyContact.email }}</a></li>
           </ul>
 
-          <!-- The HR desk gets its own call-out rather than a link in a list -->
-          <NuxtLink
-            :to="routes.hr"
-            class="mt-7 inline-flex h-12 items-center gap-2 rounded-pill bg-primary-container px-6 text-label-lg font-label-lg text-on-primary transition-colors hover:bg-brand-hover"
-          >
-            <AppIcon name="badge" />منابع انسانی
-          </NuxtLink>
         </div>
 
         <!-- 2–4 — link columns -->

@@ -91,6 +91,7 @@ const specs = computed<Record<Tab, [string, string][]>>(() => {
       ...row('زمان‌بندی', yearLabel.value),
       ['شرکت مجری', company.value.name],
       ...row('مدیر پیمان', p.contractManager),
+      ...row('پیش‌بینی اتمام پروژه', p.expectedCompletion),
       ['مالک پروژه', 'شرکت بین‌المللی توسعه ساختمان (ثاخت)'],
     ],
     structure: [
@@ -170,6 +171,26 @@ const gallery = computed(() => {
             <span class="block text-label-md text-surface-dim">پیشرفت فیزیکی {{ faDigits(project.progress) }}٪</span>
             <span class="mt-2 block h-1.5 overflow-hidden rounded-pill bg-surface-container-lowest/20"><span class="block h-full rounded-pill bg-brand-tint" :style="{ width: `${project.progress}%` }" /></span>
             <span v-if="project.progressAsOf" class="mt-1.5 block text-label-md text-surface-dim">گزارش پیشرفت تا {{ project.progressAsOf }}</span>
+          </div>
+          <!--
+            Where the report breaks progress down by phase there is no single
+            figure to draw (ADR-032): نارنجستان is ۷۸٪ in phase one and ۵٪ in
+            phase three, and one averaged bar would describe neither.
+          -->
+          <div v-else-if="project.progressPhases" class="min-w-64">
+            <span class="block text-label-md text-surface-dim">پیشرفت فیزیکی به تفکیک فاز</span>
+            <ul class="mt-2 space-y-1.5">
+              <li v-for="ph in project.progressPhases" :key="ph.label" class="flex items-center gap-3">
+                <span class="w-14 shrink-0 text-label-md text-surface-dim">{{ ph.label }}</span>
+                <span class="block h-1.5 w-24 overflow-hidden rounded-pill bg-surface-container-lowest/20"><span class="block h-full rounded-pill bg-brand-tint" :style="{ width: `${ph.percent}%` }" /></span>
+                <span class="text-label-md font-bold tabular-nums">{{ faDigits(ph.percent) }}٪</span>
+              </li>
+            </ul>
+            <span v-if="project.progressAsOf" class="mt-1.5 block text-label-md text-surface-dim">گزارش پیشرفت تا {{ project.progressAsOf }}</span>
+          </div>
+          <div v-if="project.expectedCompletion">
+            <span class="block text-label-md text-surface-dim">پیش‌بینی اتمام</span>
+            <span class="text-body-lg font-bold">{{ project.expectedCompletion }}</span>
           </div>
         </div>
       </div>

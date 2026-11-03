@@ -92,55 +92,19 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
 
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
           <!-- the lead story -->
-          <NuxtLink
-            v-if="leadPost"
-            :to="`/media/${leadPost.slug}`"
-            class="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-lg bg-ink lg:col-span-7 lg:min-h-[520px]"
-          >
-            <img
-              :src="leadPost.image"
-              :alt="leadPost.title"
-              class="absolute inset-0 size-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-[1.04]"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/5" />
-            <div class="relative p-7 md:p-10">
-              <p class="mb-4 flex flex-wrap items-center gap-3 text-label-md">
-                <span class="rounded-pill bg-brand-tint px-3 py-1 font-label-lg text-primary-container">{{ catLabel(leadPost.category) }}</span>
-                <span class="text-surface-dim">{{ leadPost.date }}</span>
-                <span class="text-surface-dim">· {{ faDigits(leadPost.readingMinutes) }} دقیقه مطالعه</span>
-              </p>
-              <h3 class="mb-4 max-w-2xl text-headline-md font-headline-md leading-snug text-surface-container-lowest md:text-headline-lg">{{ leadPost.title }}</h3>
-              <p class="mb-6 max-w-xl text-body-md leading-relaxed text-surface-dim">{{ leadPost.excerpt }}</p>
-              <span class="inline-flex items-center gap-2 text-label-lg font-label-lg text-brand-tint">
-                ادامه مطلب <AppIcon name="arrow_back" class="transition-transform group-hover:-translate-x-1" />
-              </span>
-            </div>
-          </NuxtLink>
+          <div class="lg:col-span-7">
+            <PostLeadCard v-if="leadPost" :post="leadPost" :category-label="catLabel(leadPost.category)" />
+          </div>
 
           <!--
-            The next four, as rows. The row padding was py-5, which put the
-            divider about four pixels off the thumbnail's corner and read as
-            a line attached to the photograph rather than between two stories
-            (ADR-031). It is py-7 now, and the first and last rows do not pay
-            it at the ends of the column.
+            The next four. The rows, their rhythm and their dividers live in
+            ui/PostRowList.vue, which /hr's «آکادمی و اخبار منابع انسانی»
+            section uses too — the owner asked for the two to match, and the
+            only way two things stay matching is for them to be one thing
+            (ADR-032).
           -->
           <div class="flex flex-col lg:col-span-5">
-            <ul class="flex flex-col divide-y divide-border">
-              <li v-for="p in sidePosts" :key="p.slug">
-                <NuxtLink :to="`/media/${p.slug}`" class="group flex items-start gap-5 py-7 first:pt-0">
-                  <div class="size-24 shrink-0 overflow-hidden rounded-md bg-surface-alt md:size-28">
-                    <img :src="p.image" :alt="p.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.06]">
-                  </div>
-                  <div class="min-w-0">
-                    <p class="mb-1.5 flex flex-wrap items-center gap-2 text-label-md">
-                      <span class="font-label-lg text-primary-container">{{ catLabel(p.category) }}</span>
-                      <span class="text-secondary">{{ p.date }}</span>
-                    </p>
-                    <h3 class="text-body-md font-bold leading-relaxed text-ink transition-colors group-hover:text-primary-container md:text-body-lg">{{ p.title }}</h3>
-                  </div>
-                </NuxtLink>
-              </li>
-            </ul>
+            <PostRowList :posts="sidePosts" :label="p => catLabel(p.category)" />
 
             <!--
               مناسبت‌ها و رویدادها (ADR-031). One line per item, no
@@ -148,9 +112,13 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
               a ceremony — and a thumbnail beside each would give four of them
               the visual weight of the lead story. The rule above is heavier
               than the ones between the news rows so the break between the two
-              lists reads as a change of subject, not another row.
+              lists reads as a change of subject, not another row — and it
+              carries its own clear space above AND below rather than being
+              stretched to the bottom of the column, which could leave it
+              touching the row above it when the column happened to fill
+              (ADR-032).
             -->
-            <div v-if="occasionPosts.length" class="mt-auto border-t-2 border-ink/15 pt-7">
+            <div v-if="occasionPosts.length" class="mt-8 border-t-2 border-ink/15 pt-7 md:mt-10">
               <div class="mb-3 flex items-baseline justify-between gap-4">
                 <h3 class="text-label-lg font-label-lg text-ink">مناسبت‌ها و رویدادها</h3>
                 <NuxtLink to="/media?category=occasions" class="shrink-0 text-label-md font-bold text-primary-container hover:underline">همه مناسبت‌ها</NuxtLink>
