@@ -19,7 +19,20 @@
  * On the live site all eleven sit in one «اخبار» category. Two of them are
  * genuinely an auction notice and a public call for a construction partner,
  * so they are mapped to `tenders` here — the category this site already has
- * for exactly that (ADR-009) — and the other nine to `news`.
+ * for exactly that (ADR-009) — and the other nine to `news`. Four of those
+ * nine are ceremonial rather than operational and move to `occasions`
+ * (ADR-031).
+ *
+ * ⛔ FOUR HR ANNOUNCEMENTS ARE SAMPLE RECORDS. The owner asked for the HR
+ * news items on /hr to link to real articles in «رسانه ثاخت», so the four
+ * announcements that stood in `hrData.ts` as design samples are published
+ * here as posts and `hrData.ts` now links to them instead of repeating their
+ * text. They carry `origin: 'design'`, they are the only posts in this file
+ * that were not copied from the live site, and they are now visible in the
+ * PUBLIC media feed rather than only on /hr — so the HR desk must confirm or
+ * replace them before launch. Their bodies say no more than their excerpts
+ * already did: no figures, no dates, no names, no policy detail was invented
+ * to fill them out.
  */
 import type { ArticleBlock, ArticleAuthor, ArticleAudio } from '~/utils/articlesData'
 
@@ -43,12 +56,19 @@ export interface Post {
   deadline?: string
   /** The post this was copied from, so the import can be re-checked. */
   sourceUrl?: string
+  /**
+   * `site` — transcribed from icd.co.ir (ADR-026). `design` — a sample record
+   * that must be confirmed or replaced before launch. Nothing reads this at
+   * runtime; it exists so a grep finds every invented post in one pass.
+   */
+  origin?: 'site' | 'design'
 }
 
 /** Remote media root — see the ⛔ note at the top of this file. */
 const WP = 'https://www.icd.co.ir/wp-content/uploads'
 
 const PR: ArticleAuthor = { name: 'روابط عمومی ثاخت', role: 'شرکت بین‌المللی توسعه ساختمان', initials: 'ر.ع' }
+const HR_DESK: ArticleAuthor = { name: 'منابع انسانی ثاخت', role: 'شرکت بین‌المللی توسعه ساختمان', initials: 'م.ا' }
 
 const fig = (src: string, caption = ''): ArticleBlock => ({ type: 'figure', image: { src, alt: caption }, caption })
 const p = (text: string): ArticleBlock => ({ type: 'p', text })
@@ -56,7 +76,7 @@ const p = (text: string): ArticleBlock => ({ type: 'p', text })
 const ALL: Post[] = [
   {
     slug: 'ghadir-ceo-appointment-congratulations',
-    category: 'news',
+    category: 'occasions',
     title: 'تبریک انتصاب مدیرعامل سرمایه گذاری غدیر',
     excerpt: 'پیام تبریک هلدینگ بین‌المللی توسعه ساختمان به مناسبت انتصاب مدیرعامل جدید گروه سرمایه‌گذاری غدیر.',
     date: '۸ مهر ۱۴۰۵',
@@ -67,13 +87,14 @@ const ALL: Post[] = [
     views: 0,
     tags: ['انتصاب', 'گروه غدیر'],
     sourceUrl: 'https://www.icd.co.ir/12345-74/',
+    origin: 'site',
     // The post on the live site carries no body text — the message is the
     // poster itself, which is why it is shown and nothing is written around it.
     body: [fig(`${WP}/2026/09/tabrik.jpg`, 'پیام تبریک انتصاب مدیرعامل گروه سرمایه‌گذاری غدیر')],
   },
   {
     slug: 'appreciation-engineer-hedayat',
-    category: 'news',
+    category: 'occasions',
     title: 'سپاس و قدردانی از جناب آقای مهندس هدایت',
     excerpt: 'پیام قدردانی هیئت‌مدیره، مدیرعامل و کارکنان هلدینگ از خدمات مهندس سید مجید هدایت در گروه سرمایه‌گذاری غدیر.',
     date: '۷ مهر ۱۴۰۵',
@@ -84,6 +105,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['قدردانی', 'گروه غدیر'],
     sourceUrl: 'https://www.icd.co.ir/12345-73/',
+    origin: 'site',
     body: [
       p('جناب آقای مهندس سید مجید هدایت'),
       p('با اهداء سلام و تحیات'),
@@ -108,6 +130,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['معارفه', 'گروه غدیر'],
     sourceUrl: 'https://www.icd.co.ir/12345-72/',
+    origin: 'site',
     body: [
       p('به گزارش روابط‌عمومی گروه سرمایه‌گذاری غدیر؛ مراسم معارفه مهندس مهدی زحمتکش مدیرعامل جدید و عضو هیئت‌مدیره گروه سرمایه‌گذاری غدیر، با حضور دکتر کامران پورمحمدی معاون اقتصادی سازمان تأمین اجتماعی نیروهای مسلح، دکتر احد امیری رئیس هیئت‌مدیره گروه، اعضای هیئت‌مدیره، معاونان و مدیران ارشد و مدیران عامل هلدینگ‌های تابعه در ستاد گروه سرمایه‌گذاری غدیر برگزار شد.'),
       p('در این مراسم، رئیس هیئت‌مدیره گروه سرمایه‌گذاری غدیر ضمن معرفی مهندس مهدی زحمتکش به عنوان مدیرعامل و عضو هیئت‌مدیره گروه سرمایه‌گذاری غدیر، از تلاش‌ها و اقدامات مهندس سیدمجید هدایت در دوره دوساله مدیریت وی تقدیر و تشکر کرد.'),
@@ -131,6 +154,7 @@ const ALL: Post[] = [
     deadline: '۲۰ مهر ۱۴۰۵',
     tags: ['مزایده', 'عفیف‌آباد'],
     sourceUrl: 'https://www.icd.co.ir/12345-71/',
+    origin: 'site',
     body: [
       p('شرکت بین‌المللی توسعه ساختمان در نظر دارد از طریق مزایده عمومی نسبت به واگذاری سرقفلی فضاهای تجاری واقع در مجتمع تجاری عفیف‌آباد به آدرس: شیراز، عفیف‌آباد، نبش خیابان عرفان‌منش، براساس مشخصات ذیل اقدام نماید.'),
       p('متقاضیان می‌توانند جهت دریافت اطلاعات و اسناد مزایده و هماهنگی جهت بازدید از املاک یادشده از تاریخ درج آگهی تا تاریخ ۱۴۰۵/۰۷/۱۵ از ساعت ۸ الی ۱۷ (به‌جز روزهای تعطیل) به دفتر شرکت واقع در تهران یا شیراز مراجعه یا با شماره تلفن‌های اعلامی تماس حاصل فرمایند.'),
@@ -154,6 +178,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['گروه غدیر', 'نشست مدیران'],
     sourceUrl: 'https://www.icd.co.ir/12345-70/',
+    origin: 'site',
     body: [
       p('نشست آقای مهندس سید مجید هدایت، مدیرعامل گروه سرمایه‌گذاری غدیر به همراه معاونین و مشاورین ایشان، با مدیران شرکت بین‌المللی توسعه ساختمان (هلدینگ ساختمانی غدیر) به منظور بررسی عملکرد، برنامه‌های راهبردی و چشم‌انداز توسعه این هلدینگ روز دوشنبه هشتم تیرماه برگزار شد.'),
       p('در این نشست، آخرین وضعیت پروژه‌های عمرانی و ساختمانی، عملکرد شرکت‌های تابعه، برنامه‌های توسعه‌ای، مدیریت دارایی‌های ملکی، روند سرمایه‌گذاری‌ها و مهم‌ترین برنامه‌های پیش‌روی هلدینگ مورد بررسی قرار گرفت.'),
@@ -171,7 +196,7 @@ const ALL: Post[] = [
   },
   {
     slug: 'muharram-mourning-ceremony',
-    category: 'news',
+    category: 'occasions',
     title: 'مراسم ایام سوگواری حضرت اباعبدالله الحسین(ع)',
     excerpt: 'برگزاری مراسم زیارت عاشورا و عزاداری دهه نخست محرم در هلدینگ، با حضور مدیران و کارکنان.',
     date: '۲ تیر ۱۴۰۵',
@@ -182,6 +207,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['محرم', 'آیین‌های سازمانی'],
     sourceUrl: 'https://www.icd.co.ir/12345-69/',
+    origin: 'site',
     body: [
       p('همزمان با ایام سوگواری حضرت اباعبدالله الحسین(ع)، برنامه‌های عزاداری در هلدینگ بین‌المللی توسعه ساختمان با حضور مدیران و کارکنان برگزار شد.'),
       p('در طول دهه نخست محرم، مراسم پرفیض زیارت عاشورا در هلدینگ برگزار شد و همکاران با حضور در این محفل معنوی، روز کاری خود را با یاد و نام سیدالشهدا(ع) آغاز کردند.'),
@@ -204,6 +230,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['فروش', 'رویای کیش'],
     sourceUrl: 'https://www.icd.co.ir/12345-68/',
+    origin: 'site',
     body: [
       p('فروش تعداد محدودی از واحدهای مسکونی مجتمع رویای کیش (ساحل مرجان)'),
       p('قیمت و شرایط پرداخت ویژه'),
@@ -226,6 +253,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['فراخوان', 'نارنجستان جنوبی'],
     sourceUrl: 'https://www.icd.co.ir/12345-66/',
+    origin: 'site',
     body: [
       p('روابط عمومی شرکت بین المللی توسعه ساختمان: در راستای تسریع در تکمیل پروژه نارنجستان جنوبی و بهره‌گیری از ظرفیت‌های بخش خصوصی، فرآیند شناسایی و انتخاب شریک سازنده برای این پروژه در دستور کار قرار گرفت.'),
       p('بر همین اساس، پس از انجام بررسی‌های کارشناسی و تهیه اسناد مربوطه، فراخوان انتخاب شریک سازنده پروژه نارنجستان جنوبی در دو نوبت و از طریق روزنامه‌های کثیرالانتشار در تاریخ‌های ۱۴۰۵/۰۲/۲۱ و ۱۴۰۵/۰۳/۱۸ منتشر شد تا زمینه مشارکت سرمایه‌گذاران و شرکت‌های واجد صلاحیت در اجرای این پروژه فراهم شود.'),
@@ -247,6 +275,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['معارفه', 'منابع انسانی'],
     sourceUrl: 'https://www.icd.co.ir/12345-64/',
+    origin: 'site',
     body: [
       p('در جلسه ۵۵۵ هیأت‌مدیره هلدینگ به تاریخ ۱۴۰۵/۰۱/۲۴ که با حضور اعضای محترم هیأت‌مدیره و مدیران ارشد برگزار شد، آقای عباس جلالیان به عنوان معاون مالی و منابع انسانی معرفی و فعالیت خود را در این مسئولیت آغاز کرد.'),
       p('آقای جلالیان پیش از این مسئولیت مدیریت منابع انسانی هلدینگ را بر عهده داشته و با توجه به سوابق و تجربیات مدیریتی خود، از سوی هیأت‌مدیره به این سمت منصوب شده است.'),
@@ -267,6 +296,7 @@ const ALL: Post[] = [
     views: 0,
     tags: ['بورس', 'شفافیت'],
     sourceUrl: 'https://www.icd.co.ir/12345-63/',
+    origin: 'site',
     body: [
       p('سهامداران محترم شرکت بین المللی توسعه ساختمان'),
       p('موضوع: موفقیت شرکت بین المللی توسعه ساختمان در ارزیابی سالانه سازمان بورس؛ تعهد به شفافیت و خلق ارزش پایدار'),
@@ -279,7 +309,7 @@ const ALL: Post[] = [
   },
   {
     slug: 'condolence-message',
-    category: 'news',
+    category: 'occasions',
     title: 'پیام تسلیت',
     excerpt: 'پیام تسلیت روابط عمومی شرکت بین المللی توسعه ساختمان.',
     date: '۱۱ اسفند ۱۴۰۴',
@@ -290,12 +320,90 @@ const ALL: Post[] = [
     views: 0,
     tags: ['پیام'],
     sourceUrl: 'https://www.icd.co.ir/12345-62/',
+    origin: 'site',
     body: [
       p('بسم الله الرّحمن الرّحیم'),
       p('وَ لا تَحْسَبَنَّ الَّذِینَ قُتِلُوا فِی سَبِیلِ اللّهِ أَمْواتاً بَلْ أَحْیاءٌ عِنْدَ رَبّهِمْ یُرْزَقُونَ'),
       p('شهادت قائد امت ایران، خلف صالح امام زمان (عج الله)، پیشوای منتظران، رهبر عظیم الشأن انقلاب اسلامی حضرت آیت الله العظمی امام خامنه‌ای قدس سره الشریف، به دست شقی‌ترین اشرار عالم، داغ سنگینی بود که جان‌های مشتاقان را گداخت.'),
       p('با قلبی مملو از درد و وجودی سرشار از حزن و اندوه، یاد عالم ربانی و رهبر الهی حضرت امام سید علی خامنه‌ای (قدس سره) را گرامی می‌داریم. باعث افتخار و عزت ملت شریف ایران است که قائد و ولی امر مسلمین جهان در ماه مبارک رمضان در جوار رحمت الهی قرار گرفتند. بدون تردید راه نورانی رهبر شهید تا انقلاب جهانی حضرت مهدی موعود با قدرت هر چه تمام ادامه خواهد یافت و برکات الهی شامل حال ایران اسلامی خواهد شد.'),
       p('روابط عمومی شرکت بین المللی توسعه ساختمان'),
+    ],
+  },
+/* ---------------------------------------------------------------------
+     The four HR-desk announcements. ⛔ SAMPLE — see the note at the top.
+     --------------------------------------------------------------------- */
+  {
+    slug: 'hr-training-calendar-second-half',
+    category: 'academy',
+    title: 'انتشار تقویم آموزشی نیمه دوم سال',
+    excerpt: 'دوره‌های مدیریت پروژه، ایمنی کارگاهی و مدل‌سازی اطلاعات ساخت برای ستاد و کارگاه‌های گروه.',
+    date: '۱۲ مهر ۱۴۰۵',
+    sortKey: 14050712,
+    image: '/img/hr/hr-3.jpg',
+    author: HR_DESK,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['آموزش', 'آکادمی ثاخت'],
+    origin: 'design',
+    body: [
+      p('تقویم آموزشی نیمه دوم سال برای ستاد و کارگاه‌های گروه منتشر شد.'),
+      p('سرفصل‌های این دوره بر سه محور بسته شده است: مدیریت پروژه، ایمنی کارگاهی، و مدل‌سازی اطلاعات ساخت (BIM).'),
+      p('ثبت‌نام و اطلاع از زمان‌بندی هر دوره از طریق واحد منابع انسانی انجام می‌شود.'),
+    ],
+  },
+  {
+    slug: 'hr-supplementary-insurance-renewal',
+    category: 'news',
+    title: 'تمدید قرارداد بیمه درمان تکمیلی کارکنان',
+    excerpt: 'پوشش جدید از ابتدای مهر اجرا می‌شود؛ ثبت افراد تحت تکفل از طریق سامانه بیمه انجام می‌گیرد.',
+    date: '۲۸ شهریور ۱۴۰۵',
+    sortKey: 14050628,
+    image: '/img/hr/hr-2.jpg',
+    author: HR_DESK,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['رفاهی', 'بیمه'],
+    origin: 'design',
+    body: [
+      p('قرارداد بیمه درمان تکمیلی کارکنان تمدید شد و پوشش جدید از ابتدای مهر اجرا می‌شود.'),
+      p('ثبت افراد تحت تکفل از طریق سامانه بیمه انجام می‌گیرد. همکاران برای ثبت یا اصلاح اطلاعات تحت تکفل خود به واحد منابع انسانی مراجعه کنند.'),
+    ],
+  },
+  {
+    slug: 'hr-internal-call-site-supervisors',
+    category: 'news',
+    title: 'فراخوان داخلی جذب سرپرست کارگاه',
+    excerpt: 'اولویت با همکاران شاغل در شرکت‌های تابعه و دارای سابقه اجرایی در پروژه‌های مسکونی بلندمرتبه.',
+    date: '۱۰ شهریور ۱۴۰۵',
+    sortKey: 14050610,
+    image: '/img/hr/hr-1.jpg',
+    author: HR_DESK,
+    readingMinutes: 2,
+    views: 0,
+    tags: ['فراخوان', 'جذب'],
+    origin: 'design',
+    body: [
+      p('فراخوان داخلی جذب سرپرست کارگاه در گروه منتشر شد.'),
+      p('اولویت با همکاران شاغل در شرکت‌های تابعه و دارای سابقه اجرایی در پروژه‌های مسکونی بلندمرتبه است.'),
+      p('متقاضیان درخواست خود را از طریق واحد منابع انسانی ثبت کنند.'),
+    ],
+  },
+  {
+    slug: 'hr-family-welfare-programme',
+    category: 'news',
+    title: 'برنامه رفاهی خانواده‌های همکاران',
+    excerpt: 'بن ورزشی، اردوهای خانوادگی و تسهیلات اقامتی در مجموعه‌های گردشگری گروه.',
+    date: '۲۲ مرداد ۱۴۰۵',
+    sortKey: 14050522,
+    image: '/img/projects/caspiana-nowshahr-1.jpg',
+    author: HR_DESK,
+    readingMinutes: 1,
+    views: 0,
+    tags: ['رفاهی', 'خانواده'],
+    origin: 'design',
+    body: [
+      p('برنامه رفاهی خانواده‌های همکاران شامل بن ورزشی، اردوهای خانوادگی و تسهیلات اقامتی در مجموعه‌های گردشگری گروه است.'),
+      p('جزئیات و زمان‌بندی هر بخش از طریق واحد منابع انسانی اعلام می‌شود.'),
     ],
   },
 ]

@@ -14,7 +14,7 @@ const desks: { icon: IconName, title: string, text: string, href: string, cta: s
   { icon: 'real_estate_agent', title: 'مشاوره خرید و پیش‌فروش', text: 'انتخاب واحد، شرایط پرداخت و رزرو بازدید.', href: '/sales/consultation', cta: 'درخواست مشاوره' },
   { icon: 'account_balance', title: 'امور سهامداران', text: 'سود سهام، مجامع و اطلاعیه‌های کدال.', href: '/ir/faq', cta: 'پرسش‌های سهامداران' },
   { icon: 'gavel', title: 'شکایات و پیشنهادات', text: 'ثبت محرمانه با کد رهگیری.', href: '/complaints', cta: 'ثبت در سامانه' },
-  { icon: 'badge', title: 'امور اداری و منابع انسانی', text: 'ارسال رزومه و فرصت‌های شغلی.', href: '/hr', cta: 'امور اداری و منابع انسانی' },
+  { icon: 'badge', title: 'منابع انسانی', text: 'ارسال رزومه و فرصت‌های شغلی.', href: '/hr', cta: 'منابع انسانی' },
 ]
 
 const offices = computed(() => [

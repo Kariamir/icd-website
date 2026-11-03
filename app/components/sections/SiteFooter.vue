@@ -42,7 +42,7 @@ import { subsidiaries } from '~/utils/catalog'
             :to="routes.hr"
             class="mt-7 inline-flex h-12 items-center gap-2 rounded-pill bg-primary-container px-6 text-label-lg font-label-lg text-on-primary transition-colors hover:bg-brand-hover"
           >
-            <AppIcon name="badge" />امور اداری و منابع انسانی
+            <AppIcon name="badge" />منابع انسانی
           </NuxtLink>
         </div>
 

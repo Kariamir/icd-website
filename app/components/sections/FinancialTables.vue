@@ -1,17 +1,20 @@
 <!--
   Annual financial tables A–E on /ir/financials — sitemap §7.2, ADR-012.
 
-  Tabbed by table. The مقادیر / تحلیل افقی / تحلیل عمودی switcher was removed
-  on 2026-10-18 at the owner's request — every table now shows the figures
-  themselves and nothing else. The horizontal and vertical series are still
-  parsed in financialTables.ts, so restoring the control is a template change,
-  not a data one. Every header states the unit and the fiscal-year end, every table carries an "as of" stamp and a CSV
+  Tabbed by table, with a two-way view switch: مقادیر and تحلیل افقی
+  (ADR-031). The three-way switcher was removed on 2026-10-18 at the owner's
+  request and the owner has now asked for two of the three back — the figures
+  and the year-on-year change, in the shape of their own «تحلیل افقی صورت
+  وضعیت مالی» sheet. تحلیل عمودی stays off: it was not asked for, and a third
+  tab that nobody requested is how the original clutter came back. The series
+  were never deleted from financialTables.ts, so this is a template change.
+  Every header states the unit and the fiscal-year end, every table carries an "as of" stamp and a CSV
   download, and rows distorted by the ۱۴۰۴ revaluation carry the footnote
   marker (†). Wide tables scroll horizontally with the first column pinned.
   Table F has no data yet (sitemap §13.1 q1) and says so.
 -->
 <script setup lang="ts">
-import { financialTables, type FinancialTable, type FinancialView, FINANCIAL_UNIT, FISCAL_YEAR_END } from '~/utils/routes'
+import { financialTables, financialViews, type FinancialTable, type FinancialView, FINANCIAL_UNIT, FISCAL_YEAR_END } from '~/utils/routes'
 import { incomeConsolidated, balanceConsolidated, incomeParent, balanceParent, ratioGroups, ratioYears, type FinStatement } from '~/utils/financialTables'
 import { faDigits, faNumber } from '~/utils/format'
 
@@ -22,8 +25,21 @@ const table = computed<FinancialTable>(() => {
   const t = String(route.query.table ?? '')
   return (financialTables.some(x => x.value === t) ? t : 'income-consolidated') as FinancialTable
 })
-/** Fixed at مقادیر; the other two views are no longer offered (see above). */
-const view = ref<FinancialView>('values')
+/**
+ * مقادیر / تحلیل افقی. تحلیل عمودی is parsed but not offered (see above).
+ * The view lives in the URL beside the table, so a shareholder can link
+ * someone straight to the horizontal analysis of a given statement.
+ */
+const OFFERED_VIEWS = financialViews.filter(v => v.value !== 'vertical')
+
+const view = computed<FinancialView>(() => {
+  const v = String(route.query.view ?? '')
+  return (OFFERED_VIEWS.some(x => x.value === v) ? v : 'values') as FinancialView
+})
+
+function setView(v: FinancialView) {
+  router.replace({ query: { ...route.query, view: v === 'values' ? undefined : v }, hash: '#financial-tables' })
+}
 
 function setTable(t: FinancialTable) {
   router.replace({ query: { ...route.query, table: t }, hash: '#financial-tables' })
@@ -107,6 +123,19 @@ const hasNotes = computed(() => stmt.value ? stmt.value.rows.some(r => r.note) :
     </div>
 
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <!--
+        The view switch applies to statements A–D only: the ratio table and
+        the shareholder table carry no horizontal series, so offering the
+        control there would switch a table that cannot change.
+      -->
+      <div v-if="stmt" class="flex gap-1 rounded-pill border border-border p-1" role="tablist" aria-label="نمای جدول">
+        <button
+          v-for="v in OFFERED_VIEWS" :key="v.value" type="button" role="tab" :aria-selected="view === v.value"
+          class="rounded-pill px-4 py-1.5 text-label-md font-label-lg transition-colors"
+          :class="view === v.value ? 'bg-primary-container text-on-primary' : 'text-secondary hover:text-ink'"
+          @click="setView(v.value)"
+        >{{ v.label }}</button>
+      </div>
       <p class="text-label-md text-secondary">{{ table === 'ratios' ? 'نسبت‌ها بدون واحد؛ سرمایه و سرمایه در گردش به میلیون ریال' : '' }}</p>
       <button type="button" class="inline-flex h-9 items-center gap-2 rounded-pill border border-border px-4 text-label-md font-bold text-ink hover:border-primary-container hover:text-primary-container" @click="downloadCsv">
         <AppIcon name="download" />دریافت CSV
@@ -168,6 +197,19 @@ const hasNotes = computed(() => stmt.value ? stmt.value.rows.some(r => r.note) :
       <p class="mb-2 text-body-lg font-bold text-ink">ترکیب سهامداران عمده و سهام شناور آزاد</p>
       <p class="mx-auto max-w-xl text-body-sm text-secondary">این جدول از الزامات دستورالعمل حاکمیت شرکتی است و پس از دریافت فهرست رسمی سهامداران بالای یک درصد و ضریب شناوری از امور سهام منتشر می‌شود.</p>
     </div>
+
+    <!--
+      The sign convention is the workbook's, not ours: cost and expense lines
+      are stored negative, so their year-on-year change reads negative when
+      the cost GREW. Verified against the figures — بهای تمام شده تلفیقی goes
+      from (۶٬۶۳۹٬۵۸۷) to (۶٬۸۱۹٬۹۱۹) in ۱۴۰۴ and the sheet reports −۲٫۷٪.
+      A reader who takes that for a saving has been misled by a table on a
+      listed company's own IR page, so it is stated rather than left to be
+      worked out.
+    -->
+    <p v-if="stmt && view === 'horizontal'" class="mt-4 rounded-md border-r-4 border-outline bg-surface p-4 text-label-md leading-relaxed text-secondary">
+      درصدها تغییر هر سال نسبت به سال پیش است و مطابق کاربرگ شرکت محاسبه شده‌اند. ردیف‌های بهای تمام شده و هزینه‌ها با علامت منفی ثبت می‌شوند؛ بنابراین درصد منفی در این ردیف‌ها به معنای <strong class="font-bold text-ink">افزایش</strong> هزینه است، نه کاهش آن.
+    </p>
 
     <p v-if="hasNotes" class="mt-4 rounded-md border-r-4 border-primary-container bg-brand-tint/40 p-4 text-label-md leading-relaxed text-ink">
       † در سال مالی ۱۴۰۴ سرمایه شرکت از ۹٬۰۰۰٬۰۰۰ به ۸۲٬۳۰۸٬۵۱۲ میلیون ریال از محل مازاد تجدید ارزیابی دارایی‌ها افزایش یافت. ارقام و نسبت‌های علامت‌خورده با سال‌های قبل قابل مقایسه نیستند و تغییر آن‌ها نشان‌دهنده بهبود یا افت عملیاتی نیست.

@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { aboutHero, aboutMilestones, aboutChain, aboutHonors, aboutFilm, ABOUT_FORM_SUBJECTS } from '~/utils/aboutPageData'
 import { icdBoard, icdDeputies, icdExecutives, icdCommittees, boardSecretary, type CommitteeMember } from '~/utils/governanceData'
-import { subsidiaries, projects } from '~/utils/catalog'
+import { subsidiaries, projects, projectStatus, type ProjectStatusKey } from '~/utils/catalog'
 import { faDigits } from '~/utils/format'
 
 /*
@@ -37,9 +37,31 @@ function committeeBadges(m: CommitteeMember): string[] {
   ]
 }
 
-const deliveredOnly = computed(() => projects.filter(p => p.status === 'completed' || p.status === 'operating'))
-const delivered = computed(() => (deliveredOnly.value.length ? deliveredOnly.value : projects).slice(0, 7))
-const deliveredTitle = computed(() => (deliveredOnly.value.length ? 'کارنامه تحویل‌شده' : 'پروژه‌های گروه'))
+/*
+ * The کارنامه mosaic (ADR-031). It used to show ONLY the delivered projects,
+ * which was right while there were none — the whole portfolio stood in under
+ * a heading that said so. ADR-030 then marked two projects `completed` and
+ * `operating`, so the gallery silently became two tiles in a grid drawn for
+ * seven, under a heading claiming a track record. The delivered ones now LEAD
+ * the mosaic and the rest of the portfolio fills it, and the figures beneath
+ * the heading state the real split rather than leaving the reader to count
+ * tiles.
+ */
+const DELIVERED: ProjectStatusKey[] = ['completed', 'operating']
+const deliveredOnly = computed(() => projects.filter(p => DELIVERED.includes(p.status)))
+const delivered = computed(() => [
+  ...deliveredOnly.value,
+  ...projects.filter(p => !DELIVERED.includes(p.status)),
+].slice(0, 7))
+
+/** Every status that has at least one project, in the order sitemap §5.1 fixes. */
+const portfolio = computed(() =>
+  (Object.keys(projectStatus) as ProjectStatusKey[])
+    .map(key => ({ key, label: projectStatus[key].short, count: projects.filter(p => p.status === key).length }))
+    .filter(st => st.count > 0))
+
+/** Distinct cities the portfolio covers — the same figure /projects states. */
+const cityCount = computed(() => new Set(projects.map(p => p.city)).size)
 const totalArea = projects.reduce((s, p) => s + (p.areaSqm ?? 0), 0)
 
 const stats = [
@@ -403,7 +425,27 @@ function submit() {
 
         <!-- 3 — delivered work -->
         <div class="mt-20">
-          <h3 class="mb-6 text-headline-sm font-headline-sm text-ink">{{ deliveredTitle }}</h3>
+          <div class="mb-6 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+            <div>
+              <h3 class="text-headline-sm font-headline-sm text-ink">کارنامه پروژه‌ها</h3>
+              <p class="mt-1 text-body-sm text-secondary">{{ faDigits(projects.length) }} پروژه در {{ faDigits(cityCount) }} شهر، به تفکیک وضعیت اجرا.</p>
+            </div>
+            <NuxtLink to="/projects" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-pill border border-primary-container px-4 text-label-lg text-primary-container hover:bg-brand-tint">
+              همه پروژه‌ها <AppIcon name="arrow_back" />
+            </NuxtLink>
+          </div>
+
+          <!-- The split, stated rather than implied by the number of tiles. -->
+          <dl
+            class="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-border bg-border"
+            :class="portfolio.length === 4 ? 'sm:grid-cols-4' : portfolio.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'"
+          >
+            <div v-for="st in portfolio" :key="st.key" class="bg-surface-container-lowest p-5">
+              <dd class="text-headline-sm font-headline-sm text-ink">{{ faDigits(st.count) }}</dd>
+              <dt class="mt-1 text-label-md text-primary-container">{{ st.label }}</dt>
+            </div>
+          </dl>
+
           <div class="grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-4">
             <NuxtLink
               v-for="(p, i) in delivered" :key="p.slug" :to="`/projects/${p.slug}`"

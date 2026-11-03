@@ -108,7 +108,7 @@ export const routes = {
   contact: '/contact',
 
   /**
-   * «امور اداری و منابع انسانی» is ONE page (ADR-024, superseding ADR-006's
+   * «منابع انسانی» is ONE page (ADR-024, superseding ADR-006's
    * /careers): the HR desk's own news, the organisational slogan, a brief
    * intro, the two-field resume form, and the three HR topics as sections.
    * /careers 301s here. The anchors below are in-page, not routes, and must
@@ -151,7 +151,7 @@ export const externalSystems: { label: string, note: string, icon: IconName, hre
 ]
 
 /** Media post categories (ADR-005, ADR-009). Values are the ?category= query values. */
-export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'academy' | 'tenders'
+export type MediaCategory = 'news' | 'stories' | 'podcast' | 'analysis' | 'academy' | 'occasions' | 'tenders'
 
 export const mediaCategories: { value: MediaCategory, label: string }[] = [
   { value: 'news', label: 'نبض ثاخت' },
@@ -161,6 +161,12 @@ export const mediaCategories: { value: MediaCategory, label: string }[] = [
   /* Added for /hr's «آکادمی ثاخت» (ADR-028). ⛔ Empty: no training piece has
      been published yet, so the category renders its empty state. */
   { value: 'academy', label: 'آکادمی ثاخت' },
+  /* Added at the owner's request (ADR-031): ceremonial and commemorative
+     posts — congratulations, condolences, appreciations, religious
+     observances — which are published by the company but are not operational
+     news. The homepage lists the latest four of them on their own, below the
+     news rows and separated from them. */
+  { value: 'occasions', label: 'مناسبت‌ها و رویدادها' },
   { value: 'tenders', label: 'مناقصات و مزایدات' },
 ]
 
@@ -295,6 +301,14 @@ export const primaryNav: (NavItem & { megaMenu?: MegaMenuColumn[] })[] = [
   // No dropdown (ADR-016). The categories are filters on /media, not pages;
   // the tab strip on the page itself is where they belong.
   { label: 'رسانه ثاخت', href: routes.media },
+  /*
+   * «منابع انسانی» — added to the header at the owner's request (ADR-031),
+   * positioned after «رسانه ثاخت». This takes the menu to SIX content items
+   * where sitemap §10 budgets five; the owner asked for it explicitly and the
+   * sitemap is amended rather than the instruction refused. It is reached from
+   * the footer button too, which stays.
+   */
+  { label: 'منابع انسانی', href: routes.hr },
 ]
 
 /** «مشاوره و تماس سریع» — the designed consultation page (sitemap §6 #24). */
@@ -359,7 +373,6 @@ export const footerColumns: MegaMenuColumn[] = [
       { label: 'درخواست مشاوره', href: routes.salesConsultation },
       { label: 'پرسش‌های متداول', href: routes.irFaq },
       { label: 'سامانه رسیدگی به شکایات', href: routes.complaints },
-      { label: 'پروفایل من', href: routes.account },
     ],
   },
 ]

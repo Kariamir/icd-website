@@ -1,63 +1,33 @@
 /**
- * «امور اداری و منابع انسانی» — /hr (ADR-024).
+ * «منابع انسانی» — /hr (ADR-024, amended by ADR-031).
  *
- * ⛔ SAMPLE CONTENT. The client asked for an HR news section and an
- * organisational-slogan section; neither was supplied with copy. The entries
- * below are written to the shape the page needs so it can be reviewed as a
- * design, exactly as the sample units and prices are in catalog.ts (ADR-015).
- * They are `origin: 'design'` and must be replaced by the HR desk before
- * launch — nothing here should be read as a statement by the company.
+ * The HR news section is an INDEX, not a copy. Each entry names the post in
+ * «رسانه ثاخت» that carries it, and the page reads the title, excerpt, date
+ * and photograph from `posts.ts` — so the card and the article it opens can
+ * never say different things. `kind` is the only thing the HR desk adds here,
+ * because the media feed has no field for it.
+ *
+ * ⛔ The four posts these point at are SAMPLE records (`origin: 'design'` in
+ * posts.ts) and are now live in the public media feed. The HR desk must
+ * confirm or replace them before launch — nothing here should be read as a
+ * statement by the company.
  */
 import type { IconName } from '~/utils/icons'
 
 export interface HrNewsItem {
   id: string
-  date: string
   /** Sort only; higher is newer. */
   sortKey: number
   kind: 'اطلاعیه' | 'آموزش' | 'رفاهی' | 'فراخوان'
-  title: string
-  excerpt: string
-  origin: 'design' | 'site'
+  /** Slug of the post in posts.ts that carries this announcement. */
+  post: string
 }
 
 export const hrNews: HrNewsItem[] = [
-  {
-    id: 'training-calendar-1405',
-    date: '۱۴۰۵/۰۷/۱۲',
-    sortKey: 5,
-    kind: 'آموزش',
-    title: 'انتشار تقویم آموزشی نیمه دوم سال',
-    excerpt: 'دوره‌های مدیریت پروژه، ایمنی کارگاهی و مدل‌سازی اطلاعات ساخت برای ستاد و کارگاه‌های گروه.',
-    origin: 'design',
-  },
-  {
-    id: 'supplementary-insurance-renewal',
-    date: '۱۴۰۵/۰۶/۲۸',
-    sortKey: 4,
-    kind: 'اطلاعیه',
-    title: 'تمدید قرارداد بیمه درمان تکمیلی کارکنان',
-    excerpt: 'پوشش جدید از ابتدای مهر اجرا می‌شود؛ ثبت افراد تحت تکفل از طریق سامانه بیمه انجام می‌گیرد.',
-    origin: 'design',
-  },
-  {
-    id: 'internal-call-site-supervisors',
-    date: '۱۴۰۵/۰۶/۱۰',
-    sortKey: 3,
-    kind: 'فراخوان',
-    title: 'فراخوان داخلی جذب سرپرست کارگاه',
-    excerpt: 'اولویت با همکاران شاغل در شرکت‌های تابعه و دارای سابقه اجرایی در پروژه‌های مسکونی بلندمرتبه.',
-    origin: 'design',
-  },
-  {
-    id: 'family-welfare-programme',
-    date: '۱۴۰۵/۰۵/۲۲',
-    sortKey: 2,
-    kind: 'رفاهی',
-    title: 'برنامه رفاهی خانواده‌های همکاران',
-    excerpt: 'بن ورزشی، اردوهای خانوادگی و تسهیلات اقامتی در مجموعه‌های گردشگری گروه.',
-    origin: 'design',
-  },
+  { id: 'training-calendar-1405', sortKey: 5, kind: 'آموزش', post: 'hr-training-calendar-second-half' },
+  { id: 'supplementary-insurance-renewal', sortKey: 4, kind: 'اطلاعیه', post: 'hr-supplementary-insurance-renewal' },
+  { id: 'internal-call-site-supervisors', sortKey: 3, kind: 'فراخوان', post: 'hr-internal-call-site-supervisors' },
+  { id: 'family-welfare-programme', sortKey: 2, kind: 'رفاهی', post: 'hr-family-welfare-programme' },
 ]
 
 /** The organisational slogan and the values it stands on. */

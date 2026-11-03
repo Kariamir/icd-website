@@ -28,14 +28,30 @@ const stats = [
 const featured = projects.find(p => p.featured)!
 const featuredSide = projects.filter(p => p.slug !== featured.slug && (p.featured || p.status === 'under-construction')).slice(0, 2)
 /*
- * Media. Tender notices are informational filings rather than editorial
- * (ADR-009), so they are out of the homepage feed; the lead carries the
- * photograph and the next four run beside it as rows.
+ * Media. Two categories stay out of the main feed: tender notices, which are
+ * informational filings rather than editorial (ADR-009), and مناسبت‌ها و
+ * رویدادها, which gets its own headline list below the news rows at the
+ * owner's request (ADR-031) — a condolence and a quarterly result do not
+ * belong in the same column, and listing an occasion in both places would
+ * show it twice on one screen.
  */
-const editorial = posts.filter(p => p.category !== 'tenders')
-const editorialCount = editorial.length
+const editorial = posts.filter(p =>
+  p.category !== 'tenders'
+  && p.category !== 'occasions'
+  /*
+   * Sample records stay out of the shop window. The four HR announcements
+   * carry `origin: 'design'` and the newest of them would otherwise be the
+   * homepage's lead story — a placeholder as the first thing a visitor reads
+   * on a listed company's site. They are published, reachable and listed on
+   * /hr and in the archive; they just do not lead. The moment the HR desk
+   * supplies real copy and the flag changes, they flow in here on their own.
+   */
+  && p.origin !== 'design')
+/** The archive's own size, which is what the link beside it opens. */
+const editorialCount = posts.length
 const leadPost = editorial[0]
 const sidePosts = editorial.slice(1, 5)
+const occasionPosts = posts.filter(p => p.category === 'occasions').slice(0, 4)
 const latestDoc = [...irDocuments].sort((a, b) => b.sortKey - a.sortKey)[0]!
 const change = ((quote.last - quote.prevClose) / quote.prevClose) * 100
 const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label ?? ''
@@ -101,23 +117,58 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
             </div>
           </NuxtLink>
 
-          <!-- the next four, as rows -->
-          <ul class="flex flex-col divide-y divide-border lg:col-span-5">
-            <li v-for="p in sidePosts" :key="p.slug">
-              <NuxtLink :to="`/media/${p.slug}`" class="group flex items-start gap-5 py-5 first:pt-0">
-                <div class="size-24 shrink-0 overflow-hidden rounded-md bg-surface-alt md:size-28">
-                  <img :src="p.image" :alt="p.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.06]">
-                </div>
-                <div class="min-w-0">
-                  <p class="mb-1.5 flex flex-wrap items-center gap-2 text-label-md">
-                    <span class="font-label-lg text-primary-container">{{ catLabel(p.category) }}</span>
-                    <span class="text-secondary">{{ p.date }}</span>
-                  </p>
-                  <h3 class="text-body-md font-bold leading-relaxed text-ink transition-colors group-hover:text-primary-container md:text-body-lg">{{ p.title }}</h3>
-                </div>
-              </NuxtLink>
-            </li>
-          </ul>
+          <!--
+            The next four, as rows. The row padding was py-5, which put the
+            divider about four pixels off the thumbnail's corner and read as
+            a line attached to the photograph rather than between two stories
+            (ADR-031). It is py-7 now, and the first and last rows do not pay
+            it at the ends of the column.
+          -->
+          <div class="flex flex-col lg:col-span-5">
+            <ul class="flex flex-col divide-y divide-border">
+              <li v-for="p in sidePosts" :key="p.slug">
+                <NuxtLink :to="`/media/${p.slug}`" class="group flex items-start gap-5 py-7 first:pt-0">
+                  <div class="size-24 shrink-0 overflow-hidden rounded-md bg-surface-alt md:size-28">
+                    <img :src="p.image" :alt="p.title" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.06]">
+                  </div>
+                  <div class="min-w-0">
+                    <p class="mb-1.5 flex flex-wrap items-center gap-2 text-label-md">
+                      <span class="font-label-lg text-primary-container">{{ catLabel(p.category) }}</span>
+                      <span class="text-secondary">{{ p.date }}</span>
+                    </p>
+                    <h3 class="text-body-md font-bold leading-relaxed text-ink transition-colors group-hover:text-primary-container md:text-body-lg">{{ p.title }}</h3>
+                  </div>
+                </NuxtLink>
+              </li>
+            </ul>
+
+            <!--
+              مناسبت‌ها و رویدادها (ADR-031). One line per item, no
+              photograph: these are messages — a condolence, a congratulation,
+              a ceremony — and a thumbnail beside each would give four of them
+              the visual weight of the lead story. The rule above is heavier
+              than the ones between the news rows so the break between the two
+              lists reads as a change of subject, not another row.
+            -->
+            <div v-if="occasionPosts.length" class="mt-auto border-t-2 border-ink/15 pt-7">
+              <div class="mb-3 flex items-baseline justify-between gap-4">
+                <h3 class="text-label-lg font-label-lg text-ink">مناسبت‌ها و رویدادها</h3>
+                <NuxtLink to="/media?category=occasions" class="shrink-0 text-label-md font-bold text-primary-container hover:underline">همه مناسبت‌ها</NuxtLink>
+              </div>
+              <ul>
+                <li v-for="p in occasionPosts" :key="p.slug">
+                  <NuxtLink
+                    :to="`/media/${p.slug}`"
+                    class="group flex items-baseline gap-3 py-2 text-body-sm"
+                  >
+                    <span class="mt-2 size-1.5 shrink-0 rounded-pill bg-primary-container/40 transition-colors group-hover:bg-primary-container" />
+                    <span class="min-w-0 flex-1 truncate font-bold text-ink transition-colors group-hover:text-primary-container">{{ p.title }}</span>
+                    <time class="shrink-0 text-label-md tabular-nums text-secondary">{{ p.date }}</time>
+                  </NuxtLink>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
       </div>

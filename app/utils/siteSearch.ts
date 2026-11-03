@@ -36,7 +36,7 @@ export interface SearchHit {
 
 const PAGES: SearchHit[] = [
   { type: 'pages', title: 'درباره ثاخت', text: 'تاریخچه، خانواده ثاخت، هیئت‌مدیره، کمیته‌ها و چشم‌انداز', href: '/about', meta: 'صفحه', sortKey: 0 },
-  { type: 'pages', title: 'امور اداری و منابع انسانی', text: 'اخبار منابع انسانی، شعار سازمانی، ارسال رزومه، مزایا و آموزش', href: '/hr', meta: 'صفحه', sortKey: 0 },
+  { type: 'pages', title: 'منابع انسانی', text: 'اخبار منابع انسانی، شعار سازمانی، ارسال رزومه، مزایا و آموزش', href: '/hr', meta: 'صفحه', sortKey: 0 },
   { type: 'pages', title: 'اطلاعات نماد ثاخت در بورس', text: 'قیمت، حجم معاملات و سابقه سود نماد', href: '/ir/symbol', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'تقویم مجامع و اطلاع‌رسانی', text: 'مجامع عمومی، پرداخت سود و دوره‌های سکوت', href: '/ir/calendar', meta: 'دیده‌بان ثاخت', sortKey: 0 },
   { type: 'pages', title: 'گزارش‌ها و اطلاعیه‌های رسمی', text: 'صورت‌های مالی، گزارش هیئت‌مدیره، گزارش کمیته‌ها و اطلاعیه‌های کدال', href: '/ir/financials#documents-archive', meta: 'دیده‌بان ثاخت', sortKey: 0 },

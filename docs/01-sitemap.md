@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.14 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.15 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.15 — HR news links to real articles, a مناسبت‌ها category, and the horizontal analysis returns (ADR-031).** **(1)** `/hr#news` becomes an **index of real posts**: each announcement names its article in «رسانه ثاخت» and the card carries that article's own photograph, date and title. The four announcements that were design samples are published as posts — the training calendar fills the `academy` category, which was real but empty. ⛔ they are sample records now visible in the public feed. **(2)** «آکادمی ثاخت» leaves the `#learning` card grid and becomes the **enlarged heading** of the section below it, with «دوره‌های تخصصی مهندسی و مالی برای ستاد و کارگاه‌ها» beneath it. **(3)** A seventh media category, **`occasions` «مناسبت‌ها و رویدادها»**, carries the ceremonial posts — congratulations, appreciations, observances, condolences — and the homepage lists its latest four as a **single-line headline list in the bottom left of block 2**, divided from the news rows by a heavier rule; the news rows' own dividers gain breathing room from the thumbnails. **(4)** `/ir/financials`'s five-year statements offer **مقادیر و تحلیل افقی** again, in the URL, with the workbook's sign convention stated under the table. **(5)** `#history`'s کارنامه mosaic is whole again and **states the portfolio split** — ۱۷ پروژه در ۱۱ شهر، ۱۵ در حال ساخت · ۱ در حال بهره‌برداری · ۱ تکمیل‌شده. **(6)** «امور اداری و منابع انسانی» becomes **«منابع انسانی»** and joins the header after «رسانه ثاخت» — ⛔ a **sixth** content item where §10 budgets five — and «پروفایل من» leaves footer column 4. Template count unchanged: **35**.
 
 **Changes in 1.14 — the company deck becomes the project record (ADR-030).** **(1)** **Four projects are added** from the client's «معرفی شرکت ۱۴۰۱/۱۰/۱۸» deck: «مجتمع تجاری سعدی شیراز», «برج‌های مسکونی دیدار» و «مجتمع تجاری تیسا ۱» (کیش) and «مجتمع پاسارگاد» (تهران) — seventeen projects in eleven cities, up from thirteen in nine. **(2)** **«برج بین‌المللی تهران» is reclassified `completed`** (۱۳۸۹، ۲۲۰٬۰۰۰ مترمربع، ۵۶ طبقه، ۵۸۰ واحد، مدیر پیمان آ.س.پ) — the contradiction ADR-028 flagged and left alone, resolved in the deck's favour on the client's instruction. **(3)** Every project gains the deck's **مساحت عرصه، زیربنای مفید، ترکیب واحدها و مدیر پیمان** where it states them, and eight projects are reassigned to the company that actually owns them. **(4)** Progress figures are stamped with the date of the source they came from — ۳۱ شهریور ۱۴۰۵ from the progress report, دی ۱۴۰۱ from the deck — so a reader can tell the two apart. **(5)** Three invented rows leave the project page: a «پارکینگ» count derived as `units × 1.3`, and two real engineering firms named as supervisor and designer on projects they may never have touched. The page's one disclaimer becomes one per tab. ⛔ بعثت، عرفان، بهاران و یاس are documented and photographed but the deck gives them no city — they wait on four addresses. Template count unchanged: **35**.
 
@@ -357,7 +359,8 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | `stories` | روایت ثاخت | `/media/stories` | Long-form blog, interviews |
 | `podcast` | پادکست | part of `/media/stories` | Audio episodes — detail page renders a player |
 | `analysis` | تحلیل بازار | part of `/media/reports` | Market commentary that is editorial, not a formal report |
-| `academy` | آکادمی ثاخت | — | **New in v1.12.** Training and knowledge pieces from the HR desk, linked from `/hr#learning`. ⛔ empty until the desk publishes |
+| `academy` | آکادمی ثاخت | — | **New in v1.12.** Training and knowledge pieces from the HR desk, linked from `/hr#learning`. Carries the training-calendar announcement as of v1.15 |
+| `occasions` | مناسبت‌ها و رویدادها | — | **New in v1.15** (ADR-031). Ceremonial and commemorative posts — congratulations, appreciations, religious observances, condolences. Kept out of the homepage's main feed and listed there on its own, below the news rows |
 | `tenders` | مناقصات و مزایدات | — | **New in v1.3.** Tender and auction notices as news items. Informational only; the documents themselves live on `/ir/financials` (§7.1) |
 
 **What moved out.** Formal company and committee performance reports — the «کارنامه ثاخت» documents — are now at `/ir/reports` (§7). What stays in `/media` is editorial: news, interviews, podcasts, and market commentary.
@@ -377,7 +380,7 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 | 43 | `/account/documents` | مدارک | `APP` | Document upload/download | Sensitive — see security checklist |
 | 44 | `/account/tickets` | تیکت پشتیبانی | `APP` | Support tickets | CEO-message threads removed in v1.4 |
 | 42 | `/contact` | تماس با ما | `STATIC` + `FORM` | Contact channels, the desk for each topic, offices, short callback form | Rebuilt in v1.7; the header CTA goes to `/sales/consultation`, this page is its secondary link |
-| 43 | `/hr` | امور اداری و منابع انسانی | `STATIC` + `FORM` | Organisational slogan, short intro, HR news, two-field resume form, and the HR topics as sections | **Renamed and extended in v1.9** (ADR-024); `/careers` 301s here — see §9.1 |
+| 43 | `/hr` | منابع انسانی | `STATIC` + `FORM` | Organisational slogan, short intro, HR news, two-field resume form, and the HR topics as sections | **Renamed and extended in v1.9** (ADR-024); `/careers` 301s here — see §9.1 |
 | 45 | `/complaints` | سامانه رسیدگی به شکایات مشتریان | `FORM` | Complaints intake with tracking code | Footer |
 | 46 | `/search` | جستجوی سایت | `SYSTEM` | Site-wide search results | Header icon |
 | 48 | `/legal/privacy` | حریم خصوصی | `SYSTEM` | Footer bottom row. Carries the privacy policy **and** the condensed terms of use — `/legal/terms` merged into it and 301s here (v1.9, ADR-024) | |
@@ -386,14 +389,14 @@ Categories are a **field on the `Article` model**, filtered by query string (`/m
 
 > Route numbers are historical and no longer contiguous — 44 was the deleted `/tenders` (ADR-009), and 53–54 are the Option B company routes in §5.2. Numbers are kept stable so earlier versions and the decision log stay readable. The useful estimating figure is **42 templates** (§1).
 
-### 9.1 `/hr` — امور اداری و منابع انسانی
+### 9.1 `/hr` — منابع انسانی
 
 One page, in this order (ADR-006, extended by ADR-024):
 
 | Order | Anchor | Content |
 |---|---|---|
 | 0a | `#slogan` | **The organisational slogan** «ما ثاختیم» and the four values under it, on ink |
-| 0b | `#news` | **HR news** — the desk's own announcements: administrative, training, welfare, internal calls. ⛔ sample records until the HR desk supplies real ones |
+| 0b | `#news` | **HR news** — an index of the desk's announcements, each card opening its own article in «رسانه ثاخت» (v1.15, ADR-031). ⛔ the four it points at are sample posts until the HR desk supplies real ones |
 | 1 | — | **Brief intro only.** Two or three sentences on working at ثاخت, over a photograph. No long employer-brand essay |
 | 2 | `#resume` | **Simple resume form: name and contact number only.** Plus the file attachment itself. No cover letter, no portal account, no multi-step wizard |
 | 3 | `#benefits` | مزایا و رفاه کارکنان — benefits and employee welfare |
@@ -428,7 +431,9 @@ They therefore appear in exactly two places:
 ## 10. Header specification
 
 **Left/logo:** لوگو ثاخت
-**Menu (5 items):** درباره ثاخت · پروژه‌ها · فروش و پیش‌فروش · دیده‌بان ثاخت · رسانه ثاخت
+**Menu (6 items, v1.15):** درباره ثاخت · پروژه‌ها · فروش و پیش‌فروش · دیده‌بان ثاخت · رسانه ثاخت · منابع انسانی
+
+> ⛔ The budget in this section is **five** content items. «منابع انسانی» was added as a sixth at the owner's explicit request (ADR-031). It fits at desktop width and the mobile drawer is unaffected, but the budget existed for a reason: the next addition should displace something rather than extend the row again.
 **Functional icons (not counted in menu):** 🔍 site search · 🌐 EN/FA · 👤 login/profile
 **CTA button:** «مشاوره و تماس سریع» → `/sales/consultation` (the designed short form), with secondary link to `/contact`
 
@@ -445,7 +450,7 @@ Result: ~45% more compact than a conventional 9-item menu.
 | 1 | Logo + short intro + address + phone + social links |
 | 2 — دسترسی سریع | درباره ثاخت / پروژه‌ها / فروش / تماس با ما / internal systems (اتوماسیون اداری، درگاه هلدینگ) |
 | 3 — سرمایه‌گذاران | دیده‌بان ثاخت / اطلاعات نماد / مناقصات و مزایدات / اسناد و گزارش‌ها — every entry deep-links to its own section (v1.9); «تقویم مجامع» removed |
-| 4 — خدمات و همکاری | درخواست مشاوره / سوالات متداول / سامانه رسیدگی به شکایات / پروفایل من |
+| 4 — خدمات و همکاری | درخواست مشاوره / سوالات متداول / سامانه رسیدگی به شکایات — «پروفایل من» removed in v1.15 (ADR-031); `/account` is now reached only by signing in |
 | 5 — خانواده ثاخت | Logo strip of the 8 subsidiaries, each linked → `/companies/[slug]` |
 
 **Brand column:** also carries the address, postcode, phone and fax the client supplied in 1405/08, and the prominent **«امور اداری و منابع انسانی»** button that replaced the careers link (v1.9).

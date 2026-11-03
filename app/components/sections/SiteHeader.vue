@@ -36,11 +36,14 @@ function pathOf(href: string) {
 
 /** A top item is active on its own page and on every page of its cluster. */
 const clusterPrefix: Record<string, string[]> = {
-  [routes.about]: ['/about', '/companies', '/hr'],
+  // /hr left the About cluster when «منابع انسانی» became a menu item of its
+  // own (ADR-031) — it was marking two tabs active at once.
+  [routes.about]: ['/about', '/companies'],
   [routes.projects]: ['/projects'],
   [routes.sales]: ['/sales'],
   [routes.irFinancials]: ['/ir'],
   [routes.media]: ['/media'],
+  [routes.hr]: ['/hr'],
 }
 
 function isActive(href: string) {
