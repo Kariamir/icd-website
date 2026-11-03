@@ -12,11 +12,14 @@ useSeoMeta({
   <div>
     <SubNav :items="salesNav" label="بخش‌های فروش" />
     <!--
-      The buying guide keeps its search box but loses the «جستجوهای پرتکرار»
-      chips and the category tab strip (owner's request, 2026-10-18): a reader
-      here is working through the purchase steps in order, and a filter that
-      hides most of them works against that.
+      The buying guide draws the questions and nothing that narrows them: no
+      search box, no «جستجوهای پرتکرار» chips, no category tab strip (owner's
+      request — the chips and tabs on 2026-10-18, the search box on
+      2026-11-03, ADR-033). A reader here is working through the purchase
+      steps in order, and every control that hid some of them worked against
+      that. The site-wide search in the header still finds this page's
+      content.
     -->
-    <FaqCenter :config="salesFaqCenter" :popular="false" :filterable="false" />
+    <FaqCenter :config="salesFaqCenter" :searchable="false" :popular="false" :filterable="false" />
   </div>
 </template>

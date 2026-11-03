@@ -11,11 +11,21 @@ import type { FaqCenterConfig } from '~/utils/faqData'
 // when nothing matches. Shared header/footer come from the layout.
 
 /*
- * `searchable` and `filterable` are both on by default — /sales/guide keeps
- * the full centre. /ir/financials turns both off (owner's request,
- * 2026-10-18): on that page the FAQ is a short reference list under a long
- * document archive, and a second search box and a second row of pills right
- * below the archive's own read as a duplicate of them.
+ * `searchable`, `popular` and `filterable` are all on by default, but NO
+ * caller turns any of them on today — both pages that use this component
+ * draw the questions and nothing that narrows them:
+ *
+ *   /ir/financials — the FAQ is a short reference list under a long document
+ *   archive, and a second search box right below the archive's own read as a
+ *   duplicate of it (owner's request, 2026-10-18).
+ *
+ *   /sales/guide — a reader is working through the purchase steps in order,
+ *   so the chips and tabs went on 2026-10-18 and the search box on
+ *   2026-11-03 (ADR-033).
+ *
+ * The props stay rather than the code being deleted: they are the component's
+ * own behaviour, the three controls work, and restoring one is a prop, not a
+ * rebuild.
  */
 const props = withDefaults(defineProps<{
   config: FaqCenterConfig

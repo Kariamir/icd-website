@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.16 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.17 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.17 — the buying guide loses its search box (ADR-033).** `/sales/guide` now draws its fifteen questions and nothing that narrows them: the search form joins the «جستجوهای پرتکرار» chips and the category tabs that left in v1.8. The site-wide search in the header still indexes the page. Template count unchanged: **35**.
 
 **Changes in 1.16 — the academy's first long-read, the progress report reconciled, and a hero title that stands on its own (ADR-032).** **(1)** The hero film is **never dimmed or filtered**: the full-frame vignette is deleted and «ما ثاختیم» earns its contrast from an opaque block clipped to the type itself. **(2)** `/hr` merges its two feeds into **«آکادمی و اخبار منابع انسانی»** at the `#news` position, built from the same components as the homepage media block; the footer's «منابع انسانی» button is removed. **(3)** The homepage media dividers are rebuilt — the rule sat flush against the thumbnails because `first:pt-0` was matching every row, not the first. **(4)** آکادمی ثاخت gains a **~۲٬۰۰۰-word piece** on work ethics, psychological empowerment and organisational commitment, reviewed from the client's supplied research paper. **(5)** The **۳۱ شهریور ۱۴۰۵ progress report now outranks the ۱۴۰۱ deck** on every figure it carries: سعدی شیراز takes its area and floor count, نارنجستان gains per-phase progress, five projects gain a forecast completion date, and **«ساختمان اداره کل تامین اجتماعی استان بوشهر» is added** — eighteen projects in twelve cities. **(6)** `docs/03-backend-prerequisites.md` collects the four gates that must close before backend work starts. Template count unchanged: **35**.
 
@@ -220,7 +222,7 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 | 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
 | 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
 | 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |
-| 23 | `/sales/guide` | راهنمای گام‌به‌گام خرید و قرارداد | `STATIC` | Buyer FAQ + contract walkthrough | **New** |
+| 23 | `/sales/guide` | راهنمای گام‌به‌گام خرید و قرارداد | `STATIC` | Buyer FAQ + contract walkthrough, read in order — no search, no chips, no category filter (v1.17, ADR-033) | **New** |
 | 24 | `/sales/consultation` | درخواست مشاوره رایگان | `FORM` | Lead form → CRM | Primary conversion endpoint. **Target of the header CTA** (v1.7) |
 
 ---
