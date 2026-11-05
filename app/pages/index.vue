@@ -105,38 +105,36 @@ const catLabel = (c: string) => mediaCategories.find(m => m.value === c)?.label 
           -->
           <div class="flex flex-col lg:col-span-5">
             <PostRowList :posts="sidePosts" :label="p => catLabel(p.category)" />
-
-            <!--
-              مناسبت‌ها و رویدادها (ADR-031). One line per item, no
-              photograph: these are messages — a condolence, a congratulation,
-              a ceremony — and a thumbnail beside each would give four of them
-              the visual weight of the lead story. The rule above is heavier
-              than the ones between the news rows so the break between the two
-              lists reads as a change of subject, not another row — and it
-              carries its own clear space above AND below rather than being
-              stretched to the bottom of the column, which could leave it
-              touching the row above it when the column happened to fill
-              (ADR-032).
-            -->
-            <div v-if="occasionPosts.length" class="mt-8 border-t-2 border-ink/15 pt-7 md:mt-10">
-              <div class="mb-3 flex items-baseline justify-between gap-4">
-                <h3 class="text-label-lg font-label-lg text-ink">مناسبت‌ها و رویدادها</h3>
-                <NuxtLink to="/media?category=occasions" class="shrink-0 text-label-md font-bold text-primary-container hover:underline">همه مناسبت‌ها</NuxtLink>
-              </div>
-              <ul>
-                <li v-for="p in occasionPosts" :key="p.slug">
-                  <NuxtLink
-                    :to="`/media/${p.slug}`"
-                    class="group flex items-baseline gap-3 py-2 text-body-sm"
-                  >
-                    <span class="mt-2 size-1.5 shrink-0 rounded-pill bg-primary-container/40 transition-colors group-hover:bg-primary-container" />
-                    <span class="min-w-0 flex-1 truncate font-bold text-ink transition-colors group-hover:text-primary-container">{{ p.title }}</span>
-                    <time class="shrink-0 text-label-md tabular-nums text-secondary">{{ p.date }}</time>
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
           </div>
+        </div>
+
+        <!--
+          مناسبت‌ها و رویدادها (ADR-034). Moved out of the left column and
+          given the full width beneath the whole news block at the owner's
+          request. It stays INSIDE this section rather than becoming a section
+          of its own — same background, same container, one rule between them
+          — because it is a part of «رسانه ثاخت», not a neighbour of it. The
+          treatment is deliberately lighter than the news above: no
+          photographs, smaller type, a brand rule over each item. These are
+          messages — a condolence, a congratulation, a ceremony — and four
+          photographs here would compete with the lead story two rows up.
+        -->
+        <div v-if="occasionPosts.length" class="mt-14 border-t border-border pt-10 md:mt-16 md:pt-12">
+          <div class="mb-7 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <h3 class="text-headline-sm font-headline-sm text-ink">مناسبت‌ها و رویدادها</h3>
+            <NuxtLink
+              to="/media?category=occasions"
+              class="group inline-flex shrink-0 items-center gap-1.5 text-label-lg font-bold text-primary-container hover:underline"
+            >همه مناسبت‌ها <AppIcon name="arrow_back" class="text-[0.9em] transition-transform group-hover:-translate-x-1" /></NuxtLink>
+          </div>
+          <ul class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+            <li v-for="p in occasionPosts" :key="p.slug">
+              <NuxtLink :to="`/media/${p.slug}`" class="group block border-t-2 border-primary-container/30 pt-4 transition-colors hover:border-primary-container">
+                <time class="mb-2 block text-label-md tabular-nums text-secondary">{{ p.date }}</time>
+                <span class="line-clamp-2 text-body-md font-bold leading-relaxed text-ink transition-colors group-hover:text-primary-container">{{ p.title }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
 
       </div>

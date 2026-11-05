@@ -6,7 +6,7 @@
   former /sales/pre-sale route redirects to.
 -->
 <script setup lang="ts">
-import { units, projects, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
+import { units, getProject, unitStatus, type UnitStatus } from '~/utils/catalog'
 import { salesNav } from '~/utils/routes'
 import { faDigits } from '~/utils/format'
 
@@ -28,7 +28,13 @@ const list = computed(() => units.filter(u =>
   && (!projectSlug.value || u.project === projectSlug.value),
 ))
 
-const representedProjects = computed(() => projects.filter(p => units.some(u => u.project === p.slug)))
+/*
+ * Distinct parent projects across the units on offer — counted off the units
+ * themselves, not off the catalog (ADR-034). Filtering `projects` missed the
+ * بعثت units, whose complex is sold from but has no page, and under-reported
+ * the figure in the stat strip.
+ */
+const representedProjects = computed(() => new Set(units.map(u => u.project)))
 
 const heading = computed(() => {
   if (status.value === 'pre-sale') return 'پیش‌فروش پروژه‌های در حال ساخت'
@@ -48,7 +54,7 @@ const stats = computed(() => [
   { label: 'پیش‌فروش', value: `${faDigits(units.filter(u => u.status === 'pre-sale').length)} واحد` },
   { label: 'آماده تحویل', value: `${faDigits(units.filter(u => u.status === 'ready').length)} واحد` },
   { label: 'فروخته‌شده', value: `${faDigits(units.filter(u => u.status === 'sold').length)} واحد` },
-  { label: 'پروژه‌ها', value: `${faDigits(representedProjects.value.length)} پروژه` },
+  { label: 'پروژه‌ها', value: `${faDigits(representedProjects.value.size)} پروژه` },
 ])
 </script>
 

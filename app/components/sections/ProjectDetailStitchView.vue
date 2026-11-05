@@ -5,7 +5,7 @@
   and related projects. The design's tab script is reimplemented in Vue.
 -->
 <script setup lang="ts">
-import { getCompany, projectStatus, relatedProjects, unitsByProject, unitGallery, priceLabel, unitStatus, type Project } from '~/utils/catalog'
+import { getCompany, projectStatus, relatedProjects, unitsByProject, unitGallery, priceLabel, unitStatus, floorLabel, type Project } from '~/utils/catalog'
 import { faArea, faDigits, faNumber } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
 
@@ -232,7 +232,7 @@ const gallery = computed(() => {
           <img :src="unitGallery(u)[0]" alt="" loading="lazy" class="size-20 shrink-0 rounded-sm object-cover">
           <div class="min-w-0 flex-1">
             <p class="truncate text-body-md font-bold text-ink group-hover:text-primary-container">{{ u.title }}</p>
-            <p class="text-label-md text-secondary">{{ faArea(u.areaSqm) }} · طبقه {{ faDigits(u.floor) }} · {{ unitStatus[u.status] }}</p>
+            <p class="text-label-md text-secondary">{{ faArea(u.areaSqm) }}<template v-if="floorLabel(u)"> · {{ floorLabel(u) }}</template> · {{ unitStatus[u.status] }}</p>
             <p class="mt-1 text-label-lg font-bold text-ink">{{ priceLabel(u.price) }}</p>
           </div>
           <AppIcon name="chevron_left" class="text-outline" />

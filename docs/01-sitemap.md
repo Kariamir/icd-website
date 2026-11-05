@@ -1,5 +1,7 @@
 # ICD (ثاخت) — Site Map & Page Inventory
-**Version:** 1.17 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+**Version:** 1.18 · **Status:** Draft for approval · **Sources:** «ساختار پیشنهادی هدر سایت ICD» · `Financial_Data_.xlsx`
+
+**Changes in 1.18 — مناسبت‌ها spans the news section; the بعثت units go on sale (ADR-034).** **(1)** «مناسبت‌ها و رویدادها» moves out of the left column and sits **full width beneath the whole news block**, inside the same section and separated from it by one rule — four headlines across four columns, each under a brand rule, no photographs. **(2)** Five units in **«مجتمع مسکونی بعثت»** are published from the sales desk's own sheet with the first **real unit photography** the site has had. ⛔ the complex itself still has no city in anything supplied, so at the owner's choice the units are published **without a project page**: `Unit.project` may now name a project that does not exist, `Unit.projectLabel` carries the name, and the unit page falls back to «بازگشت به فهرست واحدها». **(3)** `Unit` gains `gallery`, `block`, `bathrooms`, `parkingCount` and `storageCount`, and **`floor` becomes optional** — four call sites were formatting it unconditionally and would have printed «طبقه undefined». Template count unchanged: **35**.
 
 **Changes in 1.17 — the buying guide loses its search box (ADR-033).** `/sales/guide` now draws its fifteen questions and nothing that narrows them: the search form joins the «جستجوهای پرتکرار» chips and the category tabs that left in v1.8. The site-wide search in the header still indexes the page. Template count unchanged: **35**.
 
@@ -87,7 +89,7 @@ The route count fell from 48 (v1.1) to 44 (v1.2) to 42 (v1.3) while the site gai
 |---|---|---|---|---|
 | 0 | هیرو | — | Brand slogan, 3D animation / holding intro video | «کشف پروژه‌ها» or scroll cue |
 | 1 | ثاخت در یک نگاه | About + کارنامه | Key stats: founding year (۱۳۶۴), built area, project count, registered capital | «بیشتر درباره ثاخت» |
-| 2 | رسانه ثاخت | Media | **Moved here from block 6 in v1.9 (ADR-025).** One lead story with its photograph and the next four as rows beside it. The category chips were removed in v1.10 | «آرشیو رسانه» |
+| 2 | رسانه ثاخت | Media | **Moved here from block 6 in v1.9 (ADR-025).** One lead story with its photograph and the next four as rows beside it, then **«مناسبت‌ها و رویدادها» full width beneath both** (v1.18, ADR-034). The category chips were removed in v1.10 | «آرشیو رسانه» |
 | 3 | پروژه‌های شاخص | Projects | 3D Tehran map / carousel / featured project + virtual tour entry | «مشاهده همه پروژه‌ها» |
 | 4 | بنر فروش و پیش‌فروش | Sales | Current pre-sale offer | «مشاوره خرید» |
 | 6 | ویجت دیده‌بان ثاخت | IR | Live ثاخت price + latest CODAL notice | «اطلاعات سرمایه‌گذاران» |
@@ -221,7 +223,7 @@ Highest commercial priority. Every page here must terminate in a lead capture.
 | 19b | `/sales?status=sold` | واحدهای فروخته‌شده | `INDEX` | **New in v1.12.** The archive of placed units — a tab on `/sales`, not a route. ⛔ empty until the sales desk marks any `sold` | |
 | 20 | ~~`/sales/available`~~ | — | redirect | 301 → `/sales` | Merged into `/sales` in v1.7 |
 | 21 | ~~`/sales/pre-sale`~~ | — | redirect | 301 → `/sales?status=pre-sale` | Merged into `/sales` in v1.7 |
-| 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites" | Ties to `/account/favorites` |
+| 22 | `/sales/units/[id]` | صفحه واحد | `DETAIL` `3D` | Single unit: floor plan, 3D view, price, availability, "save to favorites". A unit whose parent project has no page renders without the back-link (v1.18, ADR-034) | Ties to `/account/favorites` |
 | 23 | `/sales/guide` | راهنمای گام‌به‌گام خرید و قرارداد | `STATIC` | Buyer FAQ + contract walkthrough, read in order — no search, no chips, no category filter (v1.17, ADR-033) | **New** |
 | 24 | `/sales/consultation` | درخواست مشاوره رایگان | `FORM` | Lead form → CRM | Primary conversion endpoint. **Target of the header CTA** (v1.7) |
 

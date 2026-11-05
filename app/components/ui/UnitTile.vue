@@ -17,7 +17,7 @@
  * carry their own labels; the card itself stays one tap target on a phone,
  * where the gallery is swiped rather than clicked.
  */
-import { getProject, priceLabel, unitStatus, unitGallery, type Unit } from '~/utils/catalog'
+import { getProject, priceLabel, unitStatus, unitGallery, floorLabel, unitProjectName, type Unit } from '~/utils/catalog'
 import { faArea, faDigits } from '~/utils/format'
 
 const props = defineProps<{ unit: Unit }>()
@@ -60,7 +60,10 @@ const attributes = computed(() => {
   const u = props.unit
   return [
     u.bedrooms ? `${faDigits(u.bedrooms)} خوابه` : u.usage,
-    u.floor === 0 ? 'همکف' : u.floor < 0 ? `طبقه منفی ${faDigits(Math.abs(u.floor))}` : `طبقه ${faDigits(u.floor)}`,
+    /* A unit with no stated floor drops the chip rather than printing a
+       zero — the sales desk left it blank for the بعثت units (ADR-034). */
+    ...(floorLabel(u) ? [floorLabel(u)!] : []),
+    ...(u.block ? [`بلوک ${u.block}`] : []),
     ...(u.areaSqm ? [faArea(u.areaSqm)] : []),
   ]
 })
@@ -131,7 +134,7 @@ const attributes = computed(() => {
 
     <!-- content -->
     <NuxtLink :to="`/sales/units/${unit.id}`" class="flex flex-1 flex-col p-6">
-      <p class="mb-1 text-label-md text-secondary">{{ project?.name }}<span v-if="project?.city"> · {{ project.city }}</span></p>
+      <p class="mb-1 text-label-md text-secondary">{{ unitProjectName(unit) }}<span v-if="project?.city"> · {{ project.city }}</span></p>
       <h3 class="mb-5 text-headline-sm font-headline-sm leading-snug text-ink group-hover:text-primary-container">{{ unit.title }}</h3>
 
       <div class="mb-5">

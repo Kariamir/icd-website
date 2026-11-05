@@ -25,6 +25,7 @@
  * project.
  */
 import { ph, type PhKind } from '~/utils/media'
+import { faDigits } from '~/utils/format'
 
 // ─────────────────────────────────────────────────────────────── companies
 
@@ -768,11 +769,26 @@ export interface Unit {
   id: string
   ref: string
   title: string
+  /**
+   * Slug of the parent project. It may name a project that is NOT in
+   * `projects` — the بعثت units are sold while their project has no page,
+   * because nothing the client has supplied gives that complex a city and
+   * the owner chose to publish the units alone (ADR-034). Every consumer
+   * must therefore treat `getProject(unit.project)` as possibly undefined.
+   */
   project: string
+  /** Shown where there is no project record to take a name from. */
+  projectLabel?: string
+  /** Block within a township-style complex, where the client names one. */
+  block?: string
   usage: 'مسکونی' | 'اداری' | 'تجاری'
   areaSqm: number
-  floor: number
+  /** Absent where the client's sheet does not state one. */
+  floor?: number
   bedrooms?: number
+  bathrooms?: number
+  parkingCount?: number
+  storageCount?: number
   facing: string
   /** Total price in rials. Absent on most of the client's rows — the UI
    *  must say so rather than show a zero. */
@@ -780,6 +796,11 @@ export interface Unit {
   status: UnitStatus
   image: string
   plan: string
+  /**
+   * The unit's OWN photographs, where the sales desk has supplied any. Takes
+   * precedence over the parent project's gallery in `unitGallery()`.
+   */
+  gallery?: string[]
   /**
    * Who may be allocated this unit (ADR-028). Some units are not on open
    * sale — every parking space and storeroom in the Tehran International
@@ -811,6 +832,34 @@ const U = (u: Omit<Unit, 'image' | 'plan'> & { kind: PhKind, v?: number }): Unit
 /* The owner's own example of a restricted allocation (ADR-028). */
 const TOWER_OWNERS_ONLY = 'واگذاری این واحد صرفاً به مالکان فعلی برج بین‌المللی تهران انجام می‌شود. پارکینگ‌ها و انباری‌های برج در عرضه عمومی قرار نمی‌گیرند.'
 
+/* The بعثت units (ADR-034): one project label, one shared gallery, and the
+   desk's own description per usage. */
+const BESAT_SLUG = 'besat-residential-complex'
+const BESAT_LABEL = 'مجتمع مسکونی بعثت'
+/* Ten photographs supplied; `unitGallery()` shows the first eight. The
+   interior and the shopfront lead, the street views follow. */
+const BESAT_GALLERY = [
+  '/img/units/besat-1.jpg',
+  '/img/units/besat-2.jpg',
+  '/img/units/besat-6.jpg',
+  '/img/units/besat-7.jpg',
+  '/img/units/besat-8.jpg',
+  '/img/units/besat-9.jpg',
+  '/img/units/besat-10.jpg',
+  '/img/units/besat-3.jpg',
+  '/img/units/besat-4.jpg',
+  '/img/units/besat-5.jpg',
+]
+
+const B = (u: Omit<Unit, 'image' | 'plan' | 'project' | 'projectLabel' | 'gallery'>): Unit => ({
+  ...u,
+  project: BESAT_SLUG,
+  projectLabel: BESAT_LABEL,
+  image: BESAT_GALLERY[0]!,
+  plan: ph('blueprint', 1),
+  gallery: BESAT_GALLERY,
+})
+
 export const units: Unit[] = [
   U({ id: '4208', ref: '4208', title: 'پنت‌هاوس اداری-مسکونی تیپ A2', project: 'tehran-international-tower', usage: 'مسکونی', areaSqm: 285, floor: 42, bedrooms: 4, facing: 'جنوب‌شرقی', price: 755250000000, status: 'ready', kind: 'residential' }),
   U({ id: 'u1', ref: 'u1', title: 'پارکینگ - تجاری', project: 'tehran-international-tower', usage: 'تجاری', areaSqm: 0, floor: 0, facing: '—', status: 'ready', kind: 'commercial', transfer: TOWER_OWNERS_ONLY }),
@@ -827,6 +876,39 @@ export const units: Unit[] = [
   U({ id: 'd215', ref: 'd215', title: 'D215', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 66, floor: 2, facing: '—', status: 'ready', kind: 'commercial' }),
   U({ id: 'b204', ref: 'b204', title: 'B204', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 57, floor: 2, facing: '—', status: 'ready', kind: 'commercial' }),
   U({ id: 'b205', ref: 'b205', title: 'B205', project: 'mega-pars-tehran', usage: 'تجاری', areaSqm: 52, floor: 2, facing: '—', status: 'ready', kind: 'commercial' }),
+  /* ---------------------------------------------------------------------
+   * «مجتمع مسکونی بعثت» — five units from the sales desk's own sheet
+   * («واحد فروش/مجتمع مسکونی بعثت.xlsx», ADR-034), with the photographs
+   * supplied beside it. All five carry the SAME gallery because the desk
+   * supplied one set for the complex, not one per unit.
+   *
+   * ⛔ THE COMPLEX HAS NO PAGE. Nothing supplied — not the «معرفی شرکت»
+   * deck, not the progress report, not this sheet — gives it a city, and
+   * the owner chose to publish the units without a project page rather
+   * than have an address invented. `projectLabel` carries the name so the
+   * cards and the unit pages can still say what the units belong to.
+   *
+   * ⛔ The sheet leaves «وضعیت فروش» blank for all five. They are published
+   * as `ready`: the deck records the complex as تکمیل‌شده in ۱۳۹۴, so a unit
+   * in it cannot be a pre-sale.
+   *
+   * The sheet put a BLOCK letter (G / E / F) in the «شماره طبقه» column,
+   * which is why those are `block` and not `floor`. The four commercial
+   * units are on the ground floor — the supplied photograph shows a
+   * street-level shopfront with a roller shutter, and the desk describes
+   * them as «واحد تجاری داخل شهرک».
+   *
+   * ⛔ NOT IMPORTED: the sheet's per-unit «تلفن مشاور» (۰۲۱-۸۷۱۲۳ … ۸۷۱۲۷)
+   * and «داخلی مشاور» (۱۸۰۷-۱۴۰۵ … ۱۴۰۹) increment by one down the column
+   * and the first is the company's own switchboard number, which reads as a
+   * filled-down column rather than five real desks. The site's standing
+   * sales-consultant block is shown instead.
+   * ------------------------------------------------------------------- */
+  B({ id: 'besat-c07', ref: 'C07', title: 'واحد مسکونی C07', usage: 'مسکونی', areaSqm: 73.56, floor: 0, block: 'C', bedrooms: 2, bathrooms: 1, parkingCount: 1, storageCount: 1, facing: 'جنوبی', status: 'ready' }),
+  B({ id: 'besat-g2', ref: 'G2', title: 'واحد تجاری G2', usage: 'تجاری', areaSqm: 39.21, floor: 0, block: 'G', facing: '—', status: 'ready' }),
+  B({ id: 'besat-e2', ref: 'E2', title: 'واحد تجاری E2', usage: 'تجاری', areaSqm: 39.21, floor: 0, block: 'E', facing: '—', status: 'ready' }),
+  B({ id: 'besat-f1', ref: 'F1', title: 'واحد تجاری F1', usage: 'تجاری', areaSqm: 39.21, floor: 0, block: 'F', facing: '—', status: 'ready' }),
+  B({ id: 'besat-f2', ref: 'F2', title: 'واحد تجاری F2', usage: 'تجاری', areaSqm: 39.21, floor: 0, block: 'F', facing: '—', status: 'ready' }),
 ]
 
 /**
@@ -840,7 +922,27 @@ export const units: Unit[] = [
  * folder per unit and every folder is still empty. The moment they are
  * filled, each unit gets its own gallery and this note goes with it.
  */
+/**
+ * «همکف» / «طبقه ۴» / «طبقه منفی ۱», or null where the sales desk gave no
+ * floor (ADR-034). Every surface drops the row rather than printing a zero,
+ * the same rule the project specs follow (ADR-024).
+ */
+export function floorLabel(unit: Pick<Unit, 'floor'>): string | null {
+  const f = unit.floor
+  if (f == null) return null
+  if (f === 0) return 'همکف'
+  return f < 0 ? `طبقه منفی ${faDigits(Math.abs(f))}` : `طبقه ${faDigits(f)}`
+}
+
+/** The unit's parent project's display name, whether or not it has a page. */
+export function unitProjectName(unit: Unit): string {
+  return getProject(unit.project)?.name ?? unit.projectLabel ?? ''
+}
+
 export function unitGallery(unit: Unit): string[] {
+  /* The unit's own photographs win where the sales desk has supplied any
+     (ADR-034); otherwise the parent project's, as before (ADR-027). */
+  if (unit.gallery?.length) return [...new Set(unit.gallery)].slice(0, 8)
   const gallery = getProject(unit.project)?.gallery ?? []
   return gallery.length ? [...new Set(gallery)].slice(0, 8) : [unit.image]
 }

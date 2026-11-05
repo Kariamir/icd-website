@@ -1,6 +1,6 @@
 # ICD (ثاخت) — Backend Prerequisites
-**Version:** 1.0 · **Status:** to be closed before backend development starts
-**Companion to:** `01-sitemap.md` v1.15 · `02-build-checklist.md` v1.8 · `decisions.md` ADR-001, ADR-002
+**Version:** 1.1 · **Status:** to be closed before backend development starts
+**Companion to:** `01-sitemap.md` v1.18 · `02-build-checklist.md` v1.8 · `decisions.md` ADR-001, ADR-002
 
 > **What this document is for.** The frontend is complete and runs with **no backend at all** (ADR-002): every page reads from local view-model files under `app/utils/`. The day someone sets `WPNUXT_WORDPRESS_URL`, the WPNuxt modules switch on and the data layer has to exist. This file is the list of what must be true **before** that day, so backend work starts against a settled contract rather than discovering it page by page.
 >
@@ -40,7 +40,7 @@ Eleven models. Nine already have a complete local shape the backend can be gener
 |---|---|---|---|---|
 | 1 | `Project` | `app/utils/catalog.ts` → `projects` | 18 | Four-status enum, not four post types (sitemap §5.1) |
 | 2 | `Company` | `app/utils/catalog.ts` → `subsidiaries` | 9 + parent | `affiliate` flag distinguishes تابعه from وابسته (ADR-028) |
-| 3 | `Unit` | `app/utils/catalog.ts` → `units` | 15 | Four-status enum incl. `sold` (ADR-028) |
+| 3 | `Unit` | `app/utils/catalog.ts` → `units` | 20 | Four-status enum incl. `sold` (ADR-028). **`project` is a slug that may have no `Project` record** (ADR-034) |
 | 4 | `Post` (Article) | `app/utils/posts.ts` | 16 | Seven categories (sitemap §8.1) |
 | 5 | `BoardMember` | `app/utils/governanceData.ts` | 5 + secretary + 2 + 3 | ICD's own board; subsidiaries' boards are model 6 |
 | 6 | `CompanyBoardMember` | `app/utils/companyBoards.ts` | 35 | Keyed to company slug |
@@ -74,6 +74,9 @@ These are the fields where a careless schema will silently break a page.
 | `Post.sortKey` | Numeric `yyyymmdd` Jalali behind the human `date` label. Sorting on the display string will not work |
 | `Unit.price` | Nullable. `priceLabel()` renders «تماس بگیرید» when absent — never a zero |
 | `Unit.transfer` | Free text. Where absent the page states that terms are settled at contract, rather than asserting an open sale (ADR-028) |
+| `Unit.floor` | **Nullable**, and `0` means ground floor — not "unset". Four of the five بعثت units have no stated floor and every surface drops the row; a `NOT NULL DEFAULT 0` column would publish «همکف» as a fact about each of them (ADR-034) |
+| `Unit.project` | A slug, **not a foreign key**. It may name a complex with no `Project` record — the بعثت units are sold while their complex has no city and therefore no page. Resolve it as a lookup that can miss, and fall back to `Unit.projectLabel` (ADR-034) |
+| `Unit.gallery` | The unit's own photographs, which outrank the parent project's. One set may be shared by several units: the sales desk supplied ten for the whole بعثت complex, not ten per unit |
 | `FinancialPeriod.value` | Signed. **Cost and expense lines are stored negative**, which is the workbook's own convention and why the horizontal analysis carries a note (ADR-031). Do not normalise the signs on import |
 | Every money field | Unit is **میلیون ریال**, stored as an explicit field, never implied by column name |
 | Every date | Jalali. Store an ISO date **and** the Jalali label, or store ISO and format once in one utility — not per template |
@@ -117,7 +120,8 @@ The live ⛔ list is maintained in `CLAUDE.md`; this is the subset that **blocks
 - [ ] ⛔ **Darbareh font licence.** It shipped with no licence file while every other self-hosted face is OFL. A commercial Iranian typeface on a listed company's site with no licence on file is a legal exposure (ADR-029).
 - [ ] ⛔ **Five sample posts carry `origin: 'design'`** — four HR announcements and the academy long-read — and are live in the public feed. Confirm or replace (ADR-031, ADR-032).
 - [ ] ⛔ **The academy article's three percentages** were read off a rendered PDF page whose digit layer is unreliable. Verify against the published paper, and add the authors' names, which the supplied PDF omits (ADR-032).
-- [ ] ⛔ **Four documented projects are not on the site** — بعثت، عرفان، بهاران، یاس — because the deck gives them no city (ADR-030).
+- [ ] ⛔ **Four documented projects are not on the site** — بعثت، عرفان، بهاران، یاس — because the deck gives them no city (ADR-030). **بعثت now sells five units with no project page behind them** (ADR-034); the other three have photographs waiting under an `x-` prefix.
+- [ ] ⛔ **The بعثت units' sale status, prices and consultant desks** are all missing from the sales desk's sheet. They ship as `ready` at «تماس بگیرید» with the standing consultant block (ADR-034).
 - [ ] ⛔ **Real photography replaces every placeholder.** The pre-launch gate in build-checklist Phase 0 still stands; two floor plans and one project hero are still drawings.
 - [ ] ⛔ Award titles, years and issuers for the three real honours (ADR-018).
 - [ ] ⛔ Confirm the محمدامین فلاح portrait, identified by elimination rather than by a client label (ADR-024).

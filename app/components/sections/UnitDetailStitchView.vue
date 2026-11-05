@@ -4,7 +4,7 @@
   tab script and alert()-based form are reimplemented in Vue.
 -->
 <script setup lang="ts">
-import { getProject, getCompany, priceLabel, unitStatus, unitsByProject, unitGallery, type Unit } from '~/utils/catalog'
+import { getProject, getCompany, priceLabel, unitStatus, unitsByProject, unitGallery, floorLabel, unitProjectName, type Unit } from '~/utils/catalog'
 import { routes } from '~/utils/routes'
 import { faArea, faDigits, faNumber } from '~/utils/format'
 import type { IconName } from '~/utils/icons'
@@ -21,8 +21,15 @@ const shots = computed(() => unitGallery(props.unit).slice(0, 3))
 const clips = computed(() => props.unit.videos ?? [])
 const leadIsFilm = computed(() => clips.value.length > 0)
 const sideShots = computed(() => leadIsFilm.value ? shots.value.slice(0, 2) : shots.value.slice(1, 3))
-const project = computed(() => getProject(props.unit.project)!)
-const company = computed(() => getCompany(project.value.company)!)
+/*
+ * A unit may belong to a project that has NO page (ADR-034): the بعثت units
+ * are on sale while their complex has no city and therefore no record. Every
+ * use below must tolerate `undefined` — the back-link, the company line and
+ * the floor note all drop out rather than throwing.
+ */
+const project = computed(() => getProject(props.unit.project))
+const company = computed(() => (project.value ? getCompany(project.value.company) : undefined))
+const projectName = computed(() => unitProjectName(props.unit))
 const siblings = computed(() => unitsByProject(props.unit.project).filter(u => u.id !== props.unit.id))
 
 const rooms = computed(() => {
@@ -56,7 +63,12 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
     { icon: 'square_foot', title: 'متراژ', value: faArea(props.unit.areaSqm), note: 'مطابق دستورالعمل تفکیک اداره ثبت اسناد.' },
     { icon: 'king_bed', title: props.unit.bedrooms ? 'اتاق خواب' : 'کاربری', value: props.unit.bedrooms ? `${faDigits(props.unit.bedrooms)} خواب` : props.unit.usage, note: 'پلان بدون ستون مزاحم در فضای اصلی.' },
     { icon: 'weekend', title: 'جهت و نور', value: props.unit.facing, note: 'پنجره‌های قدی با شیشه دوجداره.' },
-    { icon: 'deck', title: 'طبقه', value: props.unit.floor === 0 ? 'همکف' : `طبقه ${faDigits(props.unit.floor)}`, note: project.value.floors != null ? `از ${faDigits(project.value.floors)} طبقه پروژه.` : 'طبقه واحد مطابق پروانه ساختمانی.' },
+    ...(floorLabel(props.unit)
+      ? [{ icon: 'deck' as const, title: 'طبقه', value: floorLabel(props.unit)!, note: project.value?.floors != null ? `از ${faDigits(project.value.floors)} طبقه پروژه.` : 'طبقه واحد مطابق پروانه ساختمانی.' }]
+      : []),
+    ...(props.unit.block
+      ? [{ icon: 'domain' as const, title: 'بلوک', value: `بلوک ${props.unit.block}`, note: 'بلوک واحد در مجموعه.' }]
+      : []),
   ],
   mep: [
     { icon: 'engineering', title: 'سازه', value: 'بتن‌آرمه با دیوار برشی', note: 'طراحی لرزه‌ای مطابق آیین‌نامه ۲۸۰۰.' },
@@ -74,15 +86,21 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
     { icon: 'gavel', title: 'وضعیت سند', value: props.unit.status === 'pre-sale' ? 'قرارداد پیش‌فروش رسمی' : 'سند تک‌برگ', note: 'ثبت در سامانه املاک و اسکان.' },
     { icon: 'payments', title: 'قیمت کل', value: priceLabel(props.unit.price), note: 'قیمت نمونه است و پس از استعلام قطعی می‌شود.' },
     { icon: 'calendar_month', title: 'پرداخت', value: props.unit.status === 'pre-sale' ? 'مرحله‌ای تا تحویل' : 'نقد یا اقساط ۱۲ ماهه', note: 'جدول دقیق در پیش‌نویس قرارداد.' },
-    { icon: 'verified_user', title: 'ضمانت', value: 'ضمانت‌نامه حسن انجام کار', note: `صادره از ${company.value.name}.` },
+    /* The issuer is named only where the parent project — and therefore its
+       company — is on the site (ADR-034). */
+    { icon: 'verified_user', title: 'ضمانت', value: 'ضمانت‌نامه حسن انجام کار', note: company.value ? `صادره از ${company.value.name}.` : 'صادره از شرکت مجری پروژه.' },
   ],
 }))
 </script>
 
 <template>
   <div class="mx-auto w-full max-w-[1440px] px-space-lg py-10 md:px-margin">
-    <NuxtLink :to="`/projects/${project.slug}`" class="mb-8 inline-flex items-center gap-2 text-body-md font-semibold text-primary-container hover:text-brand-hover">
+    <!-- Only where the parent project has a page of its own (ADR-034). -->
+    <NuxtLink v-if="project" :to="`/projects/${project.slug}`" class="mb-8 inline-flex items-center gap-2 text-body-md font-semibold text-primary-container hover:text-brand-hover">
       <AppIcon name="arrow_forward" />بازگشت به صفحه {{ project.name }}
+    </NuxtLink>
+    <NuxtLink v-else to="/sales" class="mb-8 inline-flex items-center gap-2 text-body-md font-semibold text-primary-container hover:text-brand-hover">
+      <AppIcon name="arrow_forward" />بازگشت به فهرست واحدها
     </NuxtLink>
 
     <!-- Hero & gallery -->
@@ -94,7 +112,7 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
             <span class="font-mono text-label-md text-secondary" dir="ltr">{{ unit.ref }}</span>
           </div>
           <h1 class="text-headline-lg font-headline-lg text-ink">{{ unit.title }}</h1>
-          <p class="mt-3 max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">{{ project.name }} — {{ project.city }}، {{ project.district }}</p>
+          <p class="mt-3 max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">{{ projectName }}<template v-if="project"> — {{ project.city }}، {{ project.district }}</template></p>
         </div>
         <div class="flex shrink-0 flex-col lg:items-end">
           <span class="text-label-md text-secondary">قیمت کل</span>
@@ -129,7 +147,8 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
       <div class="mt-8 grid grid-cols-2 gap-y-4 border-t border-border pt-6 md:grid-cols-5">
         <div class="px-2"><div class="text-label-md text-secondary">متراژ</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ faArea(unit.areaSqm) }}</div></div>
         <div class="px-2"><div class="text-label-md text-secondary">{{ unit.bedrooms ? 'اتاق خواب' : 'کاربری' }}</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.bedrooms ? `${faDigits(unit.bedrooms)} خواب` : unit.usage }}</div></div>
-        <div class="px-2"><div class="text-label-md text-secondary">طبقه</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.floor === 0 ? 'همکف' : faDigits(unit.floor) }}</div></div>
+        <div v-if="floorLabel(unit)" class="px-2"><div class="text-label-md text-secondary">طبقه</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ floorLabel(unit) }}</div></div>
+        <div v-else-if="unit.block" class="px-2"><div class="text-label-md text-secondary">بلوک</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.block }}</div></div>
         <div class="px-2"><div class="text-label-md text-secondary">جهت</div><div class="mt-1 text-headline-sm font-headline-sm text-ink">{{ unit.facing }}</div></div>
         <div v-if="unit.price && unit.areaSqm" class="col-span-2 px-2 md:col-span-1"><div class="text-label-md text-secondary">قیمت هر متر</div><div class="mt-1 text-headline-sm font-headline-sm text-primary-container">{{ faNumber(Math.round(unit.price / 10 / unit.areaSqm / 1_000_000)) }} میلیون تومان</div></div>
       </div>
@@ -262,7 +281,7 @@ const tabCards = computed<Record<Tab, { icon: IconName, title: string, value: st
     </section>
 
     <section v-if="siblings.length" class="mb-10">
-      <SectionHead :title="`واحدهای دیگر ${project.name}`" />
+      <SectionHead :title="`واحدهای دیگر ${projectName}`" />
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <UnitTile v-for="u in siblings" :key="u.id" :unit="u" />
       </div>
